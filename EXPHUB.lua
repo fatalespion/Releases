@@ -189,11 +189,19 @@ game.Players.LocalPlayer.Character.ChildAdded:Connect(function(model)
 	if model.Name == "ServerGunModel" then
 		HasGun = true
 		
+		local Muzzle
+		
+		for i,v in pairs(model:GetDescendants()) do
+			if v:IsA("Attachment") and v.Name == "Muzzle" then
+				Muzzle = v
+			end
+		end
+		
 		game.UserInputService.InputBegan:Connect(function(input)
 			if Settings.BulletTracers then
 				if input.UserInputType == Enum.UserInputType.MouseButton1 then
 					if HasGun then
-						Tracer(model.WeaponRootPart.Muzzle.WorldPosition, Camera.CFrame.Position + Camera.CFrame.LookVector * 1000)
+						Tracer(Muzzle.WorldPosition, Camera.CFrame.Position + Camera.CFrame.LookVector * 1000)
 					end
 				end
 			end
