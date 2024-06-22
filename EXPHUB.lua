@@ -195,6 +195,12 @@ local function TurnRainbow()
 			if model.Name == "ServerGunModel" or model.Name == "ServerMeleeModel" then
 				if game.Players.LocalPlayer.Character:FindFirstChild("ServerGunModel") then
 					task.wait(0.1)
+					if game.Players.LocalPlayer.PlayerGui:FindFirstChild("GunGui") then
+						if game.Players.LocalPlayer.PlayerGui:FindFirstChild("GunGui").FollowMouse.NewCustomCursor then
+							game.Players.LocalPlayer.PlayerGui:FindFirstChild("GunGui").FollowMouse.NewCustomCursor.Visible = false
+						end
+					end
+					
 					for i,v in pairs(game.Players.LocalPlayer.Character:FindFirstChild("ServerGunModel"):GetChildren()) do
 						if v:IsA("MeshPart") then
 							if v:FindFirstChildWhichIsA("SurfaceAppearance") then
@@ -228,6 +234,16 @@ local function TurnRainbow()
 						end 
 					end 
 				end	
+			end
+		end)
+		
+		game.Players.LocalPlayer.Character.ChildRemoved:Connect(function(model)
+			if model.Name == "ServerGunModel" or model.Name == "ServerMeleeModel" then
+				if game.Players.LocalPlayer.PlayerGui:FindFirstChild("GunGui") then
+					if game.Players.LocalPlayer.PlayerGui:FindFirstChild("GunGui").FollowMouse.NewCustomCursor then
+						game.Players.LocalPlayer.PlayerGui:FindFirstChild("GunGui").FollowMouse.NewCustomCursor.Visible = true
+					end
+				end
 			end
 		end)
 		
