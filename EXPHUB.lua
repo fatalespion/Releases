@@ -24,8 +24,10 @@ for i,v in pairs(game.ReplicatedStorage:GetDescendants()) do
 	if v:IsA("RemoteEvent") or v:IsA("RemoteFunction") or v:IsA("BindableEvent") then
 		table.insert(AvailbleRemotes, v.Name)
 	end     
-end    
+end  
+
 local LeftVisualGroupBox = Tabs.Visual:AddLeftGroupbox('ESP')
+local ChamsRightVisualGroupBox = Tabs.Visual:AddRightGroupbox('CHAMS')
 
 _G.ESPTeamCheck = false
 _G.ESPEnabled = false
@@ -36,9 +38,95 @@ _G.ESPShowBox = true
 _G.ESPTracerColor = Color3.fromRGB(0, 255, 140)
 _G.ESPBoxColor = Color3.fromRGB(0, 255, 140)
 
+_G.CHAMSEnemyColor = Color3.fromRGB(255, 84, 87)
+_G.CHAMSTeamColor = Color3.fromRGB(0, 255, 140)
+_G.CHAMSEnabled = false
+_G.CHAMSShowTeams = true
+
 local ESPLines = {}
 
 local Camera = workspace.CurrentCamera
+
+function create(instance, instanceStats, parent, player)
+	local newinstance = Instance.new(instance)
+	local lplr = game.Players.LocalPlayer
+
+	if newinstance then
+		if newinstance.Name == "Highlight" then
+			newinstance.DepthMode = instanceStats.DepthMode
+			newinstance.Name = instanceStats.Name
+			newinstance.FillTransparency = instanceStats.FillTransparency
+			newinstance.OutlineTransparency = instanceStats.OutlineTransparency
+			newinstance.Parent = parent
+			newinstance.Enabled = false
+
+			task.spawn(function()
+				while wait() do
+					if newinstance ~= nil then
+
+						if _G.CHAMSShowTeams then
+							if player.TeamColor == lplr.TeamColor then
+								newinstance.FillColor = _G.CHAMSTeamColor
+								newinstance.Visible = true
+							else
+								newinstance.FillColor = _G.CHAMSEnemyColor
+							end
+						elseif not _G.CHAMSShowTeams then
+							if player.TeamColor == lplr.TeamColor then
+								newinstance.Visible = false
+								newinstance.FillColor = _G.CHAMSTeamColor
+							else
+								newinstance.Visible = true
+								newinstance.FillColor = _G.CHAMSEnemyColor
+							end
+						end
+
+
+						if _G.CHAMSEnabled then
+							newinstance.Enabled = true
+						else
+							newinstance.Enabled = false
+						end
+					end
+				end
+			end)
+		end
+	end
+end
+
+function StartCHAMS()
+	local lplr = game.Players.LocalPlayer
+
+
+	local ChamsStats = {
+		Name = "Chams",
+		DepthMode = Enum.HighlightDepthMode.AlwaysOnTop,
+		FillTransparency = 0,
+		OutlineTransparency = 1,
+	}
+
+	for i,v in pairs(game.Players:GetChildren()) do
+		if v.Character ~= nil and v ~= lplr then
+			create("Highlight", ChamsStats, v.Character, v)
+
+			v.CharacterAdded:Connect(function()
+				create("Highlight", ChamsStats, v.Character, v)
+			end)
+		end
+	end
+
+	game.Players.PlayerAdded:Connect(function(v)
+		if v.Character ~= nil and v ~= lplr then
+			create("Highlight", ChamsStats, v.Character, v)
+
+			v.CharacterAdded:Connect(function()
+				create("Highlight", ChamsStats, v.Character, v)
+			end)
+		end
+	end)
+end
+
+StartCHAMS()
 
 local function StartESP()
 	local lplr = game.Players.LocalPlayer
@@ -401,6 +489,12 @@ LeftVisualGroupBox:AddToggle('ShowHealthBar', {
 	end
 })
 
+LeftVisualGroupBox:AddDivider()
+
+
+LeftVisualGroupBox:AddLabel('WARNING: if you are using the healthbar\n makes sure you are using non vibrant color to see it better ')
+
+
 LeftVisualGroupBox:AddLabel('Tracer Color'):AddColorPicker('ESPColorPicker', {
 	Default = Color3.fromRGB(0, 255, 140), -- Bright green
 	Title = 'Tracer Color', -- Optional. Allows you to have a custom color picker title (when you open it)
@@ -418,6 +512,46 @@ LeftVisualGroupBox:AddLabel('Box Color'):AddColorPicker('ESPBoxColorPicker', {
 
 	Callback = function(Value)
 		_G.ESPBoxColor = Value
+	end
+})
+
+ChamsRightVisualGroupBox:AddToggle('EnableChams', {
+	Text = 'Enable',
+	Default = true, -- Default value (true / false)
+	Tooltip = 'Enables chams', -- Information shown when you hover over the toggle
+
+	Callback = function(Value)
+		_G.CHAMSEnabled = Value
+	end
+})
+
+ChamsRightVisualGroupBox:AddToggle('ShowCHAMSTeams', {
+	Text = 'Show teamates',
+	Default = true, -- Default value (true / false)
+	Tooltip = 'Shows your teamates', -- Information shown when you hover over the toggle
+
+	Callback = function(Value)
+		_G.CHAMSShowTeams = Value
+	end
+})
+
+ChamsRightVisualGroupBox:AddLabel('EnemyColor'):AddColorPicker('ChamsEnemyColorPicker', {
+	Default = Color3.fromRGB(255, 84, 87), -- Bright green
+	Title = 'Enemy Color', -- Optional. Allows you to have a custom color picker title (when you open it)
+	Transparency = 0, -- Optional. Enables transparency changing for this color picker (leave as nil to disable)
+
+	Callback = function(Value)
+		_G.CHAMSEnemyColor = Value
+	end
+})
+
+ChamsRightVisualGroupBox:AddLabel('Team Color'):AddColorPicker('ChamsTeamColorPicker', {
+	Default = Color3.fromRGB(0, 255, 140), -- Bright green
+	Title = 'Team Color', -- Optional. Allows you to have a custom color picker title (when you open it)
+	Transparency = 0, -- Optional. Enables transparency changing for this color picker (leave as nil to disable)
+
+	Callback = function(Value)
+		_G.CHAMSTeamColor = Value
 	end
 })
 
