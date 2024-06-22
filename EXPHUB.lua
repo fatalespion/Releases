@@ -165,7 +165,7 @@ end
 StartCHAMS()
 
 game.Players.LocalPlayer.Character.ChildAdded:Connect(function(model)
-	if model.Name == "ServerGunModel" or model.Name == "ServerMeleeModel" then
+	if model.Name == "ServerGunModel" then
 		if game.Players.LocalPlayer.PlayerGui:FindFirstChild("GunGui") then
 			if game.Players.LocalPlayer.PlayerGui:FindFirstChild("GunGui").FollowMouse.NewCustomCursor then
 				game.Players.LocalPlayer.PlayerGui:FindFirstChild("GunGui").FollowMouse.NewCustomCursor.Visible = false
@@ -175,7 +175,7 @@ game.Players.LocalPlayer.Character.ChildAdded:Connect(function(model)
 end)
 
 game.Players.LocalPlayer.Character.ChildRemoved:Connect(function(model)
-	if model.Name == "ServerGunModel" or model.Name == "ServerMeleeModel" then
+	if model.Name == "ServerGunModel" then
 		if game.Players.LocalPlayer.PlayerGui:FindFirstChild("GunGui") then
 			if game.Players.LocalPlayer.PlayerGui:FindFirstChild("GunGui").FollowMouse.NewCustomCursor then
 				game.Players.LocalPlayer.PlayerGui:FindFirstChild("GunGui").FollowMouse.NewCustomCursor.Visible = true
