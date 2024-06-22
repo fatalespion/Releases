@@ -262,8 +262,10 @@ local function TurnRainbow()
 
 			
 			RunService.RenderStepped:Connect(function(delta)
-				game.Players.LocalPlayer.Character:FindFirstChild("Left Arm").Color = RainbowColor
-				game.Players.LocalPlayer.Character:FindFirstChild("Left Arm").Material = Enum.Material.ForceField
+				if game.Players.LocalPlayer.Character:FindFirstChild("Left Arm") then
+					game.Players.LocalPlayer.Character:FindFirstChild("Left Arm").Color = RainbowColor
+					game.Players.LocalPlayer.Character:FindFirstChild("Left Arm").Material = Enum.Material.ForceField
+				end
 			end)
 		end
 
@@ -272,8 +274,10 @@ local function TurnRainbow()
 
 			
 			RunService.RenderStepped:Connect(function(delta)
-				game.Players.LocalPlayer.Character:FindFirstChild("Right Arm").Color = RainbowColor
-				game.Players.LocalPlayer.Character:FindFirstChild("Right Arm").Material = Enum.Material.ForceField
+				if game.Players.LocalPlayer.Character:FindFirstChild("Right Arm") then
+					game.Players.LocalPlayer.Character:FindFirstChild("Right Arm").Color = RainbowColor
+					game.Players.LocalPlayer.Character:FindFirstChild("Right Arm").Material = Enum.Material.ForceField
+				end
 			end)
 		end
 	end
