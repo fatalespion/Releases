@@ -52,6 +52,16 @@ local Camera = workspace.CurrentCamera
 
 local i = 0
 
+local RainbowColor = Color3.fromRGB(0,0,0)
+
+local RunService = game:GetService("RunService")
+local SPEED = 0.1
+
+RunService.RenderStepped:Connect(function(delta)
+	RainbowColor = Color3.fromHSV(i,1,1)
+	i = (i + delta*SPEED) % 1
+end)
+
 function create(instance, instanceStats, parent, player)
 	local newinstance = Instance.new(instance)
 	local lplr = game.Players.LocalPlayer
@@ -140,8 +150,7 @@ end
 StartCHAMS()
 
 local function TurnRainbow()
-	local RunService = game:GetService("RunService")
-	local SPEED = 0.1
+	
 	
 	if _G.TurnRainbowEnabled then
 		
@@ -156,8 +165,8 @@ local function TurnRainbow()
 
 							
 							RunService.RenderStepped:Connect(function(delta)
-								v.Color = Color3.fromHSV(i,1,1)
-								i = (i + delta*SPEED) % 1
+								v.Color = RainbowColor
+								
 							end)
 
 							v.Material = Enum.Material.ForceField
@@ -179,8 +188,7 @@ local function TurnRainbow()
 
 							
 							RunService.RenderStepped:Connect(function(delta)
-								v.Color = Color3.fromHSV(i,1,1)
-								i = (i + delta*SPEED) % 1
+								v.Color = RainbowColor
 							end)
 
 							v.Material = Enum.Material.ForceField
@@ -199,8 +207,8 @@ local function TurnRainbow()
 
 					
 					RunService.RenderStepped:Connect(function(delta)
-						v.Color = Color3.fromHSV(i,1,1)
-						i = (i + delta*SPEED) % 1
+						v.Color = RainbowColor
+
 					end)
 
 					v.Material = Enum.Material.ForceField
@@ -217,8 +225,8 @@ local function TurnRainbow()
 
 					
 					RunService.RenderStepped:Connect(function(delta)
-						v.Color = Color3.fromHSV(i,1,1)
-						i = (i + delta*SPEED) % 1
+						v.Color = RainbowColor
+						
 					end)
 
 					v.Material = Enum.Material.ForceField
@@ -231,8 +239,8 @@ local function TurnRainbow()
 
 			
 			RunService.RenderStepped:Connect(function(delta)
-				game.Players.LocalPlayer.Character:FindFirstChild("Left Arm").Color = Color3.fromHSV(i,1,1)
-				i = (i + delta*SPEED) % 1
+				game.Players.LocalPlayer.Character:FindFirstChild("Left Arm").Color = RainbowColor
+				
 			end)
 		end
 
@@ -241,8 +249,8 @@ local function TurnRainbow()
 
 			
 			RunService.RenderStepped:Connect(function(delta)
-				game.Players.LocalPlayer.Character:FindFirstChild("Right Arm").Color = Color3.fromHSV(i,1,1)
-				i = (i + delta*SPEED) % 1
+				game.Players.LocalPlayer.Character:FindFirstChild("Right Arm").Color = RainbowColor
+				
 			end)
 		end
 	end
