@@ -426,7 +426,7 @@ local function StartESP()
 		function lineesp()
 			game:GetService("RunService").RenderStepped:Connect(function()
 				if v then
-					local Vector, OnScreen = camera:WorldToViewportPoint(v.Character.HumanoidRootPart.Position)
+					local Vector, OnScreen = camera:WorldToViewportPoint(v.Position)
 
 					if _G.ESPEnabled then
 						if OnScreen then
