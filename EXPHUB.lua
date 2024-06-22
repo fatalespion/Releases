@@ -61,10 +61,19 @@ local RainbowColor = Color3.fromRGB(0,0,0)
 local RunService = game:GetService("RunService")
 local SPEED = 0.1
 
+local initialSize = UDim2.new(0, 11, 0, 11) 
+
+local PixelSize = 0
+
 RunService.RenderStepped:Connect(function(delta)
 	RainbowColor = Color3.fromHSV(i,1,1)
 	i = (i + delta*SPEED) % 1
 end)
+
+local function updateImageSize(Image)
+	local newSize = initialSize + UDim2.new(PixelSize * 0.01, 0, PixelSize * 0.01, 0)
+	Image.Size = newSize
+end
 
 function create(instance, instanceStats, parent, player)
 	local newinstance = Instance.new(instance)
@@ -747,6 +756,27 @@ local AFMyButton = CrosshairRightVisualGroupBox:AddButton({
 	DoubleClick = false,
 	Tooltip = 'Sets the cursor to what you putted'
 })
+
+CrosshairRightVisualGroupBox:AddSlider('PixelSize', {
+	Text = 'Crosshair Size',
+	Default = 0,
+	Min = 0,
+	Max = 10,
+	Rounding = 1,
+	Compact = false,
+
+	Callback = function(Value)
+		PixelSize = Value
+	end
+})
+
+task.spawn(function()
+	while wait() do
+		if game.Players.LocalPlayer.PlayerGui:FindFirstChild("GunGui") then
+			updateImageSize(game.Players.LocalPlayer.PlayerGui:FindFirstChild("GunGui").FollowMouse.Cursor)
+		end
+	end
+end)
 
 local LeftGroupBox = Tabs.Debugging:AddLeftGroupbox('Remotes')
 
