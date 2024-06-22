@@ -164,11 +164,28 @@ end
 
 StartCHAMS()
 
+game.Players.LocalPlayer.Character.ChildAdded:Connect(function(model)
+	if model.Name == "ServerGunModel" or model.Name == "ServerMeleeModel" then
+		if game.Players.LocalPlayer.PlayerGui:FindFirstChild("GunGui") then
+			if game.Players.LocalPlayer.PlayerGui:FindFirstChild("GunGui").FollowMouse.NewCustomCursor then
+				game.Players.LocalPlayer.PlayerGui:FindFirstChild("GunGui").FollowMouse.NewCustomCursor.Visible = false
+			end
+		end
+	end
+end)
+
+game.Players.LocalPlayer.Character.ChildRemoved:Connect(function(model)
+	if model.Name == "ServerGunModel" or model.Name == "ServerMeleeModel" then
+		if game.Players.LocalPlayer.PlayerGui:FindFirstChild("GunGui") then
+			if game.Players.LocalPlayer.PlayerGui:FindFirstChild("GunGui").FollowMouse.NewCustomCursor then
+				game.Players.LocalPlayer.PlayerGui:FindFirstChild("GunGui").FollowMouse.NewCustomCursor.Visible = true
+			end
+		end
+	end
+end)
+
 local function TurnRainbow()
-	
-	
 	if _G.TurnRainbowEnabled then
-		
 		workspace.CurrentCamera.ChildAdded:Connect(function(model)
 			if model.Name == "ViewModel" then
 				if workspace.CurrentCamera:FindFirstChild("ViewModel") then
