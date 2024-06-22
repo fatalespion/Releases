@@ -49,7 +49,6 @@ _G.TurnRainbowEnabled = false
 
 _G.DefaultCursor = "9373275104"
 _G.CustomCursor = "9373275104"
-_G.CursorColor = Color3.fromRGB(game.Players.LocalPlayer.PlayerGui:FindFirstChild("GunGui").FollowMouse.Cursor.ImageColor)
 
 local ESPLines = {}
 
