@@ -73,8 +73,8 @@ function create(instance, instanceStats, parent, player)
 							end
 						elseif not _G.CHAMSShowTeams then
 							if player.TeamColor == lplr.TeamColor then
-								newinstance.Enabled = false
-								newinstance.FillColor = _G.CHAMSTeamColor
+								newinstance.Enabled = true
+								newinstance.FillColor = _G.CHAMSEnemyColor
 							else
 								newinstance.Enabled = true
 								newinstance.FillColor = _G.CHAMSEnemyColor
