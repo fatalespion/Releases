@@ -764,6 +764,7 @@ local AFMyButton = CrosshairRightVisualGroupBox:AddButton({
 				NewCursor.AnchorPoint = game.Players.LocalPlayer.PlayerGui:FindFirstChild("GunGui").FollowMouse.Cursor.AnchorPoint
 				NewCursor.Name = "NewCustomCursor"
 				NewCursor.Parent = game.Players.LocalPlayer.PlayerGui:FindFirstChild("GunGui").FollowMouse
+				NewCursor.Position = UDim2.new(0.5,0,0.5,0)
 				
 				game.Players.LocalPlayer.PlayerGui:FindFirstChild("GunGui").FollowMouse.Cursor.Visible = false
 			end
