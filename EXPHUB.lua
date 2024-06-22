@@ -441,19 +441,27 @@ local function StartESP()
 							Tracer.From = Vector2.new(camera.ViewportSize.X / 2, camera.ViewportSize.Y / 1)
 							Tracer.To = Vector2.new(Vector.X, Vector.Y)
 
-							if _G.ESPDeathBag == true  and v.Color == Color3.fromRGB(255,63,63) then
-								Tracer.Color = _G.ESPDeathBagColor
-								Tracer.Visible = true
+							if v.Color == Color3.fromRGB(255,63,63) then
+								if _G.ESPDeathBag == true then
+									Tracer.Color = _G.ESPDeathBagColor
+									Tracer.Visible = true
+								else
+									Tracer.Visible = false
+								end
 							elseif v.Color == Color3.fromRGB(0,127,255) then
 								if v.Name == "DeathBag" then
 									if _G.ESPNpcBag == true then
 										Tracer.Color = _G.ESPNpcBagColor
 										Tracer.Visible = true
+									else
+										Tracer.Visible = false
 									end
 								elseif v.Name == "DuffelBag" then
 									if _G.ESPDropBag == true then
 										Tracer.Color = _G.ESPDropBagColor
 										Tracer.Visible = true
+									else
+										Tracer.Visible = false
 									end
 								end
 							end
