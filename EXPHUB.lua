@@ -194,6 +194,7 @@ game.Players.LocalPlayer.Character.ChildAdded:Connect(function(model)
 		for i,v in pairs(model:GetDescendants()) do
 			if v:IsA("Attachment") and v.Name == "Muzzle" then
 				Muzzle = v
+				print("Found")
 			end
 		end
 		
