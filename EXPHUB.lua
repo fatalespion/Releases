@@ -9,7 +9,7 @@ local ThemeManager = loadstring(game:HttpGet(repo .. 'violin-suzutsuki/LinoriaLi
 local SaveManager = loadstring(game:HttpGet(repo .. 'violin-suzutsuki/LinoriaLib/main/addons/SaveManager.lua'))()
 
 local Window = Library:CreateWindow({
-	Title = 'EXP HUB | Blackout',
+	Title = 'EXP HUB | Game: Blackout | BETA',
 	Center = true,
 	AutoShow = true,
 	TabPadding = 8,
@@ -200,7 +200,7 @@ game.Players.LocalPlayer.Character.ChildAdded:Connect(function(model)
 		HasGun = true
 
 		if game.Players.LocalPlayer.PlayerGui:FindFirstChild("GunGui") then
-			if game.Players.LocalPlayer.PlayerGui:FindFirstChild("GunGui").FollowMouse.NewCustomCursor then
+			if game.Players.LocalPlayer.PlayerGui:FindFirstChild("GunGui").FollowMouse:FindFirstChild("NewCustomCursor") then
 				game.Players.LocalPlayer.PlayerGui:FindFirstChild("GunGui").FollowMouse.NewCustomCursor.Visible = false
 			end
 		end
@@ -211,7 +211,7 @@ game.Players.LocalPlayer.Character.ChildRemoved:Connect(function(model)
 	if model.Name == "ServerGunModel" then
 		HasGun = false
 		if game.Players.LocalPlayer.PlayerGui:FindFirstChild("GunGui") then
-			if game.Players.LocalPlayer.PlayerGui:FindFirstChild("GunGui").FollowMouse.NewCustomCursor then
+			if game.Players.LocalPlayer.PlayerGui:FindFirstChild("GunGui").FollowMouse:FindFirstChild("NewCustomCursor") then
 				game.Players.LocalPlayer.PlayerGui:FindFirstChild("GunGui").FollowMouse.NewCustomCursor.Visible = true
 			end
 		end
@@ -246,11 +246,7 @@ local function TurnRainbow()
 			if model.Name == "ServerGunModel" or model.Name == "ServerMeleeModel" then
 				if game.Players.LocalPlayer.Character:FindFirstChild("ServerGunModel") then
 					task.wait(0.1)
-					if game.Players.LocalPlayer.PlayerGui:FindFirstChild("GunGui") then
-						if game.Players.LocalPlayer.PlayerGui:FindFirstChild("GunGui").FollowMouse.NewCustomCursor then
-							game.Players.LocalPlayer.PlayerGui:FindFirstChild("GunGui").FollowMouse.NewCustomCursor.Visible = false
-						end
-					end
+
 
 					for i,v in pairs(game.Players.LocalPlayer.Character:FindFirstChild("ServerGunModel"):GetChildren()) do
 						if v:IsA("MeshPart") then
@@ -288,15 +284,6 @@ local function TurnRainbow()
 			end
 		end)
 
-		game.Players.LocalPlayer.Character.ChildRemoved:Connect(function(model)
-			if model.Name == "ServerGunModel" or model.Name == "ServerMeleeModel" then
-				if game.Players.LocalPlayer.PlayerGui:FindFirstChild("GunGui") then
-					if game.Players.LocalPlayer.PlayerGui:FindFirstChild("GunGui").FollowMouse.NewCustomCursor then
-						game.Players.LocalPlayer.PlayerGui:FindFirstChild("GunGui").FollowMouse.NewCustomCursor.Visible = true
-					end
-				end
-			end
-		end)
 
 		if workspace.CurrentCamera:FindFirstChild("ViewModel") then
 			for i,v in pairs(workspace.CurrentCamera:FindFirstChild("ViewModel"):GetDescendants()) do
