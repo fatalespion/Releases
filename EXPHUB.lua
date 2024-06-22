@@ -76,19 +76,6 @@ local mouse = playerS:GetMouse()
 local function updateImageSize(Image)
 	local newSize = initialSize + UDim2.new(PixelSize * 0.01, 0, PixelSize * 0.01, 0)
 	Image.Size = newSize
-	
-	local Players = game:GetService("Players")
-
-	local player = Players.LocalPlayer
-	local mouse = player:GetMouse()
-
-	local function onMouseMove()
-		local InputService = game:GetService('UserInputService');
-		local mPos = InputService:GetMouseLocation();
-		Image.Position = Vector2.new(mPos.X, mPos.Y);
-	end
-	
-	mouse.Move:Connect(onMouseMove)
 end
 
 function create(instance, instanceStats, parent, player)
@@ -778,7 +765,7 @@ local AFMyButton = CrosshairRightVisualGroupBox:AddButton({
 				NewCursor.Name = "NewCustomCursor"
 				NewCursor.Parent = game.Players.LocalPlayer.PlayerGui:FindFirstChild("GunGui").FollowMouse
 				
-				game.Players.LocalPlayer.PlayerGui:FindFirstChild("GunGui").FollowMouse.Cursor:Destroy()
+				game.Players.LocalPlayer.PlayerGui:FindFirstChild("GunGui").FollowMouse.Cursor.Visible = false
 			end
 			
 			game.Players.LocalPlayer.PlayerGui:FindFirstChild("GunGui").FollowMouse.NewCustomCursor.Image = "rbxassetid://".._G.CustomCursor
@@ -805,6 +792,7 @@ task.spawn(function()
 	while wait() do
 		if game.Players.LocalPlayer.PlayerGui:FindFirstChild("GunGui") then
 			updateImageSize(game.Players.LocalPlayer.PlayerGui:FindFirstChild("GunGui").FollowMouse.NewCustomCursor)
+			game.Players.LocalPlayer.PlayerGui:FindFirstChild("GunGui").FollowMouse.NewCustomCursor.Position = game.Players.LocalPlayer.PlayerGui:FindFirstChild("GunGui").FollowMouse.Cursor.Position
 		end
 	end
 end)
