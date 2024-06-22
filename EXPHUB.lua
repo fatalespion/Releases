@@ -492,7 +492,7 @@ LeftVisualGroupBox:AddToggle('ShowHealthBar', {
 LeftVisualGroupBox:AddDivider()
 
 
-LeftVisualGroupBox:AddLabel('WARNING: if you are using the healthbar\n makes sure you are using non vibrant color to see it better ')
+LeftVisualGroupBox:AddLabel('WARNING:\nif you are using the healthbar\n makes sure you are using non vibrant color to see it better')
 
 
 LeftVisualGroupBox:AddLabel('Tracer Color'):AddColorPicker('ESPColorPicker', {
