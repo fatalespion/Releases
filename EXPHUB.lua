@@ -77,8 +77,8 @@ local function updateImageSize(Image)
 	local newSize = initialSize + UDim2.new(PixelSize * 0.01, 0, PixelSize * 0.01, 0)
 	Image.Size = newSize
 	
-	local mouseX = mouse.X
-	local mouseY = mouse.Y
+	local mouseX = mouse.X - Image.Size.X.Offset / 2
+	local mouseY = mouse.Y - Image.Size.Y.Offset / 2
 	Image.Position = UDim2.new(0, mouseX, 0, mouseY)
 end
 
