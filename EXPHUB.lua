@@ -52,7 +52,7 @@ local function StartESP()
 	for i,v in pairs(game.Players:GetChildren()) do
 		local Tracer = Drawing.new("Line")
 		Tracer.Visible = false
-		
+
 		Tracer.Thickness = 1
 		Tracer.Transparency = 1
 
@@ -70,21 +70,21 @@ local function StartESP()
 		Box.Filled = false
 
 		local HealthBarOutline = Drawing.new("Square")
-		BoxOutline.Visible = false
-		BoxOutline.Color = Color3.new(0,0,0)
-		BoxOutline.Thickness = 3
-		BoxOutline.Transparency = 1
-		BoxOutline.Filled = false
+		HealthBarOutline.Visible = false
+		HealthBarOutline.Color = Color3.new(0,0,0)
+		HealthBarOutline.Thickness = 1.5
+		HealthBarOutline.Transparency = 1
+		HealthBarOutline.Filled = false
 
 		local HealthBar = Drawing.new("Square")
-		BoxOutline.Visible = false
-		BoxOutline.Thickness = 1
-		BoxOutline.Transparency = 1
-		BoxOutline.Filled = false
+		HealthBar.Visible = false
+		HealthBar.Thickness = 1
+		HealthBar.Transparency = 1
+		HealthBar.Filled = true
 
 		function lineesp()
 			game:GetService("RunService").RenderStepped:Connect(function()
-				if v.Character ~= nil and v.Character:FindFirstChild("Humanoid") ~= nil and v.Character:FindFirstChild("HumanoidRootPart") ~= nil and v ~= lplr and v.Character.Humanoid.Health > 0 then
+				if v.Character ~= nil and v.Character:WaitForChild("Humanoid") ~= nil and v.Character:FindFirstChild("HumanoidRootPart") ~= nil and v ~= lplr and v.Character.Humanoid.Health > 0 then
 					local Vector, OnScreen = camera:WorldToViewportPoint(v.Character.HumanoidRootPart.Position)
 
 					if _G.ESPEnabled then
@@ -92,11 +92,11 @@ local function StartESP()
 							Tracer.From = Vector2.new(camera.ViewportSize.X / 2, camera.ViewportSize.Y / 1)
 							Tracer.To = Vector2.new(Vector.X, Vector.Y)
 							Tracer.Color = _G.ESPTracerColor
-							
+
 							if not _G.ESPShowTracers  then
 								Tracer.Visible = false
 							end
-							
+
 							if _G.ESPTeamCheck and v.TeamColor == lplr.TeamColor then
 								Tracer.Visible = false
 							else
@@ -137,13 +137,13 @@ local function StartESP()
 							Box.Size = Vector2.new(1000 / RootPosition.Z, HeadPosition.Y - LegPosition.Y)
 							Box.Position = Vector2.new(RootPosition.X - Box.Size.X / 2, RootPosition.Y - Box.Size.Y / 2)
 							Box.Color = _G.ESPBoxColor
-							
+
 							HealthBarOutline.Size = Vector2.new(2, HeadPosition.Y - LegPosition.Y)
 							HealthBarOutline.Position = BoxOutline.Position - Vector2.new(6,0)
 
-						--	HealthBar.Size = Vector2.new(2, (HeadPosition.Y - LegPosition.Y) / (game:GetService("Players")[v.Character.Name]:FindFirstChild("Humanoid").MaxHealth / math.clamp(game:GetService("Players")[v.Character.Name]:FindFirstChild("Humanoid").Health, 0, game:GetService("Players")[v.Character.Name]:WaitForChild("Humanoid").MaxHealth)))
+							HealthBar.Size = Vector2.new(2, (HeadPosition.Y - LegPosition.Y) / (v.Character:WaitForChild("Humanoid").MaxHealth / math.clamp(v.Character:WaitForChild("Humanoid").Health, 0, v.Character:WaitForChild("Humanoid").MaxHealth)))
 							HealthBar.Position = Vector2.new(Box.Position.X - 6, Box.Position.Y + (1/HealthBar.Size.Y))
-							HealthBar.Color = Color3.fromRGB(255 - 255 / (game:GetService("Players")[v.Character.Name]:FindFistChild("Humanoid").MaxHealth / game:GetService("Players")[v.Character.Name]:FindFistChild("Humanoid").Health), 255 / (game:GetService("Players")[v.Character.Name]:FindFistChild("Humanoid").MaxHealth / game:GetService("Players")[v.Character.Name]:FindFistChild("Humanoid").Health), 0)
+							HealthBar.Color = Color3.fromRGB(255 - 255 / (v.Character:WaitForChild("Humanoid").MaxHealth / v.Character:WaitForChild("Humanoid").Health), 255 / (v.Character:WaitForChild("Humanoid").MaxHealth / v.Character:WaitForChild("Humanoid").Health), 0)
 
 							if _G.ESPTeamCheck and v.TeamColor == lplr.TeamColor then
 								BoxOutline.Visible = false
@@ -190,7 +190,7 @@ local function StartESP()
 				end
 			end)
 		end
-		
+
 		task.spawn(function()
 			coroutine.wrap(lineesp)()
 		end)
@@ -214,22 +214,22 @@ local function StartESP()
 
 		local Box = Drawing.new("Square")
 		Box.Visible = false
-		Box.Thickness = 1
+		Box.Thickness = 1.5
 		Box.Transparency = 1
 		Box.Filled = false
 
 		local HealthBarOutline = Drawing.new("Square")
-		BoxOutline.Visible = false
-		BoxOutline.Color = Color3.new(0,0,0)
-		BoxOutline.Thickness = 3
-		BoxOutline.Transparency = 1
-		BoxOutline.Filled = false
+		HealthBarOutline.Visible = false
+		HealthBarOutline.Color = Color3.new(0,0,0)
+		HealthBarOutline.Thickness = 1.5
+		HealthBarOutline.Transparency = 1
+		HealthBarOutline.Filled = false
 
 		local HealthBar = Drawing.new("Square")
-		BoxOutline.Visible = false
-		BoxOutline.Thickness = 1
-		BoxOutline.Transparency = 1
-		BoxOutline.Filled = false
+		HealthBar.Visible = false
+		HealthBar.Thickness = 1
+		HealthBar.Transparency = 1
+		HealthBar.Filled = true
 
 		function lineesp()
 			game:GetService("RunService").RenderStepped:Connect(function()
@@ -241,11 +241,11 @@ local function StartESP()
 							Tracer.From = Vector2.new(camera.ViewportSize.X / 2, camera.ViewportSize.Y / 1)
 							Tracer.To = Vector2.new(Vector.X, Vector.Y)
 							Tracer.Color = _G.ESPTracerColor
-							
+
 							if not _G.ESPShowTracers  then
 								Tracer.Visible = false
 							end
-							
+
 							if _G.ESPTeamCheck and v.TeamColor == lplr.TeamColor then
 								Tracer.Visible = false
 							else
@@ -269,7 +269,7 @@ local function StartESP()
 
 		function boxesp()
 			game:GetService("RunService").RenderStepped:Connect(function()
-				if v.Character ~= nil and v.Character:FindFirstChild("Humanoid") ~= nil and v.Character:FindFirstChild("HumanoidRootPart") ~= nil and v ~= lplr and v.Character.Humanoid.Health > 0 then
+				if v.Character ~= nil and v.Character:WaitForChild("Humanoid") ~= nil and v.Character:FindFirstChild("HumanoidRootPart") ~= nil and v ~= lplr and v.Character.Humanoid.Health > 0 then
 					local Vector, OnScreen = camera:WorldToViewportPoint(v.Character.HumanoidRootPart.Position)
 
 					local RootPart = v.Character.HumanoidRootPart
@@ -286,13 +286,13 @@ local function StartESP()
 							Box.Size = Vector2.new(1000 / RootPosition.Z, HeadPosition.Y - LegPosition.Y)
 							Box.Position = Vector2.new(RootPosition.X - Box.Size.X / 2, RootPosition.Y - Box.Size.Y / 2)
 							Box.Color = _G.ESPBoxColor
-							
+
 							HealthBarOutline.Size = Vector2.new(2, HeadPosition.Y - LegPosition.Y)
 							HealthBarOutline.Position = BoxOutline.Position - Vector2.new(6,0)
 
-							--HealthBar.Size = Vector2.new(2, (HeadPosition.Y - LegPosition.Y) / (game:GetService("Players")[v.Character.Name]:FindFirstChild("Humanoid").MaxHealth / math.clamp(game:GetService("Players")[v.Character.Name]:FindFirstChild("Humanoid").Health, 0, game:GetService("Players")[v.Character.Name]:WaitForChild("Humanoid").MaxHealth)))
+							HealthBar.Size = Vector2.new(2, (HeadPosition.Y - LegPosition.Y) / (v.Character:WaitForChild("Humanoid").MaxHealth / math.clamp(v.Character:WaitForChild("Humanoid").Health, 0, v.Character:WaitForChild("Humanoid").MaxHealth)))
 							HealthBar.Position = Vector2.new(Box.Position.X - 6, Box.Position.Y + (1/HealthBar.Size.Y))
-							HealthBar.Color = Color3.fromRGB(255 - 255 / (game:GetService("Players")[v.Character.Name]:FindFistChild("Humanoid").MaxHealth / game:GetService("Players")[v.Character.Name]:FindFistChild("Humanoid").Health), 255 / (game:GetService("Players")[v.Character.Name]:FindFistChild("Humanoid").MaxHealth / game:GetService("Players")[v.Character.Name]:FindFistChild("Humanoid").Health), 0)
+							HealthBar.Color = Color3.fromRGB(255 - 255 / (v.Character:WaitForChild("Humanoid").MaxHealth / v.Character:WaitForChild("Humanoid").Health), 255 / (v.Character:WaitForChild("Humanoid").MaxHealth / v.Character:WaitForChild("Humanoid").Health), 0)
 
 							if _G.ESPTeamCheck and v.TeamColor == lplr.TeamColor then
 								BoxOutline.Visible = false
