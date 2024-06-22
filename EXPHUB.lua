@@ -517,7 +517,7 @@ LeftVisualGroupBox:AddLabel('visibility')
 
 ChamsRightVisualGroupBox:AddToggle('EnableChams', {
 	Text = 'Enable',
-	Default = true, -- Default value (true / false)
+	Default = false, -- Default value (true / false)
 	Tooltip = 'Enables chams', -- Information shown when you hover over the toggle
 
 	Callback = function(Value)
