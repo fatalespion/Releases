@@ -512,7 +512,8 @@ LeftVisualGroupBox:AddLabel('Box Color'):AddColorPicker('ESPBoxColorPicker', {
 })
 
 LeftVisualGroupBox:AddLabel('if you are using the healthbar')
-LeftVisualGroupBox:AddLabel('use non vibrant color for better visibility')
+LeftVisualGroupBox:AddLabel('use non vibrant color for better') --
+LeftVisualGroupBox:AddLabel('visibility')
 
 ChamsRightVisualGroupBox:AddToggle('EnableChams', {
 	Text = 'Enable',
