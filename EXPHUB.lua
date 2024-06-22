@@ -77,9 +77,20 @@ local function updateImageSize(Image)
 	local newSize = initialSize + UDim2.new(PixelSize * 0.01, 0, PixelSize * 0.01, 0)
 	Image.Size = newSize
 	
-	local mouseX = mouse.X - Image.Size.X.Offset / 2
-	local mouseY = mouse.Y - Image.Size.Y.Offset / 2
-	Image.Position = UDim2.new(0, mouseX, 0, mouseY)
+	local Players = game:GetService("Players")
+
+	local player = Players.LocalPlayer
+	local mouse = player:GetMouse()
+
+	local function onMouseMove()
+		local position = Vector2.new(mouse.X, mouse.Y)
+		local size = Vector2.new(mouse.ViewSizeX, mouse.ViewSizeY)
+		local normalizedPosition = position / size
+		
+		Image.Position = normalizedPosition
+	end
+	
+	mouse.Move:Connect(onMouseMove)
 end
 
 function create(instance, instanceStats, parent, player)
