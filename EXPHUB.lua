@@ -1,3 +1,7 @@
+if getgenv().script_key ~= "hFzU4cM8w2gE7C" then
+	return
+end
+
 local repo = 'https://raw.githubusercontent.com/violin-suzutsuki/LinoriaLib/main/'
 
 local Library = loadstring(game:HttpGet(repo .. 'Library.lua'))()
