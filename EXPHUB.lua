@@ -892,6 +892,8 @@ TracerLeftVisualGroupBox:AddLabel('Bullet Color'):AddColorPicker('ColorPicker', 
 	end
 })
 
+TracerLeftVisualGroupBox:AddDivider()
+
 TracerLeftVisualGroupBox:AddDropdown('Material', {
 	Values = { 'ForceField', 'SmoothPlastic', 'Plastic', 'Neon', 'Glass', 'Grass', 'Wood', 'Slate', 'Concrete', 'CorrodedMetal', 'DiamondPlate', 'Foil', 'Granite', 'Marble', 'Brick', 'Pebble', 'Sand', 'Fabric', 'SmoothPlastic', 'Metal', 'Ice', 'ForceField'},
 	Default = 1, 
