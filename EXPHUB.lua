@@ -50,6 +50,8 @@ local ESPLines = {}
 
 local Camera = workspace.CurrentCamera
 
+local i = 0
+
 function create(instance, instanceStats, parent, player)
 	local newinstance = Instance.new(instance)
 	local lplr = game.Players.LocalPlayer
@@ -152,7 +154,7 @@ local function TurnRainbow()
 								v:FindFirstChildWhichIsA("SurfaceAppearance"):Destroy()
 							end
 
-							local i = 0
+							
 							RunService.RenderStepped:Connect(function(delta)
 								v.Color = Color3.fromHSV(i,1,1)
 								i = (i + delta*SPEED) % 1
@@ -168,14 +170,14 @@ local function TurnRainbow()
 		game.Players.LocalPlayer.Character.ChildAdded:Connect(function(model)
 			if model.Name == "ServerGunModel" then
 				if game.Players.LocalPlayer.Character:FindFirstChild("ServerGunModel") then
-					task.wait(0.6)
+					task.wait(0.4)
 					for i,v in pairs(game.Players.LocalPlayer.Character:FindFirstChild("ServerGunModel"):GetChildren()) do
 						if v:IsA("MeshPart") then
 							if v:FindFirstChildWhichIsA("SurfaceAppearance") then
 								v:FindFirstChildWhichIsA("SurfaceAppearance"):Destroy()
 							end
 
-							local i = 0
+							
 							RunService.RenderStepped:Connect(function(delta)
 								v.Color = Color3.fromHSV(i,1,1)
 								i = (i + delta*SPEED) % 1
@@ -195,7 +197,7 @@ local function TurnRainbow()
 						v:FindFirstChildWhichIsA("SurfaceAppearance"):Destroy()
 					end
 
-					local i = 0
+					
 					RunService.RenderStepped:Connect(function(delta)
 						v.Color = Color3.fromHSV(i,1,1)
 						i = (i + delta*SPEED) % 1
@@ -213,7 +215,7 @@ local function TurnRainbow()
 						v:FindFirstChildWhichIsA("SurfaceAppearance"):Destroy()
 					end
 
-					local i = 0
+					
 					RunService.RenderStepped:Connect(function(delta)
 						v.Color = Color3.fromHSV(i,1,1)
 						i = (i + delta*SPEED) % 1
@@ -227,7 +229,7 @@ local function TurnRainbow()
 		if game.Players.LocalPlayer.Character:FindFirstChild("Left Arm") then
 			game.Players.LocalPlayer.Character:FindFirstChild("Left Arm").Material = Enum.Material.ForceField
 
-			local i = 0
+			
 			RunService.RenderStepped:Connect(function(delta)
 				game.Players.LocalPlayer.Character:FindFirstChild("Left Arm").Color = Color3.fromHSV(i,1,1)
 				i = (i + delta*SPEED) % 1
@@ -237,7 +239,7 @@ local function TurnRainbow()
 		if game.Players.LocalPlayer.Character:FindFirstChild("Right Arm") then
 			game.Players.LocalPlayer.Character:FindFirstChild("Right Arm").Material = Enum.Material.ForceField
 
-			local i = 0
+			
 			RunService.RenderStepped:Connect(function(delta)
 				game.Players.LocalPlayer.Character:FindFirstChild("Right Arm").Color = Color3.fromHSV(i,1,1)
 				i = (i + delta*SPEED) % 1
