@@ -718,7 +718,7 @@ LeftVisualGroupBox:AddToggle('ShowHealthBar', {
 LeftVisualGroupBox:AddDivider()
 
 LeftVisualGroupBox:AddLabel('Tracer Color'):AddColorPicker('ESPColorPicker', {
-	Default = Color3.fromRGB(0, 255, 140), -- Bright green
+	Default = Color3.fromRGB(103, 89, 179), -- Bright green
 	Title = 'Tracer Color', -- Optional. Allows you to have a custom color picker title (when you open it)
 	Transparency = 0, -- Optional. Enables transparency changing for this color picker (leave as nil to disable)
 
@@ -728,7 +728,7 @@ LeftVisualGroupBox:AddLabel('Tracer Color'):AddColorPicker('ESPColorPicker', {
 })
 
 LeftVisualGroupBox:AddLabel('Box Color'):AddColorPicker('ESPBoxColorPicker', {
-	Default = Color3.fromRGB(0, 255, 140), -- Bright green
+	Default = Color3.fromRGB(103, 89, 179), -- Bright green
 	Title = 'Box Color', -- Optional. Allows you to have a custom color picker title (when you open it)
 	Transparency = 0, -- Optional. Enables transparency changing for this color picker (leave as nil to disable)
 
@@ -772,7 +772,7 @@ ChamsRightVisualGroupBox:AddLabel('EnemyColor'):AddColorPicker('ChamsEnemyColorP
 })
 
 ChamsRightVisualGroupBox:AddLabel('Team Color'):AddColorPicker('ChamsTeamColorPicker', {
-	Default = Color3.fromRGB(0, 255, 140), -- Bright green
+	Default = Color3.fromRGB(103, 89, 179), -- Bright green
 	Title = 'Team Color', -- Optional. Allows you to have a custom color picker title (when you open it)
 	Transparency = 0, -- Optional. Enables transparency changing for this color picker (leave as nil to disable)
 
