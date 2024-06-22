@@ -492,8 +492,8 @@ LeftVisualGroupBox:AddToggle('ShowHealthBar', {
 LeftVisualGroupBox:AddDivider()
 
 
-LeftVisualGroupBox:AddLabel('WARNING:\nif you are using the healthbar\n makes sure you are using non vibrant color to see it better')
-
+LeftVisualGroupBox:AddLabel('WARNING: if you are using the healthbar') --makes sure you are using non vibrant color to see it better
+LeftVisualGroupBox:AddLabel('makes sure you are using non vibrant color to see it better') --
 
 LeftVisualGroupBox:AddLabel('Tracer Color'):AddColorPicker('ESPColorPicker', {
 	Default = Color3.fromRGB(0, 255, 140), -- Bright green
