@@ -142,66 +142,9 @@ local function TurnRainbow()
 	local SPEED = 0.1
 	
 	if _G.TurnRainbowEnabled then
-		game.Players.LocalPlayer.Character.Changed:Connect(function()
-			if game.Players.LocalPlayer.Character:FindFirstChildWhichIsA("Tool") then
-				local tool = game.Players.LocalPlayer.Character:FindFirstChildWhichIsA("Tool")
-				
-				if tool:GetAttribute("Rainbowfied") then
-					return
-				end
-				
-				tool:SetAttribute("Rainbowfied", true)
-				
-				tool.Equipped:Connect(function()
-					if workspace.CurrentCamera:FindFirstChild("ViewModel") then
-						for i,v in pairs(workspace.CurrentCamera:FindFirstChild("ViewModel"):GetDescendants()) do
-							if v:IsA("MeshPart") then
-								if v:FindFirstChildWhichIsA("SurfaceAppearance") then
-									v:FindFirstChildWhichIsA("SurfaceAppearance"):Destroy()
-								end
-
-								local i = 0
-								RunService.RenderStepped:Connect(function(delta)
-									v.Color = Color3.fromHSV(i,1,1)
-									i = (i + delta*SPEED) % 1
-								end)
-
-								v.Material = Enum.Material.ForceField
-							end    
-						end    
-					end
-
-					if game.Players.LocalPlayer.Character:FindFirstChild("ServerGunModel") then
-						for i,v in pairs(game.Players.LocalPlayer.Character:FindFirstChild("ServerGunModel"):GetChildren()) do
-							if v:IsA("MeshPart") then
-								if v:FindFirstChildWhichIsA("SurfaceAppearance") then
-									v:FindFirstChildWhichIsA("SurfaceAppearance"):Destroy()
-								end
-
-								local i = 0
-								RunService.RenderStepped:Connect(function(delta)
-									v.Color = Color3.fromHSV(i,1,1)
-									i = (i + delta*SPEED) % 1
-								end)
-
-								v.Material = Enum.Material.ForceField
-							end    
-						end 
-					end
-				end)
-			end
-		end)
 		
-		if game.Players.LocalPlayer.Character:FindFirstChildWhichIsA("Tool") then
-			local tool = game.Players.LocalPlayer.Character:FindFirstChildWhichIsA("Tool")
-
-			if tool:GetAttribute("Rainbowfied") then
-				return
-			end
-
-			tool:SetAttribute("Rainbowfied", true)
-
-			tool.Equipped:Connect(function()
+		workspace.CurrentCamera.ChildAdded:Connect(function(model)
+			if model.Name == "ViewModel" then
 				if workspace.CurrentCamera:FindFirstChild("ViewModel") then
 					for i,v in pairs(workspace.CurrentCamera:FindFirstChild("ViewModel"):GetDescendants()) do
 						if v:IsA("MeshPart") then
@@ -219,7 +162,11 @@ local function TurnRainbow()
 						end    
 					end    
 				end
-
+			end
+		end)
+		
+		game.Players.LocalPlayer.Character.ChildAdded:Connect(function(model)
+			if model.Name == "ServerGunModel" then
 				if game.Players.LocalPlayer.Character:FindFirstChild("ServerGunModel") then
 					for i,v in pairs(game.Players.LocalPlayer.Character:FindFirstChild("ServerGunModel"):GetChildren()) do
 						if v:IsA("MeshPart") then
@@ -234,11 +181,11 @@ local function TurnRainbow()
 							end)
 
 							v.Material = Enum.Material.ForceField
-						end    
+						end 
 					end 
-				end
-			end)
-		end
+				end	
+			end
+		end)
 		
 		if workspace.CurrentCamera:FindFirstChild("ViewModel") then
 			for i,v in pairs(workspace.CurrentCamera:FindFirstChild("ViewModel"):GetDescendants()) do
