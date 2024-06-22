@@ -446,6 +446,10 @@ local function StartESP()
 								Tracer.Color = _G.ESPDropBagColor
 								Tracer.Visible = true
 							end
+							
+							if v.Transparency == 1 then
+								Tracer.Visible = false
+							end
 						else
 							Tracer.Visible = false
 						end
@@ -879,7 +883,7 @@ LeftVisualGroupBox:AddLabel('DeathBag Color'):AddColorPicker('ESPDeathBagColorPi
 	end
 })
 
-LeftVisualGroupBox:AddLabel('NPCDeath Color'):AddColorPicker('ESPNPCDeathBagColorPicker', {
+LeftVisualGroupBox:AddLabel('NPC DeathBags Color'):AddColorPicker('ESPNPCDeathBagColorPicker', {
 	Default = Color3.fromRGB(45, 179, 163), -- Bright green
 	Title = 'NPC DeathBags Color', -- Optional. Allows you to have a custom color picker title (when you open it)
 	Transparency = 0, -- Optional. Enables transparency changing for this color picker (leave as nil to disable)
@@ -889,7 +893,7 @@ LeftVisualGroupBox:AddLabel('NPCDeath Color'):AddColorPicker('ESPNPCDeathBagColo
 	end
 })
 
-LeftVisualGroupBox:AddLabel('Drpped Color'):AddColorPicker('ESPDroppedBagColorPicker', {
+LeftVisualGroupBox:AddLabel('Dropped Bags Color'):AddColorPicker('ESPDroppedBagColorPicker', {
 	Default = Color3.fromRGB(68, 179, 55), -- Bright green
 	Title = 'Dropped Bags Color', -- Optional. Allows you to have a custom color picker title (when you open it)
 	Transparency = 0, -- Optional. Enables transparency changing for this color picker (leave as nil to disable)
