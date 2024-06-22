@@ -188,26 +188,7 @@ end
 game.Players.LocalPlayer.Character.ChildAdded:Connect(function(model)
 	if model.Name == "ServerGunModel" then
 		HasGun = true
-		
-		local Muzzle
-		
-		for i,v in pairs(model:GetDescendants()) do
-			if v:IsA("Attachment") and v.Name == "Muzzle" then
-				Muzzle = v
-				print("Found")
-			end
-		end
-		
-		game.UserInputService.InputBegan:Connect(function(input)
-			if Settings.BulletTracers then
-				if input.UserInputType == Enum.UserInputType.MouseButton1 then
-					if HasGun then
-						Tracer(Muzzle.WorldPosition, Camera.CFrame.Position + Camera.CFrame.LookVector * 1000)
-					end
-				end
-			end
-		end)
-		
+
 		if game.Players.LocalPlayer.PlayerGui:FindFirstChild("GunGui") then
 			if game.Players.LocalPlayer.PlayerGui:FindFirstChild("GunGui").FollowMouse.NewCustomCursor then
 				game.Players.LocalPlayer.PlayerGui:FindFirstChild("GunGui").FollowMouse.NewCustomCursor.Visible = false
@@ -911,6 +892,8 @@ TracerLeftVisualGroupBox:AddLabel('Bullet Color'):AddColorPicker('ColorPicker', 
 	end
 })
 
+LeftGroupBox:AddDivider()
+
 TracerLeftVisualGroupBox:AddDropdown('Material', {
 	Values = { 'ForceField', 'SmoothPlastic', 'Plastic', 'Neon', 'Glass', 'Grass', 'Wood', 'Slate', 'Concrete', 'CorrodedMetal', 'DiamondPlate', 'Foil', 'Granite', 'Marble', 'Brick', 'Pebble', 'Sand', 'Fabric', 'SmoothPlastic', 'Metal', 'Ice', 'ForceField'},
 	Default = 1, 
@@ -923,6 +906,16 @@ TracerLeftVisualGroupBox:AddDropdown('Material', {
 		Settings.BulletTraceMeterial = Value
 	end
 })
+
+game.UserInputService.InputBegan:Connect(function(input)
+	if Settings.BulletTracers then
+		if input.UserInputType == Enum.UserInputType.MouseButton1 then
+			if HasGun then
+				Tracer(game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart"), Camera.CFrame.Position + Camera.CFrame.LookVector * 1000)
+			end
+		end
+	end
+end)
 
 local LeftGroupBox = Tabs.Debugging:AddLeftGroupbox('Remotes')
 
