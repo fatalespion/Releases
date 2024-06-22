@@ -177,9 +177,9 @@ local function TurnRainbow()
 		end)
 		
 		game.Players.LocalPlayer.Character.ChildAdded:Connect(function(model)
-			if model.Name == "ServerGunModel" then
+			if model.Name == "ServerGunModel" or model.Name == "ServerMeleeModel" then
 				if game.Players.LocalPlayer.Character:FindFirstChild("ServerGunModel") then
-					task.wait(0.2)
+					task.wait(0.1)
 					for i,v in pairs(game.Players.LocalPlayer.Character:FindFirstChild("ServerGunModel"):GetChildren()) do
 						if v:IsA("MeshPart") then
 							if v:FindFirstChildWhichIsA("SurfaceAppearance") then
@@ -187,6 +187,24 @@ local function TurnRainbow()
 							end
 
 							
+							RunService.RenderStepped:Connect(function(delta)
+								v.Color = RainbowColor
+							end)
+
+							v.Material = Enum.Material.ForceField
+						end 
+					end 
+				end	
+				
+				if game.Players.LocalPlayer.Character:FindFirstChild("ServerMeleeModel") then
+					task.wait(0.1)
+					for i,v in pairs(game.Players.LocalPlayer.Character:FindFirstChild("ServerMeleeModel"):GetChildren()) do
+						if v:IsA("MeshPart") then
+							if v:FindFirstChildWhichIsA("SurfaceAppearance") then
+								v:FindFirstChildWhichIsA("SurfaceAppearance"):Destroy()
+							end
+
+
 							RunService.RenderStepped:Connect(function(delta)
 								v.Color = RainbowColor
 							end)
@@ -240,7 +258,7 @@ local function TurnRainbow()
 			
 			RunService.RenderStepped:Connect(function(delta)
 				game.Players.LocalPlayer.Character:FindFirstChild("Left Arm").Color = RainbowColor
-				
+				game.Players.LocalPlayer.Character:FindFirstChild("Left Arm").Material = Enum.Material.ForceField
 			end)
 		end
 
@@ -250,7 +268,7 @@ local function TurnRainbow()
 			
 			RunService.RenderStepped:Connect(function(delta)
 				game.Players.LocalPlayer.Character:FindFirstChild("Right Arm").Color = RainbowColor
-				
+				game.Players.LocalPlayer.Character:FindFirstChild("Right Arm").Material = Enum.Material.ForceField
 			end)
 		end
 	end
