@@ -74,8 +74,7 @@ local playerS = game.Players.LocalPlayer
 local mouse = playerS:GetMouse()
 
 local function updateImageSize(Image)
-	local newSize = initialSize + UDim2.new(PixelSize * 0.01, 0, PixelSize * 0.01, 0)
-	Image.Size = newSize
+	Image.Size = UDim2.new(0, _G.CrossX, 0, _G.CrossY)
 end
 
 function create(instance, instanceStats, parent, player)
@@ -776,16 +775,34 @@ local AFMyButton = CrosshairRightVisualGroupBox:AddButton({
 	Tooltip = 'Sets the cursor to what you putted'
 })
 
-CrosshairRightVisualGroupBox:AddSlider('PixelSize', {
-	Text = 'Crosshair Size',
-	Default = 0,
-	Min = 0,
-	Max = 10,
-	Rounding = 1,
-	Compact = false,
+_G.CrossX = 11
+_G.CrossY = 11
+
+CrosshairRightVisualGroupBox:AddInput('Size1', {
+	Default = _G.CrossX,
+	Numeric = true,
+	Finished = false,
+
+	Text = 'Size X',
+	Tooltip = '',
+	Placeholder = '',
 
 	Callback = function(Value)
-		PixelSize = Value
+		_G.CrossX = Value
+	end
+})
+
+CrosshairRightVisualGroupBox:AddInput('Size2', {
+	Default = _G.CrossY,
+	Numeric = true,
+	Finished = false,
+
+	Text = 'Size Y',
+	Tooltip = '',
+	Placeholder = '',
+
+	Callback = function(Value)
+		_G.CrossY = Value
 	end
 })
 
