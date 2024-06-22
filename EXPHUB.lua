@@ -70,9 +70,16 @@ RunService.RenderStepped:Connect(function(delta)
 	i = (i + delta*SPEED) % 1
 end)
 
+local playerS = game.Players.LocalPlayer
+local mouse = playerS:GetMouse()
+
 local function updateImageSize(Image)
 	local newSize = initialSize + UDim2.new(PixelSize * 0.01, 0, PixelSize * 0.01, 0)
 	Image.Size = newSize
+	
+	local mouseX = mouse.X
+	local mouseY = mouse.Y
+	Image.Position = UDim2.new(0, mouseX, 0, mouseY)
 end
 
 function create(instance, instanceStats, parent, player)
@@ -750,7 +757,21 @@ local AFMyButton = CrosshairRightVisualGroupBox:AddButton({
 	Text = 'Set',
 	Func = function()
 		if game.Players.LocalPlayer.PlayerGui:FindFirstChild("GunGui") then
-			game.Players.LocalPlayer.PlayerGui:FindFirstChild("GunGui").FollowMouse.Cursor.Image = "rbxassetid://".._G.CustomCursor
+			if not game.Players.LocalPlayer.PlayerGui:FindFirstChild("GunGui").FollowMouse.NewCustomCursor then
+				local NewCursor = Instance.new("ImageLabel")
+				NewCursor.Size = game.Players.LocalPlayer.PlayerGui:FindFirstChild("GunGui").FollowMouse.Cursor.Size
+				NewCursor.Image = "rbxassetid://".._G.CustomCursor
+				NewCursor.BackgroundTransparency = 1
+				NewCursor.ImageColor3 = game.Players.LocalPlayer.PlayerGui:FindFirstChild("GunGui").FollowMouse.Cursor.ImageColor3
+				NewCursor.ImageTransparency = game.Players.LocalPlayer.PlayerGui:FindFirstChild("GunGui").FollowMouse.Cursor.ImageTransparency
+				NewCursor.ZIndex = game.Players.LocalPlayer.PlayerGui:FindFirstChild("GunGui").FollowMouse.Cursor.ZIndex
+				NewCursor.AnchorPoint = game.Players.LocalPlayer.PlayerGui:FindFirstChild("GunGui").FollowMouse.Cursor.AnchorPoint
+				NewCursor.Name = "NewCustomCursor"
+				
+				game.Players.LocalPlayer.PlayerGui:FindFirstChild("GunGui").FollowMouse.Cursor:Destroy()
+			end
+			
+			game.Players.LocalPlayer.PlayerGui:FindFirstChild("GunGui").FollowMouse.NewCustomCursor.Image = "rbxassetid://".._G.CustomCursor
 		end
 	end,
 	DoubleClick = false,
@@ -773,7 +794,7 @@ CrosshairRightVisualGroupBox:AddSlider('PixelSize', {
 task.spawn(function()
 	while wait() do
 		if game.Players.LocalPlayer.PlayerGui:FindFirstChild("GunGui") then
-			updateImageSize(game.Players.LocalPlayer.PlayerGui:FindFirstChild("GunGui").FollowMouse.Cursor)
+			updateImageSize(game.Players.LocalPlayer.PlayerGui:FindFirstChild("GunGui").FollowMouse.NewCustomCursor)
 		end
 	end
 end)
