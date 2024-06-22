@@ -29,6 +29,7 @@ end
 local LeftVisualGroupBox = Tabs.Visual:AddLeftGroupbox('ESP')
 local ChamsRightVisualGroupBox = Tabs.Visual:AddRightGroupbox('CHAMS')
 local GunsLeftVisualGroupBox = Tabs.Visual:AddLeftGroupbox('GUN MODS')
+local CrosshairRightVisualGroupBox = Tabs.Visual:AddRightGroupbox('CROSSHAIR')
 
 _G.ESPTeamCheck = false
 _G.ESPEnabled = false
@@ -45,6 +46,10 @@ _G.CHAMSEnabled = false
 _G.CHAMSShowTeams = true
 
 _G.TurnRainbowEnabled = false
+
+_G.DefaultCursor = "9373275104"
+_G.CustomCursor = "9373275104"
+_G.CursorColor = Color3.fromRGB(game.Players.LocalPlayer.PlayerGui:FindFirstChild("GunGui").FollowMouse.Cursor.ImageColor)
 
 local ESPLines = {}
 
@@ -714,6 +719,31 @@ local MyButton = GunsLeftVisualGroupBox:AddButton({
 GunsLeftVisualGroupBox:AddDivider()
 
 GunsLeftVisualGroupBox:AddLabel('[MORE TO COME]')
+
+CrosshairRightVisualGroupBox:AddInput('CrosshairImage', {
+	Default = _G.DefaultCursor,
+	Numeric = true,
+	Finished = false,
+
+	Text = 'Image',
+	Tooltip = 'Changes the image of your cursor',
+	Placeholder = '',
+
+	Callback = function(Value)
+		_G.CustomCursor = Value
+	end
+})
+
+local AFMyButton = CrosshairRightVisualGroupBox:AddButton({
+	Text = 'Set',
+	Func = function()
+		if game.Players.LocalPlayer.PlayerGui:FindFirstChild("GunGui") then
+			game.Players.LocalPlayer.PlayerGui:FindFirstChild("GunGui").FollowMouse.Cursor.Image = "rbxassetid://".._G.CustomCursor
+		end
+	end,
+	DoubleClick = false,
+	Tooltip = 'Sets the cursor to what you putted'
+})
 
 local LeftGroupBox = Tabs.Debugging:AddLeftGroupbox('Remotes')
 
