@@ -83,11 +83,9 @@ local function updateImageSize(Image)
 	local mouse = player:GetMouse()
 
 	local function onMouseMove()
-		local position = Vector2.new(mouse.X, mouse.Y)
-		local size = Vector2.new(mouse.ViewSizeX, mouse.ViewSizeY)
-		local normalizedPosition = position / size
-		
-		Image.Position = normalizedPosition
+		local InputService = game:GetService('UserInputService');
+		local mPos = InputService:GetMouseLocation();
+		Image.Position = Vector2.new(mPos.X, mPos.Y);
 	end
 	
 	mouse.Move:Connect(onMouseMove)
