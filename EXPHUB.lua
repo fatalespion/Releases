@@ -911,7 +911,7 @@ game.UserInputService.InputBegan:Connect(function(input)
 	if Settings.BulletTracers then
 		if input.UserInputType == Enum.UserInputType.MouseButton1 then
 			if HasGun then
-				Tracer(game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart"), Camera.CFrame.Position + Camera.CFrame.LookVector * 1000)
+				Tracer(game.Players.LocalPlayer.Character:FindFirstChild("Right Arm").Position, Camera.CFrame.Position + Camera.CFrame.LookVector * 1000)
 			end
 		end
 	end
