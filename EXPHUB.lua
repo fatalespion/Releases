@@ -179,7 +179,7 @@ local function TurnRainbow()
 		game.Players.LocalPlayer.Character.ChildAdded:Connect(function(model)
 			if model.Name == "ServerGunModel" then
 				if game.Players.LocalPlayer.Character:FindFirstChild("ServerGunModel") then
-					task.wait(0.4)
+					task.wait(0.2)
 					for i,v in pairs(game.Players.LocalPlayer.Character:FindFirstChild("ServerGunModel"):GetChildren()) do
 						if v:IsA("MeshPart") then
 							if v:FindFirstChildWhichIsA("SurfaceAppearance") then
