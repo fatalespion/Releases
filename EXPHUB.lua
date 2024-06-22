@@ -428,7 +428,7 @@ local function StartESP()
 
 		function lineesp()
 			game:GetService("RunService").RenderStepped:Connect(function()
-				if v then
+				if v.Transparency == 0 then
 					local Vector, OnScreen = camera:WorldToViewportPoint(v.Position)
 
 					if _G.ESPEnabled then
@@ -436,19 +436,15 @@ local function StartESP()
 							Tracer.From = Vector2.new(camera.ViewportSize.X / 2, camera.ViewportSize.Y / 1)
 							Tracer.To = Vector2.new(Vector.X, Vector.Y)
 
-							if v.Color == Color3.fromRGB(255,63,63) and _G.ESPDeathBag then
+							if _G.ESPDeathBag == true  and v.Color == Color3.fromRGB(255,63,63) then
 								Tracer.Color = _G.ESPDeathBagColor
 								Tracer.Visible = true
-							elseif v.Color == Color3.fromRGB(0,127,255) and _G.ESPNpcBag then
+							elseif _G.ESPNpcBag == true and v.Color == Color3.fromRGB(0,127,255) and v.Name == "DeathBag"  then
 								Tracer.Color = _G.ESPNpcBagColor
 								Tracer.Visible = true
-							elseif v.Color == Color3.fromRGB(0,127,255) and v.Name == "DuffelBag" and _G.ESPDropBag then
+							elseif _G.ESPDropBag == true and v.Color == Color3.fromRGB(0,127,255) and v.Name == "DuffelBag"  then
 								Tracer.Color = _G.ESPDropBagColor
 								Tracer.Visible = true
-							end
-							
-							if v.Transparency == 1 then
-								Tracer.Visible = false
 							end
 						else
 							Tracer.Visible = false
