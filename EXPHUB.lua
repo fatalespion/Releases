@@ -30,6 +30,9 @@ local LeftVisualGroupBox = Tabs.Visual:AddLeftGroupbox('ESP')
 local ChamsRightVisualGroupBox = Tabs.Visual:AddRightGroupbox('CHAMS')
 local GunsLeftVisualGroupBox = Tabs.Visual:AddLeftGroupbox('GUN MODS')
 local CrosshairRightVisualGroupBox = Tabs.Visual:AddRightGroupbox('CROSSHAIR')
+local TracerLeftVisualGroupBox = Tabs.Visual:AddLeftGroupbox('TRACER')
+
+local HasGun = false
 
 _G.ESPTeamCheck = false
 _G.ESPEnabled = false
@@ -164,8 +167,38 @@ end
 
 StartCHAMS()
 
+local Settings = {
+	BulletTracers = false,
+	BulletTraceMeterial = "ForceField",
+	BulletTracersColor = Color3.new(255, 0, 0),
+}
+
+local Tracer = function(begin, endpos)
+	local tracer = Instance.new("Part")
+	tracer.Anchored = true
+	tracer.CanCollide = false
+	tracer.Material = Settings.BulletTraceMeterial
+	tracer.Color = Settings.BulletTracersColor
+	tracer.Size = Vector3.new(0.1, 0.1, (begin - endpos).Magnitude)
+	tracer.CFrame = CFrame.new(begin, endpos) * CFrame.new(0, 0, -tracer.Size.Z / 2)
+	tracer.Parent = workspace
+	game.Debris:AddItem(tracer, 0.1)
+end
+
 game.Players.LocalPlayer.Character.ChildAdded:Connect(function(model)
 	if model.Name == "ServerGunModel" then
+		HasGun = true
+		
+		game.UserInputService.InputBegan:Connect(function(input)
+			if Settings.BulletTracers then
+				if input.UserInputType == Enum.UserInputType.MouseButton1 then
+					if HasGun then
+						Tracer(model.WeaponRootPart.Muzzle.WorldPosition, Camera.CFrame.Position + Camera.CFrame.LookVector * 1000)
+					end
+				end
+			end
+		end)
+		
 		if game.Players.LocalPlayer.PlayerGui:FindFirstChild("GunGui") then
 			if game.Players.LocalPlayer.PlayerGui:FindFirstChild("GunGui").FollowMouse.NewCustomCursor then
 				game.Players.LocalPlayer.PlayerGui:FindFirstChild("GunGui").FollowMouse.NewCustomCursor.Visible = false
@@ -176,6 +209,7 @@ end)
 
 game.Players.LocalPlayer.Character.ChildRemoved:Connect(function(model)
 	if model.Name == "ServerGunModel" then
+		HasGun = false
 		if game.Players.LocalPlayer.PlayerGui:FindFirstChild("GunGui") then
 			if game.Players.LocalPlayer.PlayerGui:FindFirstChild("GunGui").FollowMouse.NewCustomCursor then
 				game.Players.LocalPlayer.PlayerGui:FindFirstChild("GunGui").FollowMouse.NewCustomCursor.Visible = true
@@ -849,6 +883,38 @@ task.spawn(function()
 	end
 end)
 
+TracerLeftVisualGroupBox:AddToggle('Bullet Tracers', {
+	Text = 'Enable',
+	Default = false,
+	Tooltip = 'Bullet Tracers',
+	Callback = function(Value)
+		Settings.BulletTracers = Value
+	end
+})
+
+TracerLeftVisualGroupBox:AddLabel('Bullet Color'):AddColorPicker('ColorPicker', {
+	Default = Color3.new(1, 1, 1),
+	Title = 'Bullet Color',
+	Transparency = 0,
+
+	Callback = function(Value)
+		Settings.BulletTracersColor = Value
+	end
+})
+
+TracerLeftVisualGroupBox:AddDropdown('Material', {
+	Values = { 'ForceField', 'SmoothPlastic', 'Plastic', 'Neon', 'Glass', 'Grass', 'Wood', 'Slate', 'Concrete', 'CorrodedMetal', 'DiamondPlate', 'Foil', 'Granite', 'Marble', 'Brick', 'Pebble', 'Sand', 'Fabric', 'SmoothPlastic', 'Metal', 'Ice', 'ForceField'},
+	Default = 1, 
+	Multi = false,
+
+	Text = 'Bullet Tracers Material',
+	Tooltip = 'Material',
+
+	Callback = function(Value)
+		Settings.BulletTraceMeterial = Value
+	end
+})
+
 local LeftGroupBox = Tabs.Debugging:AddLeftGroupbox('Remotes')
 
 LeftGroupBox:AddLabel('This allows you to run any remote of your choice')
@@ -1013,6 +1079,7 @@ Library:OnUnload(function()
 	print('Unloaded!')
 	Library.Unloaded = true
 end)
+
 
 local MenuGroup = Tabs['HUD']:AddLeftGroupbox('Menu')
 
