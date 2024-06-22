@@ -46,6 +46,12 @@ _G.ESPHealthBar = false
 _G.ESPShowBox = true
 _G.ESPTracerColor = Color3.fromRGB(103, 89, 179)
 _G.ESPBoxColor = Color3.fromRGB(103, 89, 179)
+_G.ESPDeathBagColor = Color3.fromRGB(179, 42, 44)
+_G.ESPDropBagColor = Color3.fromRGB(68, 179, 55)
+_G.ESPNpcBagColor = Color3.fromRGB(45, 179, 163)
+_G.ESPDeathBag = false
+_G.ESPNpcBag = false
+_G.ESPDropBag = false
 
 _G.CHAMSEnemyColor = Color3.fromRGB(255, 84, 87)
 _G.CHAMSTeamColor = Color3.fromRGB(103, 89, 179)
@@ -362,7 +368,95 @@ local function StartESP()
 
 	local HeadOff = Vector3.new(0, 0.5, 0)
 	local LegOff = Vector3.new(0,3,0)
+	
+	for i,v in pairs(game.Workspace.Debris.Loot:GetChildren()) do
+		local Tracer = Drawing.new("Line")
+		Tracer.Visible = false
 
+		Tracer.Thickness = 1
+		Tracer.Transparency = 1
+
+		
+		function lineesp()
+			game:GetService("RunService").RenderStepped:Connect(function()
+				if v then
+					local Vector, OnScreen = camera:WorldToViewportPoint(v.Character.HumanoidRootPart.Position)
+
+					if _G.ESPEnabled then
+						if OnScreen then
+							Tracer.From = Vector2.new(camera.ViewportSize.X / 2, camera.ViewportSize.Y / 1)
+							Tracer.To = Vector2.new(Vector.X, Vector.Y)
+
+							if v.Color == Color3.fromRGB(255,63,63) then
+								Tracer.Color = _G.ESPDeathBagColor
+							elseif v.Color == Color3.fromRGB(0,127,255) then
+								Tracer.Color = _G.ESPNpcBagColor
+							elseif v.Color == Color3.fromRGB(0,127,255) and v.Name == "DuffelBag" then
+								Tracer.Color = _G.ESPDropBagColor
+							end
+
+							if not _G.ESPShowTracers  then
+								Tracer.Visible = false
+							end
+						else
+							Tracer.Visible = false
+						end
+					else
+						Tracer.Visible = false
+					end
+				else
+					Tracer.Visible = false
+				end
+			end)
+		end
+		
+		task.spawn(function()
+			coroutine.wrap(lineesp)()
+		end)
+	end
+	
+	game.Workspace.Debris.Loot.ChildAdded:Connect(function(v)
+		local Tracer = Drawing.new("Line")
+		Tracer.Visible = false
+
+		Tracer.Thickness = 1
+		Tracer.Transparency = 1
+
+
+		function lineesp()
+			game:GetService("RunService").RenderStepped:Connect(function()
+				if v then
+					local Vector, OnScreen = camera:WorldToViewportPoint(v.Character.HumanoidRootPart.Position)
+
+					if _G.ESPEnabled then
+						if OnScreen then
+							Tracer.From = Vector2.new(camera.ViewportSize.X / 2, camera.ViewportSize.Y / 1)
+							Tracer.To = Vector2.new(Vector.X, Vector.Y)
+
+							if v.Color == Color3.fromRGB(255,63,63) and _G.ESPDeathBag then
+								Tracer.Color = _G.ESPDeathBagColor
+							elseif v.Color == Color3.fromRGB(0,127,255) and _G.ESPNpcBag then
+								Tracer.Color = _G.ESPNpcBagColor
+							elseif v.Color == Color3.fromRGB(0,127,255) and v.Name == "DuffelBag" and _G.ESPDropBag then
+								Tracer.Color = _G.ESPDropBagColor
+							end
+						else
+							Tracer.Visible = false
+						end
+					else
+						Tracer.Visible = false
+					end
+				else
+					Tracer.Visible = false
+				end
+			end)
+		end
+
+		task.spawn(function()
+			coroutine.wrap(lineesp)()
+		end)
+	end)
+	
 	for i,v in pairs(game.Players:GetChildren()) do
 		local Tracer = Drawing.new("Line")
 		Tracer.Visible = false
@@ -715,6 +809,36 @@ LeftVisualGroupBox:AddToggle('ShowHealthBar', {
 	end
 })
 
+LeftVisualGroupBox:AddToggle('DeathBag', {
+	Text = 'Show Death Bags',
+	Default = false, -- Default value (true / false)
+	Tooltip = 'Shows all of the players death bags', -- Information shown when you hover over the toggle
+
+	Callback = function(Value)
+		_G.ESPDeathBag = Value
+	end
+})
+
+LeftVisualGroupBox:AddToggle('NPCDeathBag', {
+	Text = 'Show NPC Death Bags',
+	Default = false, -- Default value (true / false)
+	Tooltip = 'Shows all of the NPCS death bags', -- Information shown when you hover over the toggle
+
+	Callback = function(Value)
+		_G.ESPNpcBag = Value
+	end
+})
+
+LeftVisualGroupBox:AddToggle('DropBag', {
+	Text = 'Show Drop Bags',
+	Default = false, -- Default value (true / false)
+	Tooltip = 'Shows all of the Dropped item bags', -- Information shown when you hover over the toggle
+
+	Callback = function(Value)
+		_G.ESPDropBag = Value
+	end
+})
+
 LeftVisualGroupBox:AddDivider()
 
 LeftVisualGroupBox:AddLabel('Tracer Color'):AddColorPicker('ESPColorPicker', {
@@ -737,9 +861,37 @@ LeftVisualGroupBox:AddLabel('Box Color'):AddColorPicker('ESPBoxColorPicker', {
 	end
 })
 
-LeftVisualGroupBox:AddLabel('if you are using the healthbar')
-LeftVisualGroupBox:AddLabel('use non vibrant color for better') --
-LeftVisualGroupBox:AddLabel('visibility')
+LeftVisualGroupBox:AddDivider()
+
+LeftVisualGroupBox:AddLabel('DeathBag Color'):AddColorPicker('ESPDeathBagColorPicker', {
+	Default = Color3.fromRGB(179, 42, 44), -- Bright green
+	Title = 'DeathBags Color', -- Optional. Allows you to have a custom color picker title (when you open it)
+	Transparency = 0, -- Optional. Enables transparency changing for this color picker (leave as nil to disable)
+
+	Callback = function(Value)
+		_G.ESPDeathBagColor = Value
+	end
+})
+
+LeftVisualGroupBox:AddLabel('NPCDeath Color'):AddColorPicker('ESPNPCDeathBagColorPicker', {
+	Default = Color3.fromRGB(45, 179, 163), -- Bright green
+	Title = 'NPC DeathBags Color', -- Optional. Allows you to have a custom color picker title (when you open it)
+	Transparency = 0, -- Optional. Enables transparency changing for this color picker (leave as nil to disable)
+
+	Callback = function(Value)
+		_G.ESPNpcBagColor = Value
+	end
+})
+
+LeftVisualGroupBox:AddLabel('Drpped Color'):AddColorPicker('ESPDroppedBagColorPicker', {
+	Default = Color3.fromRGB(68, 179, 55), -- Bright green
+	Title = 'Dropped Bags Color', -- Optional. Allows you to have a custom color picker title (when you open it)
+	Transparency = 0, -- Optional. Enables transparency changing for this color picker (leave as nil to disable)
+
+	Callback = function(Value)
+		_G.ESPDropBagColor = Value
+	end
+})
 
 ChamsRightVisualGroupBox:AddToggle('EnableChams', {
 	Text = 'Enable',
