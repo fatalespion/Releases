@@ -9,7 +9,7 @@ local ThemeManager = loadstring(game:HttpGet(repo .. 'violin-suzutsuki/LinoriaLi
 local SaveManager = loadstring(game:HttpGet(repo .. 'violin-suzutsuki/LinoriaLib/main/addons/SaveManager.lua'))()
 
 local Window = Library:CreateWindow({
-	Title = 'EXP HUB | Game: Blackout | BETA',
+	Title = 'NEBULA HUB | Game: Blackout | BETA',
 	Center = true,
 	AutoShow = true,
 	TabPadding = 8,
