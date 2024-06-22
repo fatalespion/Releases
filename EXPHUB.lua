@@ -491,10 +491,6 @@ LeftVisualGroupBox:AddToggle('ShowHealthBar', {
 
 LeftVisualGroupBox:AddDivider()
 
-
-LeftVisualGroupBox:AddLabel('WARNING: if you are using the healthbar') --makes sure you are using non vibrant color to see it better
-LeftVisualGroupBox:AddLabel('makes sure you are using non vibrant color to see it better') --
-
 LeftVisualGroupBox:AddLabel('Tracer Color'):AddColorPicker('ESPColorPicker', {
 	Default = Color3.fromRGB(0, 255, 140), -- Bright green
 	Title = 'Tracer Color', -- Optional. Allows you to have a custom color picker title (when you open it)
@@ -514,6 +510,9 @@ LeftVisualGroupBox:AddLabel('Box Color'):AddColorPicker('ESPBoxColorPicker', {
 		_G.ESPBoxColor = Value
 	end
 })
+
+LeftVisualGroupBox:AddLabel('if you are using the healthbar')
+LeftVisualGroupBox:AddLabel('use non vibrant color for better visibility')
 
 ChamsRightVisualGroupBox:AddToggle('EnableChams', {
 	Text = 'Enable',
