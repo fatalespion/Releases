@@ -67,14 +67,18 @@ function create(instance, instanceStats, parent, player)
 						if _G.CHAMSShowTeams then
 							if player.TeamColor == lplr.TeamColor then
 								newinstance.FillColor = _G.CHAMSTeamColor
-								newinstance.Enabled = true
+								newinstance.Enabled = false
 							else
 								newinstance.FillColor = _G.CHAMSEnemyColor
 							end
 						elseif not _G.CHAMSShowTeams then
 							if player.TeamColor == lplr.TeamColor then
-								newinstance.Enabled = true
-								newinstance.FillColor = _G.CHAMSEnemyColor
+								if player.TeamColor == nil then
+									newinstance.Enabled = true
+									newinstance.FillColor = _G.CHAMSEnemyColor
+								else
+									newinstance.Enabled = false
+								end
 							else
 								newinstance.Enabled = true
 								newinstance.FillColor = _G.CHAMSEnemyColor
@@ -118,11 +122,13 @@ function StartCHAMS()
 	game.Players.PlayerAdded:Connect(function(v)
 		if v.Character ~= nil and v ~= lplr then
 			create("Highlight", ChamsStats, v.Character, v)
-
-			v.CharacterAdded:Connect(function()
-				create("Highlight", ChamsStats, v.Character, v)
-			end)
 		end
+		
+		v.CharacterAdded:Connect(function()
+			if v.Character ~= nil and v ~= lplr then
+				create("Highlight", ChamsStats, v.Character, v)
+			end
+		end)
 	end)
 end
 
