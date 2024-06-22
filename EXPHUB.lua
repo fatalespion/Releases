@@ -28,6 +28,7 @@ end
 
 local LeftVisualGroupBox = Tabs.Visual:AddLeftGroupbox('ESP')
 local ChamsRightVisualGroupBox = Tabs.Visual:AddRightGroupbox('CHAMS')
+local GunsLeftVisualGroupBox = Tabs.Visual:AddLeftGroupbox('GUN MODS')
 
 _G.ESPTeamCheck = false
 _G.ESPEnabled = false
@@ -42,6 +43,8 @@ _G.CHAMSEnemyColor = Color3.fromRGB(255, 84, 87)
 _G.CHAMSTeamColor = Color3.fromRGB(0, 255, 140)
 _G.CHAMSEnabled = false
 _G.CHAMSShowTeams = true
+
+_G.TurnRainbowEnabled = false
 
 local ESPLines = {}
 
@@ -133,6 +136,119 @@ function StartCHAMS()
 end
 
 StartCHAMS()
+
+local function TurnRainbow()
+	local RunService = game:GetService("RunService")
+	local SPEED = 0.1
+	
+	if _G.TurnRainbowEnabled then
+		game.Players.LocalPlayer.Character.Changed:Connect(function()
+			if game.Players.LocalPlayer.Character:FindFirstChildWhichIsA("Tool") then
+				local tool = game.Players.LocalPlayer.Character:FindFirstChildWhichIsA("Tool")
+				
+				if tool:GetAttribute("Rainbowfied") then
+					return
+				end
+				
+				tool:SetAttribute("Rainbowfied", true)
+				
+				tool.Equipped:Connect(function()
+					if workspace.CurrentCamera:FindFirstChild("ViewModel") then
+						for i,v in pairs(workspace.CurrentCamera:FindFirstChild("ViewModel"):GetDescendants()) do
+							if v:IsA("MeshPart") then
+								if v:FindFirstChildWhichIsA("SurfaceAppearance") then
+									v:FindFirstChildWhichIsA("SurfaceAppearance"):Destroy()
+								end
+
+								local i = 0
+								RunService.RenderStepped:Connect(function(delta)
+									v.Color = Color3.fromHSV(i,1,1)
+									i = (i + delta*SPEED) % 1
+								end)
+
+								v.Material = Enum.Material.ForceField
+							end    
+						end    
+					end
+
+					if game.Players.LocalPlayer.Character:FindFirstChild("ServerGunModel") then
+						for i,v in pairs(game.Players.LocalPlayer.Character:FindFirstChild("ServerGunModel"):GetChildren()) do
+							if v:IsA("MeshPart") then
+								if v:FindFirstChildWhichIsA("SurfaceAppearance") then
+									v:FindFirstChildWhichIsA("SurfaceAppearance"):Destroy()
+								end
+
+								local i = 0
+								RunService.RenderStepped:Connect(function(delta)
+									v.Color = Color3.fromHSV(i,1,1)
+									i = (i + delta*SPEED) % 1
+								end)
+
+								v.Material = Enum.Material.ForceField
+							end    
+						end 
+					end
+				end)
+			end
+		end)
+		
+		if workspace.CurrentCamera:FindFirstChild("ViewModel") then
+			for i,v in pairs(workspace.CurrentCamera:FindFirstChild("ViewModel"):GetDescendants()) do
+				if v:IsA("MeshPart") then
+					if v:FindFirstChildWhichIsA("SurfaceAppearance") then
+						v:FindFirstChildWhichIsA("SurfaceAppearance"):Destroy()
+					end
+
+					local i = 0
+					RunService.RenderStepped:Connect(function(delta)
+						v.Color = Color3.fromHSV(i,1,1)
+						i = (i + delta*SPEED) % 1
+					end)
+
+					v.Material = Enum.Material.ForceField
+				end    
+			end    
+		end
+
+		if game.Players.LocalPlayer.Character:FindFirstChild("ServerGunModel") then
+			for i,v in pairs(game.Players.LocalPlayer.Character:FindFirstChild("ServerGunModel"):GetChildren()) do
+				if v:IsA("MeshPart") then
+					if v:FindFirstChildWhichIsA("SurfaceAppearance") then
+						v:FindFirstChildWhichIsA("SurfaceAppearance"):Destroy()
+					end
+
+					local i = 0
+					RunService.RenderStepped:Connect(function(delta)
+						v.Color = Color3.fromHSV(i,1,1)
+						i = (i + delta*SPEED) % 1
+					end)
+
+					v.Material = Enum.Material.ForceField
+				end    
+			end 
+		end
+		
+		if game.Players.LocalPlayer.Character:FindFirstChild("Left Arm") then
+			game.Players.LocalPlayer.Character:FindFirstChild("Left Arm").Material = Enum.Material.ForceField
+
+			local i = 0
+			RunService.RenderStepped:Connect(function(delta)
+				game.Players.LocalPlayer.Character:FindFirstChild("Left Arm").Color = Color3.fromHSV(i,1,1)
+				i = (i + delta*SPEED) % 1
+			end)
+		end
+
+		if game.Players.LocalPlayer.Character:FindFirstChild("Right Arm") then
+			game.Players.LocalPlayer.Character:FindFirstChild("Right Arm").Material = Enum.Material.ForceField
+
+			local i = 0
+			RunService.RenderStepped:Connect(function(delta)
+				game.Players.LocalPlayer.Character:FindFirstChild("Right Arm").Color = Color3.fromHSV(i,1,1)
+				i = (i + delta*SPEED) % 1
+			end)
+		end
+	end
+end
 
 local function StartESP()
 	local lplr = game.Players.LocalPlayer
@@ -560,6 +676,20 @@ ChamsRightVisualGroupBox:AddLabel('Team Color'):AddColorPicker('ChamsTeamColorPi
 		_G.CHAMSTeamColor = Value
 	end
 })
+
+local MyButton = GunsLeftVisualGroupBox:AddButton({
+	Text = 'Rainbowfy',
+	Func = function()
+		_G.TurnRainbowEnabled = true
+		TurnRainbow()
+	end,
+	DoubleClick = false,
+	Tooltip = 'Turns anygun you have into rainbow'
+})
+
+GunsLeftVisualGroupBox:AddDivider()
+
+GunsLeftVisualGroupBox:AddLabel('[MORE TO COME]')
 
 local LeftGroupBox = Tabs.Debugging:AddLeftGroupbox('Remotes')
 
