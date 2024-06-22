@@ -389,10 +389,13 @@ local function StartESP()
 
 							if v.Color == Color3.fromRGB(255,63,63) then
 								Tracer.Color = _G.ESPDeathBagColor
+								Tracer.Visible = true
 							elseif v.Color == Color3.fromRGB(0,127,255) then
 								Tracer.Color = _G.ESPNpcBagColor
+								Tracer.Visible = true
 							elseif v.Color == Color3.fromRGB(0,127,255) and v.Name == "DuffelBag" then
 								Tracer.Color = _G.ESPDropBagColor
+								Tracer.Visible = true
 							end
 
 							if not _G.ESPShowTracers  then
@@ -435,10 +438,13 @@ local function StartESP()
 
 							if v.Color == Color3.fromRGB(255,63,63) and _G.ESPDeathBag then
 								Tracer.Color = _G.ESPDeathBagColor
+								Tracer.Visible = true
 							elseif v.Color == Color3.fromRGB(0,127,255) and _G.ESPNpcBag then
 								Tracer.Color = _G.ESPNpcBagColor
+								Tracer.Visible = true
 							elseif v.Color == Color3.fromRGB(0,127,255) and v.Name == "DuffelBag" and _G.ESPDropBag then
 								Tracer.Color = _G.ESPDropBagColor
+								Tracer.Visible = true
 							end
 						else
 							Tracer.Visible = false
