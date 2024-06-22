@@ -757,7 +757,7 @@ local AFMyButton = CrosshairRightVisualGroupBox:AddButton({
 	Text = 'Set',
 	Func = function()
 		if game.Players.LocalPlayer.PlayerGui:FindFirstChild("GunGui") then
-			if not game.Players.LocalPlayer.PlayerGui:FindFirstChild("GunGui").FollowMouse.NewCustomCursor then
+			if not game.Players.LocalPlayer.PlayerGui:FindFirstChild("GunGui").FollowMouse:FindFirstChild("NewCustomCursor") then
 				local NewCursor = Instance.new("ImageLabel")
 				NewCursor.Size = game.Players.LocalPlayer.PlayerGui:FindFirstChild("GunGui").FollowMouse.Cursor.Size
 				NewCursor.Image = "rbxassetid://".._G.CustomCursor
