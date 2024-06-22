@@ -44,11 +44,11 @@ _G.ESPLocal = false
 _G.ESPShowTracers = true
 _G.ESPHealthBar = false
 _G.ESPShowBox = true
-_G.ESPTracerColor = Color3.fromRGB(0, 255, 140)
-_G.ESPBoxColor = Color3.fromRGB(0, 255, 140)
+_G.ESPTracerColor = Color3.fromRGB(103, 89, 179)
+_G.ESPBoxColor = Color3.fromRGB(103, 89, 179)
 
 _G.CHAMSEnemyColor = Color3.fromRGB(255, 84, 87)
-_G.CHAMSTeamColor = Color3.fromRGB(0, 255, 140)
+_G.CHAMSTeamColor = Color3.fromRGB(103, 89, 179)
 _G.CHAMSEnabled = false
 _G.CHAMSShowTeams = true
 
@@ -1102,6 +1102,6 @@ SaveManager:SetFolder('EXPHUB'..game.PlaceId)
 SaveManager:BuildConfigSection(Tabs['HUD'])
 
 ThemeManager:ApplyToTab(Tabs['HUD'])
-ThemeManager:ApplyTheme("Mint")
+ThemeManager:ApplyTheme("Tokyo Night")
 
 SaveManager:LoadAutoloadConfig()
