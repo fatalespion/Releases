@@ -910,19 +910,19 @@ if qNVAKkuwxNpqruLjSRHg == true then
 		Tooltip = 'Shows all of the players nametags', -- Information shown when you hover over the toggle
 
 		Callback = function(Value)
-			if Value == false then
+			if Value == true then
 				for i,v in pairs(game.Workspace.Debris.Guis:GetChildren()) do
 					v.MaxDistance = 20
 					v.Size = UDim2.new(2.5,0, 0.9,0)
-					v.SizeOffset = UDim2.new(0, 3.75)
+					v.SizeOffset = Vector2.new(0, 3.75)
 					v.StudsOffset = Vector3.new(0,0,1)
 					v.AlwaysOnTop = false
 				end
-			elseif Value == true then
+			elseif Value == false then
 				for i,v in pairs(game.Workspace.Debris.Guis:GetChildren()) do
 					v.MaxDistance = 999999999999
 					v.Size = UDim2.new(0,200, 0,30)
-					v.SizeOffset = UDim2.new(0, 0)
+					v.SizeOffset = Vector2.new(0, 0)
 					v.StudsOffset = Vector3.new(0,0,0)
 					v.AlwaysOnTop = true
 				end
@@ -1169,12 +1169,12 @@ if qNVAKkuwxNpqruLjSRHg == true then
 		Default = false,
 		Tooltip = 'be a bat',
 		Callback = function(Value)
-			if Value == false then
+			if Value == true then
 				local ColorCorrection = Instance.new("ColorCorrectionEffect")
 				ColorCorrection.Brightness = 0.1
 				ColorCorrection.Parent = Camera
 				ColorCorrection.Name = "fullbrightness"
-			elseif Value == true then
+			elseif Value == false then
 				Camera:FindFirstChild("fullbrightness"):Destroy()
 			end
 		end
