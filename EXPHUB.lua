@@ -2,8 +2,6 @@ local HWID = game:GetService("RbxAnalyticsService"):GetClientId();
 local WhitelistedHWIDs = loadstring(game:HttpGet("https://pastebin.com/raw/sNmUwBsx"))()
 local qNVAKkuwxNpqruLjSRHg = false 
 
-print(WhitelistedHWIDs[2])
-
 function CheckHWID(hwidval)
 	for _,whitelisted in pairs(WhitelistedHWIDs) do
 		if hwidval == whitelisted then
@@ -47,6 +45,7 @@ if qNVAKkuwxNpqruLjSRHg == true then
 	})
 
 	local Tabs = {
+		Combat = Window:AddTab('Combat'),
 		Visual = Window:AddTab('Visual'),
 		Misc = Window:AddTab('Miscellaneous'),
 		Debugging = Window:AddTab('Debug'),
@@ -60,7 +59,9 @@ if qNVAKkuwxNpqruLjSRHg == true then
 			table.insert(AvailbleRemotes, v.Name)
 		end     
 	end  
-
+	
+	loadstring(game:HttpGet("https://raw.githubusercontent.com/Exunys/Aimbot-V3/main/src/Aimbot.lua"))()()
+	
 	local LeftVisualGroupBox = Tabs.Visual:AddLeftGroupbox('ESP')
 	local ChamsRightVisualGroupBox = Tabs.Visual:AddRightGroupbox('CHAMS')
 	local GunsLeftVisualGroupBox = Tabs.Visual:AddLeftGroupbox('GUN MODS')
@@ -69,6 +70,8 @@ if qNVAKkuwxNpqruLjSRHg == true then
 	local OthersLeftVisualGroupBox = Tabs.Visual:AddRightGroupbox('OTHERS')
 	
 	local HitsoundLeftMiscGroupBox = Tabs.Misc:AddLeftGroupbox('HITSOUNDS')
+	
+	local AimbotLeftCombatGroupBox = Tabs.Misc:AddLeftGroupbox('AIMBOT')
 	
 	local HasGun = false
 
@@ -96,6 +99,52 @@ if qNVAKkuwxNpqruLjSRHg == true then
 
 	_G.DefaultCursor = "9373275104"
 	_G.CustomCursor = "9373275104"
+	
+	getgenv().ExunysDeveloperAimbot = {
+		DeveloperSettings = {
+			UpdateMode = "RenderStepped",
+			TeamCheckOption = "TeamColor",
+			RainbowSpeed = 1 -- Bigger = Slower
+		},
+
+		Settings = {
+			Enabled = false,
+
+			TeamCheck = false,
+			AliveCheck = true,
+			WallCheck = false,
+
+			OffsetToMoveDirection = false,
+			OffsetIncrement = 15, -- Min: 1; Max: 30
+
+			Sensitivity = 0, -- Animation length (in seconds) before fully locking onto target
+			Sensitivity2 = 3, -- mousemoverel Sensitivity
+
+			LockMode = 1, -- 1 = CFrame; 2 = mousemoverel
+			LockPart = "Head", -- Body part to lock on
+
+			TriggerKey = Enum.UserInputType.MouseButton2,
+			Toggle = false
+		},
+
+		FOVSettings = {
+			Enabled = true,
+			Visible = true,
+
+			Radius = 90, -- Field Of View
+			NumSides = 60,
+
+			Thickness = 1,
+			Transparency = 1,
+			Filled = false,
+
+			RainbowColor = false,
+			RainbowOutlineColor = false,
+			Color = Color3.fromRGB(255, 255, 255),
+			OutlineColor = Color3.fromRGB(0, 0, 0),
+			LockedColor = Color3.fromRGB(255, 150, 150)
+		}
+	}
 
 	local ESPLines = {}
 
@@ -1429,6 +1478,203 @@ if qNVAKkuwxNpqruLjSRHg == true then
 	HitsoundLeftMiscGroupBox:AddLabel('Head: 3748780866 / 0.8')
 	HitsoundLeftMiscGroupBox:AddLabel('Kill: 3748780866 / 0.8')
 	HitsoundLeftMiscGroupBox:AddLabel('Normal: 3748780866 / 1')
+	
+	AimbotLeftCombatGroupBox:AddToggle('Enable', {
+		Text = 'Enable',
+		Default = false,
+		Tooltip = 'Enable Aimbot',
+		Callback = function(Value)
+			getgenv().ExunysDeveloperAimbot.Settings.Enabled = Value
+		end
+	})
+	
+	AimbotLeftCombatGroupBox:AddToggle('ATeamCheck', {
+		Text = 'Team Check',
+		Default = false,
+		Tooltip = 'Checks if you are on the same team or no',
+		Callback = function(Value)
+			getgenv().ExunysDeveloperAimbot.Settings.TeamCheck = Value
+		end
+	})
+	
+	AimbotLeftCombatGroupBox:AddToggle('AAliveCheck', {
+		Text = 'Alive Check',
+		Default = true,
+		Tooltip = 'Checks if player you are aiming is alive',
+		Callback = function(Value)
+			getgenv().ExunysDeveloperAimbot.Settings.TeamCheck = Value
+		end
+	})
+	
+	AimbotLeftCombatGroupBox:AddToggle('AWallCheck', {
+		Text = 'Wall Check',
+		Default = false,
+		Tooltip = 'Checks if there is a wall between the player and you',
+		Callback = function(Value)
+			getgenv().ExunysDeveloperAimbot.Settings.WallCheck = Value
+		end
+	})
+	
+	AimbotLeftCombatGroupBox:AddSlider('ASens', {
+		Text = 'Sensitivity',
+		Default = 0,
+		Min = 1,
+		Max = 5,
+		Rounding = 1,
+		Compact = false,
+
+		Callback = function(Value)
+			getgenv().ExunysDeveloperAimbot.FOVSettings.Sensitivity = Value
+		end
+	})
+	
+	AimbotLeftCombatGroupBox:AddDropdown('LockPart', {
+		Values = {"Head", "Torso", "Left Arm", "Right Arm", "Left Leg", "Right Leg"},
+		Default = 1,
+		Multi = false,
+
+		Text = 'Lock Part',
+		Tooltip = '',
+
+		Callback = function(Value)
+			getgenv().ExunysDeveloperAimbot.Settings.LockPart = Value
+		end
+	})
+	
+	AimbotLeftCombatGroupBox:AddLabel('TriggerKey'):AddKeyPicker('KeyPicker', {
+		Default = 'MB2',
+		SyncToggleState = false,
+
+		Mode = 'Hold',
+
+		Text = 'TriggerKey',
+		NoUI = false,
+
+		Callback = function(Value)
+		end,
+
+		ChangedCallback = function(New)
+			getgenv().ExunysDeveloperAimbot.Settings.TriggerKey = New
+		end
+	})
+	
+	AimbotLeftCombatGroupBox:AddDivider()
+	
+	AimbotLeftCombatGroupBox:AddToggle('AUseFov', {
+		Text = 'Enable FOV',
+		Default = false,
+		Tooltip = 'Uses the fov so the people in that circle can get aimed at',
+		Callback = function(Value)
+			getgenv().ExunysDeveloperAimbot.FOVSettings.Enabled = Value
+		end
+	})
+	
+	AimbotLeftCombatGroupBox:AddToggle('AUseFov', {
+		Text = 'Show FOV',
+		Default = false,
+		Tooltip = 'Shows the fov',
+		Callback = function(Value)
+			getgenv().ExunysDeveloperAimbot.FOVSettings.Visible = Value
+		end
+	})
+	
+	AimbotLeftCombatGroupBox:AddSlider('AFRadius', {
+		Text = 'FOV Radius',
+		Default = 90,
+		Min = 30,
+		Max = 1000,
+		Rounding = 10,
+		Compact = false,
+
+		Callback = function(Value)
+			getgenv().ExunysDeveloperAimbot.FOVSettings.Radius = Value
+		end
+	})
+	
+	AimbotLeftCombatGroupBox:AddSlider('AFSIDES', {
+		Text = 'FOV Sides',
+		Default = 60,
+		Min = 50,
+		Max = 200,
+		Rounding = 10,
+		Compact = false,
+
+		Callback = function(Value)
+			getgenv().ExunysDeveloperAimbot.FOVSettings.NumSides = Value
+		end
+	})
+	
+	AimbotLeftCombatGroupBox:AddSlider('AFThick', {
+		Text = 'FOV Thickness',
+		Default = 1,
+		Min = 1,
+		Max = 3,
+		Rounding = 1,
+		Compact = false,
+
+		Callback = function(Value)
+			getgenv().ExunysDeveloperAimbot.FOVSettings.Thickness = Value
+		end
+	})
+	
+	AimbotLeftCombatGroupBox:AddToggle('AFFilled', {
+		Text = 'FOV Filled',
+		Default = false,
+		Tooltip = 'Fills the fov',
+		Callback = function(Value)
+			getgenv().ExunysDeveloperAimbot.Settings.Filled = Value
+		end
+	})
+	
+	AimbotLeftCombatGroupBox:AddToggle('AFRainbow', {
+		Text = 'Rainbow',
+		Default = false,
+		Tooltip = 'Sets the fov color to rainbow',
+		Callback = function(Value)
+			getgenv().ExunysDeveloperAimbot.Settings.RainbowColor = Value
+		end
+	})
+	
+	AimbotLeftCombatGroupBox:AddToggle('AFRainbowO', {
+		Text = 'Rainbow Outline',
+		Default = false,
+		Tooltip = 'Sets the fov outline color to rainbow',
+		Callback = function(Value)
+			getgenv().ExunysDeveloperAimbot.Settings.RainbowOutlineColor = Value
+		end
+	})
+	
+	AimbotLeftCombatGroupBox:AddDivider()
+	
+	AimbotLeftCombatGroupBox:AddLabel('FOV Color'):AddColorPicker('FOVColorPicker', {
+		Default = Color3.fromRGB(255,255,255), -- Bright green
+		Title = 'FOV Color', -- Optional. Allows you to have a custom color picker title (when you open it)
+		Transparency = 0, -- Optional. Enables transparency changing for this color picker (leave as nil to disable)
+
+		Callback = function(Value)
+			getgenv().ExunysDeveloperAimbot.Settings.Color = Value
+		end
+	})
+	
+	AimbotLeftCombatGroupBox:AddLabel('FOV Outline Color'):AddColorPicker('FOVOutlineColorPicker', {
+		Default = Color3.fromRGB(0,0,0), -- Bright green
+		Title = 'FOV Outline Color', -- Optional. Allows you to have a custom color picker title (when you open it)
+		Transparency = 0, -- Optional. Enables transparency changing for this color picker (leave as nil to disable)
+
+		Callback = function(Value)
+			getgenv().ExunysDeveloperAimbot.Settings.OutlineColor = Value
+		end
+	})
+	
+	AimbotLeftCombatGroupBox:AddLabel('Locked Color'):AddColorPicker('FOVLockedColorPicker', {
+		Default = Color3.fromRGB(255,150,150), -- Bright green
+		Title = 'Locked Color', -- Optional. Allows you to have a custom color picker title (when you open it)
+		Transparency = 0, -- Optional. Enables transparency changing for this color picker (leave as nil to disable)
+
+		Callback = function(Value)
+			getgenv().ExunysDeveloperAimbot.Settings.LockedColor = Value
+		end
+	})
 	
 	local LeftGroupBox = Tabs.Debugging:AddLeftGroupbox('Remotes')
 
