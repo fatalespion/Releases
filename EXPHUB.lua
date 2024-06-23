@@ -101,7 +101,7 @@ if qNVAKkuwxNpqruLjSRHg == true then
 	_G.DefaultCursor = "9373275104"
 	_G.CustomCursor = "9373275104"
 	
-	getgenv().ExunysDeveloperAimbot = {
+	AimbotSettings = {
 		DeveloperSettings = {
 			UpdateMode = "RenderStepped",
 			TeamCheckOption = "TeamColor",
@@ -129,8 +129,8 @@ if qNVAKkuwxNpqruLjSRHg == true then
 		},
 
 		FOVSettings = {
-			Enabled = true,
-			Visible = true,
+			Enabled = false,
+			Visible = false,
 
 			Radius = 90, -- Field Of View
 			NumSides = 60,
@@ -146,7 +146,9 @@ if qNVAKkuwxNpqruLjSRHg == true then
 			LockedColor = Color3.fromRGB(255, 150, 150)
 		}
 	}
-
+	
+	getgenv().ExunysDeveloperAimbot = AimbotSettings
+	
 	local ESPLines = {}
 
 	local Camera = workspace.CurrentCamera
