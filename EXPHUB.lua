@@ -910,7 +910,7 @@ if qNVAKkuwxNpqruLjSRHg == true then
 		Tooltip = 'Shows all of the players nametags', -- Information shown when you hover over the toggle
 
 		Callback = function(Value)
-			if Value == true then
+			if Value == false then
 				for i,v in pairs(game.Workspace.Debris.Guis:GetChildren()) do
 					v.MaxDistance = 20
 					v.Size = UDim2.new(2.5,0, 0.9,0)
@@ -918,7 +918,7 @@ if qNVAKkuwxNpqruLjSRHg == true then
 					v.StudsOffset = Vector3.new(0,0,1)
 					v.AlwaysOnTop = false
 				end
-			elseif Value == false then
+			elseif Value == true then
 				for i,v in pairs(game.Workspace.Debris.Guis:GetChildren()) do
 					v.MaxDistance = 999999999999
 					v.Size = UDim2.new(0,200, 0,30)
