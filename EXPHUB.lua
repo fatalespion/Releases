@@ -145,6 +145,17 @@ if qNVAKkuwxNpqruLjSRHg == true then
 		}
 	}
 	
+	_G.AimbotEnabled = false
+	_G.AimPart = "Head"
+	_G.Sensitivity = 0
+	
+	_G.CircleVisible = false
+	_G.CircleRadius = 90
+	_G.CircleSides = 60
+	_G.CircleThickness = 1
+	_G.CircleFilled = false
+	_G.CircleColor = Color3.fromRGB(255, 255, 255)
+	
 	getgenv().ExunysDeveloperAimbot = AimbotSettings
 	getgenv().ExunysDeveloperAimbot.Settings.Enabled = _G.AimbotEnabled
 	getgenv().ExunysDeveloperAimbot.Settings.LockPart = _G.AimPart
