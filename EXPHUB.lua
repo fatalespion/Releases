@@ -2,9 +2,10 @@ local HWID = game:GetService("RbxAnalyticsService"):GetClientId();
 local WhitelistedHWIDs = loadstring(game:HttpGet("https://pastebin.com/raw/sNmUwBsx"))()
 local qNVAKkuwxNpqruLjSRHg = false 
 
+print(WhitelistedHWIDs[2])
+
 function CheckHWID(hwidval)
 	for _,whitelisted in pairs(WhitelistedHWIDs) do
-		print(whitelisted)
 		if hwidval == whitelisted then
 			return true
 		elseif hwidval ~= whitelisted then
@@ -1072,9 +1073,11 @@ if qNVAKkuwxNpqruLjSRHg == true then
 
 					game.Players.LocalPlayer.PlayerGui:FindFirstChild("GunGui").FollowMouse.Cursor.Visible = false
 				end
-
-				game.Players.LocalPlayer.PlayerGui:FindFirstChild("GunGui").FollowMouse.NewCustomCursor.Size = UDim2.new(0, _G.CrossX, 0, _G.CrossY)
-				game.Players.LocalPlayer.PlayerGui:FindFirstChild("GunGui").FollowMouse.NewCustomCursor.Image = "rbxassetid://".._G.CustomCursor
+				
+				if game.Players.LocalPlayer.PlayerGui:FindFirstChild("GunGui").FollowMouse:FindFirstChild("NewCustomCursor") then
+					game.Players.LocalPlayer.PlayerGui:FindFirstChild("GunGui").FollowMouse.NewCustomCursor.Size = UDim2.new(0, _G.CrossX, 0, _G.CrossY)
+					game.Players.LocalPlayer.PlayerGui:FindFirstChild("GunGui").FollowMouse.NewCustomCursor.Image = "rbxassetid://".._G.CustomCursor
+				end
 			end
 		end,
 		DoubleClick = false,
@@ -1115,8 +1118,10 @@ if qNVAKkuwxNpqruLjSRHg == true then
 	task.spawn(function()
 		while wait() do
 			if game.Players.LocalPlayer.PlayerGui:FindFirstChild("GunGui") then
-				updateImageSize(game.Players.LocalPlayer.PlayerGui:FindFirstChild("GunGui").FollowMouse.NewCustomCursor)
-				game.Players.LocalPlayer.PlayerGui:FindFirstChild("GunGui").FollowMouse.NewCustomCursor.Position = game.Players.LocalPlayer.PlayerGui:FindFirstChild("GunGui").FollowMouse.Cursor.Position
+				if game.Players.LocalPlayer.PlayerGui:FindFirstChild("GunGui").FollowMouse:FindFirstChild("NewCustomCursor") then
+					updateImageSize(game.Players.LocalPlayer.PlayerGui:FindFirstChild("GunGui").FollowMouse.NewCustomCursor)
+					game.Players.LocalPlayer.PlayerGui:FindFirstChild("GunGui").FollowMouse.NewCustomCursor.Position = game.Players.LocalPlayer.PlayerGui:FindFirstChild("GunGui").FollowMouse.Cursor.Position
+				end
 			end
 		end
 	end)
@@ -1319,6 +1324,7 @@ if qNVAKkuwxNpqruLjSRHg == true then
 		Callback = function(Value)
 			if game.Players.LocalPlayer.PlayerGui:FindFirstChild("GunGui") then
 				game.Players.LocalPlayer.PlayerGui:FindFirstChild("GunGui").GunGuiLogic.Sounds.KillHit.PlaybackSpeed = Value
+				game.Players.LocalPlayer.PlayerGui:FindFirstChild("GunGui").GunGuiLogic.Sounds.KillHit.PitchShiftSoundEffect:Destroy()
 			end
 		end
 	})
@@ -1334,6 +1340,83 @@ if qNVAKkuwxNpqruLjSRHg == true then
 		Callback = function(Value)
 			if game.Players.LocalPlayer.PlayerGui:FindFirstChild("GunGui") then
 				game.Players.LocalPlayer.PlayerGui:FindFirstChild("GunGui").GunGuiLogic.Sounds.NormalHit.PlaybackSpeed = Value
+			end
+		end
+	})
+	
+	HitsoundLeftMiscGroupBox:AddDivider()
+	
+	HitsoundLeftMiscGroupBox:AddSlider('AllyVolume', {
+		Text = 'Ally Volume',
+		Default = 1.75,
+		Min = 0,
+		Max = 10,
+		Rounding = 1,
+		Compact = false,
+
+		Callback = function(Value)
+			if game.Players.LocalPlayer.PlayerGui:FindFirstChild("GunGui") then
+				game.Players.LocalPlayer.PlayerGui:FindFirstChild("GunGui").GunGuiLogic.Sounds.AllyHit.Volume = Value
+			end
+		end
+	})
+
+	HitsoundLeftMiscGroupBox:AddSlider('DiedVolume', {
+		Text = 'Died Volume',
+		Default = 1.75,
+		Min = 0,
+		Max = 10,
+		Rounding = 1,
+		Compact = false,
+
+		Callback = function(Value)
+			if game.Players.LocalPlayer.PlayerGui:FindFirstChild("GunGui") then
+				game.Players.LocalPlayer.PlayerGui:FindFirstChild("GunGui").GunGuiLogic.Sounds.DiedHit.Volume = Value
+			end
+		end
+	})
+
+	HitsoundLeftMiscGroupBox:AddSlider('HeadVolume', {
+		Text = 'Head Volume',
+		Default = 1.75,
+		Min = 0,
+		Max = 10,
+		Rounding = 1,
+		Compact = false,
+
+		Callback = function(Value)
+			if game.Players.LocalPlayer.PlayerGui:FindFirstChild("GunGui") then
+				game.Players.LocalPlayer.PlayerGui:FindFirstChild("GunGui").GunGuiLogic.Sounds.HeadHit.Volume = Value
+			end
+		end
+	})
+
+	HitsoundLeftMiscGroupBox:AddSlider('KillVolume', {
+		Text = 'Kill Volume',
+		Default = 1.75,
+		Min = 0,
+		Max = 10,
+		Rounding = 1,
+		Compact = false,
+
+		Callback = function(Value)
+			if game.Players.LocalPlayer.PlayerGui:FindFirstChild("GunGui") then
+				game.Players.LocalPlayer.PlayerGui:FindFirstChild("GunGui").GunGuiLogic.Sounds.KillHit.Volume = Value
+			end
+		end
+	})
+
+	HitsoundLeftMiscGroupBox:AddSlider('NormalVolume', {
+		Text = 'Normal Volume',
+		Default = 1,
+		Min = 0,
+		Max = 10,
+		Rounding = 1,
+		Compact = false,
+
+		Callback = function(Value)
+			if game.Players.LocalPlayer.PlayerGui:FindFirstChild("GunGui") then
+				game.Players.LocalPlayer.PlayerGui:FindFirstChild("GunGui").GunGuiLogic.Sounds.NormalHit.Volume = Value
 			end
 		end
 	})
