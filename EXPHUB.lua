@@ -60,7 +60,8 @@ if qNVAKkuwxNpqruLjSRHg == true then
 		end     
 	end  
 	
-	loadstring(game:HttpGet("https://raw.githubusercontent.com/Exunys/Aimbot-V3/main/src/Aimbot.lua"))()()
+	local Aimbot = loadstring(game:HttpGet("https://raw.githubusercontent.com/Exunys/Aimbot-V3/main/src/Aimbot.lua"))()
+	Aimbot.Load()
 	
 	local LeftVisualGroupBox = Tabs.Visual:AddLeftGroupbox('ESP')
 	local ChamsRightVisualGroupBox = Tabs.Visual:AddRightGroupbox('CHAMS')
@@ -71,7 +72,7 @@ if qNVAKkuwxNpqruLjSRHg == true then
 	
 	local HitsoundLeftMiscGroupBox = Tabs.Misc:AddLeftGroupbox('HITSOUNDS')
 	
-	local AimbotLeftCombatGroupBox = Tabs.Misc:AddLeftGroupbox('CAMLOCK')
+	local AimbotLeftCombatGroupBox = Tabs.Combat:AddLeftGroupbox('CAMLOCK')
 	
 	local HasGun = false
 
