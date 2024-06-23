@@ -71,7 +71,7 @@ if qNVAKkuwxNpqruLjSRHg == true then
 	
 	local HitsoundLeftMiscGroupBox = Tabs.Misc:AddLeftGroupbox('HITSOUNDS')
 	
-	local AimbotLeftCombatGroupBox = Tabs.Misc:AddLeftGroupbox('AIMBOT')
+	local AimbotLeftCombatGroupBox = Tabs.Misc:AddLeftGroupbox('CAMLOCK')
 	
 	local HasGun = false
 
