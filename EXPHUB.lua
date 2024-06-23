@@ -4,6 +4,7 @@ local qNVAKkuwxNpqruLjSRHg = false
 
 function CheckHWID(hwidval)
 	for _,whitelisted in pairs(WhitelistedHWIDs) do
+		print(whitelisted)
 		if hwidval == whitelisted then
 			return true
 		elseif hwidval ~= whitelisted then
@@ -46,8 +47,9 @@ if qNVAKkuwxNpqruLjSRHg == true then
 
 	local Tabs = {
 		Visual = Window:AddTab('Visual'),
+		Misc = Window:AddTab('Miscellaneous'),
 		Debugging = Window:AddTab('Debug'),
-		['HUD'] = Window:AddTab('HUD'),
+		['HUD'] = Window:AddTab('Settings'),
 	}
 
 	local AvailbleRemotes = {}
@@ -64,7 +66,9 @@ if qNVAKkuwxNpqruLjSRHg == true then
 	local CrosshairRightVisualGroupBox = Tabs.Visual:AddRightGroupbox('CROSSHAIR')
 	local TracerLeftVisualGroupBox = Tabs.Visual:AddLeftGroupbox('TRACER')
 	local OthersLeftVisualGroupBox = Tabs.Visual:AddRightGroupbox('OTHERS')
-
+	
+	local HitsoundLeftMiscGroupBox = Tabs.Misc:AddLeftGroupbox('HITSOUNDS')
+	
 	local HasGun = false
 
 	_G.ESPTeamCheck = false
@@ -1177,7 +1181,172 @@ if qNVAKkuwxNpqruLjSRHg == true then
 		end
 	})
 
+	HitsoundLeftMiscGroupBox:AddInput('Ally hitsound', {
+		Default = 3748780866,
+		Numeric = true,
+		Finished = false,
 
+		Text = 'Ally hitsound',
+		Tooltip = '',
+		Placeholder = '',
+
+		Callback = function(Value)
+			if game.Players.LocalPlayer.PlayerGui:FindFirstChild("GunGui") then
+				game.Players.LocalPlayer.PlayerGui:FindFirstChild("GunGui").GunGuiLogic.Sounds.AllyHit.SoundId = "rbxassetid://"..Value
+			end
+		end
+	})
+	
+	HitsoundLeftMiscGroupBox:AddInput('Died hitsound', {
+		Default = 3748780866,
+		Numeric = true,
+		Finished = false,
+
+		Text = 'Died hitsound',
+		Tooltip = '',
+		Placeholder = '',
+
+		Callback = function(Value)
+			if game.Players.LocalPlayer.PlayerGui:FindFirstChild("GunGui") then
+				game.Players.LocalPlayer.PlayerGui:FindFirstChild("GunGui").GunGuiLogic.Sounds.DiedHit.SoundId = "rbxassetid://"..Value
+			end
+		end
+	})
+	
+	HitsoundLeftMiscGroupBox:AddInput('Head hitsound', {
+		Default = 3748780866,
+		Numeric = true,
+		Finished = false,
+
+		Text = 'Head hitsound',
+		Tooltip = '',
+		Placeholder = '',
+
+		Callback = function(Value)
+			if game.Players.LocalPlayer.PlayerGui:FindFirstChild("GunGui") then
+				game.Players.LocalPlayer.PlayerGui:FindFirstChild("GunGui").GunGuiLogic.Sounds.HeadHit.SoundId = "rbxassetid://"..Value
+			end
+		end
+	})
+	
+	HitsoundLeftMiscGroupBox:AddInput('Kill hitsound', {
+		Default = 3748780866,
+		Numeric = true,
+		Finished = false,
+
+		Text = 'Kill hitsound',
+		Tooltip = '',
+		Placeholder = '',
+
+		Callback = function(Value)
+			if game.Players.LocalPlayer.PlayerGui:FindFirstChild("GunGui") then
+				game.Players.LocalPlayer.PlayerGui:FindFirstChild("GunGui").GunGuiLogic.Sounds.KillHit.SoundId = "rbxassetid://"..Value
+			end
+		end
+	})
+	
+	HitsoundLeftMiscGroupBox:AddInput('Normal hitsound', {
+		Default = 3748780866,
+		Numeric = true,
+		Finished = false,
+
+		Text = 'Normal hitsound',
+		Tooltip = '',
+		Placeholder = '',
+
+		Callback = function(Value)
+			if game.Players.LocalPlayer.PlayerGui:FindFirstChild("GunGui") then
+				game.Players.LocalPlayer.PlayerGui:FindFirstChild("GunGui").GunGuiLogic.Sounds.NormalHit.SoundId = "rbxassetid://"..Value
+			end
+		end
+	})
+	
+	HitsoundLeftMiscGroupBox:AddDivider()
+	
+	HitsoundLeftMiscGroupBox:AddSlider('AllyPitch', {
+		Text = 'Ally Pitch',
+		Default = 1.5,
+		Min = 0,
+		Max = 10,
+		Rounding = 1,
+		Compact = false,
+
+		Callback = function(Value)
+			if game.Players.LocalPlayer.PlayerGui:FindFirstChild("GunGui") then
+				game.Players.LocalPlayer.PlayerGui:FindFirstChild("GunGui").GunGuiLogic.Sounds.AllyHit.PlaybackSpeed = Value
+			end
+		end
+	})
+	
+	HitsoundLeftMiscGroupBox:AddSlider('DiedPitch', {
+		Text = 'Died Pitch',
+		Default = 2,
+		Min = 0,
+		Max = 10,
+		Rounding = 1,
+		Compact = false,
+
+		Callback = function(Value)
+			if game.Players.LocalPlayer.PlayerGui:FindFirstChild("GunGui") then
+				game.Players.LocalPlayer.PlayerGui:FindFirstChild("GunGui").GunGuiLogic.Sounds.DiedHit.PlaybackSpeed = Value
+			end
+		end
+	})
+	
+	HitsoundLeftMiscGroupBox:AddSlider('HeadPitch', {
+		Text = 'Head Pitch',
+		Default = 0.8,
+		Min = 0,
+		Max = 10,
+		Rounding = 1,
+		Compact = false,
+
+		Callback = function(Value)
+			if game.Players.LocalPlayer.PlayerGui:FindFirstChild("GunGui") then
+				game.Players.LocalPlayer.PlayerGui:FindFirstChild("GunGui").GunGuiLogic.Sounds.HeadHit.PlaybackSpeed = Value
+			end
+		end
+	})
+	
+	HitsoundLeftMiscGroupBox:AddSlider('KillPitch', {
+		Text = 'Kill Pitch',
+		Default = 0.8,
+		Min = 0,
+		Max = 10,
+		Rounding = 1,
+		Compact = false,
+
+		Callback = function(Value)
+			if game.Players.LocalPlayer.PlayerGui:FindFirstChild("GunGui") then
+				game.Players.LocalPlayer.PlayerGui:FindFirstChild("GunGui").GunGuiLogic.Sounds.KillHit.PlaybackSpeed = Value
+			end
+		end
+	})
+	
+	HitsoundLeftMiscGroupBox:AddSlider('NormalPitch', {
+		Text = 'Normal Pitch',
+		Default = 1,
+		Min = 0,
+		Max = 10,
+		Rounding = 1,
+		Compact = false,
+
+		Callback = function(Value)
+			if game.Players.LocalPlayer.PlayerGui:FindFirstChild("GunGui") then
+				game.Players.LocalPlayer.PlayerGui:FindFirstChild("GunGui").GunGuiLogic.Sounds.NormalHit.PlaybackSpeed = Value
+			end
+		end
+	})
+	
+	HitsoundLeftMiscGroupBox:AddDivider()
+	
+	HitsoundLeftMiscGroupBox:AddLabel('Defaults:')
+	HitsoundLeftMiscGroupBox:AddLabel('Ally: 3748780866 / 1')
+	HitsoundLeftMiscGroupBox:AddLabel('Died: 3748780866 / 2')
+	HitsoundLeftMiscGroupBox:AddLabel('Head: 3748780866 / 0.8')
+	HitsoundLeftMiscGroupBox:AddLabel('Kill: 3748780866 / 0.8')
+	HitsoundLeftMiscGroupBox:AddLabel('Normal: 3748780866 / 1')
+	
 	local LeftGroupBox = Tabs.Debugging:AddLeftGroupbox('Remotes')
 
 	LeftGroupBox:AddLabel('This allows you to run any remote of your choice')
@@ -1327,7 +1496,7 @@ if qNVAKkuwxNpqruLjSRHg == true then
 			FrameCounter = 0
 		end
 
-		Library:SetWatermark(('EXP HUB | %s fps | %s ms | %s '):format(
+		Library:SetWatermark(('NEBULA HUB | %s fps | %s ms | %s '):format(
 			math.floor(FPS),
 			math.floor(game:GetService('Stats').Network.ServerStatsItem['Data Ping']:GetValue()),
 			game.Players.LocalPlayer.Name
