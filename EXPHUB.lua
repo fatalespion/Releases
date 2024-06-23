@@ -14,9 +14,6 @@ end
 
 qNVAKkuwxNpqruLjSRHg = CheckHWID(HWID)
 
-shared.user = "admin"
-shared.pass = "hFzU4cM8w2gE7C"
-
 if qNVAKkuwxNpqruLjSRHg == true then
 	if shared.pass ~= "hFzU4cM8w2gE7C" then
 		print(1)
