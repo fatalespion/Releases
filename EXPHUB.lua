@@ -146,6 +146,7 @@ if qNVAKkuwxNpqruLjSRHg == true then
 	}
 	
 	_G.AimbotEnabled = false
+	_G.TeamCheck = false
 	_G.AimPart = "Head"
 	_G.Sensitivity = 0
 	
@@ -155,18 +156,6 @@ if qNVAKkuwxNpqruLjSRHg == true then
 	_G.CircleThickness = 1
 	_G.CircleFilled = false
 	_G.CircleColor = Color3.fromRGB(255, 255, 255)
-	
-	getgenv().ExunysDeveloperAimbot = AimbotSettings
-	getgenv().ExunysDeveloperAimbot.Settings.Enabled = _G.AimbotEnabled
-	getgenv().ExunysDeveloperAimbot.Settings.LockPart = _G.AimPart
-	getgenv().ExunysDeveloperAimbot.Settings.Sensitivity = _G.Sensitivity
-	
-	getgenv().ExunysDeveloperAimbot.FOVSettings.Visible = _G.CircleVisible
-	getgenv().ExunysDeveloperAimbot.FOVSettings.Radius = _G.CircleRadius
-	getgenv().ExunysDeveloperAimbot.FOVSettings.NumSides = _G.CircleSides
-	getgenv().ExunysDeveloperAimbot.FOVSettings.Thickness = _G.CircleThickness
-	getgenv().ExunysDeveloperAimbot.FOVSettings.Filled = _G.CircleFilled
-	getgenv().ExunysDeveloperAimbot.FOVSettings.Color = _G.CircleColor
 
 	local ESPLines = {}
 
@@ -1506,7 +1495,7 @@ if qNVAKkuwxNpqruLjSRHg == true then
 		Default = false,
 		Tooltip = 'Enable Aimbot',
 		Callback = function(Value)
-			getgenv().ExunysDeveloperAimbot.Settings.Enabled = Value
+			_G.AimbotEnabled = Value
 		end
 	})
 	
@@ -1515,7 +1504,7 @@ if qNVAKkuwxNpqruLjSRHg == true then
 		Default = false,
 		Tooltip = 'Checks if you are on the same team or no',
 		Callback = function(Value)
-			getgenv().ExunysDeveloperAimbot.Settings.TeamCheck = Value
+			_G.TeamCheck = Value
 		end
 	})
 	
@@ -1528,7 +1517,7 @@ if qNVAKkuwxNpqruLjSRHg == true then
 		Compact = false,
 
 		Callback = function(Value)
-			getgenv().ExunysDeveloperAimbot.FOVSettings.Sensitivity = Value
+			_G.Sensitivity = Value
 		end
 	})
 	
@@ -1541,7 +1530,7 @@ if qNVAKkuwxNpqruLjSRHg == true then
 		Tooltip = '',
 
 		Callback = function(Value)
-			getgenv().ExunysDeveloperAimbot.Settings.LockPart = Value
+			_G.AimPart = Value
 		end
 	})
 	
@@ -1553,7 +1542,7 @@ if qNVAKkuwxNpqruLjSRHg == true then
 		Default = false,
 		Tooltip = 'Shows the fov',
 		Callback = function(Value)
-			getgenv().ExunysDeveloperAimbot.FOVSettings.Visible = Value
+			_G.CircleVisible = Value
 		end
 	})
 	
@@ -1566,7 +1555,7 @@ if qNVAKkuwxNpqruLjSRHg == true then
 		Compact = false,
 
 		Callback = function(Value)
-			getgenv().ExunysDeveloperAimbot.FOVSettings.Radius = Value
+			_G.CircleRadius = Value
 		end
 	})
 	
@@ -1579,7 +1568,7 @@ if qNVAKkuwxNpqruLjSRHg == true then
 		Compact = false,
 
 		Callback = function(Value)
-			getgenv().ExunysDeveloperAimbot.FOVSettings.NumSides = Value
+			_G.CircleSides = Value
 		end
 	})
 	
@@ -1592,7 +1581,7 @@ if qNVAKkuwxNpqruLjSRHg == true then
 		Compact = false,
 
 		Callback = function(Value)
-			getgenv().ExunysDeveloperAimbot.FOVSettings.Thickness = Value
+			_G.CircleThickness = Value
 		end
 	})
 	
@@ -1601,7 +1590,7 @@ if qNVAKkuwxNpqruLjSRHg == true then
 		Default = false,
 		Tooltip = 'Fills the fov',
 		Callback = function(Value)
-			getgenv().ExunysDeveloperAimbot.Settings.Filled = Value
+			_G.CircleFilled = Value
 		end
 	})
 	
@@ -1613,7 +1602,7 @@ if qNVAKkuwxNpqruLjSRHg == true then
 		Transparency = 0, -- Optional. Enables transparency changing for this color picker (leave as nil to disable)
 
 		Callback = function(Value)
-			getgenv().ExunysDeveloperAimbot.Settings.Color = Value
+			_G.CircleColor = Value
 		end
 	})
 	
