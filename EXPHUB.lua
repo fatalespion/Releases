@@ -15,7 +15,7 @@ end
 qNVAKkuwxNpqruLjSRHg = CheckHWID(HWID)
 
 if qNVAKkuwxNpqruLjSRHg == true then
-	if shared.pass ~= "hFzU4cM8w2gE7C" or shared.user ~= game.Players.LocalPlayer.UserId or shared.user ~= "admin" then
+	if shared.pass ~= "hFzU4cM8w2gE7C" or shared.user ~= game.Players.LocalPlayer.UserId or game.Players.LocalPlayer.Name == "L3ARNT" and shared.user ~= "admin" then
 		return
 	end
 
