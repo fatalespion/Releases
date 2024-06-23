@@ -15,14 +15,14 @@ end
 qNVAKkuwxNpqruLjSRHg = CheckHWID(HWID)
 
 if qNVAKkuwxNpqruLjSRHg == true then
-	if shared.pass ~= "hFzU4cM8w2gE7C" then
+	if getgenv().script_pass ~= "hFzU4cM8w2gE7C" then
 		print(1)
 		return
 	end
 
-	if shared.user ~= game.Players.LocalPlayer.UserId then
+	if getgenv().script_user ~= game.Players.LocalPlayer.UserId then
 		if HWID == "22546EE2-F5D6-4271-8575-67299BEA5DCF" then
-			if shared.user ~= "admin" then
+			if getgenv().script_user ~= "admin" then
 				return
 			end  
 		else
