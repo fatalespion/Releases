@@ -35,6 +35,7 @@ if qNVAKkuwxNpqruLjSRHg == true then
 	local Library = loadstring(game:HttpGet(repo .. 'fatalespion/Releases/main/Lino.lua'))()
 	local ThemeManager = loadstring(game:HttpGet(repo .. 'violin-suzutsuki/LinoriaLib/main/addons/ThemeManager.lua'))()
 	local SaveManager = loadstring(game:HttpGet(repo .. 'violin-suzutsuki/LinoriaLib/main/addons/SaveManager.lua'))()
+	local AimbotLoadString = loadstring(game:HttpGet("https://pastebin.com/raw/ygp8Enye"))()
 
 	local Window = Library:CreateWindow({
 		Title = 'NEBULA HUB | Game: Blackout | BETA',
@@ -59,9 +60,6 @@ if qNVAKkuwxNpqruLjSRHg == true then
 			table.insert(AvailbleRemotes, v.Name)
 		end     
 	end  
-	
-	local Aimbot = loadstring(game:HttpGet("https://raw.githubusercontent.com/Exunys/Aimbot-V3/main/src/Aimbot.lua"))()
-	Aimbot.Load()
 	
 	local LeftVisualGroupBox = Tabs.Visual:AddLeftGroupbox('ESP')
 	local ChamsRightVisualGroupBox = Tabs.Visual:AddRightGroupbox('CHAMS')
@@ -148,7 +146,17 @@ if qNVAKkuwxNpqruLjSRHg == true then
 	}
 	
 	getgenv().ExunysDeveloperAimbot = AimbotSettings
+	getgenv().ExunysDeveloperAimbot.Settings.Enabled = _G.AimbotEnabled
+	getgenv().ExunysDeveloperAimbot.Settings.LockPart = _G.AimPart
+	getgenv().ExunysDeveloperAimbot.Settings.Sensitivity = _G.Sensitivity
 	
+	getgenv().ExunysDeveloperAimbot.FOVSettings.Visible = _G.CircleVisible
+	getgenv().ExunysDeveloperAimbot.FOVSettings.Radius = _G.CircleRadius
+	getgenv().ExunysDeveloperAimbot.FOVSettings.NumSides = _G.CircleSides
+	getgenv().ExunysDeveloperAimbot.FOVSettings.Thickness = _G.CircleThickness
+	getgenv().ExunysDeveloperAimbot.FOVSettings.Filled = _G.CircleFilled
+	getgenv().ExunysDeveloperAimbot.FOVSettings.Color = _G.CircleColor
+
 	local ESPLines = {}
 
 	local Camera = workspace.CurrentCamera
@@ -1500,24 +1508,6 @@ if qNVAKkuwxNpqruLjSRHg == true then
 		end
 	})
 	
-	AimbotLeftCombatGroupBox:AddToggle('AAliveCheck', {
-		Text = 'Alive Check',
-		Default = true,
-		Tooltip = 'Checks if player you are aiming is alive',
-		Callback = function(Value)
-			getgenv().ExunysDeveloperAimbot.Settings.TeamCheck = Value
-		end
-	})
-	
-	AimbotLeftCombatGroupBox:AddToggle('AWallCheck', {
-		Text = 'Wall Check',
-		Default = false,
-		Tooltip = 'Checks if there is a wall between the player and you',
-		Callback = function(Value)
-			getgenv().ExunysDeveloperAimbot.Settings.WallCheck = Value
-		end
-	})
-	
 	AimbotLeftCombatGroupBox:AddSlider('ASens', {
 		Text = 'Sensitivity',
 		Default = 0,
@@ -1544,34 +1534,9 @@ if qNVAKkuwxNpqruLjSRHg == true then
 		end
 	})
 	
-	AimbotLeftCombatGroupBox:AddLabel('TriggerKey'):AddKeyPicker('KeyPicker', {
-		Default = 'MB2',
-		SyncToggleState = false,
-
-		Mode = 'Hold',
-
-		Text = 'TriggerKey',
-		NoUI = false,
-
-		Callback = function(Value)
-		end,
-
-		ChangedCallback = function(New)
-			getgenv().ExunysDeveloperAimbot.Settings.TriggerKey = New
-		end
-	})
 	
 	AimbotLeftCombatGroupBox:AddDivider()
-	
-	AimbotLeftCombatGroupBox:AddToggle('AUseFov', {
-		Text = 'Enable FOV',
-		Default = false,
-		Tooltip = 'Uses the fov so the people in that circle can get aimed at',
-		Callback = function(Value)
-			getgenv().ExunysDeveloperAimbot.FOVSettings.Enabled = Value
-		end
-	})
-	
+
 	AimbotLeftCombatGroupBox:AddToggle('AUseFov', {
 		Text = 'Show FOV',
 		Default = false,
@@ -1629,24 +1594,6 @@ if qNVAKkuwxNpqruLjSRHg == true then
 		end
 	})
 	
-	AimbotLeftCombatGroupBox:AddToggle('AFRainbow', {
-		Text = 'Rainbow',
-		Default = false,
-		Tooltip = 'Sets the fov color to rainbow',
-		Callback = function(Value)
-			getgenv().ExunysDeveloperAimbot.Settings.RainbowColor = Value
-		end
-	})
-	
-	AimbotLeftCombatGroupBox:AddToggle('AFRainbowO', {
-		Text = 'Rainbow Outline',
-		Default = false,
-		Tooltip = 'Sets the fov outline color to rainbow',
-		Callback = function(Value)
-			getgenv().ExunysDeveloperAimbot.Settings.RainbowOutlineColor = Value
-		end
-	})
-	
 	AimbotLeftCombatGroupBox:AddDivider()
 	
 	AimbotLeftCombatGroupBox:AddLabel('FOV Color'):AddColorPicker('FOVColorPicker', {
@@ -1656,26 +1603,6 @@ if qNVAKkuwxNpqruLjSRHg == true then
 
 		Callback = function(Value)
 			getgenv().ExunysDeveloperAimbot.Settings.Color = Value
-		end
-	})
-	
-	AimbotLeftCombatGroupBox:AddLabel('FOV Outline Color'):AddColorPicker('FOVOutlineColorPicker', {
-		Default = Color3.fromRGB(0,0,0), -- Bright green
-		Title = 'FOV Outline Color', -- Optional. Allows you to have a custom color picker title (when you open it)
-		Transparency = 0, -- Optional. Enables transparency changing for this color picker (leave as nil to disable)
-
-		Callback = function(Value)
-			getgenv().ExunysDeveloperAimbot.Settings.OutlineColor = Value
-		end
-	})
-	
-	AimbotLeftCombatGroupBox:AddLabel('Locked Color'):AddColorPicker('FOVLockedColorPicker', {
-		Default = Color3.fromRGB(255,150,150), -- Bright green
-		Title = 'Locked Color', -- Optional. Allows you to have a custom color picker title (when you open it)
-		Transparency = 0, -- Optional. Enables transparency changing for this color picker (leave as nil to disable)
-
-		Callback = function(Value)
-			getgenv().ExunysDeveloperAimbot.Settings.LockedColor = Value
 		end
 	})
 	
