@@ -60,18 +60,18 @@ if qNVAKkuwxNpqruLjSRHg == true then
 			table.insert(AvailbleRemotes, v.Name)
 		end     
 	end  
-	
+
 	local LeftVisualGroupBox = Tabs.Visual:AddLeftGroupbox('ESP')
 	local ChamsRightVisualGroupBox = Tabs.Visual:AddRightGroupbox('CHAMS')
 	local GunsLeftVisualGroupBox = Tabs.Visual:AddLeftGroupbox('GUN MODS')
 	local CrosshairRightVisualGroupBox = Tabs.Visual:AddRightGroupbox('CROSSHAIR')
 	local TracerLeftVisualGroupBox = Tabs.Visual:AddLeftGroupbox('TRACER')
 	local OthersLeftVisualGroupBox = Tabs.Visual:AddRightGroupbox('OTHERS')
-	
+
 	local HitsoundLeftMiscGroupBox = Tabs.Misc:AddLeftGroupbox('HITSOUNDS')
-	
+
 	local AimbotLeftCombatGroupBox = Tabs.Combat:AddLeftGroupbox('CAMLOCK')
-	
+
 	local HasGun = false
 
 	_G.ESPTeamCheck = false
@@ -80,6 +80,9 @@ if qNVAKkuwxNpqruLjSRHg == true then
 	_G.ESPShowTracers = true
 	_G.ESPHealthBar = false
 	_G.ESPShowBox = true
+	_G.ESPShowName = false
+	_G.ESPShowDistance = false
+	_G.ESPShowTool = false
 	_G.ESPTracerColor = Color3.fromRGB(103, 89, 179)
 	_G.ESPBoxColor = Color3.fromRGB(103, 89, 179)
 	_G.ESPDeathBagColor = Color3.fromRGB(179, 42, 44)
@@ -98,7 +101,7 @@ if qNVAKkuwxNpqruLjSRHg == true then
 
 	_G.DefaultCursor = "9373275104"
 	_G.CustomCursor = "9373275104"
-	
+
 	AimbotSettings = {
 		DeveloperSettings = {
 			UpdateMode = "RenderStepped",
@@ -144,12 +147,12 @@ if qNVAKkuwxNpqruLjSRHg == true then
 			LockedColor = Color3.fromRGB(255, 150, 150)
 		}
 	}
-	
+
 	_G.AimbotEnabled = false
 	_G.TeamCheck = false
 	_G.AimPart = "Head"
 	_G.Sensitivity = 0
-	
+
 	_G.CircleVisible = false
 	_G.CircleRadius = 90
 	_G.CircleSides = 60
@@ -616,6 +619,30 @@ if qNVAKkuwxNpqruLjSRHg == true then
 			HealthBar.Thickness = 1
 			HealthBar.Transparency = 1
 			HealthBar.Filled = true
+			
+			local ItemName = Drawing.new("Text")
+			ItemName.Visible = false
+			ItemName.Center = true
+			ItemName.Outline = true
+			ItemName.Font = 2
+			ItemName.Size = 13
+			ItemName.Text = "Scrap"
+
+			local NameText = Drawing.new("Text")
+			NameText.Visible = false
+			NameText.Center = true
+			NameText.Outline = true
+			NameText.Font = 2
+			NameText.Size = 13
+			NameText.Text = "Type"
+
+			local DistanceText = Drawing.new("Text")
+			DistanceText.Visible = false
+			DistanceText.Center = true
+			DistanceText.Outline = true
+			DistanceText.Font = 2
+			DistanceText.Size = 13
+			DistanceText.Text = "Distance"
 
 			function lineesp()
 				game:GetService("RunService").RenderStepped:Connect(function()
@@ -679,7 +706,48 @@ if qNVAKkuwxNpqruLjSRHg == true then
 								HealthBar.Size = Vector2.new(2, (HeadPosition.Y - LegPosition.Y) / (v.Character:WaitForChild("Humanoid").MaxHealth / math.clamp(v.Character:WaitForChild("Humanoid").Health, 0, v.Character:WaitForChild("Humanoid").MaxHealth)))
 								HealthBar.Position = Vector2.new(Box.Position.X - 6, Box.Position.Y + (1/HealthBar.Size.Y))
 								HealthBar.Color = Color3.fromRGB(255 - 255 / (v.Character:WaitForChild("Humanoid").MaxHealth / v.Character:WaitForChild("Humanoid").Health), 255 / (v.Character:WaitForChild("Humanoid").MaxHealth / v.Character:WaitForChild("Humanoid").Health), 0)
-
+								
+								ItemName.Position = Vector2.new(Vector.X, Vector.Y - 30)
+								NameText.Position = Vector2.new(Vector.X, Vector.Y - 20)
+								DistanceText.Position = Vector2.new(Vector.X, Vector.Y - 10)
+								
+								local ItemDistance = math.ceil((v.Character:WaitForChild("HumanoidRootPart").Position - game:GetService("Players").LocalPlayer.Character:WaitForChild("HumanoidRootPart").Position).magnitude)
+								
+								NameText.Color = _G.ESPBoxColor
+								DistanceText.Color = _G.ESPBoxColor
+								ItemName.Color = _G.ESPBoxColor
+								
+								DistanceText.Text = "Distance: {" .. tostring(ItemDistance) .. "}"
+								NameText.Text = v.Name
+								
+								if v.Character:FindFirstChild("ServerMeleeModel") or v.Character:FindFirstChild("ServerGunModel") then
+									if v.Character:FindFirstChildWhichIsA("StringValue") then
+										ItemName.Text = v.Character:FindFirstChildWhichIsA("StringValue").Name
+									else
+										ItemName.Text = ""
+									end
+								else
+									ItemName.Text = ""
+								end
+								
+								if _G.ESPShowName then
+									NameText.Visible = false
+								else
+									NameText.Visible = false
+								end
+								
+								if _G.ESPShowDistance then
+									DistanceText.Visible = true
+								else
+									DistanceText.Visible = false
+								end
+								
+								if _G.ESPShowTool then
+									ItemName.Visible = true
+								else
+									ItemName.Visible = false
+								end
+								
 								if _G.ESPTeamCheck and v.TeamColor == lplr.TeamColor then
 									BoxOutline.Visible = false
 									Box.Visible = false
@@ -710,18 +778,27 @@ if qNVAKkuwxNpqruLjSRHg == true then
 								Box.Visible = false
 								HealthBarOutline.Visible = false
 								HealthBar.Visible = false
+								ItemName.Visible = false
+								NameText.Visible = false
+								DistanceText.Visible = false
 							end
 						else
 							BoxOutline.Visible = false
 							Box.Visible = false
 							HealthBarOutline.Visible = false
 							HealthBar.Visible = false
+							ItemName.Visible = false
+							NameText.Visible = false
+							DistanceText.Visible = false
 						end
 					else
 						BoxOutline.Visible = false
 						Box.Visible = false
 						HealthBarOutline.Visible = false
 						HealthBar.Visible = false
+						ItemName.Visible = false
+						NameText.Visible = false
+						DistanceText.Visible = false
 					end
 				end)
 			end
@@ -765,6 +842,30 @@ if qNVAKkuwxNpqruLjSRHg == true then
 			HealthBar.Thickness = 1
 			HealthBar.Transparency = 1
 			HealthBar.Filled = true
+			
+			local ItemName = Drawing.new("Text")
+			ItemName.Visible = false
+			ItemName.Center = true
+			ItemName.Outline = true
+			ItemName.Font = 2
+			ItemName.Size = 13
+			ItemName.Text = "Scrap"
+
+			local NameText = Drawing.new("Text")
+			NameText.Visible = false
+			NameText.Center = true
+			NameText.Outline = true
+			NameText.Font = 2
+			NameText.Size = 13
+			NameText.Text = "Type"
+
+			local DistanceText = Drawing.new("Text")
+			DistanceText.Visible = false
+			DistanceText.Center = true
+			DistanceText.Outline = true
+			DistanceText.Font = 2
+			DistanceText.Size = 13
+			DistanceText.Text = "Distance"
 
 			function lineesp()
 				game:GetService("RunService").RenderStepped:Connect(function()
@@ -828,7 +929,48 @@ if qNVAKkuwxNpqruLjSRHg == true then
 								HealthBar.Size = Vector2.new(2, (HeadPosition.Y - LegPosition.Y) / (v.Character:WaitForChild("Humanoid").MaxHealth / math.clamp(v.Character:WaitForChild("Humanoid").Health, 0, v.Character:WaitForChild("Humanoid").MaxHealth)))
 								HealthBar.Position = Vector2.new(Box.Position.X - 6, Box.Position.Y + (1/HealthBar.Size.Y))
 								HealthBar.Color = Color3.fromRGB(255 - 255 / (v.Character:WaitForChild("Humanoid").MaxHealth / v.Character:WaitForChild("Humanoid").Health), 255 / (v.Character:WaitForChild("Humanoid").MaxHealth / v.Character:WaitForChild("Humanoid").Health), 0)
+								
+								ItemName.Position = Vector2.new(Vector.X, Vector.Y - 30)
+								NameText.Position = Vector2.new(Vector.X, Vector.Y - 20)
+								DistanceText.Position = Vector2.new(Vector.X, Vector.Y - 10)
 
+								local ItemDistance = math.ceil((v.Character:WaitForChild("HumanoidRootPart").Position - game:GetService("Players").LocalPlayer.Character:WaitForChild("HumanoidRootPart").Position).magnitude)
+
+								NameText.Color = _G.ESPBoxColor
+								DistanceText.Color = _G.ESPBoxColor
+								ItemName.Color = _G.ESPBoxColor
+
+								DistanceText.Text = "Distance: {" .. tostring(ItemDistance) .. "}"
+								NameText.Text = v.Name
+
+								if v.Character:FindFirstChild("ServerMeleeModel") or v.Character:FindFirstChild("ServerGunModel") then
+									if v.Character:FindFirstChildWhichIsA("StringValue") then
+										ItemName.Text = v.Character:FindFirstChildWhichIsA("StringValue").Name
+									else
+										ItemName.Text = ""
+									end
+								else
+									ItemName.Text = ""
+								end
+
+								if _G.ESPShowName then
+									NameText.Visible = false
+								else
+									NameText.Visible = false
+								end
+
+								if _G.ESPShowDistance then
+									DistanceText.Visible = true
+								else
+									DistanceText.Visible = false
+								end
+
+								if _G.ESPShowTool then
+									ItemName.Visible = true
+								else
+									ItemName.Visible = false
+								end
+								
 								if _G.ESPTeamCheck and v.TeamColor == lplr.TeamColor then
 									BoxOutline.Visible = false
 									Box.Visible = false
@@ -859,18 +1001,27 @@ if qNVAKkuwxNpqruLjSRHg == true then
 								Box.Visible = false
 								HealthBarOutline.Visible = false
 								HealthBar.Visible = false
+								ItemName.Visible = false
+								NameText.Visible = false
+								DistanceText.Visible = false
 							end
 						else
 							BoxOutline.Visible = false
 							Box.Visible = false
 							HealthBarOutline.Visible = false
 							HealthBar.Visible = false
+							ItemName.Visible = false
+							NameText.Visible = false
+							DistanceText.Visible = false
 						end
 					else
 						BoxOutline.Visible = false
 						Box.Visible = false
 						HealthBarOutline.Visible = false
 						HealthBar.Visible = false
+						ItemName.Visible = false
+						NameText.Visible = false
+						DistanceText.Visible = false
 					end
 				end)
 			end
@@ -965,7 +1116,7 @@ if qNVAKkuwxNpqruLjSRHg == true then
 			_G.ESPDropBag = Value
 		end
 	})
-	
+
 	LeftVisualGroupBox:AddToggle('NameTags', {
 		Text = 'Nametags',
 		Default = false, -- Default value (true / false)
@@ -991,7 +1142,7 @@ if qNVAKkuwxNpqruLjSRHg == true then
 			end
 		end
 	})
-	
+
 	LeftVisualGroupBox:AddDivider()
 
 	LeftVisualGroupBox:AddLabel('Tracer Color'):AddColorPicker('ESPColorPicker', {
@@ -1133,7 +1284,7 @@ if qNVAKkuwxNpqruLjSRHg == true then
 
 					game.Players.LocalPlayer.PlayerGui:FindFirstChild("GunGui").FollowMouse.Cursor.Visible = false
 				end
-				
+
 				if game.Players.LocalPlayer.PlayerGui:FindFirstChild("GunGui").FollowMouse:FindFirstChild("NewCustomCursor") then
 					game.Players.LocalPlayer.PlayerGui:FindFirstChild("GunGui").FollowMouse.NewCustomCursor.Size = UDim2.new(0, _G.CrossX, 0, _G.CrossY)
 					game.Players.LocalPlayer.PlayerGui:FindFirstChild("GunGui").FollowMouse.NewCustomCursor.Image = "rbxassetid://".._G.CustomCursor
@@ -1229,7 +1380,7 @@ if qNVAKkuwxNpqruLjSRHg == true then
 			end
 		end
 	end)
-	
+
 	OthersLeftVisualGroupBox:AddToggle('BFullBright', {
 		Text = 'Fullbright',
 		Default = false,
@@ -1261,7 +1412,7 @@ if qNVAKkuwxNpqruLjSRHg == true then
 			end
 		end
 	})
-	
+
 	HitsoundLeftMiscGroupBox:AddInput('Died hitsound', {
 		Default = 3748780866,
 		Numeric = true,
@@ -1277,7 +1428,7 @@ if qNVAKkuwxNpqruLjSRHg == true then
 			end
 		end
 	})
-	
+
 	HitsoundLeftMiscGroupBox:AddInput('Head hitsound', {
 		Default = 3748780866,
 		Numeric = true,
@@ -1293,7 +1444,7 @@ if qNVAKkuwxNpqruLjSRHg == true then
 			end
 		end
 	})
-	
+
 	HitsoundLeftMiscGroupBox:AddInput('Kill hitsound', {
 		Default = 3748780866,
 		Numeric = true,
@@ -1309,7 +1460,7 @@ if qNVAKkuwxNpqruLjSRHg == true then
 			end
 		end
 	})
-	
+
 	HitsoundLeftMiscGroupBox:AddInput('Normal hitsound', {
 		Default = 3748780866,
 		Numeric = true,
@@ -1325,9 +1476,9 @@ if qNVAKkuwxNpqruLjSRHg == true then
 			end
 		end
 	})
-	
+
 	HitsoundLeftMiscGroupBox:AddDivider()
-	
+
 	HitsoundLeftMiscGroupBox:AddSlider('AllyPitch', {
 		Text = 'Ally Pitch',
 		Default = 1.5,
@@ -1342,7 +1493,7 @@ if qNVAKkuwxNpqruLjSRHg == true then
 			end
 		end
 	})
-	
+
 	HitsoundLeftMiscGroupBox:AddSlider('DiedPitch', {
 		Text = 'Died Pitch',
 		Default = 2,
@@ -1357,7 +1508,7 @@ if qNVAKkuwxNpqruLjSRHg == true then
 			end
 		end
 	})
-	
+
 	HitsoundLeftMiscGroupBox:AddSlider('HeadPitch', {
 		Text = 'Head Pitch',
 		Default = 0.8,
@@ -1372,7 +1523,7 @@ if qNVAKkuwxNpqruLjSRHg == true then
 			end
 		end
 	})
-	
+
 	HitsoundLeftMiscGroupBox:AddSlider('KillPitch', {
 		Text = 'Kill Pitch',
 		Default = 0.8,
@@ -1388,7 +1539,7 @@ if qNVAKkuwxNpqruLjSRHg == true then
 			end
 		end
 	})
-	
+
 	HitsoundLeftMiscGroupBox:AddSlider('NormalPitch', {
 		Text = 'Normal Pitch',
 		Default = 1,
@@ -1403,9 +1554,9 @@ if qNVAKkuwxNpqruLjSRHg == true then
 			end
 		end
 	})
-	
+
 	HitsoundLeftMiscGroupBox:AddDivider()
-	
+
 	HitsoundLeftMiscGroupBox:AddSlider('AllyVolume', {
 		Text = 'Ally Volume',
 		Default = 1.75,
@@ -1480,16 +1631,16 @@ if qNVAKkuwxNpqruLjSRHg == true then
 			end
 		end
 	})
-	
+
 	HitsoundLeftMiscGroupBox:AddDivider()
-	
+
 	HitsoundLeftMiscGroupBox:AddLabel('Defaults:')
 	HitsoundLeftMiscGroupBox:AddLabel('Ally: 3748780866 / 1')
 	HitsoundLeftMiscGroupBox:AddLabel('Died: 3748780866 / 2')
 	HitsoundLeftMiscGroupBox:AddLabel('Head: 3748780866 / 0.8')
 	HitsoundLeftMiscGroupBox:AddLabel('Kill: 3748780866 / 0.8')
 	HitsoundLeftMiscGroupBox:AddLabel('Normal: 3748780866 / 1')
-	
+
 	AimbotLeftCombatGroupBox:AddToggle('Enable', {
 		Text = 'Enable',
 		Default = false,
@@ -1498,7 +1649,7 @@ if qNVAKkuwxNpqruLjSRHg == true then
 			_G.AimbotEnabled = Value
 		end
 	})
-	
+
 	AimbotLeftCombatGroupBox:AddToggle('ATeamCheck', {
 		Text = 'Team Check',
 		Default = false,
@@ -1507,7 +1658,7 @@ if qNVAKkuwxNpqruLjSRHg == true then
 			_G.TeamCheck = Value
 		end
 	})
-	
+
 	AimbotLeftCombatGroupBox:AddSlider('ASens', {
 		Text = 'Sensitivity',
 		Default = 0,
@@ -1520,7 +1671,7 @@ if qNVAKkuwxNpqruLjSRHg == true then
 			_G.Sensitivity = Value
 		end
 	})
-	
+
 	AimbotLeftCombatGroupBox:AddDropdown('LockPart', {
 		Values = {"Head", "Torso", "Left Arm", "Right Arm", "Left Leg", "Right Leg"},
 		Default = 1,
@@ -1533,8 +1684,8 @@ if qNVAKkuwxNpqruLjSRHg == true then
 			_G.AimPart = Value
 		end
 	})
-	
-	
+
+
 	AimbotLeftCombatGroupBox:AddDivider()
 
 	AimbotLeftCombatGroupBox:AddToggle('AUseFov', {
@@ -1545,7 +1696,7 @@ if qNVAKkuwxNpqruLjSRHg == true then
 			_G.CircleVisible = Value
 		end
 	})
-	
+
 	AimbotLeftCombatGroupBox:AddSlider('AFRadius', {
 		Text = 'FOV Radius',
 		Default = 90,
@@ -1558,7 +1709,7 @@ if qNVAKkuwxNpqruLjSRHg == true then
 			_G.CircleRadius = Value
 		end
 	})
-	
+
 	AimbotLeftCombatGroupBox:AddSlider('AFSIDES', {
 		Text = 'FOV Sides',
 		Default = 60,
@@ -1571,7 +1722,7 @@ if qNVAKkuwxNpqruLjSRHg == true then
 			_G.CircleSides = Value
 		end
 	})
-	
+
 	AimbotLeftCombatGroupBox:AddSlider('AFThick', {
 		Text = 'FOV Thickness',
 		Default = 1,
@@ -1584,7 +1735,7 @@ if qNVAKkuwxNpqruLjSRHg == true then
 			_G.CircleThickness = Value
 		end
 	})
-	
+
 	AimbotLeftCombatGroupBox:AddToggle('AFFilled', {
 		Text = 'FOV Filled',
 		Default = false,
@@ -1593,9 +1744,9 @@ if qNVAKkuwxNpqruLjSRHg == true then
 			_G.CircleFilled = Value
 		end
 	})
-	
+
 	AimbotLeftCombatGroupBox:AddDivider()
-	
+
 	AimbotLeftCombatGroupBox:AddLabel('FOV Color'):AddColorPicker('FOVColorPicker', {
 		Default = Color3.fromRGB(255,255,255), -- Bright green
 		Title = 'FOV Color', -- Optional. Allows you to have a custom color picker title (when you open it)
@@ -1605,7 +1756,7 @@ if qNVAKkuwxNpqruLjSRHg == true then
 			_G.CircleColor = Value
 		end
 	})
-	
+
 	local LeftGroupBox = Tabs.Debugging:AddLeftGroupbox('Remotes')
 
 	LeftGroupBox:AddLabel('This allows you to run any remote of your choice')
