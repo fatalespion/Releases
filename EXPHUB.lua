@@ -1096,7 +1096,37 @@ if qNVAKkuwxNpqruLjSRHg == true then
 			_G.ESPDeathBag = Value
 		end
 	})
+	
+	LeftVisualGroupBox:AddToggle('ShowTool', {
+		Text = 'Player Tool',
+		Default = false, -- Default value (true / false)
+		Tooltip = 'Shows if the player is holding a tool.', -- Information shown when you hover over the toggle
 
+		Callback = function(Value)
+			_G.ESPShowTool = Value
+		end
+	})
+	
+	LeftVisualGroupBox:AddToggle('ShowDistance', {
+		Text = 'Show Distance',
+		Default = false, -- Default value (true / false)
+		Tooltip = 'Shows the distance between you and the player.', -- Information shown when you hover over the toggle
+
+		Callback = function(Value)
+			_G.ESPShowDistance = Value
+		end
+	})
+	
+	LeftVisualGroupBox:AddToggle('ShowName', {
+		Text = 'Show Names',
+		Default = false, -- Default value (true / false)
+		Tooltip = 'Shows the name of the player kinda like [Nametags].', -- Information shown when you hover over the toggle
+
+		Callback = function(Value)
+			_G.ESPShowName = Value
+		end
+	})
+	
 	LeftVisualGroupBox:AddToggle('NPCDeathBag', {
 		Text = 'Show NPC Death Bags',
 		Default = false, -- Default value (true / false)
