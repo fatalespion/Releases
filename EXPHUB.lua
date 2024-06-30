@@ -61,7 +61,7 @@ if qNVAKkuwxNpqruLjSRHg == true then
 
 	local AimbotLeftCombatGroupBox = Tabs.Combat:AddLeftGroupbox('CAMLOCK')
 	
-	local MoveLeftMoveGroupBox = Tabs.Combat:AddLeftGroupbox('MOVEMENT')
+	local MoveLeftMoveGroupBox = Tabs.Movement:AddLeftGroupbox('MOVEMENT')
 	
 	local HasGun = false
 
