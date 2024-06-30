@@ -43,6 +43,7 @@ if qNVAKkuwxNpqruLjSRHg == true then
 		Combat = Window:AddTab('Combat'),
 		Visual = Window:AddTab('Visual'),
 		Movement = Window:AddTab('Movement'),
+		Loot = Window:AddTab('Loot'),
 		Misc = Window:AddTab('Miscellaneous'),
 		Debugging = Window:AddTab('Debug'),
 		['HUD'] = Window:AddTab('Settings'),
@@ -68,6 +69,8 @@ if qNVAKkuwxNpqruLjSRHg == true then
 	local AimbotLeftCombatGroupBox = Tabs.Combat:AddLeftGroupbox('CAMLOCK')
 
 	local MoveLeftMoveGroupBox = Tabs.Movement:AddLeftGroupbox('MOVEMENT')
+	
+	local LootLeftLootGroupBox = Tabs.Movement:AddLeftGroupbox('LOOT')
 
 	local HasGun = false
 
@@ -1874,6 +1877,54 @@ if qNVAKkuwxNpqruLjSRHg == true then
 				noclip()
 			else
 				clip()
+			end
+		end
+	})
+	
+	LootLeftLootGroupBox:AddToggle('NoECooldown', {
+		Text = 'No Hold Duration',
+		Default = false,
+		Tooltip = 'Removes the proximity prompt hold duration',
+		Callback = function(Value)
+			if Value == true then
+				task.spawn(function()
+					repeat task.wait()
+						for i,v in pairs(game.Workspace:GetDescendants()) do
+							if v:IsA("ProximityPrompt") then
+								if not v:GetAttribute("OldDuration") then
+									v:SetAttribute("OldDuration", v.HoldDuration)
+								end
+
+								v.HoldDuration = 0
+							end     
+						end
+					until Value == false
+				end)
+			elseif Value == false then
+				for i,v in pairs(game.Workspace:GetDescendants()) do
+					if v:IsA("ProximityPrompt") then
+						if not v:GetAttribute("OldDuration") then
+							v.HoldDuration = 1
+						else
+							v.HoldDuration = v:GetAttribute("OldDuration")
+						end
+					end     
+				end
+			end
+		end
+	})
+	
+	LootLeftLootGroupBox:AddToggle('InfLocks', {
+		Text = 'Infinite Lockpicks',
+		Default = false,
+		Tooltip = 'Self explainatory',
+		Callback = function(Value)
+			if Value == true then
+				game:GetService("ReplicatedStorage").Events.Loot:FindFirstChild("MinigameMistake").Name = "MinigameMistake1"
+			elseif Value == false then
+				if game:GetService("ReplicatedStorage").Events.Loot:FindFirstChild("MinigameMistake1") then
+					game:GetService("ReplicatedStorage").Events.Loot:FindFirstChild("MinigameMistake1").Name = "MinigameMistake"
+				end
 			end
 		end
 	})
