@@ -48,6 +48,7 @@ if qNVAKkuwxNpqruLjSRHg == true then
 	local Tabs = {
 		Combat = Window:AddTab('Combat'),
 		Visual = Window:AddTab('Visual'),
+		Movement = Window:AddTab('Movement'),
 		Misc = Window:AddTab('Miscellaneous'),
 		Debugging = Window:AddTab('Debug'),
 		['HUD'] = Window:AddTab('Settings'),
@@ -71,7 +72,9 @@ if qNVAKkuwxNpqruLjSRHg == true then
 	local HitsoundLeftMiscGroupBox = Tabs.Misc:AddLeftGroupbox('HITSOUNDS')
 
 	local AimbotLeftCombatGroupBox = Tabs.Combat:AddLeftGroupbox('CAMLOCK')
-
+	
+	local MoveLeftMoveGroupBox = Tabs.Combat:AddLeftGroupbox('MOVEMENT')
+	
 	local HasGun = false
 
 	_G.ESPTeamCheck = false
@@ -186,7 +189,30 @@ if qNVAKkuwxNpqruLjSRHg == true then
 	local function updateImageSize(Image)
 		Image.Size = UDim2.new(0, _G.CrossX, 0, _G.CrossY)
 	end
+	
+	local Noclip = nil
+	local Clip = nil
 
+	function noclip()
+		Clip = false
+		local function Nocl()
+			if Clip == false and game.Players.LocalPlayer.Character ~= nil then
+				for _,v in pairs(game.Players.LocalPlayer.Character:GetDescendants()) do
+					if v:IsA('BasePart') and v.CanCollide and v.Name ~= floatName then
+						v.CanCollide = false
+					end
+				end
+			end
+			wait(0.21)
+		end
+		Noclip = game:GetService('RunService').Stepped:Connect(Nocl)
+	end
+
+	function clip()
+		if Noclip then Noclip:Disconnect() end
+		Clip = true
+	end
+	
 	function create(instance, instanceStats, parent, player)
 		local newinstance = Instance.new(instance)
 		local lplr = game.Players.LocalPlayer
@@ -459,7 +485,14 @@ if qNVAKkuwxNpqruLjSRHg == true then
 
 			Tracer.Thickness = 1
 			Tracer.Transparency = 1
-
+			
+			local TypeText = Drawing.new("Text")
+			TypeText.Visible = false
+			TypeText.Center = true
+			TypeText.Outline = true
+			TypeText.Font = 2
+			TypeText.Size = 13
+			TypeText.Text = "Type"
 
 			function lineesp()
 				game:GetService("RunService").RenderStepped:Connect(function()
@@ -470,46 +503,64 @@ if qNVAKkuwxNpqruLjSRHg == true then
 							if OnScreen then
 								Tracer.From = Vector2.new(camera.ViewportSize.X / 2, camera.ViewportSize.Y / 1)
 								Tracer.To = Vector2.new(Vector.X, Vector.Y)
+								TypeText.Position = Vector2.new(Vector.X, Vector.Y - 10)
 
 								if v.Color == Color3.fromRGB(255,63,63) then
 									if _G.ESPDeathBag == true then
+										TypeText.Visible = "Death Bag"
+										TypeText.Color = _G.ESPDeathBagColor
+										TypeText.Visible = true
 										Tracer.Color = _G.ESPDeathBagColor
 										Tracer.Visible = true
 									else
+										TypeText.Visible = false
 										Tracer.Visible = false
 									end
 								elseif v.Color == Color3.fromRGB(0,127,255) then
 									if v.Name == "DeathBag" then
 										if _G.ESPNpcBag == true then
+											TypeText.Visible = "NPC Death Bag"
+											TypeText.Color = _G.ESPNpcBagColor
+											TypeText.Visible = true
 											Tracer.Color = _G.ESPNpcBagColor
 											Tracer.Visible = true
 										else
+											TypeText.Visible = false
 											Tracer.Visible = false
 										end
 									elseif v.Name == "DuffelBag" then
 										if _G.ESPDropBag == true then
+											TypeText.Visible = "Drop Bag"
+											TypeText.Color = _G.ESPDropBagColor
+											TypeText.Visible = true
 											Tracer.Color = _G.ESPDropBagColor
 											Tracer.Visible = true
 										else
+											TypeText.Visible = false
 											Tracer.Visible = false
 										end
 									end
 								end
 
 								if not _G.ESPShowTracers  then
+									TypeText.Visible = false
 									Tracer.Visible = false
 								end
 
 								v.Destroying:Connect(function()
+									TypeText.Visible = false
 									Tracer.Visible = false
 								end)
 							else
+								TypeText.Visible = false
 								Tracer.Visible = false
 							end
 						else
+							TypeText.Visible = false
 							Tracer.Visible = false
 						end
 					else
+						TypeText.Visible = false
 						Tracer.Visible = false
 					end
 				end)
@@ -526,7 +577,14 @@ if qNVAKkuwxNpqruLjSRHg == true then
 
 			Tracer.Thickness = 1
 			Tracer.Transparency = 1
-
+			
+			local TypeText = Drawing.new("Text")
+			TypeText.Visible = false
+			TypeText.Center = true
+			TypeText.Outline = true
+			TypeText.Font = 2
+			TypeText.Size = 13
+			TypeText.Text = "Type"
 
 			function lineesp()
 				game:GetService("RunService").RenderStepped:Connect(function()
@@ -537,46 +595,64 @@ if qNVAKkuwxNpqruLjSRHg == true then
 							if OnScreen then
 								Tracer.From = Vector2.new(camera.ViewportSize.X / 2, camera.ViewportSize.Y / 1)
 								Tracer.To = Vector2.new(Vector.X, Vector.Y)
-
+								TypeText.Position = Vector2.new(Vector.X, Vector.Y - 10)
+								
 								if v.Color == Color3.fromRGB(255,63,63) then
 									if _G.ESPDeathBag == true then
+										TypeText.Visible = "Death Bag"
+										TypeText.Color = _G.ESPDeathBagColor
+										TypeText.Visible = true
 										Tracer.Color = _G.ESPDeathBagColor
 										Tracer.Visible = true
 									else
+										TypeText.Visible = false
 										Tracer.Visible = false
 									end
 								elseif v.Color == Color3.fromRGB(0,127,255) then
 									if v.Name == "DeathBag" then
 										if _G.ESPNpcBag == true then
+											TypeText.Visible = "NPC Death Bag"
+											TypeText.Color = _G.ESPNpcBagColor
+											TypeText.Visible = true
 											Tracer.Color = _G.ESPNpcBagColor
 											Tracer.Visible = true
 										else
+											TypeText.Visible = false
 											Tracer.Visible = false
 										end
 									elseif v.Name == "DuffelBag" then
 										if _G.ESPDropBag == true then
+											TypeText.Visible = "Drop Bag"
+											TypeText.Color = _G.ESPDropBagColor
+											TypeText.Visible = true
 											Tracer.Color = _G.ESPDropBagColor
 											Tracer.Visible = true
 										else
+											TypeText.Visible = false
 											Tracer.Visible = false
 										end
 									end
 								end
 
 								if not _G.ESPShowTracers  then
+									TypeText.Visible = false
 									Tracer.Visible = false
 								end
 
 								v.Destroying:Connect(function()
+									TypeText.Visible = false
 									Tracer.Visible = false
 								end)
 							else
+								TypeText.Visible = false
 								Tracer.Visible = false
 							end
 						else
+							TypeText.Visible = false
 							Tracer.Visible = false
 						end
 					else
+						TypeText.Visible = false
 						Tracer.Visible = false
 					end
 				end)
@@ -619,7 +695,7 @@ if qNVAKkuwxNpqruLjSRHg == true then
 			HealthBar.Thickness = 1
 			HealthBar.Transparency = 1
 			HealthBar.Filled = true
-			
+
 			local ItemName = Drawing.new("Text")
 			ItemName.Visible = false
 			ItemName.Center = true
@@ -706,48 +782,52 @@ if qNVAKkuwxNpqruLjSRHg == true then
 								HealthBar.Size = Vector2.new(2, (HeadPosition.Y - LegPosition.Y) / (v.Character:WaitForChild("Humanoid").MaxHealth / math.clamp(v.Character:WaitForChild("Humanoid").Health, 0, v.Character:WaitForChild("Humanoid").MaxHealth)))
 								HealthBar.Position = Vector2.new(Box.Position.X - 6, Box.Position.Y + (1/HealthBar.Size.Y))
 								HealthBar.Color = Color3.fromRGB(255 - 255 / (v.Character:WaitForChild("Humanoid").MaxHealth / v.Character:WaitForChild("Humanoid").Health), 255 / (v.Character:WaitForChild("Humanoid").MaxHealth / v.Character:WaitForChild("Humanoid").Health), 0)
-								
+
 								ItemName.Position = Vector2.new(Vector.X, Vector.Y - 30)
 								NameText.Position = Vector2.new(Vector.X, Vector.Y - 20)
 								DistanceText.Position = Vector2.new(Vector.X, Vector.Y - 10)
-								
+
 								local ItemDistance = math.ceil((v.Character:WaitForChild("HumanoidRootPart").Position - game:GetService("Players").LocalPlayer.Character:WaitForChild("HumanoidRootPart").Position).magnitude)
-								
+
 								NameText.Color = _G.ESPBoxColor
 								DistanceText.Color = _G.ESPBoxColor
 								ItemName.Color = _G.ESPBoxColor
-								
+
 								DistanceText.Text = "Distance: {" .. tostring(ItemDistance) .. "}"
 								NameText.Text = v.Name
 								
-								if v.Character:FindFirstChild("ServerMeleeModel") or v.Character:FindFirstChild("ServerGunModel") then
-									if v.Character:FindFirstChildWhichIsA("StringValue") then
-										ItemName.Text = v.Character:FindFirstChildWhichIsA("StringValue").Name
+								if v.Character then
+									if v.Character:FindFirstChild("ServerMeleeModel") or v.Character:FindFirstChild("ServerGunModel") then
+										if v.Character:FindFirstChildWhichIsA("RayValue") then
+											ItemName.Text = v.Character:FindFirstChildWhichIsA("RayValue").Name
+										else
+											ItemName.Text = ""
+										end
 									else
 										ItemName.Text = ""
 									end
 								else
 									ItemName.Text = ""
 								end
-								
+
 								if _G.ESPShowName then
-									NameText.Visible = false
+									NameText.Visible = true
 								else
 									NameText.Visible = false
 								end
-								
+
 								if _G.ESPShowDistance then
 									DistanceText.Visible = true
 								else
 									DistanceText.Visible = false
 								end
-								
+
 								if _G.ESPShowTool then
 									ItemName.Visible = true
 								else
 									ItemName.Visible = false
 								end
-								
+
 								if _G.ESPTeamCheck and v.TeamColor == lplr.TeamColor then
 									BoxOutline.Visible = false
 									Box.Visible = false
@@ -842,7 +922,7 @@ if qNVAKkuwxNpqruLjSRHg == true then
 			HealthBar.Thickness = 1
 			HealthBar.Transparency = 1
 			HealthBar.Filled = true
-			
+
 			local ItemName = Drawing.new("Text")
 			ItemName.Visible = false
 			ItemName.Center = true
@@ -929,7 +1009,7 @@ if qNVAKkuwxNpqruLjSRHg == true then
 								HealthBar.Size = Vector2.new(2, (HeadPosition.Y - LegPosition.Y) / (v.Character:WaitForChild("Humanoid").MaxHealth / math.clamp(v.Character:WaitForChild("Humanoid").Health, 0, v.Character:WaitForChild("Humanoid").MaxHealth)))
 								HealthBar.Position = Vector2.new(Box.Position.X - 6, Box.Position.Y + (1/HealthBar.Size.Y))
 								HealthBar.Color = Color3.fromRGB(255 - 255 / (v.Character:WaitForChild("Humanoid").MaxHealth / v.Character:WaitForChild("Humanoid").Health), 255 / (v.Character:WaitForChild("Humanoid").MaxHealth / v.Character:WaitForChild("Humanoid").Health), 0)
-								
+
 								ItemName.Position = Vector2.new(Vector.X, Vector.Y - 30)
 								NameText.Position = Vector2.new(Vector.X, Vector.Y - 20)
 								DistanceText.Position = Vector2.new(Vector.X, Vector.Y - 10)
@@ -943,9 +1023,13 @@ if qNVAKkuwxNpqruLjSRHg == true then
 								DistanceText.Text = "Distance: {" .. tostring(ItemDistance) .. "}"
 								NameText.Text = v.Name
 
-								if v.Character:FindFirstChild("ServerMeleeModel") or v.Character:FindFirstChild("ServerGunModel") then
-									if v.Character:FindFirstChildWhichIsA("StringValue") then
-										ItemName.Text = v.Character:FindFirstChildWhichIsA("StringValue").Name
+								if v.Character then
+									if v.Character:FindFirstChild("ServerMeleeModel") or v.Character:FindFirstChild("ServerGunModel") then
+										if v.Character:FindFirstChildWhichIsA("RayValue") then
+											ItemName.Text = v.Character:FindFirstChildWhichIsA("RayValue").Name
+										else
+											ItemName.Text = ""
+										end
 									else
 										ItemName.Text = ""
 									end
@@ -954,7 +1038,7 @@ if qNVAKkuwxNpqruLjSRHg == true then
 								end
 
 								if _G.ESPShowName then
-									NameText.Visible = false
+									NameText.Visible = true
 								else
 									NameText.Visible = false
 								end
@@ -970,7 +1054,7 @@ if qNVAKkuwxNpqruLjSRHg == true then
 								else
 									ItemName.Visible = false
 								end
-								
+
 								if _G.ESPTeamCheck and v.TeamColor == lplr.TeamColor then
 									BoxOutline.Visible = false
 									Box.Visible = false
@@ -1096,7 +1180,7 @@ if qNVAKkuwxNpqruLjSRHg == true then
 			_G.ESPDeathBag = Value
 		end
 	})
-	
+
 	LeftVisualGroupBox:AddToggle('ShowTool', {
 		Text = 'Player Tool',
 		Default = false, -- Default value (true / false)
@@ -1106,7 +1190,7 @@ if qNVAKkuwxNpqruLjSRHg == true then
 			_G.ESPShowTool = Value
 		end
 	})
-	
+
 	LeftVisualGroupBox:AddToggle('ShowDistance', {
 		Text = 'Show Distance',
 		Default = false, -- Default value (true / false)
@@ -1116,7 +1200,7 @@ if qNVAKkuwxNpqruLjSRHg == true then
 			_G.ESPShowDistance = Value
 		end
 	})
-	
+
 	LeftVisualGroupBox:AddToggle('ShowName', {
 		Text = 'Show Names',
 		Default = false, -- Default value (true / false)
@@ -1126,7 +1210,7 @@ if qNVAKkuwxNpqruLjSRHg == true then
 			_G.ESPShowName = Value
 		end
 	})
-	
+
 	LeftVisualGroupBox:AddToggle('NPCDeathBag', {
 		Text = 'Show NPC Death Bags',
 		Default = false, -- Default value (true / false)
@@ -1786,7 +1870,20 @@ if qNVAKkuwxNpqruLjSRHg == true then
 			_G.CircleColor = Value
 		end
 	})
-
+	
+	MoveLeftMoveGroupBox:AddToggle('Noclip', {
+		Text = 'Noclip',
+		Default = false,
+		Tooltip = 'go thru walls',
+		Callback = function(Value)
+			if Value == true then
+				noclip()
+			else
+				clip()
+			end
+		end
+	})
+	
 	local LeftGroupBox = Tabs.Debugging:AddLeftGroupbox('Remotes')
 
 	LeftGroupBox:AddLabel('This allows you to run any remote of your choice')
