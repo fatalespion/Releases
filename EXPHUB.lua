@@ -3,10 +3,14 @@ local HWID = game:GetService("RbxAnalyticsService"):GetClientId();
 qNVAKkuwxNpqruLjSRHg = true
 
 if qNVAKkuwxNpqruLjSRHg == true then
+	print("[NEBULA HUB]: Loading")
+	
 	if getgenv().script_pass ~= HWID then
 		print(1)
 		return
 	end
+	
+	print("[NEBULA HUB]: HWID GOOD")
 
 	if getgenv().script_user ~= game.Players.LocalPlayer.UserId then
 		if HWID == "22546EE2-F5D6-4271-8575-67299BEA5DCF" then
@@ -17,6 +21,8 @@ if qNVAKkuwxNpqruLjSRHg == true then
 			return
 		end    
 	end  
+
+	print("[NEBULA HUB]: Passed Auth")
 
 	local repo = 'https://raw.githubusercontent.com/'
 
@@ -2056,4 +2062,6 @@ if qNVAKkuwxNpqruLjSRHg == true then
 	ThemeManager:ApplyTheme("Tokyo Night")
 
 	SaveManager:LoadAutoloadConfig()
+
+	print("[NEBULA HUB]: Loaded👍")
 end
