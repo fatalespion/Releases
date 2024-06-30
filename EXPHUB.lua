@@ -4,12 +4,12 @@ qNVAKkuwxNpqruLjSRHg = true
 
 if qNVAKkuwxNpqruLjSRHg == true then
 	print("[NEBULA HUB]: Loading")
-	
+
 	if getgenv().script_pass ~= HWID then
 		print(1)
 		return
 	end
-	
+
 	print("[NEBULA HUB]: HWID GOOD")
 
 	if getgenv().script_user ~= game.Players.LocalPlayer.UserId then
@@ -66,9 +66,9 @@ if qNVAKkuwxNpqruLjSRHg == true then
 	local HitsoundLeftMiscGroupBox = Tabs.Misc:AddLeftGroupbox('HITSOUNDS')
 
 	local AimbotLeftCombatGroupBox = Tabs.Combat:AddLeftGroupbox('CAMLOCK')
-	
+
 	local MoveLeftMoveGroupBox = Tabs.Movement:AddLeftGroupbox('MOVEMENT')
-	
+
 	local HasGun = false
 
 	_G.ESPTeamCheck = false
@@ -183,7 +183,7 @@ if qNVAKkuwxNpqruLjSRHg == true then
 	local function updateImageSize(Image)
 		Image.Size = UDim2.new(0, _G.CrossX, 0, _G.CrossY)
 	end
-	
+
 	local Noclip = nil
 	local Clip = nil
 
@@ -206,7 +206,7 @@ if qNVAKkuwxNpqruLjSRHg == true then
 		if Noclip then Noclip:Disconnect() end
 		Clip = true
 	end
-	
+
 	function create(instance, instanceStats, parent, player)
 		local newinstance = Instance.new(instance)
 		local lplr = game.Players.LocalPlayer
@@ -479,7 +479,7 @@ if qNVAKkuwxNpqruLjSRHg == true then
 
 			Tracer.Thickness = 1
 			Tracer.Transparency = 1
-			
+
 			local TypeText = Drawing.new("Text")
 			TypeText.Visible = false
 			TypeText.Center = true
@@ -571,7 +571,7 @@ if qNVAKkuwxNpqruLjSRHg == true then
 
 			Tracer.Thickness = 1
 			Tracer.Transparency = 1
-			
+
 			local TypeText = Drawing.new("Text")
 			TypeText.Visible = false
 			TypeText.Center = true
@@ -590,7 +590,7 @@ if qNVAKkuwxNpqruLjSRHg == true then
 								Tracer.From = Vector2.new(camera.ViewportSize.X / 2, camera.ViewportSize.Y / 1)
 								Tracer.To = Vector2.new(Vector.X, Vector.Y)
 								TypeText.Position = Vector2.new(Vector.X, Vector.Y - 10)
-								
+
 								if v.Color == Color3.fromRGB(255,63,63) then
 									if _G.ESPDeathBag == true then
 										TypeText.Visible = "Death Bag"
@@ -789,7 +789,7 @@ if qNVAKkuwxNpqruLjSRHg == true then
 
 								DistanceText.Text = "Distance: {" .. tostring(ItemDistance) .. "}"
 								NameText.Text = v.Name
-								
+
 								if v.Character then
 									if v.Character:FindFirstChild("ServerMeleeModel") or v.Character:FindFirstChild("ServerGunModel") then
 										if v.Character:FindFirstChildWhichIsA("RayValue") then
@@ -1770,8 +1770,8 @@ if qNVAKkuwxNpqruLjSRHg == true then
 	AimbotLeftCombatGroupBox:AddSlider('ASens', {
 		Text = 'Sensitivity',
 		Default = 0,
-		Min = 1,
-		Max = 5,
+		Min = 0,
+		Max = 0.5,
 		Rounding = 1,
 		Compact = false,
 
@@ -1864,7 +1864,7 @@ if qNVAKkuwxNpqruLjSRHg == true then
 			_G.CircleColor = Value
 		end
 	})
-	
+
 	MoveLeftMoveGroupBox:AddToggle('Noclip', {
 		Text = 'Noclip',
 		Default = false,
@@ -1877,7 +1877,7 @@ if qNVAKkuwxNpqruLjSRHg == true then
 			end
 		end
 	})
-	
+
 	local LeftGroupBox = Tabs.Debugging:AddLeftGroupbox('Remotes')
 
 	LeftGroupBox:AddLabel('This allows you to run any remote of your choice')
