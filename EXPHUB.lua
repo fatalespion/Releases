@@ -1886,7 +1886,7 @@ if qNVAKkuwxNpqruLjSRHg == true then
 		Callback = function(Value)
 			if Value == true then
 				task.spawn(function()
-					repeat task.wait()
+					repeat task.wait(1)
 						for i,v in pairs(game.Workspace:GetDescendants()) do
 							if v:IsA("ProximityPrompt") then
 								if not v:GetAttribute("OldDuration") then
