@@ -1879,6 +1879,56 @@ if qNVAKkuwxNpqruLjSRHg == true then
 		end
 	})
 	
+	MoveLeftMoveGroupBox:AddDivider()
+	
+	MoveLeftMoveGroupBox:AddToggle('InfiniteStamina', {
+		Text = 'Infinite Stamina',
+		Default = false,
+		Tooltip = 'Run forever',
+		Callback = function(Value)
+			if Value == true then
+				task.spawn(function()
+					while Value == true do
+						game.Players.LocalPlayer:FindFirstChild("PlayerGui"):SetAttribute("Stamina", 100)
+						task.wait()
+					end
+				end)
+			end
+		end
+	})
+	
+	MoveLeftMoveGroupBox:AddToggle('InfiniteThirst', {
+		Text = 'Infinite Thirst',
+		Default = false,
+		Tooltip = 'No more thirst',
+		Callback = function(Value)
+			if Value == true then
+				task.spawn(function()
+					while Value == true do
+						game.Players.LocalPlayer:FindFirstChild("PlayerGui"):SetAttribute("Thirst", 100)
+						task.wait()
+					end
+				end)
+			end
+		end
+	})
+	
+	MoveLeftMoveGroupBox:AddToggle('InfiniteHunger', {
+		Text = 'Infinite Hunger',
+		Default = false,
+		Tooltip = 'No more Hunger',
+		Callback = function(Value)
+			if Value == true then
+				task.spawn(function()
+					while Value == true do
+						game.Players.LocalPlayer:FindFirstChild("PlayerGui"):SetAttribute("Hunger", 100)
+						task.wait()
+					end
+				end)
+			end
+		end
+	})
+	
 	LootLeftLootGroupBox:AddToggle('NoECooldown', {
 		Text = 'No Hold Duration',
 		Default = false,
