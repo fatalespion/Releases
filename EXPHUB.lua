@@ -1494,16 +1494,13 @@ if qNVAKkuwxNpqruLjSRHg == true then
 	OthersLeftVisualGroupBox:AddToggle('BFullBright', {
 		Text = 'Fullbright',
 		Default = false,
-		Tooltip = 'be a bat',
+		Tooltip = 'see in the dark',
 		Callback = function(Value)
-			if Value == true then
-				local ColorCorrection = Instance.new("ColorCorrectionEffect")
-				ColorCorrection.Brightness = 0.1
-				ColorCorrection.Parent = Camera
-				ColorCorrection.Name = "fullbrightness"
-			elseif Value == false then
-				Camera:FindFirstChild("fullbrightness"):Destroy()
-			end
+			task.spawn(function()
+				repeat task.wait()
+					game.Lighting.TimeOfDay = 12
+				until Value == false
+			end)
 		end
 	})
 
