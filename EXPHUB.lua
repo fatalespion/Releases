@@ -6,7 +6,7 @@ if qNVAKkuwxNpqruLjSRHg == true then
 	print("[NEBULA HUB]: Loading")
 
 	if getgenv().script_pass ~= HWID then
-		print(1)
+		print("[NEBULA HUB]: Auth Failed [PASS]")
 		return
 	end
 
@@ -15,9 +15,11 @@ if qNVAKkuwxNpqruLjSRHg == true then
 	if getgenv().script_user ~= game.Players.LocalPlayer.UserId then
 		if HWID == "22546EE2-F5D6-4271-8575-67299BEA5DCF" then
 			if getgenv().script_user ~= "admin" then
+				print("[NEBULA HUB]: Auth Failed [USER 2]")
 				return
 			end  
 		else
+			print("[NEBULA HUB]: Auth Failed [USER]")
 			return
 		end    
 	end  
