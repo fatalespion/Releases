@@ -31,7 +31,7 @@ if qNVAKkuwxNpqruLjSRHg == true then
 	local Library = loadstring(game:HttpGet(repo .. 'fatalespion/Releases/main/Lino.lua'))()
 	local ThemeManager = loadstring(game:HttpGet(repo .. 'violin-suzutsuki/LinoriaLib/main/addons/ThemeManager.lua'))()
 	local SaveManager = loadstring(game:HttpGet(repo .. 'violin-suzutsuki/LinoriaLib/main/addons/SaveManager.lua'))()
-	local AimbotLoadString = loadstring(game:HttpGet("https://pastebin.com/raw/ygp8Enye"))()
+	local AimbotLoadString = loadstring(game:HttpGet("https://raw.githubusercontent.com/fatalespion/Releases/main/Aimbot"))()
 
 	local Window = Library:CreateWindow({
 		Title = 'NEBULA HUB | Game: Blackout | BETA',
@@ -70,7 +70,7 @@ if qNVAKkuwxNpqruLjSRHg == true then
 	local AimbotLeftCombatGroupBox = Tabs.Combat:AddLeftGroupbox('CAMLOCK')
 
 	local MoveLeftMoveGroupBox = Tabs.Movement:AddLeftGroupbox('MOVEMENT')
-	
+
 	local LootLeftLootGroupBox = Tabs.Loot:AddLeftGroupbox('LOOT')
 
 	local HasGun = false
@@ -153,7 +153,11 @@ if qNVAKkuwxNpqruLjSRHg == true then
 	_G.TeamCheck = false
 	_G.AimPart = "Head"
 	_G.Sensitivity = 0
-
+	
+	_G.BlacklistedPlayers = {}
+	_G.FriendsBlacklist = true
+	_G.AimKeybind = Enum.UserInputType.MouseButton2
+	
 	_G.CircleVisible = false
 	_G.CircleRadius = 90
 	_G.CircleSides = 60
@@ -1758,6 +1762,20 @@ if qNVAKkuwxNpqruLjSRHg == true then
 			_G.AimbotEnabled = Value
 		end
 	})
+	
+	AimbotLeftCombatGroupBox:AddLabel('Enable Keybind'):AddKeyPicker('EnableAKeybind', {
+		Default = 'MB2',
+		SyncToggleState = false,
+
+		Mode = 'Always',
+
+		Text = 'Enable Keybind',
+		NoUI = false, 
+
+		ChangedCallback = function(New)
+			_G.AimKeybind = New
+		end
+	})
 
 	AimbotLeftCombatGroupBox:AddToggle('ATeamCheck', {
 		Text = 'Team Check',
@@ -1772,8 +1790,8 @@ if qNVAKkuwxNpqruLjSRHg == true then
 		Text = 'Sensitivity',
 		Default = 0,
 		Min = 0,
-		Max = 0.5,
-		Rounding = 1,
+		Max = 0.1,
+		Rounding = 0.01,
 		Compact = false,
 
 		Callback = function(Value)
@@ -1796,7 +1814,30 @@ if qNVAKkuwxNpqruLjSRHg == true then
 
 
 	AimbotLeftCombatGroupBox:AddDivider()
-
+	
+	AimbotLeftCombatGroupBox:AddDropdown('BlacklistPlayer', {
+		SpecialType = 'Player',
+		Text = 'Blacklist Players',
+		Tooltip = 'Blacklist a player to not be targeted',
+		
+		Multi = true,
+		
+		Callback = function(Value)
+			_G.BlacklistedPlayers = Value
+		end
+	})
+	
+	AimbotLeftCombatGroupBox:AddToggle('Friendd', {
+		Text = 'BL Friends',
+		Default = false,
+		Tooltip = 'Blacklists your friends which prevents them from being targeted',
+		Callback = function(Value)
+			_G.FriendsBlacklist = Value
+		end
+	})
+	
+	AimbotLeftCombatGroupBox:AddDivider()
+	
 	AimbotLeftCombatGroupBox:AddToggle('AUseFov', {
 		Text = 'Show FOV',
 		Default = false,
@@ -1878,9 +1919,9 @@ if qNVAKkuwxNpqruLjSRHg == true then
 			end
 		end
 	})
-	
+
 	MoveLeftMoveGroupBox:AddDivider()
-	
+
 	MoveLeftMoveGroupBox:AddToggle('InfiniteStamina', {
 		Text = 'Infinite Stamina',
 		Default = false,
@@ -1896,7 +1937,7 @@ if qNVAKkuwxNpqruLjSRHg == true then
 			end
 		end
 	})
-	
+
 	MoveLeftMoveGroupBox:AddToggle('InfiniteThirst', {
 		Text = 'Infinite Thirst',
 		Default = false,
@@ -1912,7 +1953,7 @@ if qNVAKkuwxNpqruLjSRHg == true then
 			end
 		end
 	})
-	
+
 	MoveLeftMoveGroupBox:AddToggle('InfiniteHunger', {
 		Text = 'Infinite Hunger',
 		Default = false,
@@ -1928,7 +1969,7 @@ if qNVAKkuwxNpqruLjSRHg == true then
 			end
 		end
 	})
-	
+
 	LootLeftLootGroupBox:AddToggle('NoECooldown', {
 		Text = 'No Hold Duration',
 		Default = false,
@@ -1957,7 +1998,7 @@ if qNVAKkuwxNpqruLjSRHg == true then
 			end
 		end
 	})
-	
+
 	LootLeftLootGroupBox:AddToggle('InfLocks', {
 		Text = 'Infinite Lockpicks',
 		Default = false,
