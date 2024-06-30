@@ -45,7 +45,6 @@ if qNVAKkuwxNpqruLjSRHg == true then
 		Movement = Window:AddTab('Movement'),
 		Loot = Window:AddTab('Loot'),
 		Misc = Window:AddTab('Miscellaneous'),
-		Debugging = Window:AddTab('Debug'),
 		['HUD'] = Window:AddTab('Settings'),
 	}
 
@@ -70,7 +69,7 @@ if qNVAKkuwxNpqruLjSRHg == true then
 
 	local MoveLeftMoveGroupBox = Tabs.Movement:AddLeftGroupbox('MOVEMENT')
 	
-	local LootLeftLootGroupBox = Tabs.Movement:AddLeftGroupbox('LOOT')
+	local LootLeftLootGroupBox = Tabs.Loot:AddLeftGroupbox('LOOT')
 
 	local HasGun = false
 
@@ -1927,140 +1926,6 @@ if qNVAKkuwxNpqruLjSRHg == true then
 				end
 			end
 		end
-	})
-
-	local LeftGroupBox = Tabs.Debugging:AddLeftGroupbox('Remotes')
-
-	LeftGroupBox:AddLabel('This allows you to run any remote of your choice')
-
-	LeftGroupBox:AddDivider()
-
-	_G.RemoteSelected = nil
-	_G.Args1 = nil
-	_G.Args2 = nil
-	_G.Args3 = nil
-	_G.Args4 = nil
-	_G.Args5 = nil
-
-	LeftGroupBox:AddDropdown('MyDropdown', {
-		Values = AvailbleRemotes,
-		Default = 1,
-		Multi = false,
-
-		Text = 'Remotes',
-		Tooltip = '',
-
-		Callback = function(Value)
-			_G.RemoteSelected = Value
-		end
-	})
-
-	LeftGroupBox:AddDivider()
-
-	LeftGroupBox:AddInput('Args1', {
-		Default = '',
-		Numeric = false,
-		Finished = false,
-
-		Text = 'Argument 1',
-		Tooltip = '',
-		Placeholder = '',
-
-		Callback = function(Value)
-			_G.Args1 = Value
-		end
-	})
-
-	LeftGroupBox:AddInput('Args2', {
-		Default = '',
-		Numeric = false,
-		Finished = false,
-
-		Text = 'Argument 2',
-		Tooltip = '',
-		Placeholder = '',
-
-		Callback = function(Value)
-			_G.Args2 = Value
-		end
-	})
-
-	LeftGroupBox:AddInput('Args3', {
-		Default = '',
-		Numeric = false,
-		Finished = false,
-
-		Text = 'Argument 3',
-		Tooltip = '',
-		Placeholder = '',
-
-		Callback = function(Value)
-			_G.Args3 = Value
-		end
-	})
-
-	LeftGroupBox:AddInput('Args4', {
-		Default = '',
-		Numeric = false,
-		Finished = false,
-
-		Text = 'Argument 4',
-		Tooltip = '',
-		Placeholder = '',
-
-		Callback = function(Value)
-			_G.Args4 = Value
-		end
-	})
-
-	LeftGroupBox:AddInput('Args5', {
-		Default = '',
-		Numeric = false,
-		Finished = false,
-
-		Text = 'Argument 5',
-		Tooltip = '',
-		Placeholder = '',
-
-		Callback = function(Value)
-			_G.Args5 = Value
-		end
-	})
-
-	LeftGroupBox:AddDivider()
-
-	local MyButton = LeftGroupBox:AddButton({
-		Text = 'Run',
-		Func = function()
-			for i,v in pairs(game.ReplicatedStorage:GetDescendants()) do
-				if v:IsA("RemoteEvent") then
-					if v.Name == _G.RemoteSelected then
-						v:FireServer(_G.Args1, _G.Args2, _G.Args3, _G.Args4, _G.Args5)
-					end   
-				elseif v:IsA("RemoteFunction") then
-					if v.Name == _G.RemoteSelected then
-						v:InvokeServer(_G.Args1, _G.Args2, _G.Args3, _G.Args4, _G.Args5)
-					end     
-				elseif v:IsA("BindableEvent") then  
-					if v.Name == _G.RemoteSelected then
-						v:Fire(_G.Args1, _G.Args2, _G.Args3, _G.Args4, _G.Args5)
-					end 
-				end
-			end    
-		end,
-		DoubleClick = false,
-		Tooltip = 'Run the remote you chose'
-	})
-
-	local RightGroupBox = Tabs.Debugging:AddRightGroupbox('Script Hub')
-
-	local IY = RightGroupBox:AddButton({
-		Text = 'Infinite Yield',
-		Func = function()
-			loadstring(game:HttpGet("https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source"))()
-		end,
-		DoubleClick = true,
-		Tooltip = 'Run infinite yield'
 	})
 
 	Library:SetWatermarkVisibility(true)
