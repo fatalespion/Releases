@@ -505,7 +505,7 @@ if qNVAKkuwxNpqruLjSRHg == true then
 
 								if v.Color == Color3.fromRGB(255,63,63) then
 									if _G.ESPDeathBag == true then
-										TypeText.Visible = "Death Bag"
+										TypeText.Text = "Death Bag"
 										TypeText.Color = _G.ESPDeathBagColor
 										TypeText.Visible = true
 										Tracer.Color = _G.ESPDeathBagColor
@@ -517,7 +517,7 @@ if qNVAKkuwxNpqruLjSRHg == true then
 								elseif v.Color == Color3.fromRGB(0,127,255) then
 									if v.Name == "DeathBag" then
 										if _G.ESPNpcBag == true then
-											TypeText.Visible = "NPC Death Bag"
+											TypeText.Text = "NPC Death Bag"
 											TypeText.Color = _G.ESPNpcBagColor
 											TypeText.Visible = true
 											Tracer.Color = _G.ESPNpcBagColor
@@ -528,7 +528,7 @@ if qNVAKkuwxNpqruLjSRHg == true then
 										end
 									elseif v.Name == "DuffelBag" then
 										if _G.ESPDropBag == true then
-											TypeText.Visible = "Drop Bag"
+											TypeText.Text = "Drop Bag"
 											TypeText.Color = _G.ESPDropBagColor
 											TypeText.Visible = true
 											Tracer.Color = _G.ESPDropBagColor
@@ -597,7 +597,7 @@ if qNVAKkuwxNpqruLjSRHg == true then
 
 								if v.Color == Color3.fromRGB(255,63,63) then
 									if _G.ESPDeathBag == true then
-										TypeText.Visible = "Death Bag"
+										TypeText.Text = "Death Bag"
 										TypeText.Color = _G.ESPDeathBagColor
 										TypeText.Visible = true
 										Tracer.Color = _G.ESPDeathBagColor
@@ -609,7 +609,7 @@ if qNVAKkuwxNpqruLjSRHg == true then
 								elseif v.Color == Color3.fromRGB(0,127,255) then
 									if v.Name == "DeathBag" then
 										if _G.ESPNpcBag == true then
-											TypeText.Visible = "NPC Death Bag"
+											TypeText.Text = "NPC Death Bag"
 											TypeText.Color = _G.ESPNpcBagColor
 											TypeText.Visible = true
 											Tracer.Color = _G.ESPNpcBagColor
@@ -620,7 +620,7 @@ if qNVAKkuwxNpqruLjSRHg == true then
 										end
 									elseif v.Name == "DuffelBag" then
 										if _G.ESPDropBag == true then
-											TypeText.Visible = "Drop Bag"
+											TypeText.Text = "Drop Bag"
 											TypeText.Color = _G.ESPDropBagColor
 											TypeText.Visible = true
 											Tracer.Color = _G.ESPDropBagColor
@@ -1122,7 +1122,7 @@ if qNVAKkuwxNpqruLjSRHg == true then
 	LeftVisualGroupBox:AddToggle('EnabledESP', {
 		Text = 'Enable',
 		Default = false, -- Default value (true / false)
-		Tooltip = 'Enable the esp', -- Information shown when you hover over the toggle
+		Tooltip = 'Enable the esp [if you experience extreme lag please enable the option [Show Distance]', -- Information shown when you hover over the toggle
 
 		Callback = function(Value)
 			_G.ESPEnabled = Value           
@@ -1882,22 +1882,18 @@ if qNVAKkuwxNpqruLjSRHg == true then
 	LootLeftLootGroupBox:AddToggle('NoECooldown', {
 		Text = 'No Hold Duration',
 		Default = false,
-		Tooltip = 'Removes the proximity prompt hold duration',
+		Tooltip = 'Removes the proximity prompt hold duration [WARNING: IF NEW PROMPTS POP UP LIKE IF YOUR DOING LAB PLEASE DOUBLE CLICK ON THIS TOGGLE TO REPUT ALL PROMPTS TO 0]',
 		Callback = function(Value)
 			if Value == true then
-				task.spawn(function()
-					repeat task.wait(1)
-						for i,v in pairs(game.Workspace:GetDescendants()) do
-							if v:IsA("ProximityPrompt") then
-								if not v:GetAttribute("OldDuration") then
-									v:SetAttribute("OldDuration", v.HoldDuration)
-								end
-
-								v.HoldDuration = 0
-							end     
+				for i,v in pairs(game.Workspace:GetDescendants()) do
+					if v:IsA("ProximityPrompt") then
+						if not v:GetAttribute("OldDuration") then
+							v:SetAttribute("OldDuration", v.HoldDuration)
 						end
-					until Value == false
-				end)
+
+						v.HoldDuration = 0
+					end     
+				end
 			elseif Value == false then
 				for i,v in pairs(game.Workspace:GetDescendants()) do
 					if v:IsA("ProximityPrompt") then
