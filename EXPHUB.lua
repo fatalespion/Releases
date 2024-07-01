@@ -2013,27 +2013,14 @@ if qNVAKkuwxNpqruLjSRHg == true then
 		Default = false,
 		Tooltip = 'Removes the proximity prompt hold duration [WARNING: IF NEW PROMPTS POP UP LIKE IF YOUR DOING LAB PLEASE DOUBLE CLICK ON THIS TOGGLE TO REPUT ALL PROMPTS TO 0]',
 		Callback = function(Value)
-			if Value == true then
-				for i,v in pairs(game.Workspace:GetDescendants()) do
-					if v:IsA("ProximityPrompt") then
-						if not v:GetAttribute("OldDuration") then
-							v:SetAttribute("OldDuration", v.HoldDuration)
-						end
-
-						v.HoldDuration = 0
-					end     
+			local PromptButtonHoldBegan
+			local ProximityPromptService = game:GetService("ProximityPromptService")
+			
+			PromptButtonHoldBegan = ProximityPromptService.PromptButtonHoldBegan:Connect(function(prompt)
+				if Value == true then
+					fireproximityprompt(prompt)
 				end
-			elseif Value == false then
-				for i,v in pairs(game.Workspace:GetDescendants()) do
-					if v:IsA("ProximityPrompt") then
-						if not v:GetAttribute("OldDuration") then
-							v.HoldDuration = 1
-						else
-							v.HoldDuration = v:GetAttribute("OldDuration")
-						end
-					end     
-				end
-			end
+			end)
 		end
 	})
 
