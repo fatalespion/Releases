@@ -66,7 +66,8 @@ if qNVAKkuwxNpqruLjSRHg == true then
 	local OthersLeftVisualGroupBox = Tabs.Visual:AddRightGroupbox('OTHERS')
 
 	local HitsoundLeftMiscGroupBox = Tabs.Misc:AddLeftGroupbox('HITSOUNDS')
-
+	local StaffLeftMiscGroupBox = Tabs.Misc:AddLeftGroupbox('NOTIFICATION')
+	
 	local AimbotLeftCombatGroupBox = Tabs.Combat:AddLeftGroupbox('CAMLOCK')
 
 	local MoveLeftMoveGroupBox = Tabs.Movement:AddLeftGroupbox('MOVEMENT')
@@ -153,11 +154,11 @@ if qNVAKkuwxNpqruLjSRHg == true then
 	_G.TeamCheck = false
 	_G.AimPart = "Head"
 	_G.Sensitivity = 0
-	
+
 	_G.BlacklistedPlayers = {}
 	_G.FriendsBlacklist = true
 	_G.AimKeybind = Enum.UserInputType.MouseButton2
-	
+
 	_G.CircleVisible = false
 	_G.CircleRadius = 90
 	_G.CircleSides = 60
@@ -1762,7 +1763,7 @@ if qNVAKkuwxNpqruLjSRHg == true then
 			_G.AimbotEnabled = Value
 		end
 	})
-	
+
 	AimbotLeftCombatGroupBox:AddLabel('Enable Keybind'):AddKeyPicker('EnableAKeybind', {
 		Default = 'MB2',
 		SyncToggleState = false,
@@ -1814,19 +1815,19 @@ if qNVAKkuwxNpqruLjSRHg == true then
 
 
 	AimbotLeftCombatGroupBox:AddDivider()
-	
+
 	AimbotLeftCombatGroupBox:AddDropdown('BlacklistPlayer', {
 		SpecialType = 'Player',
 		Text = 'Blacklist Players',
 		Tooltip = 'Blacklist a player to not be targeted',
-		
+
 		Multi = true,
-		
+
 		Callback = function(Value)
 			_G.BlacklistedPlayers = Value
 		end
 	})
-	
+
 	AimbotLeftCombatGroupBox:AddToggle('Friendd', {
 		Text = 'BL Friends',
 		Default = false,
@@ -1835,9 +1836,9 @@ if qNVAKkuwxNpqruLjSRHg == true then
 			_G.FriendsBlacklist = Value
 		end
 	})
-	
+
 	AimbotLeftCombatGroupBox:AddDivider()
-	
+
 	AimbotLeftCombatGroupBox:AddToggle('AUseFov', {
 		Text = 'Show FOV',
 		Default = false,
@@ -2011,6 +2012,47 @@ if qNVAKkuwxNpqruLjSRHg == true then
 					game:GetService("ReplicatedStorage").Events.Loot:FindFirstChild("MinigameMistake1").Name = "MinigameMistake"
 				end
 			end
+		end
+	})
+	
+	StaffLeftMiscGroupBox:AddToggle('StaffWarn', {
+		Text = 'Staff Notifier',
+		Default = false,
+		Tooltip = 'notifies you when a potential staff joins the game',
+		Callback = function(Value)
+			game.Players.PlayerAdded:Connect(function(plr)
+				if plr:IsInGroup(6568965) and plr:GetRankInGroup(6568965) > 1 and Value == true then
+					if _G.StaffMethod == "get kicked" then
+						game.Players.LocalPlayer:Kick("Possible staff has joined your game")
+					elseif _G.StaffMethod == "get notified" then
+						game:GetService("StarterGui"):SetCore("SendNotification", {
+							Title = "ALERT",
+							Text = "A POTENTIAL STAFF HAS JOINED YOUR GAME!",
+							Icon = "rbxassetid://17829955945",
+							Duration = 6,
+						})
+						
+						local Audio = Instance.new("Sound")
+						Audio.Parent = workspace
+						Audio.SoundId = "rbxassetid://2778386920"
+						Audio:Play()
+						game:GetService("Debris"):AddItem(Audio, Audio.TimeLength)
+					end
+				end
+			end)
+		end
+	})
+	
+	StaffLeftMiscGroupBox:AddDropdown('StaffMethod', {
+		Values = {"get kicked", "get notified"},
+		Default = "get notified",
+		Multi = false,
+
+		Text = 'Method',
+		Tooltip = 'the way in which it will notify you when a staff member joins',
+
+		Callback = function(Value)
+			_G.StaffMethod = Value
 		end
 	})
 
