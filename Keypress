@@ -12,14 +12,14 @@ input = {
         vim:SendKeyEvent(false, key, false, nil)
     end,
     holdMouse = function(button, time)
-        vim:SendMouseButtonEvent(0, 0, button, true, nil, 0)
+        vim:SendMouseButtonEvent(0, 0, button, true, nil)
         task.wait(time)
-        vim:SendMouseButtonEvent(0, 0, button, false, nil, 0)
+        vim:SendMouseButtonEvent(0, 0, button, false, nil)
     end,
     pressMouse = function(button)
-        vim:SendMouseButtonEvent(0, 0, button, true, nil, 0)
+       vim:SendMouseButtonEvent(0, 0, button, true, nil)
         task.wait(0.005)
-        vim:SendMouseButtonEvent(0, 0, button, false, nil, 0)
+        vim:SendMouseButtonEvent(0, 0, button, false, nil)
     end
 }
 
