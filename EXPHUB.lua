@@ -342,9 +342,15 @@ if qNVAKkuwxNpqruLjSRHg == true then
 		task.wait(0.05)
 		input.pressMouse(Enum.UserInputType.MouseButton1, Main4X + 30, Main4Y + 70)
 	end
-
+	
+	local IsAvaible = true
+	
 	local function RestockAutoFarm()
 		if not _G.RestockAutoFarm then
+			return
+		end
+		
+		if not IsAvaible then
 			return
 		end
 
@@ -363,11 +369,20 @@ if qNVAKkuwxNpqruLjSRHg == true then
 
 			local MainX,MainY
 			local Main2X,Main2Y = getButtonPosition(game.Players.LocalPlayer:FindFirstChild("PlayerGui"):FindFirstChild("MainGui").Tasks.MainFrame.PreviewFrame.StartTask)
-
+			
 			for i,v in pairs(game.Players.LocalPlayer:FindFirstChild("PlayerGui"):FindFirstChild("MainGui").Tasks.MainFrame.TaskList.List:GetDescendants()) do
 				if v:IsA("TextLabel") and v.Text == "RESTOCKING" then
 					MainX,MainY = getButtonPosition(v.Parent)
+					IsAvaible = true
 				end
+			end
+			
+			if not IsAvaible then
+				task.spawn(function()
+					task.wait(260)
+					RestockAutoFarm()
+				end)
+				return
 			end
 
 			input.pressMouse(Enum.UserInputType.MouseButton1, MainX + 100, MainY + 100)
