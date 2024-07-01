@@ -71,7 +71,8 @@ if qNVAKkuwxNpqruLjSRHg == true then
 	local AimbotLeftCombatGroupBox = Tabs.Combat:AddLeftGroupbox('CAMLOCK')
 
 	local MoveLeftMoveGroupBox = Tabs.Movement:AddLeftGroupbox('MOVEMENT')
-
+	local spinRightMoveGroupBox = Tabs.Movement:AddRightGroupbox('SPINBOT & BHOP')
+	
 	local LootLeftLootGroupBox = Tabs.Loot:AddLeftGroupbox('LOOT')
 
 	local HasGun = false
@@ -103,7 +104,11 @@ if qNVAKkuwxNpqruLjSRHg == true then
 
 	_G.DefaultCursor = "9373275104"
 	_G.CustomCursor = "9373275104"
-
+	
+	_G.StaffMethod = "get notified"
+	
+	_G.Spinbot = false
+	
 	AimbotSettings = {
 		DeveloperSettings = {
 			UpdateMode = "RenderStepped",
@@ -266,6 +271,33 @@ if qNVAKkuwxNpqruLjSRHg == true then
 			end
 		end
 	end
+	
+	local RunService = game:GetService("RunService")
+	local Players = game:GetService("Players")
+
+	local characterPI = script.Parent
+	local humanoidMove = characterPI:WaitForChild("Humanoid").MoveDirection
+	local rootPart = characterPI:WaitForChild("HumanoidRootPart")
+
+	local turnAmount = 0
+	local tiltSpeed = 5
+
+	local function UpdateTilt()
+		local tiltAngle = math.rad(turnAmount) * tiltSpeed
+		rootPart.CFrame = rootPart.CFrame * CFrame.Angles(0, tiltAngle, 0)
+	end
+
+	local function OnRenderStep()
+		if _G.Spinbot then
+			local moveDirection = humanoidMove + Vector3.new(1,0,1)
+			local moveRotation = math.atan2(moveDirection.X, moveDirection.Z)
+			turnAmount = math.deg(moveRotation)
+
+			UpdateTilt()
+		end
+	end
+
+	RunService.RenderStepped:Connect(OnRenderStep)
 
 	function StartCHAMS()
 		local lplr = game.Players.LocalPlayer
@@ -2055,6 +2087,16 @@ if qNVAKkuwxNpqruLjSRHg == true then
 			_G.StaffMethod = Value
 		end
 	})
+	
+	spinRightMoveGroupBox:AddToggle('Spinbot', {
+		Text = 'Spinbot',
+		Default = false,
+		Tooltip = 'spins you around alot so people cannot aim you correctly',
+		Callback = function(Value)
+			_G.Spinbot = Value
+		end
+	})
+
 
 	Library:SetWatermarkVisibility(true)
 
