@@ -292,7 +292,12 @@ if qNVAKkuwxNpqruLjSRHg == true then
 			local moveDirection = humanoidMove + Vector3.new(1,0,1)
 			local moveRotation = math.atan2(moveDirection.X, moveDirection.Z)
 			turnAmount = math.deg(moveRotation)
-
+			
+			game.Players.LocalPlayer.CharacterAdded:Connect(function(character)
+				humanoidMove = character:WaitForChild("Humanoid").MoveDirection
+				rootPart = character:WaitForChild("HumanoidRootPart")
+			end)
+			
 			UpdateTilt()
 		end
 	end
