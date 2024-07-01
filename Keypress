@@ -17,6 +17,7 @@ input = {
         vim:SendMouseButtonEvent(0, 0, button, false, nil)
     end,
     pressMouse = function(button)
+print("yes")
        vim:SendMouseButtonEvent(0, 0, button, true, nil)
         task.wait(0.005)
         vim:SendMouseButtonEvent(0, 0, button, false, nil)
