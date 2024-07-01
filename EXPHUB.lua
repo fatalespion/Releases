@@ -379,6 +379,7 @@ if qNVAKkuwxNpqruLjSRHg == true then
 			
 			if not IsAvaible then
 				task.spawn(function()
+					game.Players.LocalPlayer:FindFirstChild("PlayerGui"):FindFirstChild("MainGui").Tasks.Visible = false
 					task.wait(260)
 					RestockAutoFarm()
 				end)
@@ -1557,6 +1558,8 @@ if qNVAKkuwxNpqruLjSRHg == true then
 				if game.Players.LocalPlayer.PlayerGui:FindFirstChild("GunGui").FollowMouse:FindFirstChild("NewCustomCursor") then
 					game.Players.LocalPlayer.PlayerGui:FindFirstChild("GunGui").FollowMouse.NewCustomCursor.Size = UDim2.new(0, _G.CrossX, 0, _G.CrossY)
 					game.Players.LocalPlayer.PlayerGui:FindFirstChild("GunGui").FollowMouse.NewCustomCursor.Image = "rbxassetid://".._G.CustomCursor
+					game.Players.LocalPlayer.PlayerGui:FindFirstChild("GunGui").FollowMouse.NewCustomCursor.ImageColor3 = game.Players.LocalPlayer.PlayerGui:FindFirstChild("GunGui").FollowMouse.Cursor.ImageColor3
+
 				end
 			end
 		end,
