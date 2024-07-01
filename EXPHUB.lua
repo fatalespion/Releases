@@ -66,7 +66,8 @@ if qNVAKkuwxNpqruLjSRHg == true then
 	local OthersLeftVisualGroupBox = Tabs.Visual:AddRightGroupbox('OTHERS')
 
 	local HitsoundLeftMiscGroupBox = Tabs.Misc:AddLeftGroupbox('HITSOUNDS')
-	local StaffLeftMiscGroupBox = Tabs.Misc:AddLeftGroupbox('NOTIFICATION')
+	local StaffLeftMiscGroupBox = Tabs.Misc:AddRightGroupbox('NOTIFICATION')
+	local FarmRightMiscGroupBox = Tabs.Misc:AddRightGroupbox('AUTOFARM')
 	
 	local AimbotLeftCombatGroupBox = Tabs.Combat:AddLeftGroupbox('CAMLOCK')
 
@@ -108,6 +109,8 @@ if qNVAKkuwxNpqruLjSRHg == true then
 	_G.StaffMethod = "get notified"
 	
 	_G.Spinbot = false
+	
+	_G.RestockAutoFarm = false
 	
 	AimbotSettings = {
 		DeveloperSettings = {
@@ -286,7 +289,104 @@ if qNVAKkuwxNpqruLjSRHg == true then
 		local tiltAngle = math.rad(turnAmount) * tiltSpeed
 		rootPart.CFrame = rootPart.CFrame * CFrame.Angles(0, tiltAngle, 0)
 	end
+	
+	local FarmBroker = workspace.NPCs.Other.Broker
 
+	local vim = game:GetService('VirtualInputManager')
+
+	input = {
+		hold = function(key, time)
+			vim:SendKeyEvent(true, key, false, game)
+			task.wait(time)
+			vim:SendKeyEvent(false, key, false, game)
+		end,
+		press = function(key)
+			vim:SendKeyEvent(true, key, false, game)
+			task.wait(0.005)
+			vim:SendKeyEvent(false, key, false, game)
+		end,
+		holdMouse = function(button, time, x, y)
+			vim:SendMouseButtonEvent(x, y, button.Value, true, game, 0)
+			task.wait(time)
+			vim:SendMouseButtonEvent(x, y, button.Value, false, game, 0)
+		end,
+		pressMouse = function(button, x, y)
+			vim:SendMouseButtonEvent(x, y, button.Value, true, game, 0)
+			task.wait(0.005)
+			vim:SendMouseButtonEvent(x, y, button.Value, false, game, 0)
+		end
+	}
+
+	local function getButtonPosition(button)
+		local absolutePosition = button.AbsolutePosition
+		local x = absolutePosition.X
+		local y = absolutePosition.Y
+		return x, y
+	end
+
+	local function GrabCash()
+		local Terminal = workspace.Terminals.Terminal
+		game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart").CFrame = Terminal.CFrame
+		task.wait(0.8)
+		input.press(Enum.KeyCode.E)
+		task.wait(0.5)
+
+		local MainX,MainY = getButtonPosition(game.Players.LocalPlayer:FindFirstChild("PlayerGui"):FindFirstChild("MainGui").Stash.MainFrame.TopBar.Tabs.Currency)
+		local Main3X,Main3Y = getButtonPosition(game.Players.LocalPlayer:FindFirstChild("PlayerGui"):FindFirstChild("MainGui").Stash.MainFrame.Tabs.Currency.Transfer.Withdraw)
+		local Main4X,Main4Y = getButtonPosition(game.Players.LocalPlayer:FindFirstChild("PlayerGui"):FindFirstChild("MainGui").Stash.MainFrame.TopBar.Close)
+
+		input.pressMouse(Enum.UserInputType.MouseButton1, MainX + 100, MainY + 100)
+		game.Players.LocalPlayer:FindFirstChild("PlayerGui"):FindFirstChild("MainGui").Stash.MainFrame.Tabs.Currency.Transfer.AmountFrame.Amount.Text = "500"
+		task.wait(2)
+		input.pressMouse(Enum.UserInputType.MouseButton1, Main3X + 100, Main3Y + 100)
+		task.wait(0.05)
+		input.pressMouse(Enum.UserInputType.MouseButton1, Main4X + 30, Main4Y + 70)
+	end
+
+	local function RestockAutoFarm()
+		if not _G.RestockAutoFarm then
+			return
+		end
+
+		if game.Players.LocalPlayer:FindFirstChild("PlayerGui"):GetAttribute("Cash") < 500 then
+			print("⛔ [NEBULA HUB]: You do not have > 500 cash to start this mission")
+			return
+		end
+
+		if game.Players.LocalPlayer.Character then
+			game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart").CFrame = FarmBroker.HumanoidRootPart.CFrame
+
+			task.wait(0.8)
+			input.press(Enum.KeyCode.E)
+			task.wait(2)
+			input.press(Enum.KeyCode.One)
+
+			local MainX,MainY
+			local Main2X,Main2Y = getButtonPosition(game.Players.LocalPlayer:FindFirstChild("PlayerGui"):FindFirstChild("MainGui").Tasks.MainFrame.PreviewFrame.StartTask)
+
+			for i,v in pairs(game.Players.LocalPlayer:FindFirstChild("PlayerGui"):FindFirstChild("MainGui").Tasks.MainFrame.TaskList.List:GetDescendants()) do
+				if v:IsA("TextLabel") and v.Text == "RESTOCKING" then
+					MainX,MainY = getButtonPosition(v.Parent)
+				end
+			end
+
+			input.pressMouse(Enum.UserInputType.MouseButton1, MainX + 100, MainY + 100)
+			task.wait(0.2)
+			input.pressMouse(Enum.UserInputType.MouseButton1, Main2X + 100, Main2Y + 100)
+			task.wait(0.8)
+			if not game.Workspace.Debris.Nav:FindFirstChild("Destination") then
+				task.wait(120) --
+				RestockAutoFarm()
+			else
+				game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart").CFrame = game.Workspace.Debris.Nav.Destination.CFrame
+				task.wait(1)
+				GrabCash()
+				task.wait(4)
+				RestockAutoFarm()
+			end	
+		end
+	end
+	
 	local function OnRenderStep()
 		if _G.Spinbot then
 			local moveDirection = humanoidMove + Vector3.new(1,0,1)
@@ -2088,7 +2188,16 @@ if qNVAKkuwxNpqruLjSRHg == true then
 			_G.Spinbot = Value
 		end
 	})
-
+	
+	FarmRightMiscGroupBox:AddToggle('RestockAutoFarm', {
+		Text = 'Restock Auto Farm',
+		Default = false,
+		Tooltip = 'autofarms using the restock missions [need 500 cash before using this]',
+		Callback = function(Value)
+			_G.RestockAutoFarm = Value
+			RestockAutoFarm()
+		end
+	})
 
 	Library:SetWatermarkVisibility(true)
 
