@@ -2145,7 +2145,7 @@ if qNVAKkuwxNpqruLjSRHg == true then
 	SaveManager:BuildConfigSection(Tabs['HUD'])
 
 	ThemeManager:ApplyToTab(Tabs['HUD'])
-	ThemeManager:ApplyTheme("Tokyo Night")
+	ThemeManager:ApplyTheme("Quartz")
 
 	SaveManager:LoadAutoloadConfig()
 
