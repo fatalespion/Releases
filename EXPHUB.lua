@@ -1658,7 +1658,11 @@ if qNVAKkuwxNpqruLjSRHg == true then
 			task.spawn(function()
 				repeat task.wait()
 					game.Lighting.TimeOfDay = 12
+					game.Lighting.Brightness = 10
+					game.Lighting.Ambient = Color3.fromRGB(255,255,255)
 				until Value == false
+				game.Lighting.Brightness = 3
+				game.Lighting.Ambient = Color3.fromRGB(170,170,170)
 			end)
 		end
 	})
