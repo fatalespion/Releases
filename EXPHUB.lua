@@ -275,7 +275,7 @@ if qNVAKkuwxNpqruLjSRHg == true then
 	local RunService = game:GetService("RunService")
 	local Players = game:GetService("Players")
 
-	local characterPI = script.Parent
+	local characterPI = game.Players.LocalPlayer.Character
 	local humanoidMove = characterPI:WaitForChild("Humanoid").MoveDirection
 	local rootPart = characterPI:WaitForChild("HumanoidRootPart")
 
