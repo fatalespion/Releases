@@ -47,7 +47,7 @@ if qNVAKkuwxNpqruLjSRHg == true then
 		Movement = Window:AddTab('Movement'),
 		Loot = Window:AddTab('Loot'),
 		Misc = Window:AddTab('Miscellaneous'),
-		['HUD'] = Window:AddTab('Settings'),
+		['HUD'] = Window:AddTab('Nebula'),
 	}
 
 	local AvailbleRemotes = {}
