@@ -162,6 +162,9 @@ if qNVAKkuwxNpqruLjSRHg == true then
 	_G.AimPart = "Head"
 	_G.Sensitivity = 0
 
+	_G.AliveCheck = false
+	_G.WallCheck = false
+
 	_G.BlacklistedPlayers = {}
 	_G.FriendsBlacklist = true
 	_G.AimKeybind = Enum.UserInputType.MouseButton2
@@ -1937,15 +1940,6 @@ if qNVAKkuwxNpqruLjSRHg == true then
 		end
 	})
 
-	AimbotLeftCombatGroupBox:AddToggle('ATeamCheck', {
-		Text = 'Team Check',
-		Default = false,
-		Tooltip = 'Checks if you are on the same team or no',
-		Callback = function(Value)
-			_G.TeamCheck = Value
-		end
-	})
-
 	AimbotLeftCombatGroupBox:AddSlider('ASens', {
 		Text = 'Sensitivity',
 		Default = 0,
@@ -1972,7 +1966,35 @@ if qNVAKkuwxNpqruLjSRHg == true then
 		end
 	})
 
+	AimbotLeftCombatGroupBox:AddDivider()
 
+AimbotLeftCombatGroupBox:AddToggle('ATeamCheck', {
+		Text = 'Team Check',
+		Default = false,
+		Tooltip = 'Checks if you are on the same team or no',
+		Callback = function(Value)
+			_G.TeamCheck = Value
+		end
+	})
+	
+AimbotLeftCombatGroupBox:AddToggle('AWallCheck', {
+		Text = 'Wall Check',
+		Default = false,
+		Tooltip = 'Checks if the targeted player is being a wall or not',
+		Callback = function(Value)
+			_G.WallCheck = Value
+		end
+	})
+
+	AimbotLeftCombatGroupBox:AddToggle('AAliveCheck', {
+		Text = 'Alive Check',
+		Default = false,
+		Tooltip = 'Checks if the targeted player is alive or not',
+		Callback = function(Value)
+			_G.AliveCheck = Value
+		end
+	})
+	
 	AimbotLeftCombatGroupBox:AddDivider()
 
 	AimbotLeftCombatGroupBox:AddDropdown('BlacklistPlayer', {
