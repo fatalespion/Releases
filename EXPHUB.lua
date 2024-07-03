@@ -74,7 +74,9 @@ if qNVAKkuwxNpqruLjSRHg == true then
 	local spinRightMoveGroupBox = Tabs.Movement:AddRightGroupbox('SPINBOT & BHOP')
 
 	local LootLeftLootGroupBox = Tabs.Misc:AddRightGroupbox('LOOT')
-
+	
+	local waterLeftLootGroupBox = Tabs.HUD:AddRightGroupbox('WATERMARK')
+	
 	local HasGun = false
 
 	_G.ESPTeamCheck = false
@@ -86,8 +88,8 @@ if qNVAKkuwxNpqruLjSRHg == true then
 	_G.ESPShowName = false
 	_G.ESPShowDistance = false
 	_G.ESPShowTool = false
-	_G.ESPTracerColor = Color3.fromRGB(103, 89, 179)
-	_G.ESPBoxColor = Color3.fromRGB(103, 89, 179)
+	_G.ESPTracerColor = Color3.fromRGB(255,65,65)
+	_G.ESPBoxColor = Color3.fromRGB(255,65,65)
 	_G.ESPDeathBagColor = Color3.fromRGB(179, 42, 44)
 	_G.ESPDropBagColor = Color3.fromRGB(68, 179, 55)
 	_G.ESPNpcBagColor = Color3.fromRGB(45, 179, 163)
@@ -959,14 +961,15 @@ if qNVAKkuwxNpqruLjSRHg == true then
 									if v.Character:FindFirstChild("ServerMeleeModel") or v.Character:FindFirstChild("ServerGunModel") then
 										if v.Character:FindFirstChildWhichIsA("RayValue") then
 											ItemName.Text = v.Character:FindFirstChildWhichIsA("RayValue").Name
+											ItemName.Visible = true
 										else
-											ItemName.Text = ""
+											ItemName.Visible = false
 										end
 									else
-										ItemName.Text = ""
+										ItemName.Visible = false
 									end
 								else
-									ItemName.Text = ""
+									ItemName.Visible = false
 								end
 
 								if _G.ESPShowName then
@@ -1186,14 +1189,15 @@ if qNVAKkuwxNpqruLjSRHg == true then
 									if v.Character:FindFirstChild("ServerMeleeModel") or v.Character:FindFirstChild("ServerGunModel") then
 										if v.Character:FindFirstChildWhichIsA("RayValue") then
 											ItemName.Text = v.Character:FindFirstChildWhichIsA("RayValue").Name
+											ItemName.Visible = true
 										else
-											ItemName.Text = ""
+											ItemName.Visible = false
 										end
 									else
-										ItemName.Text = ""
+										ItemName.Visible = false
 									end
 								else
-									ItemName.Text = ""
+									ItemName.Visible = false
 								end
 
 								if _G.ESPShowName then
@@ -1419,7 +1423,7 @@ if qNVAKkuwxNpqruLjSRHg == true then
 	LeftVisualGroupBox:AddDivider()
 
 	LeftVisualGroupBox:AddLabel('Tracer Color'):AddColorPicker('ESPColorPicker', {
-		Default = Color3.fromRGB(103, 89, 179), -- Bright green
+		Default = Color3.fromRGB(255,65,65), -- Bright green
 		Title = 'Tracer Color', -- Optional. Allows you to have a custom color picker title (when you open it)
 		Transparency = 0, -- Optional. Enables transparency changing for this color picker (leave as nil to disable)
 
@@ -1429,7 +1433,7 @@ if qNVAKkuwxNpqruLjSRHg == true then
 	})
 
 	LeftVisualGroupBox:AddLabel('Box Color'):AddColorPicker('ESPBoxColorPicker', {
-		Default = Color3.fromRGB(103, 89, 179), -- Bright green
+		Default = Color3.fromRGB(255,65,65), -- Bright green
 		Title = 'Box Color', -- Optional. Allows you to have a custom color picker title (when you open it)
 		Transparency = 0, -- Optional. Enables transparency changing for this color picker (leave as nil to disable)
 
@@ -1945,7 +1949,7 @@ if qNVAKkuwxNpqruLjSRHg == true then
 		Default = 0,
 		Min = 0,
 		Max = 0.1,
-		Rounding = 10,
+		Rounding = 5,
 		Compact = false,
 
 		Callback = function(Value)
@@ -1968,7 +1972,7 @@ if qNVAKkuwxNpqruLjSRHg == true then
 
 	AimbotLeftCombatGroupBox:AddDivider()
 
-AimbotLeftCombatGroupBox:AddToggle('ATeamCheck', {
+	AimbotLeftCombatGroupBox:AddToggle('ATeamCheck', {
 		Text = 'Team Check',
 		Default = false,
 		Tooltip = 'Checks if you are on the same team or no',
@@ -1976,8 +1980,8 @@ AimbotLeftCombatGroupBox:AddToggle('ATeamCheck', {
 			_G.TeamCheck = Value
 		end
 	})
-	
-AimbotLeftCombatGroupBox:AddToggle('AWallCheck', {
+
+	AimbotLeftCombatGroupBox:AddToggle('AWallCheck', {
 		Text = 'Wall Check',
 		Default = false,
 		Tooltip = 'Checks if the targeted player is being a wall or not',
@@ -1994,7 +1998,7 @@ AimbotLeftCombatGroupBox:AddToggle('AWallCheck', {
 			_G.AliveCheck = Value
 		end
 	})
-	
+
 	AimbotLeftCombatGroupBox:AddDivider()
 
 	AimbotLeftCombatGroupBox:AddDropdown('BlacklistPlayer', {
@@ -2005,6 +2009,7 @@ AimbotLeftCombatGroupBox:AddToggle('AWallCheck', {
 		Multi = true,
 
 		Callback = function(Value)
+			print(Value)
 			_G.BlacklistedPlayers = Value
 		end
 	})
@@ -2019,7 +2024,7 @@ AimbotLeftCombatGroupBox:AddToggle('AWallCheck', {
 	})
 
 	AimbotLeftCombatGroupBox:AddDivider()
-	
+
 	AimbotLeftCombatGroupBox:AddLabel("[FOV EDITOR]")
 
 	AimbotLeftCombatGroupBox:AddToggle('AUseFov', {
@@ -2088,15 +2093,19 @@ AimbotLeftCombatGroupBox:AddToggle('AWallCheck', {
 		Callback = function(Value)
 			if Value == true then
 				task.spawn(function()
-					while Value == true do
+					while true do
 						task.wait()
 						_G.CircleColor = RainbowColor
+						
+						if Value == false then
+							break
+						end
 					end
 				end)
 			else
 				_G.CircleColor = _G.OriginalCircleColor
 			end
-			
+
 		end
 	})
 
@@ -2179,7 +2188,6 @@ AimbotLeftCombatGroupBox:AddToggle('AWallCheck', {
 		Default = false,
 		Tooltip = 'Removes the proximity prompt hold duration [WARNING: IF NEW PROMPTS POP UP LIKE IF YOUR DOING LAB PLEASE DOUBLE CLICK ON THIS TOGGLE TO REPUT ALL PROMPTS TO 0]',
 		Callback = function(Value)
-			local PromptButtonHoldBegan
 			local ProximityPromptService = game:GetService("ProximityPromptService")
 
 			PromptButtonHoldBegan = ProximityPromptService.PromptButtonHoldBegan:Connect(function(prompt)
@@ -2266,7 +2274,16 @@ AimbotLeftCombatGroupBox:AddToggle('AWallCheck', {
 	})
 
 	Library:SetWatermarkVisibility(true)
-
+	
+	waterLeftLootGroupBox:AddToggle('Watermark', {
+		Text = 'Watermark',
+		Default = false,
+		Tooltip = 'removes or shows the watermark',
+		Callback = function(Value)
+			Library:SetWatermarkVisibility(Value)
+		end
+	})
+	
 	local FrameTimer = tick()
 	local FrameCounter = 0
 	local FPS = 60
