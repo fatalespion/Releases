@@ -45,9 +45,8 @@ if qNVAKkuwxNpqruLjSRHg == true then
 		Combat = Window:AddTab('Combat'),
 		Visual = Window:AddTab('Visual'),
 		Movement = Window:AddTab('Movement'),
-		Loot = Window:AddTab('Loot'),
 		Misc = Window:AddTab('Miscellaneous'),
-		['HUD'] = Window:AddTab('Nebula'),
+		['HUD'] = Window:AddTab('Settings'),
 	}
 
 	local AvailbleRemotes = {}
@@ -68,13 +67,13 @@ if qNVAKkuwxNpqruLjSRHg == true then
 	local HitsoundLeftMiscGroupBox = Tabs.Misc:AddLeftGroupbox('HITSOUNDS')
 	local StaffLeftMiscGroupBox = Tabs.Misc:AddRightGroupbox('NOTIFICATION')
 	local FarmRightMiscGroupBox = Tabs.Misc:AddRightGroupbox('AUTOFARM')
-	
+
 	local AimbotLeftCombatGroupBox = Tabs.Combat:AddLeftGroupbox('CAMLOCK')
 
 	local MoveLeftMoveGroupBox = Tabs.Movement:AddLeftGroupbox('MOVEMENT')
 	local spinRightMoveGroupBox = Tabs.Movement:AddRightGroupbox('SPINBOT & BHOP')
-	
-	local LootLeftLootGroupBox = Tabs.Loot:AddLeftGroupbox('LOOT')
+
+	local LootLeftLootGroupBox = Tabs.Misc:AddRightGroupbox('LOOT')
 
 	local HasGun = false
 
@@ -105,13 +104,13 @@ if qNVAKkuwxNpqruLjSRHg == true then
 
 	_G.DefaultCursor = "9373275104"
 	_G.CustomCursor = "9373275104"
-	
+
 	_G.StaffMethod = "get notified"
-	
+
 	_G.Spinbot = false
-	
+
 	_G.RestockAutoFarm = false
-	
+
 	AimbotSettings = {
 		DeveloperSettings = {
 			UpdateMode = "RenderStepped",
@@ -173,6 +172,7 @@ if qNVAKkuwxNpqruLjSRHg == true then
 	_G.CircleThickness = 1
 	_G.CircleFilled = false
 	_G.CircleColor = Color3.fromRGB(255, 255, 255)
+	_G.OriginalCircleColor = Color3.fromRGB(255, 255, 255)
 
 	local ESPLines = {}
 
@@ -274,7 +274,7 @@ if qNVAKkuwxNpqruLjSRHg == true then
 			end
 		end
 	end
-	
+
 	local RunService = game:GetService("RunService")
 	local Players = game:GetService("Players")
 
@@ -289,7 +289,7 @@ if qNVAKkuwxNpqruLjSRHg == true then
 		local tiltAngle = math.rad(turnAmount) * tiltSpeed
 		rootPart.CFrame = rootPart.CFrame * CFrame.Angles(0, tiltAngle, 0)
 	end
-	
+
 	local FarmBroker = workspace.NPCs.Other.Broker
 
 	local vim = game:GetService('VirtualInputManager')
@@ -342,14 +342,14 @@ if qNVAKkuwxNpqruLjSRHg == true then
 		task.wait(0.05)
 		input.pressMouse(Enum.UserInputType.MouseButton1, Main4X + 30, Main4Y + 70)
 	end
-	
+
 	local IsAvaible = true
-	
+
 	local function RestockAutoFarm()
 		if not _G.RestockAutoFarm then
 			return
 		end
-		
+
 		if not IsAvaible then
 			return
 		end
@@ -369,14 +369,14 @@ if qNVAKkuwxNpqruLjSRHg == true then
 
 			local MainX,MainY
 			local Main2X,Main2Y = getButtonPosition(game.Players.LocalPlayer:FindFirstChild("PlayerGui"):FindFirstChild("MainGui").Tasks.MainFrame.PreviewFrame.StartTask)
-			
+
 			for i,v in pairs(game.Players.LocalPlayer:FindFirstChild("PlayerGui"):FindFirstChild("MainGui").Tasks.MainFrame.TaskList.List:GetDescendants()) do
 				if v:IsA("TextLabel") and v.Text == "RESTOCKING" then
 					MainX,MainY = getButtonPosition(v.Parent)
 					IsAvaible = true
 				end
 			end
-			
+
 			if not IsAvaible then
 				task.spawn(function()
 					game.Players.LocalPlayer:FindFirstChild("PlayerGui"):FindFirstChild("MainGui").Tasks.Visible = false
@@ -402,18 +402,18 @@ if qNVAKkuwxNpqruLjSRHg == true then
 			end	
 		end
 	end
-	
+
 	local function OnRenderStep()
 		if _G.Spinbot then
 			local moveDirection = humanoidMove + Vector3.new(1,0,1)
 			local moveRotation = math.atan2(moveDirection.X, moveDirection.Z)
 			turnAmount = math.deg(moveRotation)
-			
+
 			game.Players.LocalPlayer.CharacterAdded:Connect(function(character)
 				humanoidMove = character:WaitForChild("Humanoid").MoveDirection
 				rootPart = character:WaitForChild("HumanoidRootPart")
 			end)
-			
+
 			UpdateTilt()
 		end
 	end
@@ -1951,7 +1951,7 @@ if qNVAKkuwxNpqruLjSRHg == true then
 		Default = 0,
 		Min = 0,
 		Max = 0.1,
-		Rounding = 0.01,
+		Rounding = 1,
 		Compact = false,
 
 		Callback = function(Value)
@@ -1997,6 +1997,8 @@ if qNVAKkuwxNpqruLjSRHg == true then
 	})
 
 	AimbotLeftCombatGroupBox:AddDivider()
+	
+	AimbotLeftCombatGroupBox:AddLabel("[FOV EDITOR]")
 
 	AimbotLeftCombatGroupBox:AddToggle('AUseFov', {
 		Text = 'Show FOV',
@@ -2012,7 +2014,7 @@ if qNVAKkuwxNpqruLjSRHg == true then
 		Default = 90,
 		Min = 30,
 		Max = 1000,
-		Rounding = 10,
+		Rounding = 1,
 		Compact = false,
 
 		Callback = function(Value)
@@ -2057,6 +2059,20 @@ if qNVAKkuwxNpqruLjSRHg == true then
 
 	AimbotLeftCombatGroupBox:AddDivider()
 
+	AimbotLeftCombatGroupBox:AddToggle('RainbowFOV', {
+		Text = 'FOV Rainbow',
+		Default = false,
+		Tooltip = 'turns the color of the fov to rainbow',
+		Callback = function(Value)
+			if Value == true then
+				_G.CircleColor = RainbowColor
+			else
+				_G.CircleColor = _G.OriginalCircleColor
+			end
+			
+		end
+	})
+
 	AimbotLeftCombatGroupBox:AddLabel('FOV Color'):AddColorPicker('FOVColorPicker', {
 		Default = Color3.fromRGB(255,255,255), -- Bright green
 		Title = 'FOV Color', -- Optional. Allows you to have a custom color picker title (when you open it)
@@ -2064,6 +2080,7 @@ if qNVAKkuwxNpqruLjSRHg == true then
 
 		Callback = function(Value)
 			_G.CircleColor = Value
+			_G.OriginalCircleColor = Value
 		end
 	})
 
@@ -2137,7 +2154,7 @@ if qNVAKkuwxNpqruLjSRHg == true then
 		Callback = function(Value)
 			local PromptButtonHoldBegan
 			local ProximityPromptService = game:GetService("ProximityPromptService")
-			
+
 			PromptButtonHoldBegan = ProximityPromptService.PromptButtonHoldBegan:Connect(function(prompt)
 				if Value == true then
 					fireproximityprompt(prompt)
@@ -2160,7 +2177,7 @@ if qNVAKkuwxNpqruLjSRHg == true then
 			end
 		end
 	})
-	
+
 	StaffLeftMiscGroupBox:AddToggle('StaffWarn', {
 		Text = 'Staff Notifier',
 		Default = false,
@@ -2177,7 +2194,7 @@ if qNVAKkuwxNpqruLjSRHg == true then
 							Icon = "rbxassetid://17829955945",
 							Duration = 6,
 						})
-						
+
 						local Audio = Instance.new("Sound")
 						Audio.Parent = workspace
 						Audio.SoundId = "rbxassetid://2778386920"
@@ -2188,7 +2205,7 @@ if qNVAKkuwxNpqruLjSRHg == true then
 			end)
 		end
 	})
-	
+
 	StaffLeftMiscGroupBox:AddDropdown('StaffMethod', {
 		Values = {"get kicked", "get notified"},
 		Default = "get notified",
@@ -2201,7 +2218,7 @@ if qNVAKkuwxNpqruLjSRHg == true then
 			_G.StaffMethod = Value
 		end
 	})
-	
+
 	spinRightMoveGroupBox:AddToggle('Spinbot', {
 		Text = 'Spinbot',
 		Default = false,
@@ -2210,7 +2227,7 @@ if qNVAKkuwxNpqruLjSRHg == true then
 			_G.Spinbot = Value
 		end
 	})
-	
+
 	FarmRightMiscGroupBox:AddToggle('RestockAutoFarm', {
 		Text = 'Restock Auto Farm',
 		Default = false,
