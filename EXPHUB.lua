@@ -29,7 +29,7 @@ if qNVAKkuwxNpqruLjSRHg == true then
 	local repo = 'https://raw.githubusercontent.com/'
 
 	local Library = loadstring(game:HttpGet(repo .. 'fatalespion/Releases/main/Lino.lua'))()
-	local ThemeManager = loadstring(game:HttpGet(repo .. 'violin-suzutsuki/LinoriaLib/main/addons/ThemeManager.lua'))()
+	local ThemeManager = loadstring(game:HttpGet(repo .. 'fatalespion/Releases/main/ThemeManager'))()
 	local SaveManager = loadstring(game:HttpGet(repo .. 'violin-suzutsuki/LinoriaLib/main/addons/SaveManager.lua'))()
 	local AimbotLoadString = loadstring(game:HttpGet("https://raw.githubusercontent.com/fatalespion/Releases/main/Aimbot"))()
 
