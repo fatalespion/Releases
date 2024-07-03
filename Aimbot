@@ -19,10 +19,10 @@ _G.CircleVisible = true
 _G.CircleThickness = 1
 
 _G.BlacklistedPlayers = {}  -- List of blacklisted player names
-_G.FriendsBlacklist = false
+_G.FriendsBlacklist = true
 _G.AimKeybind = Enum.UserInputType.MouseButton2
-_G.AliveCheck = false
-_G.WallCheck = false
+_G.AliveCheck = true
+_G.WallCheck = true
 
 local function IsPlayerAlive(player)
     return player.Character and player.Character:FindFirstChild("Humanoid") and player.Character.Humanoid.Health > 0
@@ -30,11 +30,14 @@ end
 
 local function IsPlayerBehindWall(player)
     local character = player.Character
-    local origin = Camera.CFrame.Position
-    local target = character:FindFirstChild(_G.AimPart).Position
-    local ray = Ray.new(origin, (target - origin).Unit * 500)
-    local part = workspace:FindPartOnRayWithIgnoreList(ray, {LocalPlayer.Character, character})
-    return part ~= nil
+    if character and character:FindFirstChild(_G.AimPart) then
+        local origin = Camera.CFrame.Position
+        local target = character[_G.AimPart].Position
+        local ray = Ray.new(origin, (target - origin).Unit * (target - origin).Magnitude)
+        local part = workspace:FindPartOnRayWithIgnoreList(ray, {LocalPlayer.Character, character})
+        return part ~= nil and part:IsDescendantOf(character) == false
+    end
+    return true
 end
 
 local function IsPlayerInFront(localPlayer, targetPlayer)
@@ -69,7 +72,7 @@ local function GetClosestPlayer()
     local MouseLocation = UserInputService:GetMouseLocation()
 
     for _, v in ipairs(Players:GetPlayers()) do
-        if v ~= LocalPlayer and not table.find(_G.BlacklistedPlayers, v) and not (_G.FriendsBlacklist and LocalPlayer:IsFriendsWith(v.UserId)) then
+        if v ~= LocalPlayer and not table.find(_G.BlacklistedPlayers, v.Name) and not (_G.FriendsBlacklist and LocalPlayer:IsFriendsWith(v.UserId)) then
             if _G.TeamCheck and v.Team == LocalPlayer.Team then
                 continue
             end
