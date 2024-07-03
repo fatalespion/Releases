@@ -863,7 +863,7 @@ if qNVAKkuwxNpqruLjSRHg == true then
 			ItemName.Outline = true
 			ItemName.Font = 2
 			ItemName.Size = 13
-			ItemName.Text = "Scrap"
+			ItemName.Text = "Item"
 
 			local NameText = Drawing.new("Text")
 			NameText.Visible = false
@@ -948,13 +948,13 @@ if qNVAKkuwxNpqruLjSRHg == true then
 								NameText.Position = Vector2.new(Vector.X, Vector.Y - 20)
 								DistanceText.Position = Vector2.new(Vector.X, Vector.Y - 10)
 
-								local ItemDistance = math.ceil((v.Character:WaitForChild("HumanoidRootPart").Position - game:GetService("Players").LocalPlayer.Character:WaitForChild("HumanoidRootPart").Position).magnitude)
+								local ItemDistance = math.round((v.Character:WaitForChild("HumanoidRootPart").Position - game:GetService("Players").LocalPlayer.Character:WaitForChild("HumanoidRootPart").Position).Magnitude)
 
 								NameText.Color = _G.ESPBoxColor
 								DistanceText.Color = _G.ESPBoxColor
 								ItemName.Color = _G.ESPBoxColor
 
-								DistanceText.Text = "Distance: {" .. tostring(ItemDistance) .. "}"
+								DistanceText.Text = "[" .. tostring(ItemDistance) .. "]"
 								NameText.Text = v.Name
 
 								if v.Character then
@@ -2009,7 +2009,6 @@ if qNVAKkuwxNpqruLjSRHg == true then
 		Multi = true,
 
 		Callback = function(Value)
-			print(Value)
 			_G.BlacklistedPlayers = Value
 		end
 	})
@@ -2091,21 +2090,13 @@ if qNVAKkuwxNpqruLjSRHg == true then
 		Default = false,
 		Tooltip = 'turns the color of the fov to rainbow',
 		Callback = function(Value)
-			if Value == true then
-				task.spawn(function()
-					while true do
-						task.wait()
-						_G.CircleColor = RainbowColor
-						
-						if Value == false then
-							break
-						end
-					end
-				end)
-			else
-				_G.CircleColor = _G.OriginalCircleColor
-			end
+			task.spawn(function()
+				repeat task.wait()
+					_G.CircleColor = RainbowColor
+				until Value == false
 
+				_G.CircleColor = _G.OriginalCircleColor		
+			end)
 		end
 	})
 
