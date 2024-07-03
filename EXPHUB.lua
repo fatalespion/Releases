@@ -29,7 +29,7 @@ if qNVAKkuwxNpqruLjSRHg == true then
 	local repo = 'https://raw.githubusercontent.com/'
 
 	local Library = loadstring(game:HttpGet(repo .. 'fatalespion/Releases/main/Lino.lua'))()
-	local ThemeManager = loadstring(game:HttpGet(repo .. 'fatalespion/Releases/main/ThemeManager'))()
+	local ThemeManager = loadstring(game:HttpGet(repo .. 'violin-suzutsuki/LinoriaLib/main/addons/ThemeManager.lua'))()
 	local SaveManager = loadstring(game:HttpGet(repo .. 'violin-suzutsuki/LinoriaLib/main/addons/SaveManager.lua'))()
 	local AimbotLoadString = loadstring(game:HttpGet("https://raw.githubusercontent.com/fatalespion/Releases/main/Aimbot"))()
 
@@ -1951,7 +1951,7 @@ if qNVAKkuwxNpqruLjSRHg == true then
 		Default = 0,
 		Min = 0,
 		Max = 0.1,
-		Rounding = 1,
+		Rounding = 10,
 		Compact = false,
 
 		Callback = function(Value)
@@ -2065,7 +2065,12 @@ if qNVAKkuwxNpqruLjSRHg == true then
 		Tooltip = 'turns the color of the fov to rainbow',
 		Callback = function(Value)
 			if Value == true then
-				_G.CircleColor = RainbowColor
+				task.spawn(function()
+					while Value == true do
+						task.wait()
+						_G.CircleColor = RainbowColor
+					end
+				end)
 			else
 				_G.CircleColor = _G.OriginalCircleColor
 			end
