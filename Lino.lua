@@ -3632,5 +3632,11 @@ end;
 Players.PlayerAdded:Connect(OnPlayerChange);
 Players.PlayerRemoving:Connect(OnPlayerChange);
 
+Library.FontColor = Color3.fromRGB(255, 255, 255);
+Library.MainColor = Color3.fromRGB(0, 0, 0);
+Library.BackgroundColor = Color3.fromRGB(0, 0, 0);
+Library.AccentColor = Color3.fromRGB(255, 66, 66);
+Library.OutlineColor = Color3.fromRGB(25, 25, 25);
+
 getgenv().Library = Library
 return Library
