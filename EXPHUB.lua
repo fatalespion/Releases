@@ -672,6 +672,10 @@ if qNVAKkuwxNpqruLjSRHg == true then
 			function lineesp()
 				game:GetService("RunService").RenderStepped:Connect(function()
 					if game.Workspace.Debris.Loot:FindFirstChild(v.Name) then
+						if v.Name == "DroneLoot" then
+							return
+						end
+						
 						local Vector, OnScreen = camera:WorldToViewportPoint(v.Position)
 
 						if _G.ESPEnabled then
