@@ -32,6 +32,7 @@ if qNVAKkuwxNpqruLjSRHg == true then
 	local ThemeManager = loadstring(game:HttpGet(repo .. 'fatalespion/Releases/main/ThemeManager'))()
 	local SaveManager = loadstring(game:HttpGet(repo .. 'violin-suzutsuki/LinoriaLib/main/addons/SaveManager.lua'))()
 	local AimbotLoadString = loadstring(game:HttpGet("https://raw.githubusercontent.com/fatalespion/Releases/main/Aimbot"))()
+	local NonNPCAIMBOT = loadstring(game:HttpGet("https://raw.githubusercontent.com/fatalespion/Releases/main/PlayerAimbot.lua"))()
 
 	local Window = Library:CreateWindow({
 		Title = 'NEBULA HUB | Game: Blackout | BETA',
@@ -74,9 +75,9 @@ if qNVAKkuwxNpqruLjSRHg == true then
 	local spinRightMoveGroupBox = Tabs.Combat:AddRightGroupbox('SPINBOT & BHOP')
 
 	local LootLeftLootGroupBox = Tabs.Misc:AddRightGroupbox('LOOT')
-	
+
 	local waterLeftLootGroupBox = Tabs.HUD:AddRightGroupbox('WATERMARK')
-	
+
 	local HasGun = false
 
 	_G.ESPTeamCheck = false
@@ -166,7 +167,7 @@ if qNVAKkuwxNpqruLjSRHg == true then
 
 	_G.AliveCheck = false
 	_G.WallCheck = false
-	
+
 	_G.PlayerTrack = true
 	_G.NPCTrack = false
 
@@ -231,18 +232,18 @@ if qNVAKkuwxNpqruLjSRHg == true then
 		if Noclip then Noclip:Disconnect() end
 		Clip = true
 	end
-	
+
 	local function ToggleRainbowFOV(Value)
 		task.spawn(function()
 			while Value do
 				_G.CircleColor = RainbowColor
 				task.wait()
 			end
-			
+
 			_G.CircleColor = _G.OriginalCircleColor
 		end)
 	end
-	
+
 	function create(instance, instanceStats, parent, player)
 		local newinstance = Instance.new(instance)
 		local lplr = game.Players.LocalPlayer
@@ -675,7 +676,7 @@ if qNVAKkuwxNpqruLjSRHg == true then
 						if v.Name == "DroneLoot" then
 							return
 						end
-						
+
 						local Vector, OnScreen = camera:WorldToViewportPoint(v.Position)
 
 						if _G.ESPEnabled then
@@ -1987,9 +1988,9 @@ if qNVAKkuwxNpqruLjSRHg == true then
 			_G.AimPart = Value
 		end
 	})
-	
+
 	AimbotLeftCombatGroupBox:AddDivider()
-	
+
 	AimbotLeftCombatGroupBox:AddToggle('APlayerTrack', {
 		Text = 'Player Track',
 		Default = true,
@@ -1998,7 +1999,7 @@ if qNVAKkuwxNpqruLjSRHg == true then
 			_G.PlayerTrack = Value
 		end
 	})
-	
+
 	AimbotLeftCombatGroupBox:AddToggle('ANpcTrack', {
 		Text = 'NPC Track',
 		Default = false,
@@ -2007,7 +2008,7 @@ if qNVAKkuwxNpqruLjSRHg == true then
 			_G.NPCTrack = Value
 		end
 	})
-	
+
 	AimbotLeftCombatGroupBox:AddDivider()
 
 	AimbotLeftCombatGroupBox:AddToggle('ATeamCheck', {
@@ -2217,11 +2218,11 @@ if qNVAKkuwxNpqruLjSRHg == true then
 						if not v:GetAttribute("OldDuration") then
 							v:SetAttribute("OldDuration", v.HoldDuration)
 						end
-						
+
 						v.HoldDuration = 0
 					end     
 				end  
-				
+
 				for i,v in pairs(game.Workspace:GetDescendants()) do
 					v.ChildAdded:Connect(function(c)
 						if c:IsA("ProximityPrompt") then
@@ -2319,7 +2320,7 @@ if qNVAKkuwxNpqruLjSRHg == true then
 	})
 
 	Library:SetWatermarkVisibility(true)
-	
+
 	waterLeftLootGroupBox:AddToggle('Watermark', {
 		Text = 'Watermark',
 		Default = true,
@@ -2328,7 +2329,7 @@ if qNVAKkuwxNpqruLjSRHg == true then
 			Library:SetWatermarkVisibility(Value)
 		end
 	})
-	
+
 	local FrameTimer = tick()
 	local FrameCounter = 0
 	local FPS = 60
