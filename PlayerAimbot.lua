@@ -92,7 +92,7 @@ RunService.RenderStepped:Connect(function()
     FOVCircle.NumSides = _G.CircleSides
     FOVCircle.Thickness = _G.CircleThickness
 
-    if Holding and _G.AimbotEnabled and _G.PlayerTrack then
+    if Holding and _G.AimbotEnabled and _G.PlayerTrack and not _G.AAiming then
         local closestPlayer = GetClosestPlayer()
         if closestPlayer and closestPlayer.Character and closestPlayer.Character:FindFirstChild(_G.AimPart) then
             local aimPartPosition = closestPlayer.Character[_G.AimPart].Position
