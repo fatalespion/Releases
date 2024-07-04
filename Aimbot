@@ -21,11 +21,11 @@ _G.CircleThickness = 1
 _G.BlacklistedPlayers = {}  -- Table where player names are keys and values are true
 _G.FriendsBlacklist = true
 _G.AimKeybind = Enum.UserInputType.MouseButton2
-_G.AliveCheck = false
-_G.WallCheck = false
+_G.AliveCheck = true
+_G.WallCheck = true
 
 _G.PlayerTrack = true
-_G.NPCTrack = false
+_G.NPCTrack = true
 
 local function IsPlayerAlive(player)
     return player.Character and player.Character:FindFirstChild("Humanoid") and player.Character.Humanoid.Health > 0
