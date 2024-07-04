@@ -27,6 +27,8 @@ _G.WallCheck = true
 _G.PlayerTrack = true
 _G.NPCTrack = true
 
+_G.AAiming = false
+
 local function IsPlayerAlive(player)
     return player.Character and player.Character:FindFirstChild("Humanoid") and player.Character.Humanoid.Health > 0
 end
@@ -153,6 +155,11 @@ end
 
 UserInputService.InputBegan:Connect(function(Input)
     if Input.UserInputType == _G.AimKeybind or Input.KeyCode == _G.AimKeybind then
+        if _G.AAiming then
+            return
+        end
+
+        _G.AAiming = true
         Holding = true
     end
 end)
@@ -160,6 +167,7 @@ end)
 UserInputService.InputEnded:Connect(function(Input)
     if Input.UserInputType == _G.AimKeybind or Input.KeyCode == _G.AimKeybind then
         Holding = false
+        _G.AAiming = false
     end
 end)
 
@@ -173,7 +181,7 @@ RunService.RenderStepped:Connect(function()
     FOVCircle.NumSides = _G.CircleSides
     FOVCircle.Thickness = _G.CircleThickness
 
-    if Holding and _G.AimbotEnabled then
+    if Holding and _G.AimbotEnabled and not _G.AAiming then
         local closestTarget = GetClosestTarget()
         if closestTarget and closestTarget:FindFirstChild(_G.AimPart) then
             local aimPartPosition = closestTarget[_G.AimPart].Position
