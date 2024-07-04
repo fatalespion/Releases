@@ -2182,15 +2182,37 @@ if qNVAKkuwxNpqruLjSRHg == true then
 	LootLeftLootGroupBox:AddToggle('NoECooldown', {
 		Text = 'No Hold Duration',
 		Default = false,
-		Tooltip = 'Removes the proximity prompt hold duration [WARNING: IF NEW PROMPTS POP UP LIKE IF YOUR DOING LAB PLEASE DOUBLE CLICK ON THIS TOGGLE TO REPUT ALL PROMPTS TO 0]',
+		Tooltip = 'Removes the proximity prompt hold duration',
 		Callback = function(Value)
-			local ProximityPromptService = game:GetService("ProximityPromptService")
+			if Value == true then
+				for i,v in pairs(game.Workspace:GetDescendants()) do
+					if v:IsA("ProximityPrompt") then
+						if not v:GetAttribute("OldDuration") then
+							v:SetAttribute("OldDuration", v.HoldDuration)
+						end
+						
+						v.HoldDuration = 0
+					end     
+				end  
+				
+				for i,v in pairs(game.Workspace:GetDescendants()) do
+					v.ChildAdded:Connect(function(c)
+						if c:IsA("ProximityPrompt") then
+							if not c:GetAttribute("OldDuration") then
+								c:SetAttribute("OldDuration", c.HoldDuration)
+							end
 
-			ProximityPromptService.PromptButtonHoldBegan:Connect(function(prompt)
-				if Value then
-					fireproximityprompt(prompt, 0)
+							c.HoldDuration = 0
+						end
+					end)
 				end
-			end)
+			elseif Value == false then
+				for i,v in pairs(game.Workspace:GetDescendants()) do
+					if v:IsA("ProximityPrompt") then
+						v.HoldDuration = v:GetAttribute("OldDuration")
+					end     
+				end 
+			end
 		end
 	})
 
