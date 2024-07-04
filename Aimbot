@@ -117,10 +117,6 @@ local function GetClosestTarget()
                     if v.Character and v.Character:FindFirstChild(_G.AimPart) then
                         local ScreenPoint = Camera:WorldToScreenPoint(v.Character[_G.AimPart].Position)
                         local VectorDistance = (MouseLocation - Vector2.new(ScreenPoint.X, ScreenPoint.Y)).Magnitude
-
-                        print("Checking player:", v.Name)  -- Debug print
-                        print("VectorDistance:", VectorDistance)  -- Debug print
-
                         if VectorDistance < MaximumDistance and IsPlayerInFront(LocalPlayer, v) then
                             if not _G.WallCheck or not IsPlayerBehindWall(v) then
                                 Target = v
@@ -141,10 +137,6 @@ local function GetClosestTarget()
                 if not _G.AliveCheck or IsNPCAlive(npc) then
                     local ScreenPoint = Camera:WorldToScreenPoint(npc[_G.AimPart].Position)
                     local VectorDistance = (MouseLocation - Vector2.new(ScreenPoint.X, ScreenPoint.Y)).Magnitude
-
-                    print("Checking NPC:", npc.Name)  -- Debug print
-                    print("VectorDistance:", VectorDistance)  -- Debug print
-
                     if VectorDistance < MaximumDistance and IsNPCInFront(LocalPlayer, npc) then
                         if not _G.WallCheck or not IsNPCBehindWall(npc) then
                             Target = npc
@@ -185,7 +177,6 @@ RunService.RenderStepped:Connect(function()
         local closestTarget = GetClosestTarget()
         if closestTarget and closestTarget:FindFirstChild(_G.AimPart) then
             local aimPartPosition = closestTarget[_G.AimPart].Position
-            print("Aiming at:", closestTarget.Name, "Part:", _G.AimPart, "Position:", aimPartPosition)  -- Debug print
             TweenService:Create(Camera, TweenInfo.new(_G.Sensitivity, Enum.EasingStyle.Sine, Enum.EasingDirection.Out), {CFrame = CFrame.new(Camera.CFrame.Position, aimPartPosition)}):Play()
         end
     end
