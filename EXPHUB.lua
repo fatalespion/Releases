@@ -2188,7 +2188,7 @@ if qNVAKkuwxNpqruLjSRHg == true then
 
 			ProximityPromptService.PromptButtonHoldBegan:Connect(function(prompt)
 				if Value then
-					fireproximityprompt(prompt)
+					fireproximityprompt(prompt, 0)
 				end
 			end)
 		end
