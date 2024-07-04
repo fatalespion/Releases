@@ -228,7 +228,18 @@ if qNVAKkuwxNpqruLjSRHg == true then
 		if Noclip then Noclip:Disconnect() end
 		Clip = true
 	end
-
+	
+	local function ToggleRainbowFOV(Value)
+		task.spawn(function()
+			while Value do
+				_G.CircleColor = RainbowColor
+				task.wait()
+			end
+			
+			_G.CircleColor = _G.OriginalCircleColor
+		end)
+	end
+	
 	function create(instance, instanceStats, parent, player)
 		local newinstance = Instance.new(instance)
 		local lplr = game.Players.LocalPlayer
@@ -2090,13 +2101,7 @@ if qNVAKkuwxNpqruLjSRHg == true then
 		Default = false,
 		Tooltip = 'turns the color of the fov to rainbow',
 		Callback = function(Value)
-			task.spawn(function()
-				repeat task.wait()
-					_G.CircleColor = RainbowColor
-				until Value == false
-
-				_G.CircleColor = _G.OriginalCircleColor		
-			end)
+			ToggleRainbowFOV(Value)
 		end
 	})
 
@@ -2181,8 +2186,8 @@ if qNVAKkuwxNpqruLjSRHg == true then
 		Callback = function(Value)
 			local ProximityPromptService = game:GetService("ProximityPromptService")
 
-			PromptButtonHoldBegan = ProximityPromptService.PromptButtonHoldBegan:Connect(function(prompt)
-				if Value == true then
+			ProximityPromptService.PromptButtonHoldBegan:Connect(function(prompt)
+				if Value then
 					fireproximityprompt(prompt)
 				end
 			end)
