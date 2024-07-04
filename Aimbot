@@ -112,12 +112,12 @@ local function GetClosestTarget()
                 if _G.TeamCheck and v.Team == LocalPlayer.Team then
                     continue
                 end
-
+    
                 if not _G.AliveCheck or IsPlayerAlive(v) then
                     if v.Character and v.Character:FindFirstChild(_G.AimPart) then
                         local ScreenPoint = Camera:WorldToScreenPoint(v.Character[_G.AimPart].Position)
                         local VectorDistance = (MouseLocation - Vector2.new(ScreenPoint.X, ScreenPoint.Y)).Magnitude
-
+    
                         if VectorDistance < MaximumDistance and IsPlayerInFront(LocalPlayer, v) then
                             if not _G.WallCheck or not IsPlayerBehindWall(v) then
                                 Target = v
