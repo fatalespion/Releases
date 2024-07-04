@@ -185,6 +185,7 @@ RunService.RenderStepped:Connect(function()
         local closestTarget = GetClosestTarget()
         if closestTarget and closestTarget:FindFirstChild(_G.AimPart) then
             local aimPartPosition = closestTarget[_G.AimPart].Position
+            print("Aiming at:", closestTarget.Name, "Part:", _G.AimPart, "Position:", aimPartPosition)  -- Debug print
             TweenService:Create(Camera, TweenInfo.new(_G.Sensitivity, Enum.EasingStyle.Sine, Enum.EasingDirection.Out), {CFrame = CFrame.new(Camera.CFrame.Position, aimPartPosition)}):Play()
         end
     end
