@@ -18,7 +18,7 @@ _G.CircleFilled = false
 _G.CircleVisible = true
 _G.CircleThickness = 1
 
-_G.BlacklistedPlayers = {}  -- List of blacklisted player names
+_G.BlacklistedPlayers = {}  -- Table where player names are keys and values are true
 _G.FriendsBlacklist = true
 _G.AimKeybind = Enum.UserInputType.MouseButton2
 _G.AliveCheck = true
@@ -72,7 +72,7 @@ local function GetClosestPlayer()
     local MouseLocation = UserInputService:GetMouseLocation()
 
     for _, v in ipairs(Players:GetPlayers()) do
-        if v ~= LocalPlayer and not table.find(_G.BlacklistedPlayers, v.Name) and not (_G.FriendsBlacklist and LocalPlayer:IsFriendsWith(v.UserId)) then
+        if v ~= LocalPlayer and not _G.BlacklistedPlayers[v.Name] and not (_G.FriendsBlacklist and LocalPlayer:IsFriendsWith(v.UserId)) then
             if _G.TeamCheck and v.Team == LocalPlayer.Team then
                 continue
             end
