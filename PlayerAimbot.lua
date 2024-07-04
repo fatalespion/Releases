@@ -72,6 +72,11 @@ end
 
 UserInputService.InputBegan:Connect(function(Input)
     if Input.UserInputType == _G.AimKeybind or Input.KeyCode == _G.AimKeybind then
+        if _G.AAiming then
+            return
+        end        
+
+        _G.AAiming = true
         Holding = true
     end
 end)
@@ -79,6 +84,7 @@ end)
 UserInputService.InputEnded:Connect(function(Input)
     if Input.UserInputType == _G.AimKeybind or Input.KeyCode == _G.AimKeybind then
         Holding = false
+        _G.AAiming = false
     end
 end)
 
