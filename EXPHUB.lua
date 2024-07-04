@@ -44,7 +44,7 @@ if qNVAKkuwxNpqruLjSRHg == true then
 	local Tabs = {
 		Combat = Window:AddTab('Combat'),
 		Visual = Window:AddTab('Visual'),
-		Movement = Window:AddTab('Movement'),
+		Teleportation = Window:AddTab('Teleportation'),
 		Misc = Window:AddTab('Miscellaneous'),
 		['HUD'] = Window:AddTab('Settings'),
 	}
@@ -70,8 +70,8 @@ if qNVAKkuwxNpqruLjSRHg == true then
 
 	local AimbotLeftCombatGroupBox = Tabs.Combat:AddLeftGroupbox('CAMLOCK')
 
-	local MoveLeftMoveGroupBox = Tabs.Movement:AddLeftGroupbox('MOVEMENT')
-	local spinRightMoveGroupBox = Tabs.Movement:AddRightGroupbox('SPINBOT & BHOP')
+	local MoveLeftMoveGroupBox = Tabs.Combat:AddRightGroupbox('MOVEMENT')
+	local spinRightMoveGroupBox = Tabs.Combat:AddRightGroupbox('SPINBOT & BHOP')
 
 	local LootLeftLootGroupBox = Tabs.Misc:AddRightGroupbox('LOOT')
 	
@@ -1988,7 +1988,7 @@ if qNVAKkuwxNpqruLjSRHg == true then
 	
 	AimbotLeftCombatGroupBox:AddToggle('APlayerTrack', {
 		Text = 'Player Track',
-		Default = false,
+		Default = true,
 		Tooltip = 'Aimbot will track onto players',
 		Callback = function(Value)
 			_G.PlayerTrack = Value
@@ -2318,7 +2318,7 @@ if qNVAKkuwxNpqruLjSRHg == true then
 	
 	waterLeftLootGroupBox:AddToggle('Watermark', {
 		Text = 'Watermark',
-		Default = false,
+		Default = true,
 		Tooltip = 'removes or shows the watermark',
 		Callback = function(Value)
 			Library:SetWatermarkVisibility(Value)
