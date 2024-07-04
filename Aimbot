@@ -24,8 +24,15 @@ _G.AimKeybind = Enum.UserInputType.MouseButton2
 _G.AliveCheck = true
 _G.WallCheck = true
 
+_G.PlayerTrack = true
+_G.NPCTrack = true
+
 local function IsPlayerAlive(player)
     return player.Character and player.Character:FindFirstChild("Humanoid") and player.Character.Humanoid.Health > 0
+end
+
+local function IsNPCAlive(npc)
+    return npc:FindFirstChild("Humanoid") and npc.Humanoid.Health > 0
 end
 
 local function IsPlayerBehindWall(player)
@@ -40,6 +47,17 @@ local function IsPlayerBehindWall(player)
     return true
 end
 
+local function IsNPCBehindWall(npc)
+    if npc and npc:FindFirstChild(_G.AimPart) then
+        local origin = Camera.CFrame.Position
+        local target = npc[_G.AimPart].Position
+        local ray = Ray.new(origin, (target - origin).Unit * (target - origin).Magnitude)
+        local part = workspace:FindPartOnRayWithIgnoreList(ray, {LocalPlayer.Character, npc})
+        return part ~= nil and part:IsDescendantOf(npc) == false
+    end
+    return true
+end
+
 local function IsPlayerInFront(localPlayer, targetPlayer)
     local playerCharacter = localPlayer.Character
     local targetCharacter = targetPlayer.Character
@@ -48,6 +66,22 @@ local function IsPlayerInFront(localPlayer, targetPlayer)
         local playerPosition = playerCharacter.PrimaryPart.Position
         local targetPosition = targetCharacter.PrimaryPart.Position
         local directionToTarget = (targetPosition - playerPosition).Unit
+        local playerLookVector = playerCharacter.PrimaryPart.CFrame.LookVector
+
+        return playerLookVector:Dot(directionToTarget) > 0
+    end
+
+    return false
+end
+
+local function IsNPCInFront(localPlayer, npc)
+    local playerCharacter = localPlayer.Character
+    local npcPrimaryPart = npc.PrimaryPart
+
+    if playerCharacter and npcPrimaryPart then
+        local playerPosition = playerCharacter.PrimaryPart.Position
+        local npcPosition = npcPrimaryPart.Position
+        local directionToTarget = (npcPosition - playerPosition).Unit
         local playerLookVector = playerCharacter.PrimaryPart.CFrame.LookVector
 
         return playerLookVector:Dot(directionToTarget) > 0
@@ -96,6 +130,31 @@ local function GetClosestPlayer()
     return Target
 end
 
+local function GetClosestNPC()
+    local MaximumDistance = _G.CircleRadius
+    local Target = nil
+    local MouseLocation = UserInputService:GetMouseLocation()
+    local NPCs = workspace.NPCs.Hostile:GetChildren()
+
+    for _, npc in ipairs(NPCs) do
+        if npc and npc:FindFirstChild(_G.AimPart) then
+            if not _G.AliveCheck or IsNPCAlive(npc) then
+                local ScreenPoint = Camera:WorldToScreenPoint(npc[_G.AimPart].Position)
+                local VectorDistance = (MouseLocation - Vector2.new(ScreenPoint.X, ScreenPoint.Y)).Magnitude
+
+                if VectorDistance < MaximumDistance and IsNPCInFront(LocalPlayer, npc) then
+                    if not _G.WallCheck or not IsNPCBehindWall(npc) then
+                        Target = npc
+                        MaximumDistance = VectorDistance
+                    end
+                end
+            end
+        end
+    end
+
+    return Target
+end
+
 UserInputService.InputBegan:Connect(function(Input)
     if Input.UserInputType == _G.AimKeybind or Input.KeyCode == _G.AimKeybind then
         Holding = true
@@ -119,9 +178,15 @@ RunService.RenderStepped:Connect(function()
     FOVCircle.Thickness = _G.CircleThickness
 
     if Holding and _G.AimbotEnabled then
-        local closestPlayer = GetClosestPlayer()
-        if closestPlayer and closestPlayer.Character and closestPlayer.Character:FindFirstChild(_G.AimPart) then
-            local aimPartPosition = closestPlayer.Character[_G.AimPart].Position
+        local closestTarget = nil
+        if _G.PlayerTrack then
+            closestTarget = GetClosestPlayer()
+        elseif _G.NPCTrack then
+            closestTarget = GetClosestNPC()
+        end
+
+        if closestTarget and closestTarget:FindFirstChild(_G.AimPart) then
+            local aimPartPosition = closestTarget[_G.AimPart].Position
             TweenService:Create(Camera, TweenInfo.new(_G.Sensitivity, Enum.EasingStyle.Sine, Enum.EasingDirection.Out), {CFrame = CFrame.new(Camera.CFrame.Position, aimPartPosition)}):Play()
         end
     end
