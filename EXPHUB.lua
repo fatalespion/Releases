@@ -166,6 +166,9 @@ if qNVAKkuwxNpqruLjSRHg == true then
 
 	_G.AliveCheck = false
 	_G.WallCheck = false
+	
+	_G.PlayerTrack = true
+	_G.NPCTrack = false
 
 	_G.BlacklistedPlayers = {}
 	_G.FriendsBlacklist = true
@@ -1980,7 +1983,27 @@ if qNVAKkuwxNpqruLjSRHg == true then
 			_G.AimPart = Value
 		end
 	})
-
+	
+	AimbotLeftCombatGroupBox:AddDivider()
+	
+	AimbotLeftCombatGroupBox:AddToggle('APlayerTrack', {
+		Text = 'Player Track',
+		Default = false,
+		Tooltip = 'Aimbot will track onto players',
+		Callback = function(Value)
+			_G.PlayerTrack = Value
+		end
+	})
+	
+	AimbotLeftCombatGroupBox:AddToggle('ANpcTrack', {
+		Text = 'NPC Track',
+		Default = false,
+		Tooltip = 'Aimbot will track on npcs',
+		Callback = function(Value)
+			_G.NPCTrack = Value
+		end
+	})
+	
 	AimbotLeftCombatGroupBox:AddDivider()
 
 	AimbotLeftCombatGroupBox:AddToggle('ATeamCheck', {
