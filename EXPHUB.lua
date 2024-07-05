@@ -18,8 +18,6 @@ if qNVAKkuwxNpqruLjSRHg == true then
 	local ThemeManager = loadstring(game:HttpGet(repo .. 'fatalespion/Releases/main/ThemeManager'))()
 	local SaveManager = loadstring(game:HttpGet(repo .. 'violin-suzutsuki/LinoriaLib/main/addons/SaveManager.lua'))()
 	local AimbotLoadString = loadstring(game:HttpGet("https://raw.githubusercontent.com/fatalespion/Releases/main/Aimbot"))()
-	local NonNPCAIMBOT = loadstring(game:HttpGet("https://raw.githubusercontent.com/fatalespion/Releases/main/PlayerAimbot.lua"))()
-
 	local Window = Library:CreateWindow({
 		Title = 'NEBULA HUB | Game: Blackout | BETA',
 		Center = true,
