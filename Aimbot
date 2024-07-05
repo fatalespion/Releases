@@ -105,16 +105,24 @@ local function GetClosestTarget()
     local Target = nil
     local MouseLocation = UserInputService:GetMouseLocation()
 
-    -- Check for closest target (either player or NPC)
+    -- Check for closest player
+    if _G.PlayerTrack then
         for _, v in ipairs(Players:GetPlayers()) do
             if v ~= LocalPlayer and not _G.BlacklistedPlayers[v.Name] and not (_G.FriendsBlacklist and LocalPlayer:IsFriendsWith(v.UserId)) then
-                if _G.PlayerTrack and (not _G.TeamCheck or v.Team ~= LocalPlayer.Team) and (not _G.AliveCheck or IsPlayerAlive(v)) then
-                    if v.Character and v.Character:FindFirstChild(_G.AimPart) then
-                        local ScreenPoint = Camera:WorldToScreenPoint(v.Character[_G.AimPart].Position)
+                if _G.TeamCheck and v.Team == LocalPlayer.Team then
+                    continue
+                end
+
+                if not _G.AliveCheck or IsPlayerAlive(v) then
+                    local character = v.Character
+                    if character and character:FindFirstChild(_G.AimPart) then
+                        local aimPart = character[_G.AimPart]
+                        local ScreenPoint = Camera:WorldToScreenPoint(aimPart.Position)
                         local VectorDistance = (MouseLocation - Vector2.new(ScreenPoint.X, ScreenPoint.Y)).Magnitude
+
                         if VectorDistance < MaximumDistance and IsPlayerInFront(LocalPlayer, v) then
                             if not _G.WallCheck or not IsPlayerBehindWall(v) then
-                                Target = v
+                                Target = aimPart
                                 MaximumDistance = VectorDistance
                             end
                         end
@@ -122,6 +130,28 @@ local function GetClosestTarget()
                 end
             end
         end
+    end
+
+    -- Check for closest NPC
+    if _G.NPCTrack then
+        local NPCs = workspace.NPCs.Hostile:GetChildren()
+        for _, npc in ipairs(NPCs) do
+            if npc and npc:FindFirstChild(_G.AimPart) then
+                if not _G.AliveCheck or IsNPCAlive(npc) then
+                    local aimPart = npc[_G.AimPart]
+                    local ScreenPoint = Camera:WorldToScreenPoint(aimPart.Position)
+                    local VectorDistance = (MouseLocation - Vector2.new(ScreenPoint.X, ScreenPoint.Y)).Magnitude
+
+                    if VectorDistance < MaximumDistance and IsNPCInFront(LocalPlayer, npc) then
+                        if not _G.WallCheck or not IsNPCBehindWall(npc) then
+                            Target = aimPart
+                            MaximumDistance = VectorDistance
+                        end
+                    end
+                end
+            end
+        end
+    end
 
     return Target
 end
@@ -150,9 +180,8 @@ RunService.RenderStepped:Connect(function()
 
     if Holding and _G.AimbotEnabled then
         local closestTarget = GetClosestTarget()
-        if closestTarget and closestTarget:FindFirstChild(_G.AimPart) then
-            local aimPartPosition = closestTarget[_G.AimPart].Position
-            TweenService:Create(Camera, TweenInfo.new(_G.Sensitivity, Enum.EasingStyle.Sine, Enum.EasingDirection.Out), {CFrame = CFrame.new(Camera.CFrame.Position, aimPartPosition)}):Play()
+        if closestTarget then
+            TweenService:Create(Camera, TweenInfo.new(_G.Sensitivity, Enum.EasingStyle.Sine, Enum.EasingDirection.Out), {CFrame = CFrame.new(Camera.CFrame.Position, closestTarget.Position)}):Play()
         end
     end
 end)
