@@ -106,7 +106,6 @@ local function GetClosestTarget()
     local MouseLocation = UserInputService:GetMouseLocation()
 
     -- Check for closest target (either player or NPC)
-    if _G.PlayerTrack or _G.NPCTrack then
         for _, v in ipairs(Players:GetPlayers()) do
             if v ~= LocalPlayer and not _G.BlacklistedPlayers[v.Name] and not (_G.FriendsBlacklist and LocalPlayer:IsFriendsWith(v.UserId)) then
                 if _G.PlayerTrack and (not _G.TeamCheck or v.Team ~= LocalPlayer.Team) and (not _G.AliveCheck or IsPlayerAlive(v)) then
@@ -123,25 +122,6 @@ local function GetClosestTarget()
                 end
             end
         end
-
-        if _G.NPCTrack then
-            local NPCs = workspace.NPCs.Hostile:GetChildren()
-            for _, npc in ipairs(NPCs) do
-                if npc and npc:FindFirstChild(_G.AimPart) then
-                    if _G.AliveCheck and IsNPCAlive(npc) then
-                        local ScreenPoint = Camera:WorldToScreenPoint(npc[_G.AimPart].Position)
-                        local VectorDistance = (MouseLocation - Vector2.new(ScreenPoint.X, ScreenPoint.Y)).Magnitude
-                        if VectorDistance < MaximumDistance and IsNPCInFront(LocalPlayer, npc) then
-                            if not _G.WallCheck or not IsNPCBehindWall(npc) then
-                                Target = npc
-                                MaximumDistance = VectorDistance
-                            end
-                        end
-                    end
-                end
-            end
-        end
-    end
 
     return Target
 end
