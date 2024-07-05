@@ -89,14 +89,6 @@ UserInputService.InputEnded:Connect(function(Input)
 end)
 
 RunService.RenderStepped:Connect(function()
-    FOVCircle.Position = UserInputService:GetMouseLocation()
-    FOVCircle.Radius = _G.CircleRadius
-    FOVCircle.Filled = _G.CircleFilled
-    FOVCircle.Color = _G.CircleColor
-    FOVCircle.Visible = _G.CircleVisible
-    FOVCircle.Transparency = _G.CircleTransparency
-    FOVCircle.NumSides = _G.CircleSides
-    FOVCircle.Thickness = _G.CircleThickness
 
     if Holding and _G.AimbotEnabled and _G.PlayerTrack and not _G.AAiming then
         local closestPlayer = GetClosestPlayer()
