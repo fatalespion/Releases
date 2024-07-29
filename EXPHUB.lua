@@ -112,7 +112,7 @@ if qNVAKkuwxNpqruLjSRHg == true then
 
 				function lineesp()
 					game:GetService("RunService").RenderStepped:Connect(function()
-						if v:IsA("Model") and table.find(CurrencyNames, v.Name) then
+						if v ~= nil and v:IsA("Model") and table.find(CurrencyNames, v.Name) then
 
 							local Vector, OnScreen = camera:WorldToViewportPoint(v.ProxyPart.Position)
 
@@ -186,7 +186,7 @@ if qNVAKkuwxNpqruLjSRHg == true then
 
 					function lineesp()
 						game:GetService("RunService").RenderStepped:Connect(function()
-							if v:IsA("Model") and table.find(CurrencyNames, v.Name) and v ~= nil then
+							if v ~= nil and v:IsA("Model") and table.find(CurrencyNames, v.Name)  then
 
 								local Vector, OnScreen = camera:WorldToViewportPoint(v.ProxyPart.Position)
 
