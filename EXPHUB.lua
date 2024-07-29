@@ -149,7 +149,7 @@ if qNVAKkuwxNpqruLjSRHg == true then
 								Tracer.Visible = false
 							end
 						elseif v ~= nil and v.Name == "SpawnKeycard" then
-							local Vector, OnScreen = camera:WorldToViewportPoint(v.ProxyPart.Position)
+							local Vector, OnScreen = camera:WorldToViewportPoint(v.Position)
 
 							if _G.ESPEnabled and _G.ESPKeycard then
 								if OnScreen then
@@ -250,7 +250,7 @@ if qNVAKkuwxNpqruLjSRHg == true then
 									Tracer.Visible = false
 								end
 							elseif v ~= nil and v.Name == "SpawnKeycard" then
-								local Vector, OnScreen = camera:WorldToViewportPoint(v.ProxyPart.Position)
+								local Vector, OnScreen = camera:WorldToViewportPoint(v.Position)
 
 								if _G.ESPEnabled and _G.ESPKeycard then
 									if OnScreen then
