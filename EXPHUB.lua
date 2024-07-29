@@ -116,7 +116,7 @@ if qNVAKkuwxNpqruLjSRHg == true then
 
 							local Vector, OnScreen = camera:WorldToViewportPoint(v.ProxyPart.Position)
 
-							if _G.ESPEnabled then
+							if _G.ESPEnabled and _G.ESPLoot then
 								if OnScreen then
 									Tracer.From = Vector2.new(camera.ViewportSize.X / 2, camera.ViewportSize.Y / 1)
 									Tracer.To = Vector2.new(Vector.X, Vector.Y)
@@ -124,6 +124,41 @@ if qNVAKkuwxNpqruLjSRHg == true then
 									TypeText.Text = v.Name
 									TypeText.Color = _G.ESPLootColor
 									Tracer.Color = _G.ESPLootColor
+
+									if v ~= nil then
+										Tracer.Visible = true
+										TypeText.Visible = true
+									else
+										Tracer.Visible = false
+										TypeText.Visible = false
+									end
+
+									if not _G.ESPShowTracers  then
+										Tracer.Visible = false
+									end
+
+									if not _G.ESPShowName then
+										TypeText.Visible = false
+									end
+								else
+									TypeText.Visible = false
+									Tracer.Visible = false
+								end
+							else
+								TypeText.Visible = false
+								Tracer.Visible = false
+							end
+						elseif v ~= nil and v.Name == "SpawnKeycard" then
+							local Vector, OnScreen = camera:WorldToViewportPoint(v.ProxyPart.Position)
+
+							if _G.ESPEnabled and _G.ESPKeycard then
+								if OnScreen then
+									Tracer.From = Vector2.new(camera.ViewportSize.X / 2, camera.ViewportSize.Y / 1)
+									Tracer.To = Vector2.new(Vector.X, Vector.Y)
+									TypeText.Position = Vector2.new(Vector.X, Vector.Y - 10)
+									TypeText.Text = "Keycard"
+									TypeText.Color = _G.ESPKeycardColor
+									Tracer.Color = _G.ESPKeycardColor
 
 									if v ~= nil then
 										Tracer.Visible = true
@@ -176,17 +211,9 @@ if qNVAKkuwxNpqruLjSRHg == true then
 					TypeText.Size = 13
 					TypeText.Text = "Type"
 
-					local DistanceText = Drawing.new("Text")
-					TypeText.Visible = false
-					TypeText.Center = true
-					TypeText.Outline = true
-					TypeText.Font = 2
-					TypeText.Size = 13
-					TypeText.Text = "Distance"
-
 					function lineesp()
 						game:GetService("RunService").RenderStepped:Connect(function()
-							if v ~= nil and v:IsA("Model") and table.find(CurrencyNames, v.Name)  then
+							if v ~= nil and v:IsA("Model") and table.find(CurrencyNames, v.Name) then
 
 								local Vector, OnScreen = camera:WorldToViewportPoint(v.ProxyPart.Position)
 
@@ -195,15 +222,17 @@ if qNVAKkuwxNpqruLjSRHg == true then
 										Tracer.From = Vector2.new(camera.ViewportSize.X / 2, camera.ViewportSize.Y / 1)
 										Tracer.To = Vector2.new(Vector.X, Vector.Y)
 										TypeText.Position = Vector2.new(Vector.X, Vector.Y - 10)
-										DistanceText.Position = Vector2.new(Vector.X, Vector.Y - 10)
 										TypeText.Text = v.Name
 										TypeText.Color = _G.ESPLootColor
 										Tracer.Color = _G.ESPLootColor
-										DistanceText.Color = _G.ESPLootColor
 
-										local ItemDistance = math.round((v.Character:WaitForChild("HumanoidRootPart").Position - game:GetService("Players").LocalPlayer.Character:WaitForChild("HumanoidRootPart").Position).magnitude)
-
-										DistanceText.Text = "Distance: {" .. tostring(ItemDistance) .. "}"
+										if v ~= nil then
+											Tracer.Visible = true
+											TypeText.Visible = true
+										else
+											Tracer.Visible = false
+											TypeText.Visible = false
+										end
 
 										if not _G.ESPShowTracers  then
 											Tracer.Visible = false
@@ -212,27 +241,52 @@ if qNVAKkuwxNpqruLjSRHg == true then
 										if not _G.ESPShowName then
 											TypeText.Visible = false
 										end
-
-										if _G.ESPShowDistance then
-											DistanceText.Visible = true
-										else
-											DistanceText.Visible = false
-										end
-
 									else
 										TypeText.Visible = false
 										Tracer.Visible = false
-										DistanceText.Visible = false
 									end
 								else
 									TypeText.Visible = false
 									Tracer.Visible = false
-									DistanceText.Visible = false
+								end
+							elseif v ~= nil and v.Name == "SpawnKeycard" then
+								local Vector, OnScreen = camera:WorldToViewportPoint(v.ProxyPart.Position)
+
+								if _G.ESPEnabled and _G.ESPKeycard then
+									if OnScreen then
+										Tracer.From = Vector2.new(camera.ViewportSize.X / 2, camera.ViewportSize.Y / 1)
+										Tracer.To = Vector2.new(Vector.X, Vector.Y)
+										TypeText.Position = Vector2.new(Vector.X, Vector.Y - 10)
+										TypeText.Text = "Keycard"
+										TypeText.Color = _G.ESPKeycardColor
+										Tracer.Color = _G.ESPKeycardColor
+
+										if v ~= nil then
+											Tracer.Visible = true
+											TypeText.Visible = true
+										else
+											Tracer.Visible = false
+											TypeText.Visible = false
+										end
+
+										if not _G.ESPShowTracers  then
+											Tracer.Visible = false
+										end
+
+										if not _G.ESPShowName then
+											TypeText.Visible = false
+										end
+									else
+										TypeText.Visible = false
+										Tracer.Visible = false
+									end
+								else
+									TypeText.Visible = false
+									Tracer.Visible = false
 								end
 							else
 								TypeText.Visible = false
 								Tracer.Visible = false
-								DistanceText.Visible = false
 							end
 						end)
 					end
