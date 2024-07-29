@@ -96,7 +96,7 @@ if qNVAKkuwxNpqruLjSRHg == true then
 			local HeadOff = Vector3.new(0, 0.5, 0)
 			local LegOff = Vector3.new(0,3,0)
 
-			for i,v in pairs(game.Workspace:GetDescendants()) do
+			for i,v in pairs(game.Workspace.Rooms:GetDescendants()) do
 				local Tracer = Drawing.new("Line")
 				Tracer.Visible = false
 
