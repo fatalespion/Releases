@@ -18,7 +18,6 @@ if qNVAKkuwxNpqruLjSRHg == true then
 		local Library = loadstring(game:HttpGet(repo .. 'fatalespion/Releases/main/Lino.lua'))()
 		local ThemeManager = loadstring(game:HttpGet(repo .. 'fatalespion/Releases/main/ThemeManager'))()
 		local SaveManager = loadstring(game:HttpGet(repo .. 'violin-suzutsuki/LinoriaLib/main/addons/SaveManager.lua'))()
-		local AimbotLoadString = loadstring(game:HttpGet("https://raw.githubusercontent.com/fatalespion/Releases/main/Aimbot"))()
 		local Window = Library:CreateWindow({
 			Title = 'NEBULA HUB | Game: Pressure | BETA',
 			Center = true,
@@ -115,7 +114,7 @@ if qNVAKkuwxNpqruLjSRHg == true then
 					game:GetService("RunService").RenderStepped:Connect(function()
 						if v:IsA("Model") and table.find(CurrencyNames, v.Name) then
 
-							local Vector, OnScreen = camera:WorldToViewportPoint(v.ProxyPrompt.Position)
+							local Vector, OnScreen = camera:WorldToViewportPoint(v.ProxyPart.Position)
 
 							if _G.ESPEnabled then
 								if OnScreen then
@@ -189,7 +188,7 @@ if qNVAKkuwxNpqruLjSRHg == true then
 						game:GetService("RunService").RenderStepped:Connect(function()
 							if v:IsA("Model") and table.find(CurrencyNames, v.Name) and v ~= nil then
 
-								local Vector, OnScreen = camera:WorldToViewportPoint(v.ProxyPrompt.Position)
+								local Vector, OnScreen = camera:WorldToViewportPoint(v.ProxyPart.Position)
 
 								if _G.ESPEnabled and _G.ESPLoot then
 									if OnScreen then
