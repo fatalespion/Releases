@@ -134,7 +134,7 @@ local function GetClosestTarget()
 
     -- Check for closest NPC
     if _G.NPCTrack then
-        local NPCs = workspace.NPCs.Hostile:GetChildren()
+        local NPCs = workspace.NPCs:GetDescendants()
         for _, npc in ipairs(NPCs) do
             if npc and npc:FindFirstChild(_G.AimPart) then
                 if not _G.AliveCheck or IsNPCAlive(npc) then
