@@ -136,7 +136,7 @@ local function GetClosestTarget()
     if _G.NPCTrack then
         local NPCs = workspace.NPCs:GetDescendants()
         for _, npc in ipairs(NPCs) do
-            if npc and npc:FindFirstChild(_G.AimPart) then
+            if npc and npc:FindFirstChild(_G.AimPart) and npc.Parent.Name ~= "Other" then
                 if not _G.AliveCheck or IsNPCAlive(npc) then
                     local aimPart = npc[_G.AimPart]
                     local ScreenPoint = Camera:WorldToScreenPoint(aimPart.Position)
