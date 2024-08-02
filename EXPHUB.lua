@@ -808,13 +808,31 @@ if qNVAKkuwxNpqruLjSRHg == true then
 			if Noclip then Noclip:Disconnect() end
 			Clip = true
 		end
+		
+		local plr = game.Players.LocalPlayer
 
-		local function ToggleRainbowFOV(Value)
+		_G.Speed = 0
+
+		local Speed = function()
+			if _G.SpeedEnabled then
+
+				if true then
+					plr.Character.HumanoidRootPart.CFrame = plr.Character.HumanoidRootPart.CFrame + plr.Character.Humanoid.MoveDirection * _G.Speed/100
+				end
+			end
+		end
+
+		RunService.Heartbeat:Connect(function()
+			Speed()
+		end)
+
+
+		local function ToggleRainbowFOV()
 			task.spawn(function()
-				while Value do
+				repeat task.wait() 
 					_G.CircleColor = RainbowColor
 					task.wait()
-				end
+				until _G.RainbowFov == false
 
 				_G.CircleColor = _G.OriginalCircleColor
 			end)
@@ -2792,7 +2810,8 @@ if qNVAKkuwxNpqruLjSRHg == true then
 			Default = false,
 			Tooltip = 'turns the color of the fov to rainbow',
 			Callback = function(Value)
-				ToggleRainbowFOV(Value)
+				ToggleRainbowFOV()
+				_G.RainbowFov = Value
 			end
 		})
 
