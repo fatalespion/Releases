@@ -1,17 +1,38 @@
-local HWID = game:GetService("RbxAnalyticsService"):GetClientId();
+local function getFirst12Digits(inputString)
+	local digits = ""
+	local digitCount = 0
+
+	for i = 1, #inputString do
+		local char = inputString:sub(i, i)
+		if char:match("%d") then
+			digits = digits .. char
+			digitCount = digitCount + 1
+			if digitCount == 12 then
+				break
+			end
+		end
+	end
+
+	return digits
+end
+
+local myString = gethwid()
+local first12Digits = getFirst12Digits(myString)
 
 qNVAKkuwxNpqruLjSRHg = true
 
+print("[NEBULA HUB]: Loading")
+
+if shared.key ~= first12Digits then
+	print("⛔ [NEBULA HUB]: Auth Failed [INVALID KEY]")
+	return
+end
+
+print("[NEBULA HUB]: Passed Auth")
+
+
 if qNVAKkuwxNpqruLjSRHg == true then
 	if game.PlaceId == 12552538292  then
-		print("[NEBULA HUB]: Loading")
-
-		if shared.key ~= "hG8LdA7sQWEr" then
-			print("⛔ [NEBULA HUB]: Auth Failed [INVALID KEY]")
-			return
-		end
-
-		print("[NEBULA HUB]: Passed Auth")
 
 		local repo = 'https://raw.githubusercontent.com/'
 
@@ -585,14 +606,6 @@ if qNVAKkuwxNpqruLjSRHg == true then
 
 		print("[NEBULA HUB]: Loaded👍")
 	else
-		print("[NEBULA HUB]: Loading")
-
-		if shared.key ~= "hG8LdA7sQWEr" then
-			print("[NEBULA HUB]: Auth Failed [INVALID KEY]")
-			return
-		end
-
-		print("[NEBULA HUB]: Passed Auth")
 
 		local repo = 'https://raw.githubusercontent.com/'
 
