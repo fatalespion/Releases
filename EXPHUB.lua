@@ -1,29 +1,27 @@
-local function getFirst12Digits(inputString)
-	local digits = ""
-	local digitCount = 0
+local function getFirst12Alphanumeric(inputString)
+	local alphanumeric = ""
 
 	for i = 1, #inputString do
 		local char = inputString:sub(i, i)
-		if char:match("%d") then
-			digits = digits .. char
-			digitCount = digitCount + 1
-			if digitCount == 12 then
+		if char:match("%w") then
+			alphanumeric = alphanumeric .. char
+			if #alphanumeric == 12 then
 				break
 			end
 		end
 	end
 
-	return digits
+	return alphanumeric
 end
 
-local myString = gethwid()
-local first12Digits = getFirst12Digits(myString)
+local originalString = gethwid()
+local first12Alphanumeric = getFirst12Alphanumeric(originalString)
 
 qNVAKkuwxNpqruLjSRHg = true
 
 print("[NEBULA HUB]: Loading")
 
-if shared.key ~= first12Digits then
+if shared.key ~= first12Alphanumeric then
 	print("⛔ [NEBULA HUB]: Auth Failed [INVALID KEY]")
 	return
 end
