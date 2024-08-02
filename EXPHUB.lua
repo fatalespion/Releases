@@ -886,7 +886,7 @@ if qNVAKkuwxNpqruLjSRHg == true then
 			rootPart.CFrame = rootPart.CFrame * CFrame.Angles(0, tiltAngle, 0)
 		end
 
-		local FarmBroker = workspace.NPCs.Other.Broker
+		local FarmBroker = workspace.NPCs.Other:FindFirstChild("Broker")
 
 		local vim = game:GetService('VirtualInputManager')
 
