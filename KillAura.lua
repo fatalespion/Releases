@@ -4,6 +4,7 @@ _G.AuraEnabled = false
 _G.AuraRange = 20
 _G.AuraBlacklistPlayers = {} 
 _G.AuraFriendsBlacklist = false
+_G.AuraLockPart = "Head"
 
 coroutine.wrap(function()
 	game:GetService("RunService").RenderStepped:Connect(function()
@@ -100,7 +101,7 @@ coroutine.wrap(function()
 			local closestHRP = closestEntity:FindFirstChild("HumanoidRootPart")
 			if closestHRP then
 				if not _G.AuraWallCheck or isLineOfSightClear(playerHRP.Position, closestHRP.Position) then
-					local targetHead = closestEntity:FindFirstChild("Head")
+					local targetHead = closestEntity:FindFirstChild(_G.AuraLockPart)
 					if targetHead then
 						game:GetService("ReplicatedStorage").MeleeStorage.Events["Swing"]:InvokeServer(false)
 						game:GetService("ReplicatedStorage").MeleeStorage.Events["Hit"]:FireServer(targetHead, targetHead.Position)
