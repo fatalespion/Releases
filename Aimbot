@@ -142,12 +142,12 @@ local function GetClosestTarget()
 					local entityAlive = (entityHumanoid and entityHumanoid.Health > 0)
 
 					if entityHRP and (not _G.AuraAliveCheck or entityAlive) then
-                         local aimPart = npc[_G.AimPart]
+                         local aimPart = entity[_G.AimPart]
                          local ScreenPoint = Camera:WorldToScreenPoint(aimPart.Position)
                          local VectorDistance = (MouseLocation - Vector2.new(ScreenPoint.X, ScreenPoint.Y)).Magnitude
 
-						if VectorDistance < MaximumDistance and IsNPCInFront(LocalPlayer, npc) then
-                            if not _G.WallCheck or not IsNPCBehindWall(npc) then
+						if VectorDistance < MaximumDistance and IsNPCInFront(LocalPlayer, entity) then
+                            if not _G.WallCheck or not IsNPCBehindWall(entity) then
                                 Target = aimPart
                                 MaximumDistance = VectorDistance
                             end
