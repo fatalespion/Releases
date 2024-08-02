@@ -134,23 +134,36 @@ local function GetClosestTarget()
 
     -- Check for closest NPC
     if _G.NPCTrack then
-        local NPCs = workspace.NPCs:GetDescendants()
-        for _, npc in ipairs(NPCs) do
-            if npc and npc:FindFirstChild(_G.AimPart) and npc.Parent.Name ~= "Other" then
-                if not _G.AliveCheck or IsNPCAlive(npc) then
-                    local aimPart = npc[_G.AimPart]
-                    local ScreenPoint = Camera:WorldToScreenPoint(aimPart.Position)
-                    local VectorDistance = (MouseLocation - Vector2.new(ScreenPoint.X, ScreenPoint.Y)).Magnitude
+        local function checkAndAddEntities(folder)
+			if folder then
+				for _, entity in pairs(folder:GetChildren()) do
+					local entityHRP = entity:FindFirstChild("HumanoidRootPart")
+					local entityHumanoid = entity:FindFirstChild("Humanoid")
+					local entityAlive = (entityHumanoid and entityHumanoid.Health > 0)
 
-                    if VectorDistance < MaximumDistance and IsNPCInFront(LocalPlayer, npc) then
-                        if not _G.WallCheck or not IsNPCBehindWall(npc) then
-                            Target = aimPart
-                            MaximumDistance = VectorDistance
-                        end
-                    end
-                end
-            end
-        end
+					if entityHRP and (not _G.AuraAliveCheck or entityAlive) then
+                         local aimPart = npc[_G.AimPart]
+                         local ScreenPoint = Camera:WorldToScreenPoint(aimPart.Position)
+                         local VectorDistance = (MouseLocation - Vector2.new(ScreenPoint.X, ScreenPoint.Y)).Magnitude
+
+						if VectorDistance < MaximumDistance and IsNPCInFront(LocalPlayer, npc) then
+                            if not _G.WallCheck or not IsNPCBehindWall(npc) then
+                                Target = aimPart
+                                MaximumDistance = VectorDistance
+                            end
+						end
+					end
+				end
+			end
+		end
+		
+		local npcsFolder = game:GetService("Workspace"):FindFirstChild("NPCs")
+		if npcsFolder then
+			checkAndAddEntities(npcsFolder:FindFirstChild("Hostile"))
+			checkAndAddEntities(npcsFolder:FindFirstChild("Custom"))
+		end
+
+		checkAndAddEntities(game:GetService("Workspace"):FindFirstChild("Tutorial"))
     end
 
     return Target
