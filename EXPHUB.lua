@@ -96,108 +96,113 @@ if qNVAKkuwxNpqruLjSRHg == true then
 			local LegOff = Vector3.new(0,3,0)
 
 			for i,v in pairs(game.Workspace.Rooms:GetDescendants()) do
-				local Tracer = Drawing.new("Line")
-				Tracer.Visible = false
+				if v:GetAttribute("SpawnAfter") then
+					v.ChildAdded:Connect(function()
+						if v ~= nil and v:FindFirstChild("ProxyPart") and v:IsA("Model") and table.find(CurrencyNames, v.Name) or v ~= nil and v.Name == "SpawnKeycard" then
+							local Tracer = Drawing.new("Line")
 
-				Tracer.Thickness = 1
-				Tracer.Transparency = 1
-
-				local TypeText = Drawing.new("Text")
-				TypeText.Visible = false
-				TypeText.Center = true
-				TypeText.Outline = true
-				TypeText.Font = 2
-				TypeText.Size = 13
-				TypeText.Text = "Type"
-
-				function lineesp()
-					game:GetService("RunService").RenderStepped:Connect(function()
-						if v ~= nil and v:IsA("Model") and table.find(CurrencyNames, v.Name) then
-
-							local Vector, OnScreen = camera:WorldToViewportPoint(v.ProxyPart.Position)
-
-							if _G.ESPEnabled and _G.ESPLoot then
-								if OnScreen then
-									Tracer.From = Vector2.new(camera.ViewportSize.X / 2, camera.ViewportSize.Y / 1)
-									Tracer.To = Vector2.new(Vector.X, Vector.Y)
-									TypeText.Position = Vector2.new(Vector.X, Vector.Y - 10)
-									TypeText.Text = v.Name
-									TypeText.Color = _G.ESPLootColor
-									Tracer.Color = _G.ESPLootColor
-
-									if v ~= nil then
-										Tracer.Visible = true
-										TypeText.Visible = true
-									else
-										Tracer.Visible = false
-										TypeText.Visible = false
-									end
-
-									if not _G.ESPShowTracers  then
-										Tracer.Visible = false
-									end
-
-									if not _G.ESPShowName then
-										TypeText.Visible = false
-									end
-								else
-									TypeText.Visible = false
-									Tracer.Visible = false
-								end
-							else
-								TypeText.Visible = false
-								Tracer.Visible = false
-							end
-						elseif v ~= nil and v.Name == "SpawnKeycard" then
-							local Vector, OnScreen = camera:WorldToViewportPoint(v.Position)
-
-							if _G.ESPEnabled and _G.ESPKeycard then
-								if OnScreen then
-									Tracer.From = Vector2.new(camera.ViewportSize.X / 2, camera.ViewportSize.Y / 1)
-									Tracer.To = Vector2.new(Vector.X, Vector.Y)
-									TypeText.Position = Vector2.new(Vector.X, Vector.Y - 10)
-									TypeText.Text = "Keycard"
-									TypeText.Color = _G.ESPKeycardColor
-									Tracer.Color = _G.ESPKeycardColor
-
-									if v ~= nil then
-										Tracer.Visible = true
-										TypeText.Visible = true
-									else
-										Tracer.Visible = false
-										TypeText.Visible = false
-									end
-
-									if not _G.ESPShowTracers  then
-										Tracer.Visible = false
-									end
-
-									if not _G.ESPShowName then
-										TypeText.Visible = false
-									end
-								else
-									TypeText.Visible = false
-									Tracer.Visible = false
-								end
-							else
-								TypeText.Visible = false
-								Tracer.Visible = false
-							end
-						else
-							TypeText.Visible = false
 							Tracer.Visible = false
+
+							Tracer.Thickness = 1
+							Tracer.Transparency = 1
+
+							local TypeText = Drawing.new("Text")
+							TypeText.Visible = false
+							TypeText.Center = true
+							TypeText.Outline = true
+							TypeText.Font = 2
+							TypeText.Size = 13
+							TypeText.Text = "Type"
+
+							function lineesp()
+								game:GetService("RunService").RenderStepped:Connect(function()
+									if v ~= nil and v:FindFirstChild("ProxyPart") and v:IsA("Model") and table.find(CurrencyNames, v.Name) then
+
+										local Vector, OnScreen = camera:WorldToViewportPoint(v.ProxyPart.Position)
+
+										if _G.ESPEnabled and _G.ESPLoot then
+											if OnScreen then
+												Tracer.From = Vector2.new(camera.ViewportSize.X / 2, camera.ViewportSize.Y / 1)
+												Tracer.To = Vector2.new(Vector.X, Vector.Y)
+												TypeText.Position = Vector2.new(Vector.X, Vector.Y - 10)
+												TypeText.Text = v.Name
+												TypeText.Color = _G.ESPLootColor
+												Tracer.Color = _G.ESPLootColor
+
+												if v ~= nil then
+													Tracer.Visible = true
+													TypeText.Visible = true
+												else
+													Tracer.Visible = false
+													TypeText.Visible = false
+												end
+
+												if not _G.ESPShowTracers  then
+													Tracer.Visible = false
+												end
+
+												if not _G.ESPShowName then
+													TypeText.Visible = false
+												end
+											else
+												TypeText.Visible = false
+												Tracer.Visible = false
+											end
+										else
+											TypeText.Visible = false
+											Tracer.Visible = false
+										end
+									elseif v ~= nil and v.Name == "SpawnKeycard" then
+										local Vector, OnScreen = camera:WorldToViewportPoint(v.Position)
+
+										if _G.ESPEnabled and _G.ESPKeycard then
+											if OnScreen then
+												Tracer.From = Vector2.new(camera.ViewportSize.X / 2, camera.ViewportSize.Y / 1)
+												Tracer.To = Vector2.new(Vector.X, Vector.Y)
+												TypeText.Position = Vector2.new(Vector.X, Vector.Y - 10)
+												TypeText.Text = "Keycard"
+												TypeText.Color = _G.ESPKeycardColor
+												Tracer.Color = _G.ESPKeycardColor
+
+												if v ~= nil then
+													Tracer.Visible = true
+													TypeText.Visible = true
+												else
+													Tracer.Visible = false
+													TypeText.Visible = false
+												end
+
+												if not _G.ESPShowTracers  then
+													Tracer.Visible = false
+												end
+
+												if not _G.ESPShowName then
+													TypeText.Visible = false
+												end
+											else
+												TypeText.Visible = false
+												Tracer.Visible = false
+											end
+										else
+											TypeText.Visible = false
+											Tracer.Visible = false
+										end
+									else
+										TypeText.Visible = false
+										Tracer.Visible = false
+									end
+								end)
+							end
+
+							task.spawn(function()
+								coroutine.wrap(lineesp)()
+							end)
 						end
 					end)
 				end
-
-				task.spawn(function()
-					coroutine.wrap(lineesp)()
-				end)
-			end
-
-			game.Workspace.Rooms.ChildAdded:Connect(function(b)
-				for i,v in pairs(b:GetDescendants()) do
+				if v ~= nil and v:FindFirstChild("ProxyPart") and v:IsA("Model") and table.find(CurrencyNames, v.Name) or v ~= nil and v.Name == "SpawnKeycard" then
 					local Tracer = Drawing.new("Line")
+
 					Tracer.Visible = false
 
 					Tracer.Thickness = 1
@@ -213,7 +218,7 @@ if qNVAKkuwxNpqruLjSRHg == true then
 
 					function lineesp()
 						game:GetService("RunService").RenderStepped:Connect(function()
-							if v ~= nil and v:IsA("Model") and table.find(CurrencyNames, v.Name) then
+							if v ~= nil and v:FindFirstChild("ProxyPart") and v:IsA("Model") and table.find(CurrencyNames, v.Name) then
 
 								local Vector, OnScreen = camera:WorldToViewportPoint(v.ProxyPart.Position)
 
@@ -295,6 +300,111 @@ if qNVAKkuwxNpqruLjSRHg == true then
 						coroutine.wrap(lineesp)()
 					end)
 				end
+			end
+
+			game.Workspace.Rooms.ChildAdded:Connect(function(b)
+				b.ChildAdded:Connect(function()
+					for i,v in pairs(b:GetDescendants()) do
+						if v ~= nil and v:FindFirstChild("ProxyPart") and v:IsA("Model") and table.find(CurrencyNames, v.Name) or v ~= nil and v.Name == "SpawnKeycard"  then
+							local Tracer = Drawing.new("Line")
+							Tracer.Visible = false
+
+							Tracer.Thickness = 1
+							Tracer.Transparency = 1
+
+							local TypeText = Drawing.new("Text")
+							TypeText.Visible = false
+							TypeText.Center = true
+							TypeText.Outline = true
+							TypeText.Font = 2
+							TypeText.Size = 13
+							TypeText.Text = "Type"
+
+							function lineesp()
+								game:GetService("RunService").RenderStepped:Connect(function()
+									if v ~= nil and v:FindFirstChild("ProxyPart") and v:IsA("Model") and table.find(CurrencyNames, v.Name) then
+										local Vector, OnScreen = camera:WorldToViewportPoint(v.ProxyPart.Position)
+
+										if _G.ESPEnabled and _G.ESPLoot then
+											if OnScreen then
+												Tracer.From = Vector2.new(camera.ViewportSize.X / 2, camera.ViewportSize.Y / 1)
+												Tracer.To = Vector2.new(Vector.X, Vector.Y)
+												TypeText.Position = Vector2.new(Vector.X, Vector.Y - 10)
+												TypeText.Text = v.Name
+												TypeText.Color = _G.ESPLootColor
+												Tracer.Color = _G.ESPLootColor
+
+												if v ~= nil then
+													Tracer.Visible = true
+													TypeText.Visible = true
+												else
+													Tracer.Visible = false
+													TypeText.Visible = false
+												end
+
+												if not _G.ESPShowTracers  then
+													Tracer.Visible = false
+												end
+
+												if not _G.ESPShowName then
+													TypeText.Visible = false
+												end
+											else
+												TypeText.Visible = false
+												Tracer.Visible = false
+											end
+										else
+											TypeText.Visible = false
+											Tracer.Visible = false
+										end
+									elseif v ~= nil and v.Name == "SpawnKeycard" then
+										local Vector, OnScreen = camera:WorldToViewportPoint(v.Position)
+
+										if _G.ESPEnabled and _G.ESPKeycard then
+											if OnScreen then
+												Tracer.From = Vector2.new(camera.ViewportSize.X / 2, camera.ViewportSize.Y / 1)
+												Tracer.To = Vector2.new(Vector.X, Vector.Y)
+												TypeText.Position = Vector2.new(Vector.X, Vector.Y - 10)
+												TypeText.Text = "Keycard"
+												TypeText.Color = _G.ESPKeycardColor
+												Tracer.Color = _G.ESPKeycardColor
+
+												if v ~= nil then
+													Tracer.Visible = true
+													TypeText.Visible = true
+												else
+													Tracer.Visible = false
+													TypeText.Visible = false
+												end
+
+												if not _G.ESPShowTracers  then
+													Tracer.Visible = false
+												end
+
+												if not _G.ESPShowName then
+													TypeText.Visible = false
+												end
+											else
+												TypeText.Visible = false
+												Tracer.Visible = false
+											end
+										else
+											TypeText.Visible = false
+											Tracer.Visible = false
+										end
+									else
+										TypeText.Visible = false
+										Tracer.Visible = false
+									end
+								end)
+							end
+
+							task.spawn(function()
+								coroutine.wrap(lineesp)()
+							end)
+						end
+					end
+				end)
 			end)
 		end	
 
@@ -490,6 +600,7 @@ if qNVAKkuwxNpqruLjSRHg == true then
 		local ThemeManager = loadstring(game:HttpGet(repo .. 'fatalespion/Releases/main/ThemeManager'))()
 		local SaveManager = loadstring(game:HttpGet(repo .. 'violin-suzutsuki/LinoriaLib/main/addons/SaveManager.lua'))()
 		local AimbotLoadString = loadstring(game:HttpGet("https://raw.githubusercontent.com/fatalespion/Releases/main/Aimbot"))()
+		local KillAuraLoadString = loadstring(game:HttpGet("https://raw.githubusercontent.com/fatalespion/Releases/main/KillAura.lua"))()
 		local Window = Library:CreateWindow({
 			Title = 'NEBULA HUB | Game: Blackout | BETA',
 			Center = true,
@@ -527,9 +638,9 @@ if qNVAKkuwxNpqruLjSRHg == true then
 		local FarmRightMiscGroupBox = Tabs.Misc:AddRightGroupbox('AUTOFARM')
 
 		local AimbotLeftCombatGroupBox = Tabs.Combat:AddLeftGroupbox('CAMLOCK')
-
+		local KillAuraLeftCombatGroupBox = Tabs.Combat:AddRightGroupbox('MELEE KILL AURA')
+		
 		local MoveLeftMoveGroupBox = Tabs.Combat:AddRightGroupbox('MOVEMENT')
-		local spinRightMoveGroupBox = Tabs.Combat:AddRightGroupbox('SPINBOT & BHOP')
 
 		local LootLeftLootGroupBox = Tabs.Misc:AddRightGroupbox('LOOT')
 
@@ -570,6 +681,14 @@ if qNVAKkuwxNpqruLjSRHg == true then
 		_G.Spinbot = false
 
 		_G.RestockAutoFarm = false
+		
+		_G.AuraAliveCheck = false
+		_G.AuraWallCheck = false
+		_G.AuraEnabled = false
+		_G.AuraRange = 20
+		_G.AuraBlacklistPlayers = {} 
+		_G.AuraFriendsBlacklist = false
+		_G.AuraLockPart = "Head"
 
 		AimbotSettings = {
 			DeveloperSettings = {
@@ -1113,81 +1232,86 @@ if qNVAKkuwxNpqruLjSRHg == true then
 			local LegOff = Vector3.new(0,3,0)
 
 			for i,v in pairs(game.Workspace.Debris.Loot:GetChildren()) do
-				local Tracer = Drawing.new("Line")
-				Tracer.Visible = false
+				if game.Workspace.Debris.Loot:FindFirstChild(v.Name) then
+					local Tracer = Drawing.new("Line")
+					Tracer.Visible = false
 
-				Tracer.Thickness = 1
-				Tracer.Transparency = 1
+					Tracer.Thickness = 1
+					Tracer.Transparency = 1
 
-				local TypeText = Drawing.new("Text")
-				TypeText.Visible = false
-				TypeText.Center = true
-				TypeText.Outline = true
-				TypeText.Font = 2
-				TypeText.Size = 13
-				TypeText.Text = "Type"
+					local TypeText = Drawing.new("Text")
+					TypeText.Visible = false
+					TypeText.Center = true
+					TypeText.Outline = true
+					TypeText.Font = 2
+					TypeText.Size = 13
+					TypeText.Text = "Type"
 
-				function lineesp()
-					game:GetService("RunService").RenderStepped:Connect(function()
-						if game.Workspace.Debris.Loot:FindFirstChild(v.Name) then
-							if v.Name == "DroneLoot" then
-								return
-							end
+					function lineesp()
+						game:GetService("RunService").RenderStepped:Connect(function()
+							if game.Workspace.Debris.Loot:FindFirstChild(v.Name) then
+								if v.Name == "DroneLoot" then
+									return
+								end
 
-							local Vector, OnScreen = camera:WorldToViewportPoint(v.Position)
+								local Vector, OnScreen = camera:WorldToViewportPoint(v.Position)
 
-							if _G.ESPEnabled then
-								if OnScreen then
-									Tracer.From = Vector2.new(camera.ViewportSize.X / 2, camera.ViewportSize.Y / 1)
-									Tracer.To = Vector2.new(Vector.X, Vector.Y)
-									TypeText.Position = Vector2.new(Vector.X, Vector.Y - 10)
+								if _G.ESPEnabled then
+									if OnScreen then
+										Tracer.From = Vector2.new(camera.ViewportSize.X / 2, camera.ViewportSize.Y / 1)
+										Tracer.To = Vector2.new(Vector.X, Vector.Y)
+										TypeText.Position = Vector2.new(Vector.X, Vector.Y - 10)
 
-									if v.Color == Color3.fromRGB(255,63,63) then
-										if _G.ESPDeathBag == true then
-											TypeText.Text = "Death Bag"
-											TypeText.Color = _G.ESPDeathBagColor
-											TypeText.Visible = true
-											Tracer.Color = _G.ESPDeathBagColor
-											Tracer.Visible = true
-										else
+										if v.Color == Color3.fromRGB(255,63,63) then
+											if _G.ESPDeathBag == true then
+												TypeText.Text = "Death Bag"
+												TypeText.Color = _G.ESPDeathBagColor
+												TypeText.Visible = true
+												Tracer.Color = _G.ESPDeathBagColor
+												Tracer.Visible = true
+											else
+												TypeText.Visible = false
+												Tracer.Visible = false
+											end
+										elseif v.Color == Color3.fromRGB(0,127,255) then
+											if v.Name == "DeathBag" then
+												if _G.ESPNpcBag == true then
+													TypeText.Text = "NPC Death Bag"
+													TypeText.Color = _G.ESPNpcBagColor
+													TypeText.Visible = true
+													Tracer.Color = _G.ESPNpcBagColor
+													Tracer.Visible = true
+												else
+													TypeText.Visible = false
+													Tracer.Visible = false
+												end
+											elseif v.Name == "DuffelBag" then
+												if _G.ESPDropBag == true then
+													TypeText.Text = "Drop Bag"
+													TypeText.Color = _G.ESPDropBagColor
+													TypeText.Visible = true
+													Tracer.Color = _G.ESPDropBagColor
+													Tracer.Visible = true
+												else
+													TypeText.Visible = false
+													Tracer.Visible = false
+												end
+											end
+										end
+
+										if not _G.ESPShowTracers  then
 											TypeText.Visible = false
 											Tracer.Visible = false
 										end
-									elseif v.Color == Color3.fromRGB(0,127,255) then
-										if v.Name == "DeathBag" then
-											if _G.ESPNpcBag == true then
-												TypeText.Text = "NPC Death Bag"
-												TypeText.Color = _G.ESPNpcBagColor
-												TypeText.Visible = true
-												Tracer.Color = _G.ESPNpcBagColor
-												Tracer.Visible = true
-											else
-												TypeText.Visible = false
-												Tracer.Visible = false
-											end
-										elseif v.Name == "DuffelBag" then
-											if _G.ESPDropBag == true then
-												TypeText.Text = "Drop Bag"
-												TypeText.Color = _G.ESPDropBagColor
-												TypeText.Visible = true
-												Tracer.Color = _G.ESPDropBagColor
-												Tracer.Visible = true
-											else
-												TypeText.Visible = false
-												Tracer.Visible = false
-											end
-										end
-									end
 
-									if not _G.ESPShowTracers  then
+										v.Destroying:Connect(function()
+											TypeText.Visible = false
+											Tracer.Visible = false
+										end)
+									else
 										TypeText.Visible = false
 										Tracer.Visible = false
 									end
-
-									v.Destroying:Connect(function()
-										TypeText.Visible = false
-										Tracer.Visible = false
-									end)
 								else
 									TypeText.Visible = false
 									Tracer.Visible = false
@@ -1196,90 +1320,92 @@ if qNVAKkuwxNpqruLjSRHg == true then
 								TypeText.Visible = false
 								Tracer.Visible = false
 							end
-						else
-							TypeText.Visible = false
-							Tracer.Visible = false
-						end
+						end)
+					end
+
+					task.spawn(function()
+						coroutine.wrap(lineesp)()
 					end)
 				end
-
-				task.spawn(function()
-					coroutine.wrap(lineesp)()
-				end)
 			end
 
 			game.Workspace.Debris.Loot.ChildAdded:Connect(function(v)
-				local Tracer = Drawing.new("Line")
-				Tracer.Visible = false
+				if game.Workspace.Debris.Loot:FindFirstChild(v.Name) then
+					local Tracer = Drawing.new("Line")
+					Tracer.Visible = false
 
-				Tracer.Thickness = 1
-				Tracer.Transparency = 1
+					Tracer.Thickness = 1
+					Tracer.Transparency = 1
 
-				local TypeText = Drawing.new("Text")
-				TypeText.Visible = false
-				TypeText.Center = true
-				TypeText.Outline = true
-				TypeText.Font = 2
-				TypeText.Size = 13
-				TypeText.Text = "Type"
+					local TypeText = Drawing.new("Text")
+					TypeText.Visible = false
+					TypeText.Center = true
+					TypeText.Outline = true
+					TypeText.Font = 2
+					TypeText.Size = 13
+					TypeText.Text = "Type"
 
-				function lineesp()
-					game:GetService("RunService").RenderStepped:Connect(function()
-						if game.Workspace.Debris.Loot:FindFirstChild(v.Name) then
-							local Vector, OnScreen = camera:WorldToViewportPoint(v.Position)
+					function lineesp()
+						game:GetService("RunService").RenderStepped:Connect(function()
+							if game.Workspace.Debris.Loot:FindFirstChild(v.Name) then
+								local Vector, OnScreen = camera:WorldToViewportPoint(v.Position)
 
-							if _G.ESPEnabled then
-								if OnScreen then
-									Tracer.From = Vector2.new(camera.ViewportSize.X / 2, camera.ViewportSize.Y / 1)
-									Tracer.To = Vector2.new(Vector.X, Vector.Y)
-									TypeText.Position = Vector2.new(Vector.X, Vector.Y - 10)
+								if _G.ESPEnabled then
+									if OnScreen then
+										Tracer.From = Vector2.new(camera.ViewportSize.X / 2, camera.ViewportSize.Y / 1)
+										Tracer.To = Vector2.new(Vector.X, Vector.Y)
+										TypeText.Position = Vector2.new(Vector.X, Vector.Y - 10)
 
-									if v.Color == Color3.fromRGB(255,63,63) then
-										if _G.ESPDeathBag == true then
-											TypeText.Text = "Death Bag"
-											TypeText.Color = _G.ESPDeathBagColor
-											TypeText.Visible = true
-											Tracer.Color = _G.ESPDeathBagColor
-											Tracer.Visible = true
-										else
+										if v.Color == Color3.fromRGB(255,63,63) then
+											if _G.ESPDeathBag == true then
+												TypeText.Text = "Death Bag"
+												TypeText.Color = _G.ESPDeathBagColor
+												TypeText.Visible = true
+												Tracer.Color = _G.ESPDeathBagColor
+												Tracer.Visible = true
+											else
+												TypeText.Visible = false
+												Tracer.Visible = false
+											end
+										elseif v.Color == Color3.fromRGB(0,127,255) then
+											if v.Name == "DeathBag" then
+												if _G.ESPNpcBag == true then
+													TypeText.Text = "NPC Death Bag"
+													TypeText.Color = _G.ESPNpcBagColor
+													TypeText.Visible = true
+													Tracer.Color = _G.ESPNpcBagColor
+													Tracer.Visible = true
+												else
+													TypeText.Visible = false
+													Tracer.Visible = false
+												end
+											elseif v.Name == "DuffelBag" then
+												if _G.ESPDropBag == true then
+													TypeText.Text = "Drop Bag"
+													TypeText.Color = _G.ESPDropBagColor
+													TypeText.Visible = true
+													Tracer.Color = _G.ESPDropBagColor
+													Tracer.Visible = true
+												else
+													TypeText.Visible = false
+													Tracer.Visible = false
+												end
+											end
+										end
+
+										if not _G.ESPShowTracers  then
 											TypeText.Visible = false
 											Tracer.Visible = false
 										end
-									elseif v.Color == Color3.fromRGB(0,127,255) then
-										if v.Name == "DeathBag" then
-											if _G.ESPNpcBag == true then
-												TypeText.Text = "NPC Death Bag"
-												TypeText.Color = _G.ESPNpcBagColor
-												TypeText.Visible = true
-												Tracer.Color = _G.ESPNpcBagColor
-												Tracer.Visible = true
-											else
-												TypeText.Visible = false
-												Tracer.Visible = false
-											end
-										elseif v.Name == "DuffelBag" then
-											if _G.ESPDropBag == true then
-												TypeText.Text = "Drop Bag"
-												TypeText.Color = _G.ESPDropBagColor
-												TypeText.Visible = true
-												Tracer.Color = _G.ESPDropBagColor
-												Tracer.Visible = true
-											else
-												TypeText.Visible = false
-												Tracer.Visible = false
-											end
-										end
-									end
 
-									if not _G.ESPShowTracers  then
+										v.Destroying:Connect(function()
+											TypeText.Visible = false
+											Tracer.Visible = false
+										end)
+									else
 										TypeText.Visible = false
 										Tracer.Visible = false
 									end
-
-									v.Destroying:Connect(function()
-										TypeText.Visible = false
-										Tracer.Visible = false
-									end)
 								else
 									TypeText.Visible = false
 									Tracer.Visible = false
@@ -1288,98 +1414,99 @@ if qNVAKkuwxNpqruLjSRHg == true then
 								TypeText.Visible = false
 								Tracer.Visible = false
 							end
-						else
-							TypeText.Visible = false
-							Tracer.Visible = false
-						end
+						end)
+					end
+
+					task.spawn(function()
+						coroutine.wrap(lineesp)()
 					end)
 				end
-
-				task.spawn(function()
-					coroutine.wrap(lineesp)()
-				end)
 			end)
 
 			for i,v in pairs(game.Players:GetChildren()) do
-				local Tracer = Drawing.new("Line")
-				Tracer.Visible = false
+				if v.Character ~= nil and v.Character:WaitForChild("Humanoid") ~= nil and v.Character:FindFirstChild("HumanoidRootPart") ~= nil and v ~= lplr and v.Character.Humanoid.Health > 0 then
+					local Tracer = Drawing.new("Line")
+					Tracer.Visible = false
 
-				Tracer.Thickness = 1
-				Tracer.Transparency = 1
+					Tracer.Thickness = 1
+					Tracer.Transparency = 1
 
-				local BoxOutline = Drawing.new("Square")
-				BoxOutline.Visible = false
-				BoxOutline.Color = Color3.new(0,0,0)
-				BoxOutline.Thickness = 3
-				BoxOutline.Transparency = 1
-				BoxOutline.Filled = false
+					local BoxOutline = Drawing.new("Square")
+					BoxOutline.Visible = false
+					BoxOutline.Color = Color3.new(0,0,0)
+					BoxOutline.Thickness = 3
+					BoxOutline.Transparency = 1
+					BoxOutline.Filled = false
 
-				local Box = Drawing.new("Square")
-				Box.Visible = false
-				Box.Thickness = 1
-				Box.Transparency = 1
-				Box.Filled = false
+					local Box = Drawing.new("Square")
+					Box.Visible = false
+					Box.Thickness = 1
+					Box.Transparency = 1
+					Box.Filled = false
 
-				local HealthBarOutline = Drawing.new("Square")
-				HealthBarOutline.Visible = false
-				HealthBarOutline.Color = Color3.new(0,0,0)
-				HealthBarOutline.Thickness = 1.5
-				HealthBarOutline.Transparency = 1
-				HealthBarOutline.Filled = false
+					local HealthBarOutline = Drawing.new("Square")
+					HealthBarOutline.Visible = false
+					HealthBarOutline.Color = Color3.new(0,0,0)
+					HealthBarOutline.Thickness = 1.5
+					HealthBarOutline.Transparency = 1
+					HealthBarOutline.Filled = false
 
-				local HealthBar = Drawing.new("Square")
-				HealthBar.Visible = false
-				HealthBar.Thickness = 1
-				HealthBar.Transparency = 1
-				HealthBar.Filled = true
+					local HealthBar = Drawing.new("Square")
+					HealthBar.Visible = false
+					HealthBar.Thickness = 1
+					HealthBar.Transparency = 1
+					HealthBar.Filled = true
 
-				local ItemName = Drawing.new("Text")
-				ItemName.Visible = false
-				ItemName.Center = true
-				ItemName.Outline = true
-				ItemName.Font = 2
-				ItemName.Size = 13
-				ItemName.Text = "Item"
+					local ItemName = Drawing.new("Text")
+					ItemName.Visible = false
+					ItemName.Center = true
+					ItemName.Outline = true
+					ItemName.Font = 2
+					ItemName.Size = 13
+					ItemName.Text = "Item"
 
-				local NameText = Drawing.new("Text")
-				NameText.Visible = false
-				NameText.Center = true
-				NameText.Outline = true
-				NameText.Font = 2
-				NameText.Size = 13
-				NameText.Text = "Type"
+					local NameText = Drawing.new("Text")
+					NameText.Visible = false
+					NameText.Center = true
+					NameText.Outline = true
+					NameText.Font = 2
+					NameText.Size = 13
+					NameText.Text = "Type"
 
-				local DistanceText = Drawing.new("Text")
-				DistanceText.Visible = false
-				DistanceText.Center = true
-				DistanceText.Outline = true
-				DistanceText.Font = 2
-				DistanceText.Size = 13
-				DistanceText.Text = "Distance"
+					local DistanceText = Drawing.new("Text")
+					DistanceText.Visible = false
+					DistanceText.Center = true
+					DistanceText.Outline = true
+					DistanceText.Font = 2
+					DistanceText.Size = 13
+					DistanceText.Text = "Distance"
 
-				function lineesp()
-					game:GetService("RunService").RenderStepped:Connect(function()
-						if v.Character ~= nil and v.Character:WaitForChild("Humanoid") ~= nil and v.Character:FindFirstChild("HumanoidRootPart") ~= nil and v ~= lplr and v.Character.Humanoid.Health > 0 then
-							local Vector, OnScreen = camera:WorldToViewportPoint(v.Character.HumanoidRootPart.Position)
+					function lineesp()
+						game:GetService("RunService").RenderStepped:Connect(function()
+							if v.Character ~= nil and v.Character:WaitForChild("Humanoid") ~= nil and v.Character:FindFirstChild("HumanoidRootPart") ~= nil and v ~= lplr and v.Character.Humanoid.Health > 0 then
+								local Vector, OnScreen = camera:WorldToViewportPoint(v.Character.HumanoidRootPart.Position)
 
-							if _G.ESPEnabled then
-								if OnScreen then
-									Tracer.From = Vector2.new(camera.ViewportSize.X / 2, camera.ViewportSize.Y / 1)
-									Tracer.To = Vector2.new(Vector.X, Vector.Y)
-									Tracer.Color = _G.ESPTracerColor
+								if _G.ESPEnabled then
+									if OnScreen then
+										Tracer.From = Vector2.new(camera.ViewportSize.X / 2, camera.ViewportSize.Y / 1)
+										Tracer.To = Vector2.new(Vector.X, Vector.Y)
+										Tracer.Color = _G.ESPTracerColor
 
-									if not _G.ESPShowTracers  then
-										Tracer.Visible = false
-									end
-
-									if _G.ESPTeamCheck and v.TeamColor == lplr.TeamColor then
-										Tracer.Visible = false
-									else
-										if _G.ESPShowTracers then
-											Tracer.Visible = true
-										elseif not _G.ESPShowTracers then
+										if not _G.ESPShowTracers  then
 											Tracer.Visible = false
 										end
+
+										if _G.ESPTeamCheck and v.TeamColor == lplr.TeamColor then
+											Tracer.Visible = false
+										else
+											if _G.ESPShowTracers then
+												Tracer.Visible = true
+											elseif not _G.ESPShowTracers then
+												Tracer.Visible = false
+											end
+										end
+									else
+										Tracer.Visible = false
 									end
 								else
 									Tracer.Visible = false
@@ -1387,109 +1514,115 @@ if qNVAKkuwxNpqruLjSRHg == true then
 							else
 								Tracer.Visible = false
 							end
-						else
-							Tracer.Visible = false
-						end
-					end)
-				end
+						end)
+					end
 
-				function boxesp()
-					game:GetService("RunService").RenderStepped:Connect(function()
-						if v.Character ~= nil and v.Character:WaitForChild("Humanoid") ~= nil and v.Character:FindFirstChild("HumanoidRootPart") ~= nil and v ~= lplr and v.Character.Humanoid.Health > 0 then
-							local Vector, OnScreen = camera:WorldToViewportPoint(v.Character.HumanoidRootPart.Position)
+					function boxesp()
+						game:GetService("RunService").RenderStepped:Connect(function()
+							if v.Character ~= nil and v.Character:WaitForChild("Humanoid") ~= nil and v.Character:FindFirstChild("HumanoidRootPart") ~= nil and v ~= lplr and v.Character.Humanoid.Health > 0 then
+								local Vector, OnScreen = camera:WorldToViewportPoint(v.Character.HumanoidRootPart.Position)
 
-							local RootPart = v.Character.HumanoidRootPart
-							local Head = v.Character.Head
-							local RootPosition, RootVis = worldtoViewportPoint(CurrentCamera, RootPart.Position)
-							local HeadPosition = worldtoViewportPoint(CurrentCamera, Head.Position + HeadOff)
-							local LegPosition = worldtoViewportPoint(CurrentCamera, RootPart.Position - LegOff)
+								local RootPart = v.Character.HumanoidRootPart
+								local Head = v.Character.Head
+								local RootPosition, RootVis = worldtoViewportPoint(CurrentCamera, RootPart.Position)
+								local HeadPosition = worldtoViewportPoint(CurrentCamera, Head.Position + HeadOff)
+								local LegPosition = worldtoViewportPoint(CurrentCamera, RootPart.Position - LegOff)
 
-							if _G.ESPEnabled then
-								if OnScreen then
-									BoxOutline.Size = Vector2.new(1000 / RootPosition.Z, HeadPosition.Y - LegPosition.Y)
-									BoxOutline.Position = Vector2.new(RootPosition.X - BoxOutline.Size.X / 2, RootPosition.Y - BoxOutline.Size.Y / 2)
+								if _G.ESPEnabled then
+									if OnScreen then
+										BoxOutline.Size = Vector2.new(1000 / RootPosition.Z, HeadPosition.Y - LegPosition.Y)
+										BoxOutline.Position = Vector2.new(RootPosition.X - BoxOutline.Size.X / 2, RootPosition.Y - BoxOutline.Size.Y / 2)
 
-									Box.Size = Vector2.new(1000 / RootPosition.Z, HeadPosition.Y - LegPosition.Y)
-									Box.Position = Vector2.new(RootPosition.X - Box.Size.X / 2, RootPosition.Y - Box.Size.Y / 2)
-									Box.Color = _G.ESPBoxColor
+										Box.Size = Vector2.new(1000 / RootPosition.Z, HeadPosition.Y - LegPosition.Y)
+										Box.Position = Vector2.new(RootPosition.X - Box.Size.X / 2, RootPosition.Y - Box.Size.Y / 2)
+										Box.Color = _G.ESPBoxColor
 
-									HealthBarOutline.Size = Vector2.new(2, HeadPosition.Y - LegPosition.Y)
-									HealthBarOutline.Position = BoxOutline.Position - Vector2.new(6,0)
+										HealthBarOutline.Size = Vector2.new(2, HeadPosition.Y - LegPosition.Y)
+										HealthBarOutline.Position = BoxOutline.Position - Vector2.new(6,0)
 
-									HealthBar.Size = Vector2.new(2, (HeadPosition.Y - LegPosition.Y) / (v.Character:WaitForChild("Humanoid").MaxHealth / math.clamp(v.Character:WaitForChild("Humanoid").Health, 0, v.Character:WaitForChild("Humanoid").MaxHealth)))
-									HealthBar.Position = Vector2.new(Box.Position.X - 6, Box.Position.Y + (1/HealthBar.Size.Y))
-									HealthBar.Color = Color3.fromRGB(255 - 255 / (v.Character:WaitForChild("Humanoid").MaxHealth / v.Character:WaitForChild("Humanoid").Health), 255 / (v.Character:WaitForChild("Humanoid").MaxHealth / v.Character:WaitForChild("Humanoid").Health), 0)
+										HealthBar.Size = Vector2.new(2, (HeadPosition.Y - LegPosition.Y) / (v.Character:WaitForChild("Humanoid").MaxHealth / math.clamp(v.Character:WaitForChild("Humanoid").Health, 0, v.Character:WaitForChild("Humanoid").MaxHealth)))
+										HealthBar.Position = Vector2.new(Box.Position.X - 6, Box.Position.Y + (1/HealthBar.Size.Y))
+										HealthBar.Color = Color3.fromRGB(255 - 255 / (v.Character:WaitForChild("Humanoid").MaxHealth / v.Character:WaitForChild("Humanoid").Health), 255 / (v.Character:WaitForChild("Humanoid").MaxHealth / v.Character:WaitForChild("Humanoid").Health), 0)
 
-									ItemName.Position = Vector2.new(Vector.X, Vector.Y - 30)
-									NameText.Position = Vector2.new(Vector.X, Vector.Y - 20)
-									DistanceText.Position = Vector2.new(Vector.X, Vector.Y - 10)
+										ItemName.Position = Vector2.new(Vector.X, Vector.Y - 30)
+										NameText.Position = Vector2.new(Vector.X, Vector.Y - 20)
+										DistanceText.Position = Vector2.new(Vector.X, Vector.Y - 10)
 
-									local ItemDistance = math.round((v.Character:WaitForChild("HumanoidRootPart").Position - game:GetService("Players").LocalPlayer.Character:WaitForChild("HumanoidRootPart").Position).Magnitude)
+										local ItemDistance = math.round((v.Character:WaitForChild("HumanoidRootPart").Position - game:GetService("Players").LocalPlayer.Character:WaitForChild("HumanoidRootPart").Position).Magnitude)
 
-									NameText.Color = _G.ESPBoxColor
-									DistanceText.Color = _G.ESPBoxColor
-									ItemName.Color = _G.ESPBoxColor
+										NameText.Color = _G.ESPBoxColor
+										DistanceText.Color = _G.ESPBoxColor
+										ItemName.Color = _G.ESPBoxColor
 
-									DistanceText.Text = "[" .. tostring(ItemDistance) .. "]"
-									NameText.Text = v.Name
+										DistanceText.Text = "[" .. tostring(ItemDistance) .. "]"
+										NameText.Text = v.Name
 
-									if v.Character then
-										if v.Character:FindFirstChild("ServerMeleeModel") or v.Character:FindFirstChild("ServerGunModel") then
-											if v.Character:FindFirstChildWhichIsA("RayValue") then
-												ItemName.Text = v.Character:FindFirstChildWhichIsA("RayValue").Name
-												ItemName.Visible = true
+										if v.Character then
+											if v.Character:FindFirstChild("ServerMeleeModel") or v.Character:FindFirstChild("ServerGunModel") then
+												if v.Character:FindFirstChildWhichIsA("RayValue") then
+													ItemName.Text = v.Character:FindFirstChildWhichIsA("RayValue").Name
+													ItemName.Visible = true
+												else
+													ItemName.Visible = false
+												end
 											else
 												ItemName.Visible = false
 											end
 										else
 											ItemName.Visible = false
 										end
-									else
-										ItemName.Visible = false
-									end
 
-									if _G.ESPShowName then
-										NameText.Visible = true
-									else
-										NameText.Visible = false
-									end
-
-									if _G.ESPShowDistance then
-										DistanceText.Visible = true
-									else
-										DistanceText.Visible = false
-									end
-
-									if _G.ESPShowTool then
-										ItemName.Visible = true
-									else
-										ItemName.Visible = false
-									end
-
-									if _G.ESPTeamCheck and v.TeamColor == lplr.TeamColor then
-										BoxOutline.Visible = false
-										Box.Visible = false
-
-										if _G.ESPHealthBar then
-											HealthBarOutline.Visible = false
-											HealthBar.Visible = false
-										end
-									else
-										if _G.ESPShowBox then
-											BoxOutline.Visible = true
-											Box.Visible = true
+										if _G.ESPShowName then
+											NameText.Visible = true
 										else
+											NameText.Visible = false
+										end
+
+										if _G.ESPShowDistance then
+											DistanceText.Visible = true
+										else
+											DistanceText.Visible = false
+										end
+
+										if _G.ESPShowTool then
+											ItemName.Visible = true
+										else
+											ItemName.Visible = false
+										end
+
+										if _G.ESPTeamCheck and v.TeamColor == lplr.TeamColor then
 											BoxOutline.Visible = false
 											Box.Visible = false
-										end
 
-										if _G.ESPHealthBar then
-											HealthBarOutline.Visible = true
-											HealthBar.Visible = true
+											if _G.ESPHealthBar then
+												HealthBarOutline.Visible = false
+												HealthBar.Visible = false
+											end
 										else
-											HealthBarOutline.Visible = false
-											HealthBar.Visible = false
+											if _G.ESPShowBox then
+												BoxOutline.Visible = true
+												Box.Visible = true
+											else
+												BoxOutline.Visible = false
+												Box.Visible = false
+											end
+
+											if _G.ESPHealthBar then
+												HealthBarOutline.Visible = true
+												HealthBar.Visible = true
+											else
+												HealthBarOutline.Visible = false
+												HealthBar.Visible = false
+											end
 										end
+									else
+										BoxOutline.Visible = false
+										Box.Visible = false
+										HealthBarOutline.Visible = false
+										HealthBar.Visible = false
+										ItemName.Visible = false
+										NameText.Visible = false
+										DistanceText.Visible = false
 									end
 								else
 									BoxOutline.Visible = false
@@ -1509,105 +1642,101 @@ if qNVAKkuwxNpqruLjSRHg == true then
 								NameText.Visible = false
 								DistanceText.Visible = false
 							end
-						else
-							BoxOutline.Visible = false
-							Box.Visible = false
-							HealthBarOutline.Visible = false
-							HealthBar.Visible = false
-							ItemName.Visible = false
-							NameText.Visible = false
-							DistanceText.Visible = false
-						end
-					end)
-				end
+						end)
+					end
 
-				task.spawn(function()
-					coroutine.wrap(lineesp)()
-				end)
-				task.spawn(function()
-					coroutine.wrap(boxesp)()
-				end)
+					task.spawn(function()
+						coroutine.wrap(lineesp)()
+					end)
+					task.spawn(function()
+						coroutine.wrap(boxesp)()
+					end)
+				end	
 			end
 
 			game.Players.PlayerAdded:Connect(function(v)
-				local Tracer = Drawing.new("Line")
-				Tracer.Visible = false
-				Tracer.Thickness = 1
-				Tracer.Transparency = 1
+				if v.Character ~= nil and v.Character:WaitForChild("Humanoid") ~= nil and v.Character:FindFirstChild("HumanoidRootPart") ~= nil and v ~= lplr and v.Character.Humanoid.Health > 0 then
+					local Tracer = Drawing.new("Line")
+					Tracer.Visible = false
+					Tracer.Thickness = 1
+					Tracer.Transparency = 1
 
-				local BoxOutline = Drawing.new("Square")
-				BoxOutline.Visible = false
-				BoxOutline.Color = Color3.new(0,0,0)
-				BoxOutline.Thickness = 3
-				BoxOutline.Transparency = 1
-				BoxOutline.Filled = false
+					local BoxOutline = Drawing.new("Square")
+					BoxOutline.Visible = false
+					BoxOutline.Color = Color3.new(0,0,0)
+					BoxOutline.Thickness = 3
+					BoxOutline.Transparency = 1
+					BoxOutline.Filled = false
 
-				local Box = Drawing.new("Square")
-				Box.Visible = false
-				Box.Thickness = 1.5
-				Box.Transparency = 1
-				Box.Filled = false
+					local Box = Drawing.new("Square")
+					Box.Visible = false
+					Box.Thickness = 1.5
+					Box.Transparency = 1
+					Box.Filled = false
 
-				local HealthBarOutline = Drawing.new("Square")
-				HealthBarOutline.Visible = false
-				HealthBarOutline.Color = Color3.new(0,0,0)
-				HealthBarOutline.Thickness = 1.5
-				HealthBarOutline.Transparency = 1
-				HealthBarOutline.Filled = false
+					local HealthBarOutline = Drawing.new("Square")
+					HealthBarOutline.Visible = false
+					HealthBarOutline.Color = Color3.new(0,0,0)
+					HealthBarOutline.Thickness = 1.5
+					HealthBarOutline.Transparency = 1
+					HealthBarOutline.Filled = false
 
-				local HealthBar = Drawing.new("Square")
-				HealthBar.Visible = false
-				HealthBar.Thickness = 1
-				HealthBar.Transparency = 1
-				HealthBar.Filled = true
+					local HealthBar = Drawing.new("Square")
+					HealthBar.Visible = false
+					HealthBar.Thickness = 1
+					HealthBar.Transparency = 1
+					HealthBar.Filled = true
 
-				local ItemName = Drawing.new("Text")
-				ItemName.Visible = false
-				ItemName.Center = true
-				ItemName.Outline = true
-				ItemName.Font = 2
-				ItemName.Size = 13
-				ItemName.Text = "Scrap"
+					local ItemName = Drawing.new("Text")
+					ItemName.Visible = false
+					ItemName.Center = true
+					ItemName.Outline = true
+					ItemName.Font = 2
+					ItemName.Size = 13
+					ItemName.Text = "Scrap"
 
-				local NameText = Drawing.new("Text")
-				NameText.Visible = false
-				NameText.Center = true
-				NameText.Outline = true
-				NameText.Font = 2
-				NameText.Size = 13
-				NameText.Text = "Type"
+					local NameText = Drawing.new("Text")
+					NameText.Visible = false
+					NameText.Center = true
+					NameText.Outline = true
+					NameText.Font = 2
+					NameText.Size = 13
+					NameText.Text = "Type"
 
-				local DistanceText = Drawing.new("Text")
-				DistanceText.Visible = false
-				DistanceText.Center = true
-				DistanceText.Outline = true
-				DistanceText.Font = 2
-				DistanceText.Size = 13
-				DistanceText.Text = "Distance"
+					local DistanceText = Drawing.new("Text")
+					DistanceText.Visible = false
+					DistanceText.Center = true
+					DistanceText.Outline = true
+					DistanceText.Font = 2
+					DistanceText.Size = 13
+					DistanceText.Text = "Distance"
 
-				function lineesp()
-					game:GetService("RunService").RenderStepped:Connect(function()
-						if v.Character ~= nil and v.Character:WaitForChild("Humanoid") ~= nil and v.Character:FindFirstChild("HumanoidRootPart") ~= nil and v ~= lplr and v.Character.Humanoid.Health > 0 then
-							local Vector, OnScreen = camera:WorldToViewportPoint(v.Character.HumanoidRootPart.Position)
+					function lineesp()
+						game:GetService("RunService").RenderStepped:Connect(function()
+							if v.Character ~= nil and v.Character:WaitForChild("Humanoid") ~= nil and v.Character:FindFirstChild("HumanoidRootPart") ~= nil and v ~= lplr and v.Character.Humanoid.Health > 0 then
+								local Vector, OnScreen = camera:WorldToViewportPoint(v.Character.HumanoidRootPart.Position)
 
-							if _G.ESPEnabled then
-								if OnScreen then
-									Tracer.From = Vector2.new(camera.ViewportSize.X / 2, camera.ViewportSize.Y / 1)
-									Tracer.To = Vector2.new(Vector.X, Vector.Y)
-									Tracer.Color = _G.ESPTracerColor
+								if _G.ESPEnabled then
+									if OnScreen then
+										Tracer.From = Vector2.new(camera.ViewportSize.X / 2, camera.ViewportSize.Y / 1)
+										Tracer.To = Vector2.new(Vector.X, Vector.Y)
+										Tracer.Color = _G.ESPTracerColor
 
-									if not _G.ESPShowTracers  then
-										Tracer.Visible = false
-									end
-
-									if _G.ESPTeamCheck and v.TeamColor == lplr.TeamColor then
-										Tracer.Visible = false
-									else
-										if _G.ESPShowTracers then
-											Tracer.Visible = true
-										elseif not _G.ESPShowTracers then
+										if not _G.ESPShowTracers  then
 											Tracer.Visible = false
 										end
+
+										if _G.ESPTeamCheck and v.TeamColor == lplr.TeamColor then
+											Tracer.Visible = false
+										else
+											if _G.ESPShowTracers then
+												Tracer.Visible = true
+											elseif not _G.ESPShowTracers then
+												Tracer.Visible = false
+											end
+										end
+									else
+										Tracer.Visible = false
 									end
 								else
 									Tracer.Visible = false
@@ -1615,109 +1744,115 @@ if qNVAKkuwxNpqruLjSRHg == true then
 							else
 								Tracer.Visible = false
 							end
-						else
-							Tracer.Visible = false
-						end
-					end)
-				end
+						end)
+					end
 
-				function boxesp()
-					game:GetService("RunService").RenderStepped:Connect(function()
-						if v.Character ~= nil and v.Character:WaitForChild("Humanoid") ~= nil and v.Character:FindFirstChild("HumanoidRootPart") ~= nil and v ~= lplr and v.Character.Humanoid.Health > 0 then
-							local Vector, OnScreen = camera:WorldToViewportPoint(v.Character.HumanoidRootPart.Position)
+					function boxesp()
+						game:GetService("RunService").RenderStepped:Connect(function()
+							if v.Character ~= nil and v.Character:WaitForChild("Humanoid") ~= nil and v.Character:FindFirstChild("HumanoidRootPart") ~= nil and v ~= lplr and v.Character.Humanoid.Health > 0 then
+								local Vector, OnScreen = camera:WorldToViewportPoint(v.Character.HumanoidRootPart.Position)
 
-							local RootPart = v.Character.HumanoidRootPart
-							local Head = v.Character.Head
-							local RootPosition, RootVis = worldtoViewportPoint(CurrentCamera, RootPart.Position)
-							local HeadPosition = worldtoViewportPoint(CurrentCamera, Head.Position + HeadOff)
-							local LegPosition = worldtoViewportPoint(CurrentCamera, RootPart.Position - LegOff)
+								local RootPart = v.Character.HumanoidRootPart
+								local Head = v.Character.Head
+								local RootPosition, RootVis = worldtoViewportPoint(CurrentCamera, RootPart.Position)
+								local HeadPosition = worldtoViewportPoint(CurrentCamera, Head.Position + HeadOff)
+								local LegPosition = worldtoViewportPoint(CurrentCamera, RootPart.Position - LegOff)
 
-							if _G.ESPEnabled then
-								if OnScreen then
-									BoxOutline.Size = Vector2.new(1000 / RootPosition.Z, HeadPosition.Y - LegPosition.Y)
-									BoxOutline.Position = Vector2.new(RootPosition.X - BoxOutline.Size.X / 2, RootPosition.Y - BoxOutline.Size.Y / 2)
+								if _G.ESPEnabled then
+									if OnScreen then
+										BoxOutline.Size = Vector2.new(1000 / RootPosition.Z, HeadPosition.Y - LegPosition.Y)
+										BoxOutline.Position = Vector2.new(RootPosition.X - BoxOutline.Size.X / 2, RootPosition.Y - BoxOutline.Size.Y / 2)
 
-									Box.Size = Vector2.new(1000 / RootPosition.Z, HeadPosition.Y - LegPosition.Y)
-									Box.Position = Vector2.new(RootPosition.X - Box.Size.X / 2, RootPosition.Y - Box.Size.Y / 2)
-									Box.Color = _G.ESPBoxColor
+										Box.Size = Vector2.new(1000 / RootPosition.Z, HeadPosition.Y - LegPosition.Y)
+										Box.Position = Vector2.new(RootPosition.X - Box.Size.X / 2, RootPosition.Y - Box.Size.Y / 2)
+										Box.Color = _G.ESPBoxColor
 
-									HealthBarOutline.Size = Vector2.new(2, HeadPosition.Y - LegPosition.Y)
-									HealthBarOutline.Position = BoxOutline.Position - Vector2.new(6,0)
+										HealthBarOutline.Size = Vector2.new(2, HeadPosition.Y - LegPosition.Y)
+										HealthBarOutline.Position = BoxOutline.Position - Vector2.new(6,0)
 
-									HealthBar.Size = Vector2.new(2, (HeadPosition.Y - LegPosition.Y) / (v.Character:WaitForChild("Humanoid").MaxHealth / math.clamp(v.Character:WaitForChild("Humanoid").Health, 0, v.Character:WaitForChild("Humanoid").MaxHealth)))
-									HealthBar.Position = Vector2.new(Box.Position.X - 6, Box.Position.Y + (1/HealthBar.Size.Y))
-									HealthBar.Color = Color3.fromRGB(255 - 255 / (v.Character:WaitForChild("Humanoid").MaxHealth / v.Character:WaitForChild("Humanoid").Health), 255 / (v.Character:WaitForChild("Humanoid").MaxHealth / v.Character:WaitForChild("Humanoid").Health), 0)
+										HealthBar.Size = Vector2.new(2, (HeadPosition.Y - LegPosition.Y) / (v.Character:WaitForChild("Humanoid").MaxHealth / math.clamp(v.Character:WaitForChild("Humanoid").Health, 0, v.Character:WaitForChild("Humanoid").MaxHealth)))
+										HealthBar.Position = Vector2.new(Box.Position.X - 6, Box.Position.Y + (1/HealthBar.Size.Y))
+										HealthBar.Color = Color3.fromRGB(255 - 255 / (v.Character:WaitForChild("Humanoid").MaxHealth / v.Character:WaitForChild("Humanoid").Health), 255 / (v.Character:WaitForChild("Humanoid").MaxHealth / v.Character:WaitForChild("Humanoid").Health), 0)
 
-									ItemName.Position = Vector2.new(Vector.X, Vector.Y - 30)
-									NameText.Position = Vector2.new(Vector.X, Vector.Y - 20)
-									DistanceText.Position = Vector2.new(Vector.X, Vector.Y - 10)
+										ItemName.Position = Vector2.new(Vector.X, Vector.Y - 30)
+										NameText.Position = Vector2.new(Vector.X, Vector.Y - 20)
+										DistanceText.Position = Vector2.new(Vector.X, Vector.Y - 10)
 
-									local ItemDistance = math.ceil((v.Character:WaitForChild("HumanoidRootPart").Position - game:GetService("Players").LocalPlayer.Character:WaitForChild("HumanoidRootPart").Position).magnitude)
+										local ItemDistance = math.ceil((v.Character:WaitForChild("HumanoidRootPart").Position - game:GetService("Players").LocalPlayer.Character:WaitForChild("HumanoidRootPart").Position).magnitude)
 
-									NameText.Color = _G.ESPBoxColor
-									DistanceText.Color = _G.ESPBoxColor
-									ItemName.Color = _G.ESPBoxColor
+										NameText.Color = _G.ESPBoxColor
+										DistanceText.Color = _G.ESPBoxColor
+										ItemName.Color = _G.ESPBoxColor
 
-									DistanceText.Text = "Distance: {" .. tostring(ItemDistance) .. "}"
-									NameText.Text = v.Name
+										DistanceText.Text = "Distance: {" .. tostring(ItemDistance) .. "}"
+										NameText.Text = v.Name
 
-									if v.Character then
-										if v.Character:FindFirstChild("ServerMeleeModel") or v.Character:FindFirstChild("ServerGunModel") then
-											if v.Character:FindFirstChildWhichIsA("RayValue") then
-												ItemName.Text = v.Character:FindFirstChildWhichIsA("RayValue").Name
-												ItemName.Visible = true
+										if v.Character then
+											if v.Character:FindFirstChild("ServerMeleeModel") or v.Character:FindFirstChild("ServerGunModel") then
+												if v.Character:FindFirstChildWhichIsA("RayValue") then
+													ItemName.Text = v.Character:FindFirstChildWhichIsA("RayValue").Name
+													ItemName.Visible = true
+												else
+													ItemName.Visible = false
+												end
 											else
 												ItemName.Visible = false
 											end
 										else
 											ItemName.Visible = false
 										end
-									else
-										ItemName.Visible = false
-									end
 
-									if _G.ESPShowName then
-										NameText.Visible = true
-									else
-										NameText.Visible = false
-									end
-
-									if _G.ESPShowDistance then
-										DistanceText.Visible = true
-									else
-										DistanceText.Visible = false
-									end
-
-									if _G.ESPShowTool then
-										ItemName.Visible = true
-									else
-										ItemName.Visible = false
-									end
-
-									if _G.ESPTeamCheck and v.TeamColor == lplr.TeamColor then
-										BoxOutline.Visible = false
-										Box.Visible = false
-
-										if _G.ESPHealthBar then
-											HealthBarOutline.Visible = false
-											HealthBar.Visible = false
-										end
-									else
-										if _G.ESPShowBox then
-											BoxOutline.Visible = true
-											Box.Visible = true
+										if _G.ESPShowName then
+											NameText.Visible = true
 										else
+											NameText.Visible = false
+										end
+
+										if _G.ESPShowDistance then
+											DistanceText.Visible = true
+										else
+											DistanceText.Visible = false
+										end
+
+										if _G.ESPShowTool then
+											ItemName.Visible = true
+										else
+											ItemName.Visible = false
+										end
+
+										if _G.ESPTeamCheck and v.TeamColor == lplr.TeamColor then
 											BoxOutline.Visible = false
 											Box.Visible = false
-										end
 
-										if _G.ESPHealthBar then
-											HealthBarOutline.Visible = true
-											HealthBar.Visible = true
+											if _G.ESPHealthBar then
+												HealthBarOutline.Visible = false
+												HealthBar.Visible = false
+											end
 										else
-											HealthBarOutline.Visible = false
-											HealthBar.Visible = false
+											if _G.ESPShowBox then
+												BoxOutline.Visible = true
+												Box.Visible = true
+											else
+												BoxOutline.Visible = false
+												Box.Visible = false
+											end
+
+											if _G.ESPHealthBar then
+												HealthBarOutline.Visible = true
+												HealthBar.Visible = true
+											else
+												HealthBarOutline.Visible = false
+												HealthBar.Visible = false
+											end
 										end
+									else
+										BoxOutline.Visible = false
+										Box.Visible = false
+										HealthBarOutline.Visible = false
+										HealthBar.Visible = false
+										ItemName.Visible = false
+										NameText.Visible = false
+										DistanceText.Visible = false
 									end
 								else
 									BoxOutline.Visible = false
@@ -1737,24 +1872,16 @@ if qNVAKkuwxNpqruLjSRHg == true then
 								NameText.Visible = false
 								DistanceText.Visible = false
 							end
-						else
-							BoxOutline.Visible = false
-							Box.Visible = false
-							HealthBarOutline.Visible = false
-							HealthBar.Visible = false
-							ItemName.Visible = false
-							NameText.Visible = false
-							DistanceText.Visible = false
-						end
+						end)
+					end
+
+					task.spawn(function()
+						coroutine.wrap(lineesp)()
+					end)
+					task.spawn(function()
+						coroutine.wrap(boxesp)()
 					end)
 				end
-
-				task.spawn(function()
-					coroutine.wrap(lineesp)()
-				end)
-				task.spawn(function()
-					coroutine.wrap(boxesp)()
-				end)
 			end)
 		end	
 
@@ -2396,7 +2523,86 @@ if qNVAKkuwxNpqruLjSRHg == true then
 		HitsoundLeftMiscGroupBox:AddLabel('Head: 3748780866 / 0.8')
 		HitsoundLeftMiscGroupBox:AddLabel('Kill: 3748780866 / 0.8')
 		HitsoundLeftMiscGroupBox:AddLabel('Normal: 3748780866 / 1')
+		
+		KillAuraLeftCombatGroupBox:AddToggle('EnableAura', {
+			Text = 'Enable',
+			Default = false,
+			Tooltip = 'Enable KillAura',
+			Callback = function(Value)
+				_G.AuraEnabled = Value
+			end
+		})
+		
+		KillAuraLeftCombatGroupBox:AddDropdown('LAockPart', {
+			Values = {"Head", "Torso", "Left Arm", "Right Arm", "Left Leg", "Right Leg"},
+			Default = 1,
+			Multi = false,
 
+			Text = 'Hit Part',
+			Tooltip = '',
+
+			Callback = function(Value)
+				_G.AuraLockPart = Value
+			end
+		})
+		
+		KillAuraLeftCombatGroupBox:AddSlider('KLRange', {
+			Text = 'Range',
+			Default = 10,
+			Min = 10,
+			Max = 20,
+			Rounding = 1,
+			Compact = false,
+
+			Callback = function(Value)
+				_G.AuraRange = Value
+			end
+		})
+
+		
+		AimbotLeftCombatGroupBox:AddDivider()
+
+		KillAuraLeftCombatGroupBox:AddToggle('KLWallCheck', {
+			Text = 'Wall Check',
+			Default = false,
+			Tooltip = 'Checks if the targeted player is being a wall or not',
+			Callback = function(Value)
+				_G.AuraWallCheck = Value
+			end
+		})
+
+		KillAuraLeftCombatGroupBox:AddToggle('KLAliveCheck', {
+			Text = 'Alive Check',
+			Default = false,
+			Tooltip = 'Checks if the targeted player is alive or not',
+			Callback = function(Value)
+				_G.AuraAliveCheck = Value
+			end
+		})
+
+		KillAuraLeftCombatGroupBox:AddDivider()
+
+		KillAuraLeftCombatGroupBox:AddDropdown('KLBlacklistPlayer', {
+			SpecialType = 'Player',
+			Text = 'Blacklist Players',
+			Tooltip = 'Blacklist a player to not be targeted',
+
+			Multi = true,
+
+			Callback = function(Value)
+				_G.AuraBlacklistPlayers = Value
+			end
+		})
+
+		KillAuraLeftCombatGroupBox:AddToggle('KLFriendd', {
+			Text = 'BL Friends',
+			Default = false,
+			Tooltip = 'Blacklists your friends which prevents them from being targeted',
+			Callback = function(Value)
+				_G.AuraFriendsBlacklist = Value
+			end
+		})
+		
 		AimbotLeftCombatGroupBox:AddToggle('Enable', {
 			Text = 'Enable',
 			Default = false,
@@ -2600,22 +2806,7 @@ if qNVAKkuwxNpqruLjSRHg == true then
 				_G.OriginalCircleColor = Value
 			end
 		})
-
-		MoveLeftMoveGroupBox:AddToggle('Noclip', {
-			Text = 'Noclip',
-			Default = false,
-			Tooltip = 'go thru walls',
-			Callback = function(Value)
-				if Value == true then
-					noclip()
-				else
-					clip()
-				end
-			end
-		})
-
-		MoveLeftMoveGroupBox:AddDivider()
-
+		
 		MoveLeftMoveGroupBox:AddToggle('InfiniteStamina', {
 			Text = 'Infinite Stamina',
 			Default = false,
@@ -2663,7 +2854,55 @@ if qNVAKkuwxNpqruLjSRHg == true then
 				end
 			end
 		})
+		
+		MoveLeftMoveGroupBox:AddDivider()
+		
+		MoveLeftMoveGroupBox:AddToggle('SpeedE', {
+			Text = 'Speedhack',
+			Default = false,
+			Tooltip = 'gives you alot of speed',
+			Callback = function(Value)
+				_G.SpeedEnabled = Value
+			end
+		})
 
+		MoveLeftMoveGroupBox:AddSlider('Speed', {
+			Text = 'Speed',
+			Default = 0,
+			Min = 0,
+			Max = 50,
+			Rounding = 10,
+			Compact = false,
+
+			Callback = function(Value)
+				_G.Speed = Value
+			end
+		})
+
+		MoveLeftMoveGroupBox:AddToggle('FlyE', {
+			Text = 'Fly',
+			Default = false,
+			Tooltip = 'makes you able to fly',
+			Callback = function(Value)
+				_G.FlyEnabled = Value
+			end
+		})
+		
+		MoveLeftMoveGroupBox:AddToggle('Noclip', {
+			Text = 'Noclip',
+			Default = false,
+			Tooltip = 'go thru walls',
+			Callback = function(Value)
+				if Value == true then
+					noclip()
+				else
+					clip()
+				end
+			end
+		})
+
+		MoveLeftMoveGroupBox:AddDivider()
+		
 		LootLeftLootGroupBox:AddToggle('NoECooldown', {
 			Text = 'No Hold Duration',
 			Default = false,
@@ -2757,7 +2996,7 @@ if qNVAKkuwxNpqruLjSRHg == true then
 			end
 		})
 
-		spinRightMoveGroupBox:AddToggle('Spinbot', {
+		MoveLeftMoveGroupBox:AddToggle('Spinbot', {
 			Text = 'Spinbot',
 			Default = false,
 			Tooltip = 'spins you around alot so people cannot aim you correctly',
