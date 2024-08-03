@@ -159,6 +159,7 @@ local function GetClosestTarget()
 		
 		local npcsFolder = game:GetService("Workspace"):FindFirstChild("NPCs")
 		local locationFolder = game:GetService("Workspace").ActiveTasks:FindFirstChild("Location")
+		local ArenaFolder = game:GetService("Workspace"):FindFirstChild("Arena")
 		if npcsFolder then
 			checkAndAddEntities(npcsFolder:FindFirstChild("Hostile"))
 			checkAndAddEntities(npcsFolder:FindFirstChild("Custom"))
@@ -166,6 +167,10 @@ local function GetClosestTarget()
 
 		if locationFolder then
 		    checkAndAddEntities(locationFolder)
+		end
+
+		if ArenaFolder then
+		    checkAndAddEntities(ArenaFolder)
 		end
 
 		checkAndAddEntities(game:GetService("Workspace"):FindFirstChild("Tutorial"))
