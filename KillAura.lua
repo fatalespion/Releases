@@ -41,9 +41,14 @@ coroutine.wrap(function()
 		
 		-- Check for NPCs in the "Hostile" and "Custom" folders within "NPCs"
 		local npcsFolder = game:GetService("Workspace"):FindFirstChild("NPCs")
+		local locationFolder = game:GetService("Workspace").ActiveTasks:FindFirstChild("Location")
 		if npcsFolder then
 			checkAndAddEntities(npcsFolder:FindFirstChild("Hostile"))
 			checkAndAddEntities(npcsFolder:FindFirstChild("Custom"))
+		end
+
+		if locationFolder then
+		    checkAndAddEntities(locationFolder)
 		end
 		
 		-- Check for entities in the "Tutorial" folder
