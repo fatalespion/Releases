@@ -1993,6 +1993,8 @@ do
 			ZIndex = 5;
 			Parent = Container;
 		});
+		
+		
 
 		Library:AddToRegistry(SliderOuter, {
 			BorderColor3 = 'Black';
@@ -2024,6 +2026,15 @@ do
 			BackgroundColor3 = 'AccentColor';
 			BorderColor3 = 'AccentColorDark';
 		});
+		
+		Library:Create("UIGradient", {
+			Color = ColorSequence.new({
+				ColorSequenceKeypoint.new(0, Color3.fromRGB(115, 115, 115)),
+				ColorSequenceKeypoint.new(1, Color3.new(1, 1, 1)),
+			}),
+			Rotation = -90,
+			Parent = Fill
+		})
 
 		local HideBorderRight = Library:Create('Frame', {
 			BackgroundColor3 = Library.AccentColor;
