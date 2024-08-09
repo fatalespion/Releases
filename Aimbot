@@ -27,6 +27,11 @@ _G.WallCheck = true
 _G.PlayerTrack = true
 _G.NPCTrack = true
 
+-- Triggerbot settings
+_G.NTriggerBot = true
+_G.NTriggerFriendsBlacklist = true
+_G.NTriggerPlayerBlacklist = {}
+
 local function IsPlayerAlive(player)
     return player.Character and player.Character:FindFirstChild("Humanoid") and player.Character.Humanoid.Health > 0
 end
@@ -135,48 +140,55 @@ local function GetClosestTarget()
     -- Check for closest NPC
     if _G.NPCTrack then
         local function checkAndAddEntities(folder)
-			if folder then
-				for _, entity in pairs(folder:GetChildren()) do
-					local entityHRP = entity:FindFirstChild("HumanoidRootPart")
-					local entityHumanoid = entity:FindFirstChild("Humanoid")
-					local entityAlive = (entityHumanoid and entityHumanoid.Health > 0)
+            if folder then
+                for _, entity in pairs(folder:GetChildren()) do
+                    local entityHRP = entity:FindFirstChild("HumanoidRootPart")
+                    local entityHumanoid = entity:FindFirstChild("Humanoid")
+                    local entityAlive = (entityHumanoid and entityHumanoid.Health > 0)
 
-					if entityHRP and (not _G.AuraAliveCheck or entityAlive) then
+                    if entityHRP and (not _G.AuraAliveCheck or entityAlive) then
                          local aimPart = entity[_G.AimPart]
                          local ScreenPoint = Camera:WorldToScreenPoint(aimPart.Position)
                          local VectorDistance = (MouseLocation - Vector2.new(ScreenPoint.X, ScreenPoint.Y)).Magnitude
 
-						if VectorDistance < MaximumDistance and IsNPCInFront(LocalPlayer, entity) then
+                        if VectorDistance < MaximumDistance and IsNPCInFront(LocalPlayer, entity) then
                             if not _G.WallCheck or not IsNPCBehindWall(entity) then
                                 Target = aimPart
                                 MaximumDistance = VectorDistance
                             end
-						end
-					end
-				end
-			end
-		end
-		
-		local npcsFolder = game:GetService("Workspace"):FindFirstChild("NPCs")
-		local locationFolder = game:GetService("Workspace").ActiveTasks:FindFirstChild("Location")
-		local ArenaFolder = game:GetService("Workspace"):FindFirstChild("Arena")
-		if npcsFolder then
-			checkAndAddEntities(npcsFolder:FindFirstChild("Hostile"))
-			checkAndAddEntities(npcsFolder:FindFirstChild("Custom"))
-		end
+                        end
+                    end
+                end
+            end
+        end
+        
+        local npcsFolder = game:GetService("Workspace"):FindFirstChild("NPCs")
+        local locationFolder = game:GetService("Workspace").ActiveTasks:FindFirstChild("Location")
+        local ArenaFolder = game:GetService("Workspace"):FindFirstChild("Arena")
+        if npcsFolder then
+            checkAndAddEntities(npcsFolder:FindFirstChild("Hostile"))
+            checkAndAddEntities(npcsFolder:FindFirstChild("Custom"))
+        end
 
-		if locationFolder then
-		    checkAndAddEntities(locationFolder)
-		end
+        if locationFolder then
+            checkAndAddEntities(locationFolder)
+        end
 
-		if ArenaFolder then
-		    checkAndAddEntities(ArenaFolder)
-		end
+        if ArenaFolder then
+            checkAndAddEntities(ArenaFolder)
+        end
 
-		checkAndAddEntities(game:GetService("Workspace"):FindFirstChild("Tutorial"))
+        checkAndAddEntities(game:GetService("Workspace"):FindFirstChild("Tutorial"))
     end
 
     return Target
+end
+
+local function FireWeapon()
+    -- Simulate mouse click to fire the weapon
+    mouse1press()
+    wait(0.1)  -- Adjust this delay based on the weapon's firing rate
+    mouse1release()
 end
 
 UserInputService.InputBegan:Connect(function(Input)
@@ -205,6 +217,17 @@ RunService.RenderStepped:Connect(function()
         local closestTarget = GetClosestTarget()
         if closestTarget then
             TweenService:Create(Camera, TweenInfo.new(_G.Sensitivity, Enum.EasingStyle.Sine, Enum.EasingDirection.Out), {CFrame = CFrame.new(Camera.CFrame.Position, closestTarget.Position)}):Play()
+
+            if _G.NTriggerBot then
+                -- Check if target is a player and if it is blacklisted or a friend
+                local targetPlayer = Players:GetPlayerFromCharacter(closestTarget.Parent)
+                if targetPlayer and (_G.NTriggerPlayerBlacklist[targetPlayer.Name] or (_G.NTriggerFriendsBlacklist and LocalPlayer:IsFriendsWith(targetPlayer.UserId))) then
+                    return
+                end
+
+                -- Fire the weapon
+                FireWeapon()
+            end
         end
     end
 end)
