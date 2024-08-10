@@ -67,6 +67,12 @@ coroutine.wrap(function()
 			checkAndAddEntities(npcsFolder:FindFirstChild("Custom"))
 		end
 
+		local ArenaFolder = game:GetService("Workspace"):FindFirstChild("Arena")
+				
+		if ArenaFolder then
+		    checkAndAddEntities(ArenaFolder)
+		end
+
 		-- Check for NPCs directly within "workspace.WaveSurvival.NPCs"
 		local waveSurvivalFolder = game:GetService("Workspace"):FindFirstChild("WaveSurvival")
 		if waveSurvivalFolder then
