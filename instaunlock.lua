@@ -2,8 +2,11 @@ local player = game.Players.LocalPlayer
 local character = player.Character or player.CharacterAdded:Wait()
 local workspace = game:GetService("Workspace")
 local vim = game:GetService("VirtualInputManager")
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
 _G.instaUnlock = _G.instaUnlock or false
+_G.takeAllObjects = _G.takeAllObjects or false
+local lastLootTable = nil
 
 local function getClosestLootModel()
     local closestModel = nil
@@ -21,6 +24,13 @@ local function getClosestLootModel()
                         if distance < shortestDistance then
                             shortestDistance = distance
                             closestModel = model
+                            lastLootTable = lootTable
+
+                            if _G.takeAllObjects then
+                                for _, lootObject in ipairs(lootTable:GetChildren()) do
+                                    ReplicatedStorage.Events.Loot.LootObject:FireServer(lootTable, lootObject, true)
+                                end
+                            end
                         end
                     end
                 end
@@ -31,11 +41,46 @@ local function getClosestLootModel()
     return closestModel
 end
 
+local function processLastLootTable()
+    if lastLootTable and _G.takeAllObjects then
+        for _, lootObject in ipairs(lastLootTable:GetChildren()) do
+            ReplicatedStorage.Events.Loot.LootObject:FireServer(lastLootTable, lootObject, true)
+        end
+    end
+end
+
+local function lootObjectsFromFrame(frame)
+    local itemsList = frame:FindFirstChild("Items"):FindFirstChild("List")
+    if not itemsList then return end
+    if not _G.takeAllObjects then return end
+    
+    local objectNames = {}
+    for _, button in ipairs(itemsList:GetChildren()) do
+        if button:IsA("TextButton") then
+            table.insert(objectNames, button.Name)
+        end
+    end
+
+    if _G.takeAllObjects and #objectNames > 0 then
+        for _, descendant in ipairs(workspace:GetDescendants()) do
+            if descendant:IsA("Folder") and descendant.Name == "LootTable" then
+                local lootTable = descendant
+                local allObjects = lootTable:GetChildren()
+                for _, obj in ipairs(allObjects) do
+                    if obj:IsA("NumberValue") and table.find(objectNames, obj.Name) then
+                        ReplicatedStorage.Events.Loot.LootObject:FireServer(lootTable, obj, true)
+                    end
+                end
+            end
+        end
+    end
+end
+
 while true do
     if workspace:FindFirstChild("Lockpick") and _G.instaUnlock then
         local lootModel = getClosestLootModel()
         if lootModel then
-            game.ReplicatedStorage.Events.Loot.MinigameResult:FireServer(lootModel, true)
+            ReplicatedStorage.Events.Loot.MinigameResult:FireServer(lootModel, true)
 
             input = {
                 hold = function(key, time)
@@ -62,6 +107,12 @@ while true do
 
             input.press(Enum.KeyCode.E)
         end
+    end
+
+    local frame = player.PlayerGui.MainGui:FindFirstChild("LootFrame")
+    if frame and frame.Visible then
+        lootObjectsFromFrame(frame)
+        processLastLootTable()
     end
     
     wait(1)
