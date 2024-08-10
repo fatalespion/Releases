@@ -624,7 +624,7 @@ if qNVAKkuwxNpqruLjSRHg == true then
 		local Tabs = {
 			Combat = Window:AddTab('Combat'),
 			Visual = Window:AddTab('Visual'),
-			Teleportation = Window:AddTab('Teleportation'),
+			Teleportation = Window:AddTab('Teleportation & Movement'),
 			Misc = Window:AddTab('Miscellaneous'),
 			['HUD'] = Window:AddTab('Settings'),
 		}
@@ -649,9 +649,10 @@ if qNVAKkuwxNpqruLjSRHg == true then
 		local FarmRightMiscGroupBox = Tabs.Misc:AddRightGroupbox('AUTOFARM')
 
 		local AimbotLeftCombatGroupBox = Tabs.Combat:AddLeftGroupbox('CAMLOCK')
+		local TriggerLeftCombatGroupBox = Tabs.Combat:AddRightGroupbox('TRIGGERBOT')
 		local KillAuraLeftCombatGroupBox = Tabs.Combat:AddRightGroupbox('MELEE KILL AURA')
 		
-		local MoveLeftMoveGroupBox = Tabs.Combat:AddRightGroupbox('MOVEMENT')
+		local MoveLeftMoveGroupBox = Tabs.Teleportation:AddRightGroupbox('MOVEMENT')
 
 		local LootLeftLootGroupBox = Tabs.Misc:AddRightGroupbox('LOOT')
 
@@ -769,6 +770,12 @@ if qNVAKkuwxNpqruLjSRHg == true then
 		_G.CircleFilled = false
 		_G.CircleColor = Color3.fromRGB(255, 255, 255)
 		_G.OriginalCircleColor = Color3.fromRGB(255, 255, 255)
+		
+		_G.NTriggerBot = true
+		_G.NTriggerFriendsBlacklist = true
+		_G.NTriggerPlayerBlacklist = {}
+		_G.TAliveCheck = true
+		_G.TWallCheck = true
 
 		local ESPLines = {}
 
@@ -2585,6 +2592,58 @@ if qNVAKkuwxNpqruLjSRHg == true then
 		HitsoundLeftMiscGroupBox:AddLabel('Kill: 3748780866 / 0.8')
 		HitsoundLeftMiscGroupBox:AddLabel('Normal: 3748780866 / 1')
 		
+		TriggerLeftCombatGroupBox:AddToggle('EnableT', {
+			Text = 'Enable',
+			Default = false,
+			Tooltip = 'Enable Triggerbot',
+			Callback = function(Value)
+				_G.AuraEnabled = Value
+			end
+		})
+		
+		TriggerLeftCombatGroupBox:AddDivider()
+
+		TriggerLeftCombatGroupBox:AddToggle('KLTWallCheck', {
+			Text = 'Wall Check',
+			Default = false,
+			Tooltip = 'Checks if the targeted player is being a wall or not',
+			Callback = function(Value)
+				_G.TWallCheck = Value
+			end
+		})
+
+		TriggerLeftCombatGroupBox:AddToggle('KLTAliveCheck', {
+			Text = 'Alive Check',
+			Default = false,
+			Tooltip = 'Checks if the targeted player is alive or not',
+			Callback = function(Value)
+				_G.TAliveCheck = Value
+			end
+		})
+
+		TriggerLeftCombatGroupBox:AddDivider()
+
+		TriggerLeftCombatGroupBox:AddDropdown('KLTBlacklistPlayer', {
+			SpecialType = 'Player',
+			Text = 'Blacklist Players',
+			Tooltip = 'Blacklist a player to not be targeted',
+
+			Multi = true,
+
+			Callback = function(Value)
+				_G.NTriggerPlayerBlacklist  = Value
+			end
+		})
+
+		TriggerLeftCombatGroupBox:AddToggle('KLTFriendd', {
+			Text = 'BL Friends',
+			Default = false,
+			Tooltip = 'Blacklists your friends which prevents them from being targeted',
+			Callback = function(Value)
+				_G.NTriggerFriendsBlacklist = Value
+			end
+		})
+		
 		KillAuraLeftCombatGroupBox:AddToggle('EnableAura', {
 			Text = 'Enable',
 			Default = false,
@@ -2621,7 +2680,7 @@ if qNVAKkuwxNpqruLjSRHg == true then
 		})
 
 		
-		AimbotLeftCombatGroupBox:AddDivider()
+		KillAuraLeftCombatGroupBox:AddDivider()
 
 		KillAuraLeftCombatGroupBox:AddToggle('KLWallCheck', {
 			Text = 'Wall Check',
