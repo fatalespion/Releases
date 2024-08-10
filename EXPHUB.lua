@@ -2597,7 +2597,7 @@ if qNVAKkuwxNpqruLjSRHg == true then
 			Default = false,
 			Tooltip = 'Enable Triggerbot',
 			Callback = function(Value)
-				_G.AuraEnabled = Value
+				_G.NTriggerBot = Value
 			end
 		})
 		
