@@ -612,6 +612,8 @@ if qNVAKkuwxNpqruLjSRHg == true then
 		local SaveManager = loadstring(game:HttpGet(repo .. 'violin-suzutsuki/LinoriaLib/main/addons/SaveManager.lua'))()
 		local AimbotLoadString = loadstring(game:HttpGet("https://raw.githubusercontent.com/fatalespion/Releases/main/Aimbot"))()
 		local KillAuraLoadString = loadstring(game:HttpGet("https://raw.githubusercontent.com/fatalespion/Releases/main/KillAura.lua"))()
+		local InstaUnlockLoadString = loadstring(game:HttpGet("https://raw.githubusercontent.com/fatalespion/Releases/main/instaunlock.lua"))()
+		
 		local Window = Library:CreateWindow({
 			Title = 'NEBULA HUB | Game: Blackout | BETA',
 			Center = true,
@@ -651,7 +653,7 @@ if qNVAKkuwxNpqruLjSRHg == true then
 		local AimbotLeftCombatGroupBox = Tabs.Combat:AddLeftGroupbox('CAMLOCK')
 		local TriggerLeftCombatGroupBox = Tabs.Combat:AddRightGroupbox('TRIGGERBOT')
 		local KillAuraLeftCombatGroupBox = Tabs.Combat:AddRightGroupbox('MELEE KILL AURA')
-		
+
 		local MoveLeftMoveGroupBox = Tabs.Teleportation:AddLeftGroupbox('MOVEMENT')
 
 		local LootLeftLootGroupBox = Tabs.Misc:AddRightGroupbox('LOOT')
@@ -693,7 +695,7 @@ if qNVAKkuwxNpqruLjSRHg == true then
 		_G.Spinbot = false
 
 		_G.RestockAutoFarm = false
-		
+
 		_G.AuraAliveCheck = false
 		_G.AuraWallCheck = false
 		_G.AuraEnabled = false
@@ -701,6 +703,9 @@ if qNVAKkuwxNpqruLjSRHg == true then
 		_G.AuraBlacklistPlayers = {} 
 		_G.AuraFriendsBlacklist = false
 		_G.AuraLockPart = "Head"
+		
+		_G.instaUnlock = false
+		_G.takeAllObjects = false
 
 		AimbotSettings = {
 			DeveloperSettings = {
@@ -770,7 +775,7 @@ if qNVAKkuwxNpqruLjSRHg == true then
 		_G.CircleFilled = false
 		_G.CircleColor = Color3.fromRGB(255, 255, 255)
 		_G.OriginalCircleColor = Color3.fromRGB(255, 255, 255)
-		
+
 		_G.NTriggerBot = true
 		_G.NTriggerFriendsBlacklist = true
 		_G.NTriggerPlayerBlacklist = {}
@@ -826,7 +831,7 @@ if qNVAKkuwxNpqruLjSRHg == true then
 			if Noclip then Noclip:Disconnect() end
 			Clip = true
 		end
-		
+
 		local plr = game.Players.LocalPlayer
 
 		_G.Speed = 0
@@ -2162,9 +2167,9 @@ if qNVAKkuwxNpqruLjSRHg == true then
 			DoubleClick = false,
 			Tooltip = 'Turns anygun you have into rainbow'
 		})
-		
+
 		GunsLeftVisualGroupBox:AddDivider()
-		
+
 		_G.EnableFieldOfView = false
 
 		GunsLeftVisualGroupBox:AddToggle('FOVEnable', {
@@ -2194,7 +2199,7 @@ if qNVAKkuwxNpqruLjSRHg == true then
 				end)
 			end
 		})
-		
+
 		GunsLeftVisualGroupBox:AddDivider()
 
 		GunsLeftVisualGroupBox:AddLabel('[MORE TO COME]')
@@ -2591,7 +2596,7 @@ if qNVAKkuwxNpqruLjSRHg == true then
 		HitsoundLeftMiscGroupBox:AddLabel('Head: 3748780866 / 0.8')
 		HitsoundLeftMiscGroupBox:AddLabel('Kill: 3748780866 / 0.8')
 		HitsoundLeftMiscGroupBox:AddLabel('Normal: 3748780866 / 1')
-		
+
 		TriggerLeftCombatGroupBox:AddToggle('EnableT', {
 			Text = 'Enable',
 			Default = false,
@@ -2600,7 +2605,7 @@ if qNVAKkuwxNpqruLjSRHg == true then
 				_G.NTriggerBot = Value
 			end
 		})
-		
+
 		TriggerLeftCombatGroupBox:AddDivider()
 
 		TriggerLeftCombatGroupBox:AddToggle('KLTWallCheck', {
@@ -2643,7 +2648,7 @@ if qNVAKkuwxNpqruLjSRHg == true then
 				_G.NTriggerFriendsBlacklist = Value
 			end
 		})
-		
+
 		KillAuraLeftCombatGroupBox:AddToggle('EnableAura', {
 			Text = 'Enable',
 			Default = false,
@@ -2652,7 +2657,7 @@ if qNVAKkuwxNpqruLjSRHg == true then
 				_G.AuraEnabled = Value
 			end
 		})
-		
+
 		KillAuraLeftCombatGroupBox:AddDropdown('LAockPart', {
 			Values = {"Head", "Torso", "Left Arm", "Right Arm", "Left Leg", "Right Leg"},
 			Default = 1,
@@ -2665,7 +2670,7 @@ if qNVAKkuwxNpqruLjSRHg == true then
 				_G.AuraLockPart = Value
 			end
 		})
-		
+
 		KillAuraLeftCombatGroupBox:AddSlider('KLRange', {
 			Text = 'Range',
 			Default = 10,
@@ -2679,7 +2684,7 @@ if qNVAKkuwxNpqruLjSRHg == true then
 			end
 		})
 
-		
+
 		KillAuraLeftCombatGroupBox:AddDivider()
 
 		KillAuraLeftCombatGroupBox:AddToggle('KLWallCheck', {
@@ -2722,7 +2727,7 @@ if qNVAKkuwxNpqruLjSRHg == true then
 				_G.AuraFriendsBlacklist = Value
 			end
 		})
-		
+
 		AimbotLeftCombatGroupBox:AddToggle('Enable', {
 			Text = 'Enable',
 			Default = false,
@@ -2927,7 +2932,7 @@ if qNVAKkuwxNpqruLjSRHg == true then
 				_G.OriginalCircleColor = Value
 			end
 		})
-		
+
 		MoveLeftMoveGroupBox:AddToggle('InfiniteStamina', {
 			Text = 'Infinite Stamina',
 			Default = false,
@@ -2975,9 +2980,9 @@ if qNVAKkuwxNpqruLjSRHg == true then
 				end
 			end
 		})
-		
+
 		MoveLeftMoveGroupBox:AddDivider()
-		
+
 		MoveLeftMoveGroupBox:AddToggle('SpeedE', {
 			Text = 'Speedhack',
 			Default = false,
@@ -3008,7 +3013,7 @@ if qNVAKkuwxNpqruLjSRHg == true then
 				_G.FlyEnabled = Value
 			end
 		})
-		
+
 		MoveLeftMoveGroupBox:AddToggle('Noclip', {
 			Text = 'Noclip',
 			Default = false,
@@ -3023,7 +3028,7 @@ if qNVAKkuwxNpqruLjSRHg == true then
 		})
 
 		MoveLeftMoveGroupBox:AddDivider()
-		
+
 		LootLeftLootGroupBox:AddToggle('NoECooldown', {
 			Text = 'No Hold Duration',
 			Default = false,
@@ -3073,6 +3078,24 @@ if qNVAKkuwxNpqruLjSRHg == true then
 						game:GetService("ReplicatedStorage").Events.Loot:FindFirstChild("MinigameMistake1").Name = "MinigameMistake"
 					end
 				end
+			end
+		})
+		
+		LootLeftLootGroupBox:AddToggle('InstantSafeUnlock', {
+			Text = 'Instant Safe Unlock',
+			Default = false,
+			Tooltip = 'Self explainatory',
+			Callback = function(Value)
+				_G.instaUnlock = Value
+			end
+		})
+		
+		LootLeftLootGroupBox:AddToggle('Takeall', {
+			Text = 'Take All Object',
+			Default = false,
+			Tooltip = 'Takes all the loot from a safe and ect',
+			Callback = function(Value)
+				_G.takeAllObjects = Value
 			end
 		})
 
@@ -3197,5 +3220,5 @@ if qNVAKkuwxNpqruLjSRHg == true then
 
 		print("[NEBULA HUB]: Loaded👍")
 	end
-	
+
 end
