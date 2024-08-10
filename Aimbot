@@ -28,11 +28,11 @@ _G.PlayerTrack = true
 _G.NPCTrack = true
 
 -- Triggerbot settings
-_G.NTriggerBot = true
-_G.NTriggerFriendsBlacklist = true
+_G.NTriggerBot = false
+_G.NTriggerFriendsBlacklist = false
 _G.NTriggerPlayerBlacklist = {}
-_G.TAliveCheck = true
-_G.TWallCheck = true
+_G.TAliveCheck = false
+_G.TWallCheck = false
 
 local function IsPlayerAlive(player)
     return player.Character and player.Character:FindFirstChild("Humanoid") and player.Character.Humanoid.Health > 0
