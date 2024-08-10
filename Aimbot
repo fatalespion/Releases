@@ -34,6 +34,15 @@ _G.NTriggerPlayerBlacklist = {}
 _G.TAliveCheck = false
 _G.TWallCheck = false
 
+-- Additional NPC Tracking Settings
+_G.AuraAliveCheck = false
+_G.AuraWallCheck = false
+_G.AuraEnabled = false
+_G.AuraRange = 20
+_G.AuraBlacklistPlayers = {} 
+_G.AuraFriendsBlacklist = false
+_G.AuraLockPart = "Head"
+
 local function IsPlayerAlive(player)
     return player.Character and player.Character:FindFirstChild("Humanoid") and player.Character.Humanoid.Health > 0
 end
@@ -162,12 +171,23 @@ local function GetClosestTarget()
             end
         end
         
+        -- Check NPCs in workspace.NPCs
         local npcsFolder = workspace:FindFirstChild("NPCs")
         if npcsFolder then
             checkAndAddEntities(npcsFolder:FindFirstChild("Hostile"))
             checkAndAddEntities(npcsFolder:FindFirstChild("Custom"))
         end
 
+        -- Check NPCs in workspace.WaveSurvival.NPCs
+        local waveSurvivalFolder = workspace:FindFirstChild("WaveSurvival")
+        if waveSurvivalFolder then
+            local waveNpcsFolder = waveSurvivalFolder:FindFirstChild("NPCs")
+            if waveNpcsFolder then
+                checkAndAddEntities(waveNpcsFolder)
+            end
+        end
+
+        -- Check other specific folders
         checkAndAddEntities(workspace.ActiveTasks:FindFirstChild("Location"))
         checkAndAddEntities(workspace:FindFirstChild("Arena"))
         checkAndAddEntities(workspace:FindFirstChild("Tutorial"))
@@ -223,12 +243,23 @@ local function GetMouseTarget()
             end
         end
 
+        -- Check NPCs in workspace.NPCs
         local npcsFolder = workspace:FindFirstChild("NPCs")
         if npcsFolder then
             return checkAndReturnEntity(npcsFolder:FindFirstChild("Hostile")) or 
                    checkAndReturnEntity(npcsFolder:FindFirstChild("Custom"))
         end
 
+        -- Check NPCs in workspace.WaveSurvival.NPCs
+        local waveSurvivalFolder = workspace:FindFirstChild("WaveSurvival")
+        if waveSurvivalFolder then
+            local waveNpcsFolder = waveSurvivalFolder:FindFirstChild("NPCs")
+            if waveNpcsFolder then
+                return checkAndReturnEntity(waveNpcsFolder)
+            end
+        end
+
+        -- Check other specific folders
         return checkAndReturnEntity(workspace.ActiveTasks:FindFirstChild("Location")) or
                checkAndReturnEntity(workspace:FindFirstChild("Arena")) or
                checkAndReturnEntity(workspace:FindFirstChild("Tutorial"))
