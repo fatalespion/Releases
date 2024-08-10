@@ -612,7 +612,10 @@ if qNVAKkuwxNpqruLjSRHg == true then
 		local SaveManager = loadstring(game:HttpGet(repo .. 'violin-suzutsuki/LinoriaLib/main/addons/SaveManager.lua'))()
 		local AimbotLoadString = loadstring(game:HttpGet("https://raw.githubusercontent.com/fatalespion/Releases/main/Aimbot"))()
 		local KillAuraLoadString = loadstring(game:HttpGet("https://raw.githubusercontent.com/fatalespion/Releases/main/KillAura.lua"))()
-		local InstaUnlockLoadString = loadstring(game:HttpGet("https://raw.githubusercontent.com/fatalespion/Releases/main/instaunlock.lua"))()
+		task.spawn(function()
+                    local InstaUnlockLoadString = loadstring(game:HttpGet("https://raw.githubusercontent.com/fatalespion/Releases/main/instaunlock.lua"))()
+		end)
+		
 		
 		local Window = Library:CreateWindow({
 			Title = 'NEBULA HUB | Game: Blackout | BETA',
