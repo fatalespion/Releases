@@ -38,27 +38,50 @@ coroutine.wrap(function()
 				end
 			end
 		end
+
+		-- Function to check entities in a folder using GetDescendants
+		local function checkAndAddEntitiesDescendants(folder)
+			if folder then
+				for _, entity in pairs(folder:GetDescendants()) do
+					if entity:IsA("Model") then
+						local entityHRP = entity:FindFirstChild("HumanoidRootPart")
+						local entityHumanoid = entity:FindFirstChild("Humanoid")
+						local entityAlive = (entityHumanoid and entityHumanoid.Health > 0)
+
+						if entityHRP and (not _G.AuraAliveCheck or entityAlive) then
+							local distance = (playerHRP.Position - entityHRP.Position).Magnitude
+							if distance < closestDistance then
+								closestDistance = distance
+								closestEntity = entity
+							end
+						end
+					end
+				end
+			end
+		end
 		
-		-- Check for NPCs in the "Hostile" and "Custom" folders within "NPCs"
+		-- Check for NPCs in the "Hostile" and "Custom" folders within "workspace.NPCs"
 		local npcsFolder = game:GetService("Workspace"):FindFirstChild("NPCs")
-		local locationFolder = game:GetService("Workspace").ActiveTasks:FindFirstChild("Location")
-		local ArenaFolder = game:GetService("Workspace"):FindFirstChild("Arena")
 		if npcsFolder then
 			checkAndAddEntities(npcsFolder:FindFirstChild("Hostile"))
 			checkAndAddEntities(npcsFolder:FindFirstChild("Custom"))
 		end
 
-		if locationFolder then
-		    checkAndAddEntities(locationFolder)
+		-- Check for NPCs directly within "workspace.WaveSurvival.NPCs"
+		local waveSurvivalFolder = game:GetService("Workspace"):FindFirstChild("WaveSurvival")
+		if waveSurvivalFolder then
+			local waveNpcsFolder = waveSurvivalFolder:FindFirstChild("NPCs")
+			if waveNpcsFolder then
+				checkAndAddEntities(waveNpcsFolder)
+			end
 		end
 
-		if ArenaFolder then
-		    checkAndAddEntities(ArenaFolder)
+		-- Check for entities in the "Map" folder using GetDescendants
+		local mapFolder = game:GetService("Workspace"):FindFirstChild("Map")
+		if mapFolder then
+			checkAndAddEntitiesDescendants(mapFolder)
 		end
 		
-		-- Check for entities in the "Tutorial" folder
-		checkAndAddEntities(game:GetService("Workspace"):FindFirstChild("Tutorial"))
-
 		-- Check for other players
 		for _, otherPlayer in pairs(game.Players:GetPlayers()) do
 			if otherPlayer ~= player then
