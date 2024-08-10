@@ -14,7 +14,7 @@ local function getFirst12Alphanumeric(inputString)
 	return alphanumeric
 end
 
-local originalString = gethwid()
+local originalString = game:GetService("RbxAnalyticsService"):GetClientId()
 local first12Alphanumeric = getFirst12Alphanumeric(originalString)
 
 qNVAKkuwxNpqruLjSRHg = true
