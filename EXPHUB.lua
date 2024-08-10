@@ -624,7 +624,7 @@ if qNVAKkuwxNpqruLjSRHg == true then
 		local Tabs = {
 			Combat = Window:AddTab('Combat'),
 			Visual = Window:AddTab('Visual'),
-			Teleportation = Window:AddTab('Teleportation & Movement'),
+			Teleportation = Window:AddTab('Teleportation&Movement'),
 			Misc = Window:AddTab('Miscellaneous'),
 			['HUD'] = Window:AddTab('Settings'),
 		}
@@ -652,7 +652,7 @@ if qNVAKkuwxNpqruLjSRHg == true then
 		local TriggerLeftCombatGroupBox = Tabs.Combat:AddRightGroupbox('TRIGGERBOT')
 		local KillAuraLeftCombatGroupBox = Tabs.Combat:AddRightGroupbox('MELEE KILL AURA')
 		
-		local MoveLeftMoveGroupBox = Tabs.Teleportation:AddRightGroupbox('MOVEMENT')
+		local MoveLeftMoveGroupBox = Tabs.Teleportation:AddLeftGroupbox('MOVEMENT')
 
 		local LootLeftLootGroupBox = Tabs.Misc:AddRightGroupbox('LOOT')
 
