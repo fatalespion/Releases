@@ -24,6 +24,7 @@ local function gatherLootTables()
             table.insert(lootTables, {
                 ["Items"] = items,
                 ["Parent"] = lootTable.Parent.Parent
+                ["LootTable"] = lootTable
             })
         end
     end
@@ -45,11 +46,11 @@ local function getClosestLootModel()
                 if distance < shortestDistance then
                     shortestDistance = distance
                     closestModel = model
-                    lastLootTable = lootEntry
+                    lastLootTable = lootEntry.LootTable
 
                     if _G.takeAllObjects then
                         for _, lootObject in pairs(lootEntry.Items) do
-                            ReplicatedStorage.Events.Loot.LootObject:FireServer(lootEntry, lootObject, true)
+                            ReplicatedStorage.Events.Loot.LootObject:FireServer(lootEntry.LootTable, lootObject, true)
                         end
                     end
                 end
