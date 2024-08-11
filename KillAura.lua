@@ -87,6 +87,11 @@ coroutine.wrap(function()
 		if mapFolder then
 			checkAndAddEntitiesDescendants(mapFolder)
 		end
+
+		local map2Folder = game:GetService("Workspace"):FindFirstChild("Tutorial")
+		if map2Folder then
+			checkAndAddEntitiesDescendants(mapFolder)
+		end
 		
 		-- Check for other players
 		for _, otherPlayer in pairs(game.Players:GetPlayers()) do
