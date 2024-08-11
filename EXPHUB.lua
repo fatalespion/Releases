@@ -34,11 +34,6 @@ local Library = loadstring(game:HttpGet(repo .. 'fatalespion/Releases/main/Lino.
 local ThemeManager = loadstring(game:HttpGet(repo .. 'fatalespion/Releases/main/ThemeManager'))()
 local SaveManager = loadstring(game:HttpGet(repo .. 'violin-suzutsuki/LinoriaLib/main/addons/SaveManager.lua'))()
 
-local Loader = Library.CreateLoader(
-	"NEBULA HUB", 
-	Vector2.new(300, 300)
-)
-
 if qNVAKkuwxNpqruLjSRHg == true then
 	if game.PlaceId == 12552538292  then
 
