@@ -23,8 +23,8 @@ local function gatherLootTables()
             end
             table.insert(lootTables, {
                 ["Items"] = items,
-                ["Parent"] = lootTable.Parent.Parent
-                ["LootTable"] = lootTable
+                ["Parent"] = lootTable.Parent.Parent,
+                ["LootTable"] = lootTable,
             })
         end
     end
