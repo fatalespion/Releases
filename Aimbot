@@ -178,11 +178,6 @@ local function GetClosestTarget()
             checkAndAddEntities(npcsFolder:FindFirstChild("Custom"))
         end
 
-         local mapFolder = game:GetService("Workspace"):FindFirstChild("Map"):FindFirstChild("Special")
-        if mapFolder then
-            checkAndAddEntities(mapFolder)
-        end
-
         -- Check NPCs in workspace.WaveSurvival.NPCs
         local waveSurvivalFolder = workspace:FindFirstChild("WaveSurvival")
         if waveSurvivalFolder then
