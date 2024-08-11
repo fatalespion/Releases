@@ -63,7 +63,7 @@ end
 local function processLastLootTable()
     if lastLootTable and _G.takeAllObjects then
         for _, lootObject in pairs(lastLootTable.Items) do
-            ReplicatedStorage.Events.Loot.LootObject:FireServer(lastLootTable, lootObject, true)
+            ReplicatedStorage.Events.Loot.LootObject:FireServer(lastLootTable.LootTable, lootObject, true)
         end
     end
 end
@@ -80,16 +80,17 @@ local function lootObjectsFromFrame(frame)
         end
     end
 
-    if _G.takeAllObjects and #objectNames > 0 then
+    if #objectNames > 0 then
         for _, lootEntry in ipairs(lootTables) do
-            for _, obj in pairs(lootEntry.Items) do
-                if table.find(objectNames, obj.Name) then
-                    ReplicatedStorage.Events.Loot.LootObject:FireServer(lootEntry, obj, true)
+            for itemName, lootObject in pairs(lootEntry.Items) do
+                if table.find(objectNames, itemName) then
+                    ReplicatedStorage.Events.Loot.LootObject:FireServer(lootEntry.LootTable, lootObject, true)
                 end
             end
         end
     end
 end
+
 
 while true do
     if workspace:FindFirstChild("Lockpick") and _G.instaUnlock then
