@@ -178,7 +178,7 @@ local function GetClosestTarget()
             checkAndAddEntities(npcsFolder:FindFirstChild("Custom"))
         end
 
-         local mapFolder = workspace:FindFirstChild("Map").Special
+         local mapFolder = game:GetService("Workspace"):FindFirstChild("Map"):FindFirstChild("Special")
         if mapFolder then
             checkAndAddEntities(mapFolder)
         end
