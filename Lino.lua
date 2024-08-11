@@ -311,6 +311,13 @@ Utility.CLCheck = function()
 	end
 end
 
+Utility.MiddlePos = function(Instance)
+	return Vector2.new(
+		(Camera.ViewportSize.X / 2) - (Instance.Size.X / 2), 
+		(Camera.ViewportSize.Y / 2) - (Instance.Size.Y / 2)
+	)
+end
+
 Utility.SaveConfig = function(Config)
 	writefile(
 		"Abyss/Configs/" .. tostring(game.PlaceId) .. "/" .. Config .. ".json", 
