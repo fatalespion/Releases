@@ -83,7 +83,7 @@ coroutine.wrap(function()
 		end
 
 		-- Check for entities in the "Map" folder using GetDescendants
-		local mapFolder = game:GetService("Workspace"):FindFirstChild("Map").Special
+		local mapFolder = game:GetService("Workspace"):FindFirstChild("Map"):FindFirstChild("Special")
 		if mapFolder then
 			checkAndAddEntitiesDescendants(mapFolder)
 		end
