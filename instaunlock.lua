@@ -6,31 +6,50 @@ local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
 _G.instaUnlock = _G.instaUnlock or false
 _G.takeAllObjects = _G.takeAllObjects or false
+
 local lastLootTable = nil
+local lootTables = {}
+
+-- Function to gather all LootTables into a big table
+local function gatherLootTables()
+    for _, descendant in ipairs(workspace:GetDescendants()) do
+        if descendant:IsA("Folder") and descendant.Name == "LootTable" then
+            local lootTable = descendant
+            local items = {}
+            for _, item in ipairs(lootTable:GetChildren()) do
+                if item:IsA("NumberValue") then
+                    items[item.Name] = item
+                end
+            end
+            table.insert(lootTables, {
+                ["Items"] = items,
+                ["Parent"] = lootTable.Parent.Parent
+            })
+        end
+    end
+end
+
+-- Gather all LootTables once at the start
+gatherLootTables()
 
 local function getClosestLootModel()
     local closestModel = nil
     local shortestDistance = math.huge
     
-    for _, part in ipairs(workspace:GetDescendants()) do
-        if part:IsA("MeshPart") then
-            local lootTable = part:FindFirstChild("LootTable")
-            if lootTable then
-                local model = lootTable.Parent.Parent
-                if model:IsA("Model") then
-                    local primaryPart = model.PrimaryPart or model:FindFirstChildWhichIsA("BasePart")
-                    if primaryPart then
-                        local distance = (character.PrimaryPart.Position - primaryPart.Position).magnitude
-                        if distance < shortestDistance then
-                            shortestDistance = distance
-                            closestModel = model
-                            lastLootTable = lootTable
+    for _, lootEntry in ipairs(lootTables) do
+        local model = lootEntry.Parent
+        if model:IsA("Model") then
+            local primaryPart = model.PrimaryPart or model:FindFirstChildWhichIsA("BasePart")
+            if primaryPart then
+                local distance = (character.PrimaryPart.Position - primaryPart.Position).magnitude
+                if distance < shortestDistance then
+                    shortestDistance = distance
+                    closestModel = model
+                    lastLootTable = lootEntry
 
-                            if _G.takeAllObjects then
-                                for _, lootObject in ipairs(lootTable:GetChildren()) do
-                                    ReplicatedStorage.Events.Loot.LootObject:FireServer(lootTable, lootObject, true)
-                                end
-                            end
+                    if _G.takeAllObjects then
+                        for _, lootObject in pairs(lootEntry.Items) do
+                            ReplicatedStorage.Events.Loot.LootObject:FireServer(lootEntry, lootObject, true)
                         end
                     end
                 end
@@ -43,7 +62,7 @@ end
 
 local function processLastLootTable()
     if lastLootTable and _G.takeAllObjects then
-        for _, lootObject in ipairs(lastLootTable:GetChildren()) do
+        for _, lootObject in pairs(lastLootTable.Items) do
             ReplicatedStorage.Events.Loot.LootObject:FireServer(lastLootTable, lootObject, true)
         end
     end
@@ -62,14 +81,10 @@ local function lootObjectsFromFrame(frame)
     end
 
     if _G.takeAllObjects and #objectNames > 0 then
-        for _, descendant in ipairs(workspace:GetDescendants()) do
-            if descendant:IsA("Folder") and descendant.Name == "LootTable" then
-                local lootTable = descendant
-                local allObjects = lootTable:GetChildren()
-                for _, obj in ipairs(allObjects) do
-                    if obj:IsA("NumberValue") and table.find(objectNames, obj.Name) then
-                        ReplicatedStorage.Events.Loot.LootObject:FireServer(lootTable, obj, true)
-                    end
+        for _, lootEntry in ipairs(lootTables) do
+            for _, obj in pairs(lootEntry.Items) do
+                if table.find(objectNames, obj.Name) then
+                    ReplicatedStorage.Events.Loot.LootObject:FireServer(lootEntry, obj, true)
                 end
             end
         end
