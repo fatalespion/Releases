@@ -44,6 +44,32 @@ local Library = {
 
 	Signals = {};
 	ScreenGui = ScreenGui;
+	
+	Icons = {},
+	Flags = {},
+	Items = {},
+	Drawings = {},
+	Ignores = {},
+	Keybind = {},
+	Watermark = {},
+	Connections = {},
+	
+	Theme = {
+		Notification = {
+			Error = Color3.fromHex("#c82828"),
+			Warning = Color3.fromHex("#fc9803")
+		},
+		Hitbox = Color3.fromRGB(69, 69, 69),
+		Friend = Color3.fromRGB(0, 200, 0),
+		Outline = Color3.fromHex("#000005"),
+		Inline = Color3.fromHex("#323232"),
+		LightContrast = Color3.fromHex("#202020"),
+		DarkContrast = Color3.fromHex("#191919"),
+		Text = Color3.fromHex("#e8e8e8"),
+		TextInactive = Color3.fromHex("#aaaaaa"),
+		TextSize = 13,
+		UseOutline = false
+	},
 };
 
 local RainbowStep = 0
@@ -175,18 +201,6 @@ Utility.AddInstance = function(NewInstance, Properties)
 	return NewInstance
 end
 --
-Utility.CLCheck = function()
-	repeat task.wait() until iswindowactive()
-	do
-		local InputHandle = Utility.AddInstance("TextBox", {
-			Position = UDim2.new(0, 0, 0, 0)
-		})
-		--
-		InputHandle:CaptureFocus() task.wait() keypress(0x4E) task.wait() keyrelease(0x4E) InputHandle:ReleaseFocus()
-		Library.Input.Caplock = InputHandle.Text == "N" and true or false
-		InputHandle:Destroy()
-	end
-end
 --
 Utility.Loop = function(Delay, Call)
 	local Callback = typeof(Call) == "function" and Call or function() end
@@ -245,10 +259,10 @@ Utility.AddDrawing = function(Instance, Properties, Location)
 		Instance[Index] = Value
 		if InstanceType == "Text" then
 			if Index == "Font" then
-				Instance.Font = Library.Theme.Font
+				Instance.Font = Library.Font
 			end
 			if Index == "Size" then
-				Instance.Size = Library.Theme.TextSize
+				Instance.Size = 14
 			end
 		end
 	end
@@ -269,149 +283,7 @@ Utility.AddDrawing = function(Instance, Properties, Location)
 	return Instance
 end
 --
-Utility.OnMouse = function(Instance)
-	local Mouse = UserInput:GetMouseLocation()
-	if Instance.Visible and (Mouse.X > Instance.Position.X) and (Mouse.X < Instance.Position.X + Instance.Size.X) and (Mouse.Y > Instance.Position.Y) and (Mouse.Y < Instance.Position.Y + Instance.Size.Y) then
-		if Library.WindowVisible then
-			return true
-		end
-	end
-end
---
-Utility.Rounding = function(Num, DecimalPlaces)
-	return tonumber(string.format("%." .. (DecimalPlaces or 0) .. "f", Num))
-end
---
-Utility.AddDrag = function(Sensor, List)
-	local DragUtility = {
-		MouseStart = Vector2.new(), MouseEnd = Vector2.new(), Dragging = false
-	}
-	--
-	Utility.AddConnection(UserInput.InputBegan, function(Input)
-		if Input.UserInputType == Enum.UserInputType.MouseButton1 then
-			if Utility.OnMouse(Sensor) then
-				DragUtility.Dragging = true
-			end
-		end
-	end)
-	--
-	Utility.AddConnection(UserInput.InputEnded, function(Input)
-		if Input.UserInputType == Enum.UserInputType.MouseButton1 then
-			DragUtility.Dragging = false
-		end
-	end)
-	--
-	Utility.AddConnection(RunService.RenderStepped, function()
-		DragUtility.MouseStart = UserInput:GetMouseLocation()
-		--
-		for Index, Value in pairs(List) do
-			if Index ~= nil and Value ~= nil then
-				if DragUtility.Dragging then
-					Value[1].Position = Vector2.new(
-						Value[1].Position.X + (DragUtility.MouseStart.X - DragUtility.MouseEnd.X), 
-						Value[1].Position.Y + (DragUtility.MouseStart.Y - DragUtility.MouseEnd.Y)
-					)
-				end
-			end
-		end
-		--
-		DragUtility.MouseEnd = UserInput:GetMouseLocation()
-	end)
-end
---
-Utility.AddCursor = function(Instance)
-	local CursorOutline = Utility.AddDrawing("Triangle", {
-		Color = Library.Theme.Accent[1],
-		Thickness = 1,
-		Filled = false,
-		ZIndex = 5
-	}, Library.Ignores)
-	--
-	local Cursor = Utility.AddDrawing("Triangle", {
-		Color = Library.Theme.Accent[1],
-		Thickness = 3,
-		Filled = true,
-		Transparency = 1,
-		ZIndex = 5
-	}, Library.Ignores)
-	--
-	Utility.AddConnection(Library.Communication.Event, function(Type, Color)
-		if Type == "Accent" then
-			Cursor.Color = Color
-			CursorOutline.Color = Color
-		end
-	end)
-	--
-	Utility.AddConnection(RunService.RenderStepped, function()
-		local Mouse = UserInput:GetMouseLocation()
-		--
-		if Library.WindowVisible then
-			CursorOutline.Visible = true
-			CursorOutline.PointA = Vector2.new(Mouse.X, Mouse.Y)
-			CursorOutline.PointB = Vector2.new(Mouse.X + 15, Mouse.Y + 5)
-			CursorOutline.PointC = Vector2.new(Mouse.X + 5, Mouse.Y + 15)
 
-			Cursor.Visible = true
-			Cursor.PointA = Vector2.new(Mouse.X, Mouse.Y)
-			Cursor.PointB = Vector2.new(Mouse.X + 15, Mouse.Y + 5)
-			Cursor.PointC = Vector2.new(Mouse.X + 5, Mouse.Y + 15)
-		else
-			CursorOutline.Visible = false
-			Cursor.Visible = false
-		end
-	end)
-end
---
-Utility.MiddlePos = function(Instance)
-	return Vector2.new(
-		(Camera.ViewportSize.X / 2) - (Instance.Size.X / 2), 
-		(Camera.ViewportSize.Y / 2) - (Instance.Size.Y / 2)
-	)
-end
---
-Utility.SaveConfig = function(Config)
-	writefile(
-		"Abyss/Configs/" .. tostring(game.PlaceId) .. "/" .. Config .. ".json", 
-		HttpService:JSONEncode(UISettings.Flags)
-	)
-end
---
-Utility.DeleteConfig = function(Config)
-	delfile(
-		"Abyss/Configs/" .. tostring(game.PlaceId) .. "/" .. Config .. ".json"
-	)
-end
---
-Utility.LoadConfig = function(Config)
-	local Config = HttpService:JSONDecode(readfile("Abyss/Configs/" .. tostring(game.PlaceId) .. "/" .. Config .. ".json"))
-	--
-	Library.Flags = LoadedConfig
-	--
-	for Index, Value in pairs(Library.Flags) do
-		if Library.Items[Index].TypeOf == "Keybind" then
-			Library.Items[Index]:Set(Value[1], Value[2], Value[3], true)
-		elseif Library.Items[Index].TypeOf == "Colorpicker" then
-			Library.Items[Index]:SetHue(Value[1])
-			Library.Items[Index]:SetSaturationX(Value[2])
-			Library.Items[Index]:SetSaturationY(Value[3])
-		else
-			Library.Items[Index]:Set(Value)
-		end
-	end
-	--
-	rconsoleinfo("Debug: Loaded a config! 0 error.")
-end
---
-Utility.AddFolder = function(GetFolder)
-	local Folder = isfolder(GetFolder)
-	--
-	if Folder then
-		return
-	else
-		makefolder(GetFolder)
-		return true
-	end
-end
 --
 Utility.AddImage = function(Image, Url, UI)
 	local ImageFile = nil
@@ -426,6 +298,26 @@ Utility.AddImage = function(Image, Url, UI)
 	return ImageFile
 end
 
+Utility.CLCheck = function()
+	repeat task.wait() until iswindowactive()
+	do
+		local InputHandle = Utility.AddInstance("TextBox", {
+			Position = UDim2.new(0, 0, 0, 0)
+		})
+		--
+		InputHandle:CaptureFocus() task.wait() keypress(0x4E) task.wait() keyrelease(0x4E) InputHandle:ReleaseFocus()
+		Library.Input.Caplock = InputHandle.Text == "N" and true or false
+		InputHandle:Destroy()
+	end
+end
+
+Utility.SaveConfig = function(Config)
+	writefile(
+		"Abyss/Configs/" .. tostring(game.PlaceId) .. "/" .. Config .. ".json", 
+		HttpService:JSONEncode(UISettings.Flags)
+	)
+end
+
 function Library:CreateLoader(Title, WindowSize)
 	local Window = {
 		Max = 2, Current = 0
@@ -436,7 +328,7 @@ function Library:CreateLoader(Title, WindowSize)
 	local WindowOutline = Utility.AddDrawing("Square", {
 		Size = WindowSize,
 		Thickness = 0,
-		Color = Library.Theme.Outline,
+		Color = Library.OutlineColor,
 		Visible = true,
 		Filled = true
 	})
@@ -447,7 +339,7 @@ function Library:CreateLoader(Title, WindowSize)
 		Size = Vector2.new(WindowOutline.Size.X - 2, WindowOutline.Size.Y - 2),
 		Position = Vector2.new(WindowOutline.Position.X + 1, WindowOutline.Position.Y + 1),
 		Thickness = 0,
-		Color = Library.Theme.Accent[1],
+		Color = Library.AccentColor,
 		Visible = true,
 		Filled = true
 	})
@@ -466,7 +358,7 @@ function Library:CreateLoader(Title, WindowSize)
 		Size = Vector2.new(WindowOutline.Size.X - 2, 2),
 		Position = Vector2.new(WindowOutlineBorder.Position.X, WindowOutlineBorder.Position.Y),
 		Thickness = 0,
-		Color = Library.Theme.Accent[1],
+		Color = Library.AccentColor,
 		Visible = false,
 		Filled = true
 	})
@@ -520,7 +412,7 @@ function Library:CreateLoader(Title, WindowSize)
 	--
 	local SliderFrame = Utility.AddDrawing("Square", {
 		Size = Vector2.new(((SliderInline.Size.X - 2) / (Window.Max / math.clamp(Window.Current, 0, Window.Max))), SliderInline.Size.Y - 2),
-		Color = Library.Theme.Accent[1],
+		Color = Library.AccentColor,
 		Transparency = 0.75,
 		Thickness = 0,
 		Visible = true,
@@ -564,12 +456,6 @@ function Library:CreateLoader(Title, WindowSize)
 	Library.Theme.Saturation = Utility.AddImage("Abyss/Assets/UI/Saturation.png", "https://raw.githubusercontent.com/mvonwalk/Exterium/main/SaturationPicker.png")
 	Library.Theme.SaturationCursor = Utility.AddImage("Abyss/Assets/UI/HueCursor.png", "https://raw.githubusercontent.com/mvonwalk/splix-assets/main/Images-cursor.png")
 	--
-	Library.Theme.Astolfo = Utility.AddImage("Abyss/Assets/UI/Astolfo.png", "https://i.imgur.com/T20cWY9.png")
-	Library.Theme.Aiko = Utility.AddImage("Abyss/Assets/UI/Aiko.png", "https://i.imgur.com/1gRIdko.png")
-	Library.Theme.Rem = Utility.AddImage("Abyss/Assets/UI/Rem.png", "https://i.imgur.com/ykbRkhJ.png")
-	Library.Theme.Violet = Utility.AddImage("Abyss/Assets/UI/Violet.png", "https://i.imgur.com/7B56w4a.png")
-	Library.Theme.Asuka = Utility.AddImage("Abyss/Assets/UI/Asuka.png", "https://i.imgur.com/3hwztNM.png")
-	--
 	Window.SetText(1, "Checking Assets")
 	--
 	Window.SetText(1, "Checking Input")
@@ -589,8 +475,6 @@ function Library:CreateLoader(Title, WindowSize)
 	Utility.RemoveDrawing(SliderFrameShader)
 	Utility.RemoveDrawing(MiddleIcon)
 	Utility.RemoveDrawing(WindowImage)
-	--
-	UserInput.MouseIconEnabled = false
 	--
 	return Window
 end
