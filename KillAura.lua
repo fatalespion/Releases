@@ -84,10 +84,7 @@ coroutine.wrap(function()
 
 		local testfg = game:GetService("Workspace"):FindFirstChild("ActiveTasks")
 		if testfg then
-			local waveNpcsFolder = testfg:FindFirstChild("Location")
-			if waveNpcsFolder then
-				checkAndAddEntities(waveNpcsFolder)
-			end
+		checkAndAddEntities(testfg)
 		end
 
 		-- Check for entities in the "Map" folder using GetDescendants
