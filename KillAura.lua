@@ -84,7 +84,7 @@ coroutine.wrap(function()
 
 		local testfg = game:GetService("Workspace"):FindFirstChild("ActiveTasks")
 		if testfg then
-		checkAndAddEntities(testfg)
+		checkAndAddEntitiesDescendants(testfg)
 		end
 
 		-- Check for entities in the "Map" folder using GetDescendants
