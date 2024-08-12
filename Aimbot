@@ -172,23 +172,24 @@ local function GetClosestTarget()
         end
 
         local function checkAndAddEntitiesDescendants(folder)
-			if folder then
-				for _, entity in pairs(folder:GetDescendants()) do
-					if entity:IsA("Model") then
-						local entityHRP = entity:FindFirstChild("HumanoidRootPart")
-						local entityHumanoid = entity:FindFirstChild("Humanoid")
-						local entityAlive = (entityHumanoid and entityHumanoid.Health > 0)
+			 if folder then
+                for _, entity in pairs(folder:GetDescendants()) do
+                    if not _G.TAliveCheck or IsNPCAlive(entity) then
+                        local aimPart = entity:FindFirstChild(_G.AimPart)
+                        if aimPart then
+                            local ScreenPoint = Camera:WorldToScreenPoint(aimPart.Position)
+                            local VectorDistance = (MouseLocation - Vector2.new(ScreenPoint.X, ScreenPoint.Y)).Magnitude
 
-						if entityHRP and (not _G.AuraAliveCheck or entityAlive) then
-							local distance = (playerHRP.Position - entityHRP.Position).Magnitude
-							if distance < closestDistance then
-								closestDistance = distance
-								closestEntity = entity
-							end
-						end
-					end
-				end
-			end
+                            if VectorDistance < MaximumDistance and IsNPCInFront(LocalPlayer, entity) then
+                                if not _G.WallCheck or not IsNPCBehindWall(entity) then
+                                    Target = aimPart
+                                    MaximumDistance = VectorDistance
+                                end
+                            end
+                        end
+                    end
+                end
+            end
 		end
         
         -- Check NPCs in workspace.NPCs
