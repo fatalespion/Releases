@@ -170,6 +170,26 @@ local function GetClosestTarget()
                 end
             end
         end
+
+        local function checkAndAddEntitiesDescendants(folder)
+			if folder then
+				for _, entity in pairs(folder:GetDescendants()) do
+					if entity:IsA("Model") then
+						local entityHRP = entity:FindFirstChild("HumanoidRootPart")
+						local entityHumanoid = entity:FindFirstChild("Humanoid")
+						local entityAlive = (entityHumanoid and entityHumanoid.Health > 0)
+
+						if entityHRP and (not _G.AuraAliveCheck or entityAlive) then
+							local distance = (playerHRP.Position - entityHRP.Position).Magnitude
+							if distance < closestDistance then
+								closestDistance = distance
+								closestEntity = entity
+							end
+						end
+					end
+				end
+			end
+		end
         
         -- Check NPCs in workspace.NPCs
         local npcsFolder = workspace:FindFirstChild("NPCs")
@@ -188,7 +208,7 @@ local function GetClosestTarget()
         end
 
         -- Check other specific folders
-        checkAndAddEntities(workspace.ActiveTasks:FindFirstChild("Location"))
+        checkAndAddEntitiesDescendants(workspace.ActiveTasks)
         checkAndAddEntities(workspace:FindFirstChild("Arena"))
         checkAndAddEntities(workspace:FindFirstChild("Tutorial"))
     end
