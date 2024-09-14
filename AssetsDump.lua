@@ -56,15 +56,19 @@ local SpawnNotification = function()
 	if _G.RainbowNotification then
 		for _, v in pairs(game.Players.LocalPlayer:FindFirstChild("PlayerGui").MainGui.Alerts:GetChildren()) do
 			if v:IsA("Frame") then
-				if v.Title == _G.TitleNotification then
-					local v352, _, v354 = RainbowColor:ToHSV();
-					v.Flash.BackgroundColor3 = RainbowColor;
-					v.BarFrame.BackgroundColor3 = RainbowColor;
-					v.Shine.ImageColor3 = RainbowColor;
-					v.OnlyTitle.TextColor3 = RainbowColor;
-					v.Title.TextColor3 = RainbowColor;
-					v.Desc.TextColor3 = Color3.fromHSV(v352, 0.58, v354);
-				end
+				task.spawn(function()
+					repeat 
+						if v.Title == _G.TitleNotification then
+							local v352, _, v354 = RainbowColor:ToHSV();
+							v.Flash.BackgroundColor3 = RainbowColor;
+							v.BarFrame.BackgroundColor3 = RainbowColor;
+							v.Shine.ImageColor3 = RainbowColor;
+							v.OnlyTitle.TextColor3 = RainbowColor;
+							v.Title.TextColor3 = RainbowColor;
+							v.Desc.TextColor3 = Color3.fromHSV(v352, 0.58, v354);
+						end
+					until v == nil
+				end)
 			end
 		end
 		
