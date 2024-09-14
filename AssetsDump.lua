@@ -32,9 +32,20 @@ _G.TitleNotification = ""
 _G.TextNotification = ""
 _G.IconNotification = "!"
 
-local Tab = Window:CreateTab("Main", 9861634198) -- Title, Image
+_G.TitlePrompt = ""
+_G.TextPrompt = ""
+
+_G.Response1Prompt = "Yes"
+_G.Response2Prompt = "No"
+
+_G.Response1 = true
+_G.Response2 = true
+
+local Tab = Window:CreateTab("Notifications", 9861634198) -- Title, Image
+local PromptsTab = Window:CreateTab("Prompts", 6673967738) -- Title, Image
 
 local NotifSection = Tab:CreateSection("Create Notification")
+local PromptsSection = PromptsTab:CreateSection("Create Notification")
 
 local RainbowColor
 
@@ -71,7 +82,27 @@ local SpawnNotification = function()
 				end)
 			end
 		end
-		
+	end
+end
+
+local SpawnPrompt = function()
+	if _G.Response1 and _G.Response2 then
+		local v117 = game.ReplicatedStorage.Prompt:Invoke(_G.TitlePrompt, _G.TextPrompt, {
+			_G.Response1Prompt,
+			_G.Response2Prompt,
+		});
+	elseif not _G.Response1 and _G.Response2 then
+		local v117 = game.ReplicatedStorage.Prompt:Invoke(_G.TitlePrompt, _G.TextPrompt, {
+			_G.Response2Prompt,
+		});
+	elseif _G.Response1 and not _G.Response2 then
+		local v117 = game.ReplicatedStorage.Prompt:Invoke(_G.TitlePrompt, _G.TextPrompt, {
+			_G.Response1Prompt,
+		});
+	elseif not _G.Response1 and not _G.Response2 then
+		local v117 = game.ReplicatedStorage.Prompt:Invoke(_G.TitlePrompt, _G.TextPrompt, {
+			"You didnt put a response type dumbass",
+		});
 	end
 end
 
@@ -126,6 +157,69 @@ local SpawnNotifButton = Tab:CreateButton({
 	Name = "Spawn Notification",
 	Callback = function()
 		SpawnNotification()
+	end,
+})
+
+local NotifLabel = PromptsSection:CreateLabel("Create a prompt like the drop thing that says Are you sure? or how many do you want to drop ect")
+
+local TitleNotifInput = Tab:CreateInput({
+	Name = "Prompt Title",
+	PlaceholderText = "",
+	RemoveTextAfterFocusLost = false,
+	Callback = function(Text)
+		_G.TitlePrompt = Text
+	end,
+})
+
+local TextNotifInput = Tab:CreateInput({
+	Name = "Prompt Text",
+	PlaceholderText = "",
+	RemoveTextAfterFocusLost = false,
+	Callback = function(Text)
+		_G.TextPrompt = Text
+	end,
+})
+
+local TextNotifInput = Tab:CreateInput({
+	Name = "Prompt Response1 Text",
+	PlaceholderText = "Yes",
+	RemoveTextAfterFocusLost = false,
+	Callback = function(Text)
+		_G.Response1Prompt = Text
+	end,
+})
+
+local TextNotifInput = Tab:CreateInput({
+	Name = "Prompt Response2 Text",
+	PlaceholderText = "No",
+	RemoveTextAfterFocusLost = false,
+	Callback = function(Text)
+		_G.Response2Prompt = Text
+	end,
+})
+
+local RainboxToggle = Tab:CreateToggle({
+	Name = "Prompt Response 1",
+	CurrentValue = false,
+	Flag = "ggezf", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+	Callback = function(Value)
+		_G.Response1 = Value
+	end,
+})
+
+local RainboxToggle = Tab:CreateToggle({
+	Name = "Prompt Response 2",
+	CurrentValue = false,
+	Flag = "ggezfe", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+	Callback = function(Value)
+		_G.Response2 = Value
+	end,
+})
+
+local SpawnNotifButton = Tab:CreateButton({
+	Name = "Spawn Prompt",
+	Callback = function()
+		SpawnPrompt()
 	end,
 })
 
