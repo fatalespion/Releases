@@ -58,7 +58,7 @@ local SpawnNotification = function()
 			if v:IsA("Frame") then
 				task.spawn(function()
 					repeat 
-						if v.Title == _G.TitleNotification then
+						if v.Title.Text == _G.TitleNotification then
 							local v352, _, v354 = RainbowColor:ToHSV();
 							v.Flash.BackgroundColor3 = RainbowColor;
 							v.BarFrame.BackgroundColor3 = RainbowColor;
