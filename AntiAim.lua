@@ -18,20 +18,34 @@ local Config = {
 	hasHead = true,
 }
 
+local characterPI = game.Players.LocalPlayer.Character
+local humanoidMove = characterPI:WaitForChild("Humanoid").MoveDirection
+local rootPart = characterPI:WaitForChild("HumanoidRootPart")
+
+local turnAmount = 0
+local tiltSpeed = 5
+
+local function UpdateTilt()
+	local tiltAngle = math.rad(turnAmount) * tiltSpeed
+	rootPart.CFrame = rootPart.CFrame * CFrame.Angles(0, tiltAngle, 0)
+end
+
 local function ToggleSpinBot()
 	while wait() do
 		if Connection == false then
 			break
 		end
 
-		for i = 1, Config.turnAngle do
-			humanoidRootPart.CFrame = humanoidRootPart.CFrame * CFrame.Angles(0, math.rad(1), 0)
-			task.wait()
-		end
-		for i = 1, Config.turnAngle do
-			humanoidRootPart.CFrame = humanoidRootPart.CFrame * CFrame.Angles(0, -math.rad(1), 0)
-			task.wait()
-		end
+		local moveDirection = humanoidMove + Vector3.new(1,0,1)
+		local moveRotation = math.atan2(moveDirection.X, moveDirection.Z)
+		turnAmount = math.deg(moveRotation)
+
+		game.Players.LocalPlayer.CharacterAdded:Connect(function(character)
+			humanoidMove = character:WaitForChild("Humanoid").MoveDirection
+			rootPart = character:WaitForChild("HumanoidRootPart")
+		end)
+
+		UpdateTilt()
 	end
 end
 
