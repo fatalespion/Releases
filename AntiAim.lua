@@ -75,4 +75,4 @@ game.UserInputService.InputBegan:Connect(function(input, gp)
 	end
 end)
 
-game.StarterGui:SetCore("SendNotification", {Title = "ANTI NIGGA AIM 9000"; Text = "Welcome to the anti nigga aim 9000 made by fatal hope you enjoy! PRESS [T] TO ENABLE/DISABLE"; Icon = "rbxassetid://13789996304"; Duration = 30 })
+game.StarterGui:SetCore("SendNotification", {Title = "ANTI NIGGER AIM 9000"; Text = "Welcome to the anti nigger aim 9000 made by fatal hope you enjoy! PRESS [T] TO ENABLE/DISABLE"; Icon = "rbxassetid://13789996304"; Duration = 30 })
