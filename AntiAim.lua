@@ -23,10 +23,10 @@ local humanoidMove = characterPI:WaitForChild("Humanoid").MoveDirection
 local rootPart = characterPI:WaitForChild("HumanoidRootPart")
 
 local turnAmount = 0
-local tiltSpeed = 5
+_G.tiltSpeed = 5
 
 local function UpdateTilt()
-	local tiltAngle = math.rad(turnAmount) * tiltSpeed
+	local tiltAngle = math.rad(turnAmount) * _G.tiltSpeed
 	rootPart.CFrame = rootPart.CFrame * CFrame.Angles(0, tiltAngle, 0)
 end
 
