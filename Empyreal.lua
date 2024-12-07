@@ -66,9 +66,13 @@ _G.ThirdPersonRainbow = false
 _G.LastRainbowColor = _G.ThirdPersonColor
 
 _G.EnabledCustomViewmodel = false
-_G.ViewmodelColor = Character.UpperTorso.Color
+_G.EnabledCustomGunViewmodel = false
+_G.ViewmodelColor = workspace.Camera.Viewmodels.c_arms.LeftHand.Color
+_G.ViewmodelGunColor = Color3.fromRGB(0, 255, 255)
 _G.ViewmodelRainbow = false
+_G.ViewmodelGunRainbow = false
 _G.LastViewmodelColor = _G.ViewmodelColor
+_G.LastViewmodelGunColor = _G.ViewmodelGunColor
 _G.ViewmodelMaterial = "Plastic"
 
 local SPEED = 0.1
@@ -109,6 +113,12 @@ local function ToggleThirdPerson()
 			_G.ViewmodelColor = _G.LastViewmodelColor
 		end
 		
+		if _G.ViewmodelGunRainbow then
+			_G.ViewmodelGunColor = Color3.fromHSV(i,1,1)
+		else
+			_G.ViewmodelGunColor = _G.LastViewmodelGunColor
+		end
+		
 		if _G.EnabledCustomViewmodel then
 			workspace.Camera.Viewmodels.c_arms.LeftHand.Color = _G.ViewmodelColor
 			workspace.Camera.Viewmodels.c_arms.RightHand.Color = _G.ViewmodelColor
@@ -121,6 +131,21 @@ local function ToggleThirdPerson()
 
 			workspace.Camera.Viewmodels.c_arms.LeftHand.Material = Enum.Material.Plastic
 			workspace.Camera.Viewmodels.c_arms.RightHand.Material = Enum.Material.Plastic
+		end
+		
+		if _G.EnabledCustomGunViewmodel then
+			for _, v in pairs(workspace.Camera.Viewmodels:GetDescendants()) do
+				if v:IsA("BasePart") and v.Parent.Name ~= ("c_rig" or "c_arms") then
+					v.Material = Enum.Material.ForceField
+					v.Color = _G.ViewmodelGunColor
+				end
+			end
+		else
+			for _, v in pairs(workspace.Camera.Viewmodels:GetDescendants()) do
+				if v:IsA("BasePart") and v.Parent.Name ~= ("c_rig" or "c_arms") then
+					v.Material = Enum.Material.Plastic
+				end
+			end
 		end
 		
 		for _, v in pairs(game.Workspace.Playermodels[tostring(game.Players.LocalPlayer.UserId)]:GetChildren()) do
@@ -154,6 +179,33 @@ local EnablecustomViewmodel = LocalPlayerTab:NewToggle("Custom Viewmodel", false
 	end
 end)
 
+local EnablecustomGunViewmodel = LocalPlayerTab:NewToggle("Custom GunViewmodel", false, function(value)
+	local vers = value and "on" or "off"
+
+	if vers == "on" then
+		_G.EnabledCustomGunViewmodel = true
+	else
+		_G.EnabledCustomGunViewmodel = false
+	end
+end)
+
+local EnableViewmodelGunRainbow = LocalPlayerTab:NewToggle("Rainbow Gun", false, function(value)
+	local vers = value and "on" or "off"
+
+	if vers == "on" then
+		_G.ViewmodelGunRainbow = true
+	else
+		_G.ViewmodelGunRainbow = false
+	end
+end)
+
+local ViewmodelGunColorSelector = LocalPlayerTab:NewTextbox("Gun Color", "", "0,255,255", "all", "small", true, false, function(val)
+	local Numbers = string.split(val, ",")
+
+	_G.ViewmodelGunColor = Color3.fromRGB(Numbers[1], Numbers[2], Numbers[3])
+	_G.LastViewmodelGunColor = Color3.fromRGB(Numbers[1], Numbers[2], Numbers[3])
+end)
+
 local EnableViewmodelRainbow = LocalPlayerTab:NewToggle("Rainbow", false, function(value)
 	local vers = value and "on" or "off"
 
@@ -174,6 +226,8 @@ end)
 local MaterialSelectorViewmodel = LocalPlayerTab:NewSelector("Material", "Plastic", {"Plastic", "ForceField", "Neon", "Wood", "Metal", "Marble"}, function(d)
 	_G.ViewmodelMaterial = d
 end)
+
+LocalPlayerTab:NewSeperator()
 
 local ThirdPersonSection = LocalPlayerTab:NewSection("ThirdPerson")
 
