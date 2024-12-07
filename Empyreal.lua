@@ -4,7 +4,7 @@ local RunService = game:GetService("RunService")
 local Camera = game.Workspace.CurrentCamera
 
 library.rank = "developer"
-local Wm = library:Watermark("empyreal | v" .. library.version ..  " | " .. library:GetUsername() .. " | rank: " .. library.rank)
+local Wm = library:Watermark("empyreal | v0.0.5 | " .. library:GetUsername() .. " | rank: " .. library.rank)
 local FpsWm = Wm:AddWatermark("fps: " .. library.fps)
 coroutine.wrap(function()
     while wait(.75) do
