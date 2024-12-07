@@ -71,11 +71,11 @@ library:Introduction()
 wait(1)
 local Init = library:Init()
 
-local Visual = Init:NewTab("Visual")
+local LocalPlayer = Init:NewTab("LocalPlayer")
 
-local ThirdPersonSection = Visual:NewSection("ThirdPerson")
+local ThirdPersonSection = LocalPlayer:NewSection("ThirdPerson")
 
-local EnableThirdPerson = Visual:NewToggle("Enable", false, function(value)
+local EnableThirdPerson = LocalPlayer:NewToggle("Enable", false, function(value)
     local vers = value and "on" or "off"
 
     if vers == "on" then
@@ -101,7 +101,7 @@ local EnableThirdPerson = Visual:NewToggle("Enable", false, function(value)
     end
 end)
 
-local EnableForcefield = Visual:NewToggle("ForceField Material", false, function(value)
+local EnableForcefield = LocalPlayer:NewToggle("ForceField Material", false, function(value)
     local vers = value and "on" or "off"
 
     if vers == "on" then
