@@ -1,10 +1,33 @@
 local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/fatalespion/Releases/refs/heads/main/xsx.lua"))()
 
+local ClientHWID = tostring(game:GetService("RbxAnalyticsService"):GetClientId())
+
+local HWIDS = loadstring(game:HttpGet("https://raw.githubusercontent.com/fatalespion/Releases/refs/heads/main/EmpyrealHWIDS.lua"))()
+
+local ACTUALHWIDS = HWIDS.KEYHWID()
+
+if not shared.key then
+	return warn("[EMPYREAL]: shared.key is nil")
+end
+
+if not table.find(ACTUALHWIDS, ClientHWID) then
+	return warn("[EMPYREAL]: invalid hwid client")
+end
+
+if table.find(HWIDS.KEYHWID(), ClientHWID) and ACTUALHWIDS[ClientHWID] ~= shared.key then
+	return warn("[EMPYREAL]: valid hwid but wrong key")
+end
+
 local RunService = game:GetService("RunService")
 local Camera = game.Workspace.CurrentCamera
 
-library.rank = "developer"
-local Wm = library:Watermark("empyreal | v0.0.5 | " .. library:GetUsername() .. " | rank: " .. library.rank)
+	if table.find(HWIDS.getDevelopers(), ClientHWID) then
+	library.rank = "developer"
+else
+	library.rank = "buyer"
+end
+
+local Wm = library:Watermark("empyreal | v0.1-A | " .. library:GetUsername() .. " | rank: " .. library.rank)
 local FpsWm = Wm:AddWatermark("fps: " .. library.fps)
 coroutine.wrap(function()
 	while wait(.75) do
@@ -29,11 +52,15 @@ _G.EnabledForceField = false
 
 _G.ThirdPersonMaterial = "Plastic"
 
+local Character = game.Workspace.Playermodels[tostring(game.Players.LocalPlayer.UserId)]
+
 for _, v in pairs(game.Workspace.Playermodels[tostring(game.Players.LocalPlayer.UserId)]:GetChildren()) do
 	if v:IsA("BasePart") then
 		v:SetAttribute("OriginalColor", v.Color)
 	end
 end
+
+_G.ThirdPersonColor = Character.Torso.Color
 
 local function ToggleThirdPerson()
 	RunService.RenderStepped:Connect(function()
@@ -44,7 +71,7 @@ local function ToggleThirdPerson()
 					v.LocalTransparencyModifier = 0
 
 					if _G.EnabledForceField then
-						v.Color = Color3.fromRGB(0, 255, 0)
+						v.Color = _G.ThirdPersonColor
 						v.Material = Enum.Material[_G.ThirdPersonMaterial]
 					else
 						v.Color = v:GetAttribute("OriginalColor")
@@ -113,8 +140,14 @@ local EnableForcefield = LocalPlayerTab:NewToggle("Custom Playermodel", false, f
 	end
 end)
 
-local MaterialSelector = LocalPlayerTab:NewSelector("Material", "bungie", {"Plastic", "ForceField", "Neon", "Wood", "Metal", "Marble"}, function(d)
+local TColorSelector = LocalPlayerTab:NewTextbox("Color", "0,255,0", "1", "all", "small", true, false, function(val)
+	local Numbers = string.split(val, ",")
+	
+	_G.ThirdPersonColor = Color3.fromRGB(Numbers[1], Numbers[2], Numbers[3])
+end)
+
+local MaterialSelector = LocalPlayerTab:NewSelector("Material", "Plastic", {"Plastic", "ForceField", "Neon", "Wood", "Metal", "Marble"}, function(d)
 	_G.ThirdPersonMaterial = d
-end):AddOption("Plastic")
+end)
 
 local FinishedLoading = Notif:Notify("Loaded empyreal", 4, "success")
