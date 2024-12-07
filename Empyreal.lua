@@ -21,7 +21,7 @@ end
 local RunService = game:GetService("RunService")
 local Camera = game.Workspace.CurrentCamera
 
-if table.find(HWIDS.getDevelopers(), ClientHWID) then
+if table.find(HWIDS.getDevelopers(), library:GetUsername()) then
 	library.rank = "developer"
 else
 	library.rank = "buyer"
