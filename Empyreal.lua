@@ -199,13 +199,6 @@ local EnableViewmodelGunRainbow = LocalPlayerTab:NewToggle("Rainbow Gun", false,
 	end
 end)
 
-local ViewmodelGunColorSelector = LocalPlayerTab:NewTextbox("Gun Color", "", "0,255,255", "all", "small", true, false, function(val)
-	local Numbers = string.split(val, ",")
-
-	_G.ViewmodelGunColor = Color3.fromRGB(Numbers[1], Numbers[2], Numbers[3])
-	_G.LastViewmodelGunColor = Color3.fromRGB(Numbers[1], Numbers[2], Numbers[3])
-end)
-
 local EnableViewmodelRainbow = LocalPlayerTab:NewToggle("Rainbow", false, function(value)
 	local vers = value and "on" or "off"
 
@@ -214,6 +207,13 @@ local EnableViewmodelRainbow = LocalPlayerTab:NewToggle("Rainbow", false, functi
 	else
 		_G.ViewmodelRainbow = false
 	end
+end)
+
+local ViewmodelGunColorSelector = LocalPlayerTab:NewTextbox("Gun Color", "", "0,255,255", "all", "small", true, false, function(val)
+	local Numbers = string.split(val, ",")
+
+	_G.ViewmodelGunColor = Color3.fromRGB(Numbers[1], Numbers[2], Numbers[3])
+	_G.LastViewmodelGunColor = Color3.fromRGB(Numbers[1], Numbers[2], Numbers[3])
 end)
 
 local ViewmodelColorSelector = LocalPlayerTab:NewTextbox("Color", "", "0,255,255", "all", "small", true, false, function(val)
