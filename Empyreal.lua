@@ -65,6 +65,12 @@ _G.ThirdPersonRainbow = false
 
 _G.LastRainbowColor = _G.ThirdPersonColor
 
+_G.EnabledCustomViewmodel = false
+_G.ViewmodelColor = Character.UpperTorso.Color
+_G.ViewmodelRainbow = false
+_G.LastViewmodelColor = _G.ViewmodelColor
+_G.ViewmodelMaterial = "Plastic"
+
 local SPEED = 0.1
 local i = 0
 
@@ -96,7 +102,27 @@ local function ToggleThirdPerson()
 		else
 			_G.ThirdPersonColor = _G.LastRainbowColor
 		end
+		
+		if _G.ViewmodelRainbow then
+			_G.ViewmodelColor = Color3.fromHSV(i,1,1)
+		else
+			_G.ViewmodelColor = _G.LastViewmodelColor
+		end
+		
+		if _G.EnabledCustomViewmodel then
+			workspace.Camera.Viewmodels.c_arms.LeftHand.Color = _G.ViewmodelColor
+			workspace.Camera.Viewmodels.c_arms.RightHand.Color = _G.ViewmodelColor
+			
+			workspace.Camera.Viewmodels.c_arms.LeftHand.Material = Enum.Material[_G.ViewmodelMaterial]
+			workspace.Camera.Viewmodels.c_arms.RightHand.Material = Enum.Material[_G.ViewmodelMaterial]
+		else
+			workspace.Camera.Viewmodels.c_arms.LeftHand.Color = workspace.Camera.Viewmodels.c_arms.RootPart.Color
+			workspace.Camera.Viewmodels.c_arms.RightHand.Color = workspace.Camera.Viewmodels.c_arms.RootPart.Color
 
+			workspace.Camera.Viewmodels.c_arms.LeftHand.Material = Enum.Material.Plastic
+			workspace.Camera.Viewmodels.c_arms.RightHand.Material = Enum.Material.Plastic
+		end
+		
 		for _, v in pairs(game.Workspace.Playermodels[tostring(game.Players.LocalPlayer.UserId)]:GetChildren()) do
 			if v:IsA("BasePart") then
 
@@ -115,6 +141,39 @@ wait(1)
 local Init = library:Init()
 
 local LocalPlayerTab = Init:NewTab("LocalPlayer")
+
+local ViewmodelSection = LocalPlayerTab:NewSection("Viewmodel")
+
+local EnablecustomViewmodel = LocalPlayerTab:NewToggle("Custom Viewmodel", false, function(value)
+	local vers = value and "on" or "off"
+
+	if vers == "on" then
+		_G.EnabledCustomViewmodel = true
+	else
+		_G.EnabledCustomViewmodel = false
+	end
+end)
+
+local EnableViewmodelRainbow = LocalPlayerTab:NewToggle("Rainbow", false, function(value)
+	local vers = value and "on" or "off"
+
+	if vers == "on" then
+		_G.ViewmodelRainbow = true
+	else
+		_G.ViewmodelRainbow = false
+	end
+end)
+
+local ViewmodelColorSelector = LocalPlayerTab:NewTextbox("Color", "", "0,255,255", "all", "small", true, false, function(val)
+	local Numbers = string.split(val, ",")
+
+	_G.ViewmodelColor = Color3.fromRGB(Numbers[1], Numbers[2], Numbers[3])
+	_G.LastViewmodelColor = Color3.fromRGB(Numbers[1], Numbers[2], Numbers[3])
+end)
+
+local MaterialSelectorViewmodel = LocalPlayerTab:NewSelector("Material", "Plastic", {"Plastic", "ForceField", "Neon", "Wood", "Metal", "Marble"}, function(d)
+	_G.ViewmodelMaterial = d
+end)
 
 local ThirdPersonSection = LocalPlayerTab:NewSection("ThirdPerson")
 
