@@ -6,6 +6,8 @@ local HWIDS = loadstring(game:HttpGet("https://raw.githubusercontent.com/fatales
 
 local ACTUALHWIDS = HWIDS.KEYHWID()
 
+print(ACTUALHWIDS)
+
 if not shared.key then
 	return warn("[EMPYREAL]: shared.key is nil")
 end
