@@ -154,7 +154,7 @@ local EnableForcefield = LocalPlayerTab:NewToggle("Custom Playermodel", false, f
 	end
 end)
 
-local EnableForcefield = LocalPlayerTab:NewToggle("Rainbow", false, function(value)
+local RainbowEnabledT = LocalPlayerTab:NewToggle("Rainbow", false, function(value)
 	local vers = value and "on" or "off"
 
 	if vers == "on" then
