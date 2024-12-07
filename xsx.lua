@@ -1,4 +1,9 @@
-
+--[[
+  UI lib made by bungie#0001
+  
+  - Please do not use this without permission, I am working really hard on this UI to make it perfect and do not have a big 
+    problem with other people using it, please just make sure you message me and ask me before using.
+]]
 
 -- / Locals
 local Workspace = game:GetService("Workspace")
@@ -2073,11 +2078,10 @@ function library:Init(key)
 				end
 			end)
 
-			local ChatTextBox = Player.PlayerGui.Chat.Frame.ChatBarParentFrame.Frame.BoxFrame.Frame.ChatBar
 			if UserInputService.WindowFocused then
 				UserInputService.InputBegan:Connect(function(c, p)
 					if not p then
-						if c.KeyCode.Name == ChosenKey and not ChatTextBox:IsFocused() then
+						if c.KeyCode.Name == ChosenKey then
 							callback(ChosenKey)
 							return
 						end
