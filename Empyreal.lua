@@ -6,24 +6,22 @@ local HWIDS = loadstring(game:HttpGet("https://raw.githubusercontent.com/fatales
 
 local ACTUALHWIDS = HWIDS.KEYHWID()
 
-print(ACTUALHWIDS)
-
 if not shared.key then
 	return warn("[EMPYREAL]: shared.key is nil")
 end
 
-if not table.find(ACTUALHWIDS, ClientHWID) then
+if ACTUALHWIDS[ClientHWID] == nil then
 	return warn("[EMPYREAL]: invalid hwid client")
 end
 
-if table.find(HWIDS.KEYHWID(), ClientHWID) and ACTUALHWIDS[ClientHWID] ~= shared.key then
+if ACTUALHWIDS[ClientHWID] ~= nil and ACTUALHWIDS[ClientHWID] ~= shared.key then
 	return warn("[EMPYREAL]: valid hwid but wrong key")
 end
 
 local RunService = game:GetService("RunService")
 local Camera = game.Workspace.CurrentCamera
 
-	if table.find(HWIDS.getDevelopers(), ClientHWID) then
+if table.find(HWIDS.getDevelopers(), ClientHWID) then
 	library.rank = "developer"
 else
 	library.rank = "buyer"
