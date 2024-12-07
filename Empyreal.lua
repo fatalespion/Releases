@@ -6,8 +6,6 @@ local HWIDS = loadstring(game:HttpGet("https://raw.githubusercontent.com/fatales
 
 local ACTUALHWIDS = HWIDS.KEYHWID()
 
-print("yes")
-
 if not shared.key then
 	return warn("[EMPYREAL]: shared.key is nil")
 end
@@ -62,7 +60,7 @@ for _, v in pairs(game.Workspace.Playermodels[tostring(game.Players.LocalPlayer.
 	end
 end
 
-_G.ThirdPersonColor = Character.Torso.Color
+_G.ThirdPersonColor = Character.UpperTorso.Color
 
 local function ToggleThirdPerson()
 	RunService.RenderStepped:Connect(function()
