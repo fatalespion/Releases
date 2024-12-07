@@ -61,10 +61,18 @@ for _, v in pairs(game.Workspace.Playermodels[tostring(game.Players.LocalPlayer.
 end
 
 _G.ThirdPersonColor = Character.UpperTorso.Color
+_G.ThirdPersonRainbow = false
+
+_G.LastRainbowColor = _G.ThirdPersonColor
+
+local SPEED = 0.1
+local i = 0
 
 local function ToggleThirdPerson()
-	RunService.RenderStepped:Connect(function()
-
+	RunService.RenderStepped:Connect(function(delta)
+		
+		i = (i + delta*SPEED) % 1
+		
 		for _, v in pairs(game.Workspace.Playermodels[tostring(game.Players.LocalPlayer.UserId)]:GetChildren()) do
 			if v:IsA("BasePart") then
 				if _G.EnabledThirdPerson then
@@ -81,6 +89,12 @@ local function ToggleThirdPerson()
 					v.LocalTransparencyModifier = 1
 				end   
 			end
+		end
+		
+		if _G.ThirdPersonRainbow then
+			_G.ThirdPersonColor = Color3.fromHSV(i,1,1)
+		else
+			_G.ThirdPersonColor = _G.LastRainbowColor
 		end
 
 		for _, v in pairs(game.Workspace.Playermodels[tostring(game.Players.LocalPlayer.UserId)]:GetChildren()) do
@@ -144,6 +158,7 @@ local TColorSelector = LocalPlayerTab:NewTextbox("Color", "", "0,255,0", "all", 
 	local Numbers = string.split(val, ",")
 	
 	_G.ThirdPersonColor = Color3.fromRGB(Numbers[1], Numbers[2], Numbers[3])
+	_G.LastRainbowColor = Color3.fromRGB(Numbers[1], Numbers[2], Numbers[3])
 end)
 
 local MaterialSelector = LocalPlayerTab:NewSelector("Material", "Plastic", {"Plastic", "ForceField", "Neon", "Wood", "Metal", "Marble"}, function(d)
