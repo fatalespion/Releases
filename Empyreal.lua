@@ -154,6 +154,16 @@ local EnableForcefield = LocalPlayerTab:NewToggle("Custom Playermodel", false, f
 	end
 end)
 
+local EnableForcefield = LocalPlayerTab:NewToggle("Rainbow", false, function(value)
+	local vers = value and "on" or "off"
+
+	if vers == "on" then
+		_G.ThirdPersonRainbow = true
+	else
+		_G.ThirdPersonRainbow = false
+	end
+end)
+
 local TColorSelector = LocalPlayerTab:NewTextbox("Color", "", "0,255,0", "all", "small", true, false, function(val)
 	local Numbers = string.split(val, ",")
 	
