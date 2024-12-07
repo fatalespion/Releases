@@ -169,6 +169,11 @@ wait(1)
 local Init = library:Init()
 
 local LocalPlayerTab = Init:NewTab("LocalPlayer")
+local SettingsTab = Init:NewTab("Settings")
+
+local ChangeKeybind = SettingsTab:NewKeybind("Open/Close", Enum.KeyCode.Insert, function(key)
+	Init:UpdateKeybind(Enum.KeyCode[key])
+end)
 
 local ViewmodelSection = LocalPlayerTab:NewSection("Viewmodel")
 
