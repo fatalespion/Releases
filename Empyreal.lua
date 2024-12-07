@@ -140,7 +140,7 @@ local EnableForcefield = LocalPlayerTab:NewToggle("Custom Playermodel", false, f
 	end
 end)
 
-local TColorSelector = LocalPlayerTab:NewTextbox("Color", "0,255,0", "1", "all", "small", true, false, function(val)
+local TColorSelector = LocalPlayerTab:NewTextbox("Color", "", "0,255,0", "all", "small", true, false, function(val)
 	local Numbers = string.split(val, ",")
 	
 	_G.ThirdPersonColor = Color3.fromRGB(Numbers[1], Numbers[2], Numbers[3])
