@@ -212,6 +212,8 @@ local SettingsTab = Init:NewTab("Settings")
 
 --// SETTINGS \\--
 
+Init:UpdateKeybind(Enum.KeyCode.Insert)
+
 local ChangeKeybind = SettingsTab:NewKeybind("Open/Close", Enum.KeyCode.Insert, function(key)
 	Init:UpdateKeybind(Enum.KeyCode[key])
 end)
