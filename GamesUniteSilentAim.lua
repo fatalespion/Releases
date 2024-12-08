@@ -113,4 +113,8 @@ game:GetService("RunService").RenderStepped:Connect(function()
     FOVCircle.Position = Vector2.new(Camera.ViewportSize.X / 2, Camera.ViewportSize.Y / 2)
     FOVCircle.Radius = _G.CircleRadius
     FOVCircle.Visible = _G.CircleVisible
+    FOVCircle.Filled = _G.CircleFilled
+    FOVCircle.Color = _G.CircleColor
+    FOVCircle.Transparency = _G.CircleTransparency
+    FOVCircle.Thickness = _G.CircleThickness
 end)
