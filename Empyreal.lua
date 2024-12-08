@@ -221,7 +221,7 @@ end)
 if library.rank == "developer" then
 	local DeveloperTab = Init:NewTab("Developer")
 	
-	local KeyGenerator = LocalPlayerTab:NewButton("Generate Key", function()
+	local KeyGenerator = DeveloperTab:NewButton("Generate Key", function()
 		Notif:Notify("Generating key, please be patient.", 3, "information")
 		
 		task.wait(1)
