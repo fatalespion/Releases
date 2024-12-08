@@ -10,7 +10,7 @@ _G.UseFOV = false
 _G.CircleRadius = 200
 _G.CircleFilled = false
 _G.CircleColor = Color3.fromRGB(255, 255, 255)
-_G.CircleVisible = true
+_G.CircleVisible = false
 _G.CircleTransparency = 0.5
 _G.CircleSides = 64
 _G.CircleThickness = 1
@@ -89,16 +89,13 @@ do
 end
 
 Fire = hookfunction(Client.Bullet.Fire, function(self, ...)
-	if not _G.SilentAimEnabled then
-		return
-	end
 
 	local args = {...}
 
 	local target = Client:GetClosestPlayerFromCursor()
 	if target then
 		local hitChanceRoll = math.random(1, 100)
-		if hitChanceRoll <= _G.HitChance then
+		if hitChanceRoll <= _G.HitChance and _G.SilentAimEnabled then
 			local hitbox
 			
 			if _G.HeadChance >= math.random(1, 100) and _G.HitPart == "Head" then
