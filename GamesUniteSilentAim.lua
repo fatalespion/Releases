@@ -97,7 +97,7 @@ Fire = hookfunction(Client.Bullet.Fire, function(self, ...)
     if target then
         local hitChanceRoll = math.random(1, 100)
         if hitChanceRoll <= _G.HitChance then
-            local hitbox = _G.HeadChance >= math.random(1, 100) and "Head" or _G.HitPart
+            local hitbox = _G.HeadChance >= math.random(1, 100) and _G.HitPart == "Head" or _G.HitPart
             local targetHitbox = Client:GetPlayerHitbox(target, hitbox)
             
             if targetHitbox and Client:CheckWall(Camera.CFrame.Position, targetHitbox.CFrame.Position) then
