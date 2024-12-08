@@ -45,7 +45,7 @@ end)()
 
 
 local Notif = library:InitNotifications()
-Notif:Notify("Successfully loaded with HWID {"..tostring(ClientHWID).."}", 1, "success") -- notification, alert, error, success, information
+Notif:Notify("Successfully loaded with HWID {"..tostring(ClientHWID).."}", 2, "success") -- notification, alert, error, success, information
 task.wait(0.5)
 Notif:Notify("Loading empyreal, please be patient.", 3, "information") -- notification, alert, error, success, information
 
@@ -283,7 +283,7 @@ end
 
 --// VISUALS \\--
 
-local WarningText2 = LocalPlayerTab:NewLabel("⚠️ [ MORE WILL COME BE PATIENT ] ⚠️", "center")
+local WarningText2 = VisualsTab:NewLabel("⚠️ [ MORE WILL COME BE PATIENT ] ⚠️", "center")
 
 local EnableESP = VisualsTab:NewToggle("Highlight ESP", false, function(value)
 	local vers = value and "on" or "off"
