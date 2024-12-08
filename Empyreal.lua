@@ -249,7 +249,7 @@ if library.rank == "developer" then
 		end
 		
 		setclipboard(ACTUALHWIDS[_G.SelectedHWID])
-		Notif:Notify("Key found, the key has been pasted in your clipboard.", 3, "success") -- notification, alert, error, success, information
+		Notif:Notify("Key found ["..ACTUALHWIDS[_G.SelectedHWID].."], the key has been pasted in your clipboard.", 3, "success") -- notification, alert, error, success, information
 	end)
 	
 	local SillyText = DeveloperTab:NewLabel("hello mr."..library:GetUsername().." :)", "center")
