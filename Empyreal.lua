@@ -431,7 +431,7 @@ local EnableSilentAim = CombatTab:NewToggle("Enable", false, function(value)
 	else
 		_G.SilentAimEnabled = false
 	end
-end)
+end):AddKeybind(nil)
 
 local EnableWallCheck = CombatTab:NewToggle("Wall Check", false, function(value)
 	local vers = value and "on" or "off"
