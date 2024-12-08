@@ -45,11 +45,9 @@ end)()
 
 
 local Notif = library:InitNotifications()
-
-for i = 5,0,-1 do 
-	task.wait(0.05)
-	local LoadingXSX = Notif:Notify("Loading empyreal, please be patient.", 3, "information") -- notification, alert, error, success, information
-end 
+Notif:Notify("Successfully loaded with HWID {"..tostring(ClientHWID).."}", 1, "success") -- notification, alert, error, success, information
+task.wait(0.5)
+Notif:Notify("Loading empyreal, please be patient.", 3, "information") -- notification, alert, error, success, information
 
 library.title = "Empyreal"
 
