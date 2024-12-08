@@ -224,7 +224,7 @@ if library.rank == "developer" then
 	local KeyGenerator = DeveloperTab:NewButton("Generate Key", function()
 		Notif:Notify("Generating key, please be patient.", 3, "information")
 		
-		task.wait(1)
+		task.wait(3.5)
 		
 		setclipboard(HWIDS.generateKey())
 		Notif:Notify("Key generated, the key has been pasted in your clipboard.", 3, "success") -- notification, alert, error, success, information
