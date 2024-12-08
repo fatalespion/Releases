@@ -135,7 +135,7 @@ local function ToggleThirdPerson()
 		else
 			_G.ThirdPersonColor = _G.LastRainbowColor
 		end
-		
+
 		if _G.CircleRainbow then
 			_G.CircleColor = Color3.fromHSV(i,1,1)
 		else
@@ -215,6 +215,21 @@ local SettingsTab = Init:NewTab("Settings")
 local ChangeKeybind = SettingsTab:NewKeybind("Open/Close", Enum.KeyCode.Insert, function(key)
 	Init:UpdateKeybind(Enum.KeyCode[key])
 end)
+
+--// DEVELOPER \\--
+
+if library.rank == "developer" then
+	local DeveloperTab = Init:NewTab("Developer")
+	
+	local KeyGenerator = LocalPlayerTab:NewButton("Generate Key", function()
+		Notif:Notify("Generating key, please be patient.", 3, "information")
+		
+		task.wait(1)
+		
+		setclipboard(HWIDS.generateKey())
+		Notif:Notify("Key generated, the key has been pasted in your clipboard.", 3, "success") -- notification, alert, error, success, information
+	end)
+end
 
 --// LOCALPLAYER \\--
 
