@@ -84,6 +84,10 @@ _G.ViewmodelMaterial = "Plastic"
 
 _G.HighlightESP = false
 
+_G.ESPHighlighColor = Color3.fromRGB(255,255,255)
+_G.ESPHighlightRainbow = false
+_G.ESPHighlightLastColor = _G.ESPHighlighColor
+
 local SPEED = 0.1
 local i = 0
 
