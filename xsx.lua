@@ -775,7 +775,7 @@ function library:Introduction()
 	hashLogo.Position = UDim2.new(0.5, 0, 0.5, 0)
 	hashLogo.Size = UDim2.new(0, 150, 0, 150)
 	hashLogo.Visible = true
-	hashLogo.Image = "http://www.roblox.com/asset/?id=128086503671511" 
+	hashLogo.Image = "rbxassetid://128086503671511" 
 	hashLogo.ImageColor3 = _G.UILibColor
 	hashLogo.ImageTransparency = 1
 
