@@ -1,4 +1,5 @@
 _G.UILibColor = Color3.fromRGB(255, 255, 255)
+_G.SliderUILibColor = Color3.fromRGB(229, 229, 229)
 
 local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/fatalespion/Releases/refs/heads/main/xsx.lua"))()
 
