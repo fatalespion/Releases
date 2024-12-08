@@ -147,7 +147,13 @@ local function ToggleThirdPerson()
 		else
 			_G.ViewmodelColor = _G.LastViewmodelColor
 		end
-
+		
+		if _G.ESPHighlightRainbow then
+			_G.ESPHighlighColor = Color3.fromHSV(i,1,1)
+		else
+			_G.ESPHighlighColor = _G.ESPHighlightLastColor
+		end
+		
 		if _G.EnabledCustomViewmodel then
 			workspace.Camera.Viewmodels.c_arms.LeftHand.Color = _G.ViewmodelColor
 			workspace.Camera.Viewmodels.c_arms.RightHand.Color = _G.ViewmodelColor
@@ -194,6 +200,7 @@ local function ToggleThirdPerson()
 						if v:FindFirstChild("Highlight") then
 							v.Highlight.Enabled = true
 							v.Highlight.DepthMode = Enum.HighlightDepthMode.AlwaysOnTop
+							v.Highlight.OutlineColor = _G.ESPHighlighColor
 							v.Highlight.FillTransparency = 1
 							v.Highlight.OutlineTransparency = 0
 						end
@@ -202,6 +209,7 @@ local function ToggleThirdPerson()
 							v.Highlight.Enabled = false
 							v.Highlight.DepthMode = Enum.HighlightDepthMode.AlwaysOnTop
 							v.Highlight.FillTransparency = 1
+							v.Highlight.OutlineColor = _G.ESPHighlighColor
 							v.Highlight.OutlineTransparency = 0
 						end
 					end
@@ -210,6 +218,7 @@ local function ToggleThirdPerson()
 						v.Highlight.Enabled = true
 						v.Highlight.DepthMode = Enum.HighlightDepthMode.AlwaysOnTop
 						v.Highlight.FillTransparency = 1
+						v.Highlight.OutlineColor = _G.ESPHighlighColor
 						v.Highlight.OutlineTransparency = 0
 					end
 				end
@@ -220,6 +229,7 @@ local function ToggleThirdPerson()
 					v.Highlight.Enabled = false
 					v.Highlight.DepthMode = Enum.HighlightDepthMode.AlwaysOnTop
 					v.Highlight.FillTransparency = 1
+					v.Highlight.OutlineColor = _G.ESPHighlighColor
 					v.Highlight.OutlineTransparency = 0
 				end	
 			end
@@ -315,6 +325,23 @@ local EnableESPLocal = VisualsTab:NewToggle("Local", false, function(value)
 	else
 		_G.ESPLocal = false
 	end
+end)
+
+local EnableESPRainbow = VisualsTab:NewToggle("Rainbow Highlight", false, function(value)
+	local vers = value and "on" or "off"
+
+	if vers == "on" then
+		_G.ESPHighlightRainbow = true
+	else
+		_G.ESPHighlightRainbow = false
+	end
+end)
+
+local VisualHighlightColor = VisualsTab:NewTextbox("Highlight Color", "", "255,255,255", "all", "small", true, false, function(val)
+	local Numbers = string.split(val, ",")
+
+	_G.ESPHighlighColor = Color3.fromRGB(Numbers[1], Numbers[2], Numbers[3])
+	_G.ESPHighlightLastColor = Color3.fromRGB(Numbers[1], Numbers[2], Numbers[3])
 end)
 
 --// LOCALPLAYER \\--
