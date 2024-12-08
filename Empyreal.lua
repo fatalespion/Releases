@@ -234,7 +234,7 @@ if library.rank == "developer" then
 	
 	DeveloperTab:NewSeperator()
 	
-	local HWIDChecker = DeveloperTab:NewTextbox("HWID TO KEY", "", "PUT HWID IN", "all", "medium", true, false, function(val)
+	local HWIDChecker = DeveloperTab:NewTextbox("HWID CHECKER", "", "PUT HWID IN", "all", "medium", true, false, function(val)
 		_G.SelectedHWID = val
 	end)
 	
