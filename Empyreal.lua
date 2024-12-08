@@ -45,6 +45,8 @@ for i = 5,0,-1 do
 	local LoadingXSX = Notif:Notify("Loading empyreal, please be patient.", 3, "information") -- notification, alert, error, success, information
 end 
 
+library:PromptDiscord("https://discord.gg/Qbqe3sAa")
+
 library.title = "Empyreal"
 
 --// VARIABLES \\--
