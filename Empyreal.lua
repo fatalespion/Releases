@@ -205,9 +205,9 @@ wait(1)
 local Init = library:Init()
 
 --// INIT TABS \\--
-
-local LocalPlayerTab = Init:NewTab("LocalPlayer")
 local CombatTab = Init:NewTab("Combat")
+local VisualsTab = Init:NewTab("Visuals")
+local LocalPlayerTab = Init:NewTab("LocalPlayer")
 local SettingsTab = Init:NewTab("Settings")
 
 --// SETTINGS \\--
