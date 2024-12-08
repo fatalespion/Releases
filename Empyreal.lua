@@ -191,29 +191,37 @@ local function ToggleThirdPerson()
 			for _, v in pairs(game.Workspace.Playermodels:GetChildren()) do
 				if v.Name == tostring(game.Players.LocalPlayer.UserId) then
 					if _G.ESPLocal then
+						if v:FindFirstChild("Highlight") then
+							v.Highlight.Enabled = true
+							v.Highlight.DepthMode = Enum.HighlightDepthMode.AlwaysOnTop
+							v.Highlight.FillTransparency = 1
+							v.Highlight.OutlineTransparency = 0
+						end
+					else
+						if v:FindFirstChild("Highlight") then
+							v.Highlight.Enabled = false
+							v.Highlight.DepthMode = Enum.HighlightDepthMode.AlwaysOnTop
+							v.Highlight.FillTransparency = 1
+							v.Highlight.OutlineTransparency = 0
+						end
+					end
+				else
+					if v:FindFirstChild("Highlight") then
 						v.Highlight.Enabled = true
 						v.Highlight.DepthMode = Enum.HighlightDepthMode.AlwaysOnTop
 						v.Highlight.FillTransparency = 1
 						v.Highlight.OutlineTransparency = 0
-					else
-						v.Highlight.Enabled = false
-						v.Highlight.DepthMode = Enum.HighlightDepthMode.AlwaysOnTop
-						v.Highlight.FillTransparency = 1
-						v.Highlight.OutlineTransparency = 0
 					end
-				else
-					v.Highlight.Enabled = true
-					v.Highlight.DepthMode = Enum.HighlightDepthMode.AlwaysOnTop
-					v.Highlight.FillTransparency = 1
-					v.Highlight.OutlineTransparency = 0
 				end
 			end
 		else
 			for _, v in pairs(game.Workspace.Playermodels:GetChildren()) do
-				v.Enabled = false
-				v.DepthMode = Enum.HighlightDepthMode.AlwaysOnTop
-				v.FillTransparency = 1
-				v.OutlineTransparency = 0
+				if v:FindFirstChild("Highlight") then
+					v.Highlight.Enabled = false
+					v.Highlight.DepthMode = Enum.HighlightDepthMode.AlwaysOnTop
+					v.Highlight.FillTransparency = 1
+					v.Highlight.OutlineTransparency = 0
+				end	
 			end
 		end
 
