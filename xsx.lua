@@ -766,7 +766,7 @@ function library:Introduction()
 	xsxLogo.Image = "http://www.roblox.com/asset/?id=9365068051"
 	xsxLogo.ImageColor3 = _G.UILibColor
 	xsxLogo.ImageTransparency = 1
-
+	
 	hashLogo.Name = "hashLogo"
 	hashLogo.Parent = background
 	hashLogo.AnchorPoint = Vector2.new(0.5, 0.5)
@@ -775,7 +775,7 @@ function library:Introduction()
 	hashLogo.Position = UDim2.new(0.5, 0, 0.5, 0)
 	hashLogo.Size = UDim2.new(0, 150, 0, 150)
 	hashLogo.Visible = true
-	hashLogo.Image = "rbxassetid://128086503671511" 
+	hashLogo.Image = "rbxassetid://90527203074022" 
 	hashLogo.ImageColor3 = _G.UILibColor
 	hashLogo.ImageTransparency = 1
 
@@ -797,7 +797,7 @@ function library:Introduction()
 	text.Position = UDim2.new(0.912751675, 0, 0, 0)
 	text.Size = UDim2.new(0, 26, 0, 21)
 	text.Font = Enum.Font.Code
-	text.Text = "empyreal"
+	text.Text = "hash"
 	text.TextColor3 = Color3.fromRGB(124, 124, 124)
 	text.TextSize = 10.000
 	text.TextTransparency = 1
@@ -1631,7 +1631,7 @@ function library:Init(key)
 			toggleDesignCorner.Name = "toggleDesignCorner"
 			toggleDesignCorner.Parent = toggleDesign
 
-			toggleDesignGradient.Color = ColorSequence.new{ColorSequenceKeypoint.new(0.00, Color3.fromRGB(157, 115, 255)), ColorSequenceKeypoint.new(1.00, Color3.fromRGB(106, 69, 181))}
+			toggleDesignGradient.Color = ColorSequence.new{ColorSequenceKeypoint.new(0.00, _G.UILibColor), ColorSequenceKeypoint.new(1.00, _G.SliderUILibColor)}
 			toggleDesignGradient.Rotation = 90
 			toggleDesignGradient.Name = "toggleDesignGradient"
 			toggleDesignGradient.Parent = toggleDesign
