@@ -219,16 +219,40 @@ end)
 --// DEVELOPER \\--
 
 if library.rank == "developer" then
-	local DeveloperTab = Init:NewTab("Developer")
+	_G.SelectedHWID = ""
 	
+	local DeveloperTab = Init:NewTab("Developer")
+
 	local KeyGenerator = DeveloperTab:NewButton("Generate Key", function()
 		Notif:Notify("Generating key, please be patient.", 3, "information")
-		
+
 		task.wait(3.5)
-		
+
 		setclipboard(HWIDS.generateKey())
 		Notif:Notify("Key generated, the key has been pasted in your clipboard.", 3, "success") -- notification, alert, error, success, information
 	end)
+	
+	DeveloperTab:NewSeperator()
+	
+	local HWIDChecker = DeveloperTab:NewTextbox("HWID TO KEY", "", "PUT HWID IN", "all", "medium", true, false, function(val)
+		_G.SelectedHWID = val
+	end)
+	
+	local KeyCheck = DeveloperTab:NewButton("CHECK", function()
+		Notif:Notify("tracking key, please be patient.", 3, "information")
+
+		task.wait(3.5)
+		
+		if ACTUALHWIDS[_G.SelectedHWID] == nil then
+			Notif:Notify("key not found, invalid hwid.", 3, "error")
+			return
+		end
+		
+		setclipboard(ACTUALHWIDS[_G.SelectedHWID])
+		Notif:Notify("Key found, the key has been pasted in your clipboard.", 3, "success") -- notification, alert, error, success, information
+	end)
+	
+	local SillyText = DeveloperTab:NewLabel("hello mr."..library:GetUsername().." :)", "center")
 end
 
 --// LOCALPLAYER \\--
@@ -392,6 +416,8 @@ end)
 local FOVTransparency = CombatTab:NewSlider("Transparency", "", true, "/", {min = 1, max = 0, default = 0}, function(value)
 	_G.CircleThickness = value
 end)
+
+CombatTab:NewSeperator()
 
 local SilentAimSection = CombatTab:NewSection("SilentAim")
 
