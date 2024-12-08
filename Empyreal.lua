@@ -191,21 +191,21 @@ local function ToggleThirdPerson()
 			for _, v in pairs(game.Workspace.Playermodels:GetChildren()) do
 				if v.Name == tostring(game.Players.LocalPlayer.UserId) then
 					if _G.ESPLocal then
-						v.Enabled = true
-						v.DepthMode = Enum.HighlightDepthMode.AlwaysOnTop
-						v.FillTransparency = 1
-						v.OutlineTransparency = 0
+						v.Highlight.Enabled = true
+						v.Highlight.DepthMode = Enum.HighlightDepthMode.AlwaysOnTop
+						v.Highlight.FillTransparency = 1
+						v.Highlight.OutlineTransparency = 0
 					else
-						v.Enabled = false
-						v.DepthMode = Enum.HighlightDepthMode.AlwaysOnTop
-						v.FillTransparency = 1
-						v.OutlineTransparency = 0
+						v.Highlight.Enabled = false
+						v.Highlight.DepthMode = Enum.HighlightDepthMode.AlwaysOnTop
+						v.Highlight.FillTransparency = 1
+						v.Highlight.OutlineTransparency = 0
 					end
 				else
-					v.Enabled = true
-					v.DepthMode = Enum.HighlightDepthMode.AlwaysOnTop
-					v.FillTransparency = 1
-					v.OutlineTransparency = 0
+					v.Highlight.Enabled = true
+					v.Highlight.DepthMode = Enum.HighlightDepthMode.AlwaysOnTop
+					v.Highlight.FillTransparency = 1
+					v.Highlight.OutlineTransparency = 0
 				end
 			end
 		else
