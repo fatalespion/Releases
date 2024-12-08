@@ -1,6 +1,7 @@
 local Camera = workspace.CurrentCamera
 local UserInputService = game:GetService('UserInputService')
 
+_G.SilentAimEnabled = false
 _G.WallCheck = false
 _G.HeadChance = 100
 _G.HitChance = 100
@@ -86,6 +87,10 @@ do
 end
 
 Fire = hookfunction(Client.Bullet.Fire, function(self, ...)
+    if not _G.SilentAimEnabled then
+        return
+    end
+    
     local args = {...}
     
     local target = Client:GetClosestPlayerFromCursor()
