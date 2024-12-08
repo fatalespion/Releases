@@ -7,14 +7,20 @@ local HWIDS = loadstring(game:HttpGet("https://raw.githubusercontent.com/fatales
 local ACTUALHWIDS = HWIDS.KEYHWID()
 
 if not shared.key then
+	local Notif = library:InitNotifications()
+	local LoadingXSX = Notif:Notify("shared.key is nil.", 3, "error")
 	return warn("[EMPYREAL]: shared.key is nil")
 end
 
 if ACTUALHWIDS[ClientHWID] == nil then
+	local Notif = library:InitNotifications()
+	local LoadingXSX = Notif:Notify("invalid hwid client.", 3, "error")
 	return warn("[EMPYREAL]: invalid hwid client")
 end
 
 if ACTUALHWIDS[ClientHWID] ~= nil and ACTUALHWIDS[ClientHWID] ~= shared.key then
+	local Notif = library:InitNotifications()
+	local LoadingXSX = Notif:Notify("valid hwid but wrong key.", 3, "error")
 	return warn("[EMPYREAL]: valid hwid but wrong key")
 end
 
@@ -44,8 +50,6 @@ for i = 5,0,-1 do
 	task.wait(0.05)
 	local LoadingXSX = Notif:Notify("Loading empyreal, please be patient.", 3, "information") -- notification, alert, error, success, information
 end 
-
-library:PromptDiscord("https://discord.gg/Qbqe3sAa")
 
 library.title = "Empyreal"
 
