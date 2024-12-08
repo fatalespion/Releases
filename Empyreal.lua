@@ -84,6 +84,8 @@ _G.LastViewmodelColor = _G.ViewmodelColor
 _G.LastViewmodelGunColor = _G.ViewmodelGunColor
 _G.ViewmodelMaterial = "Plastic"
 
+_G.HighlightESP = false
+
 local SPEED = 0.1
 local i = 0
 
@@ -187,9 +189,33 @@ local function ToggleThirdPerson()
 			end
 		end
 
-		for _, v in pairs(game.Workspace.Playermodels[tostring(game.Players.LocalPlayer.UserId)]:GetChildren()) do
-			if v:IsA("BasePart") then
-
+		if _G.HighlightESP then
+			for _, v in pairs(game.Workspace.Playermodels:GetChildren()) do
+				if v.Name == tostring(game.Players.LocalPlayer.UserId) then
+					if _G.ESPLocal then
+						v.Enabled = true
+						v.DepthMode = Enum.HighlightDepthMode.AlwaysOnTop
+						v.FillTransparency = 1
+						v.OutlineTransparency = 0
+					else
+						v.Enabled = false
+						v.DepthMode = Enum.HighlightDepthMode.AlwaysOnTop
+						v.FillTransparency = 1
+						v.OutlineTransparency = 0
+					end
+				else
+					v.Enabled = true
+					v.DepthMode = Enum.HighlightDepthMode.AlwaysOnTop
+					v.FillTransparency = 1
+					v.OutlineTransparency = 0
+				end
+			end
+		else
+			for _, v in pairs(game.Workspace.Playermodels:GetChildren()) do
+				v.Enabled = false
+				v.DepthMode = Enum.HighlightDepthMode.AlwaysOnTop
+				v.FillTransparency = 1
+				v.OutlineTransparency = 0
 			end
 		end
 
@@ -256,6 +282,30 @@ if library.rank == "developer" then
 	
 	local SillyText = DeveloperTab:NewLabel("Hello, "..string.upper(library:GetUsername()).."!", "center")
 end
+
+--// VISUALS \\--
+
+local WarningText2 = LocalPlayerTab:NewLabel("⚠️ [ MORE WILL COME BE PATIENT ] ⚠️", "center")
+
+local EnableESP = VisualsTab:NewToggle("Highlight ESP", false, function(value)
+	local vers = value and "on" or "off"
+
+	if vers == "on" then
+		_G.HighlightESP = true
+	else
+		_G.HighlightESP = false
+	end
+end)
+
+local EnableESPLocal = VisualsTab:NewToggle("Local", false, function(value)
+	local vers = value and "on" or "off"
+
+	if vers == "on" then
+		_G.ESPLocal = true
+	else
+		_G.ESPLocal = false
+	end
+end)
 
 --// LOCALPLAYER \\--
 
