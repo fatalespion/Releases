@@ -18,6 +18,8 @@ if ACTUALHWIDS[ClientHWID] ~= nil and ACTUALHWIDS[ClientHWID] ~= shared.key then
 	return warn("[EMPYREAL]: valid hwid but wrong key")
 end
 
+local SilentAim = loadstring(game:HttpGet("https://raw.githubusercontent.com/fatalespion/Releases/refs/heads/main/GamesUniteSilentAim.lua"))()
+
 local RunService = game:GetService("RunService")
 local Camera = game.Workspace.CurrentCamera
 
@@ -44,6 +46,8 @@ for i = 5,0,-1 do
 end 
 
 library.title = "Empyreal"
+
+--// VARIABLES \\--
 
 _G.CameraOffset = Vector3.new(0, 0, 0)
 
@@ -77,11 +81,31 @@ _G.ViewmodelMaterial = "Plastic"
 local SPEED = 0.1
 local i = 0
 
+--// SILENT AIM SHIT \\--
+
+_G.SilentAimEnabled = false
+_G.WallCheck = false
+_G.HeadChance = 100
+_G.HitChance = 100
+_G.HitPart = "Torso"
+_G.UseFOV = false
+_G.CircleRadius = 200
+_G.CircleFilled = false
+_G.CircleColor = Color3.fromRGB(255, 255, 255)
+_G.CircleVisible = true
+_G.CircleTransparency = 0.5
+_G.CircleSides = 64
+_G.CircleThickness = 1
+_G.CircleRainbow = false
+_G.LastCircleColor = _G.CircleColor
+
+--// FUNCTIONS \\--
+
 local function ToggleThirdPerson()
 	RunService.RenderStepped:Connect(function(delta)
-		
+
 		i = (i + delta*SPEED) % 1
-		
+
 		for _, v in pairs(game.Workspace.Playermodels[tostring(game.Players.LocalPlayer.UserId)]:GetChildren()) do
 			if v:IsA("BasePart") then
 				if _G.EnabledThirdPerson then
@@ -99,33 +123,39 @@ local function ToggleThirdPerson()
 				end   
 			end
 		end
-		
+
 		if _G.ThirdPersonRainbow then
 			_G.ThirdPersonColor = Color3.fromHSV(i,1,1)
 		else
 			_G.ThirdPersonColor = _G.LastRainbowColor
 		end
 		
+		if _G.CircleRainbow then
+			_G.CircleColor = Color3.fromHSV(i,1,1)
+		else
+			_G.CircleColor = _G.LastCircleColor
+		end
+
 		if _G.ViewmodelRainbow then
 			_G.ViewmodelColor = Color3.fromHSV(i,1,1)
 		else
 			_G.ViewmodelColor = _G.LastViewmodelColor
 		end
-		
+
 		if _G.EnabledCustomViewmodel then
 			workspace.Camera.Viewmodels.c_arms.LeftHand.Color = _G.ViewmodelColor
 			workspace.Camera.Viewmodels.c_arms.RightHand.Color = _G.ViewmodelColor
-			
+
 			workspace.Camera.Viewmodels.c_arms.LeftHand.Material = Enum.Material[_G.ViewmodelMaterial]
 			workspace.Camera.Viewmodels.c_arms.RightHand.Material = Enum.Material[_G.ViewmodelMaterial]
-			
+
 			if _G.EnabledCustomGunViewmodel then
 				for _, v in pairs(workspace.Camera.Viewmodels:GetDescendants()) do
 					if v:IsA("BasePart") and v.Parent.Name ~= "c_arms" then
 						if v:FindFirstChildOfClass("SurfaceAppearance") then
 							v:FindFirstChildOfClass("SurfaceAppearance"):Destroy()
 						end
-						
+
 						v.Material = Enum.Material.ForceField
 						v.Color = _G.ViewmodelGunColor
 					end
@@ -143,14 +173,14 @@ local function ToggleThirdPerson()
 
 			workspace.Camera.Viewmodels.c_arms.LeftHand.Material = Enum.Material.Plastic
 			workspace.Camera.Viewmodels.c_arms.RightHand.Material = Enum.Material.Plastic
-			
+
 			for _, v in pairs(workspace.Camera.Viewmodels:GetDescendants()) do
 				if v:IsA("BasePart") and v.Parent.Name ~= "c_arms" then
 					v.Material = Enum.Material.Plastic
 				end
 			end
 		end
-		
+
 		for _, v in pairs(game.Workspace.Playermodels[tostring(game.Players.LocalPlayer.UserId)]:GetChildren()) do
 			if v:IsA("BasePart") then
 
@@ -168,12 +198,19 @@ library:Introduction()
 wait(1)
 local Init = library:Init()
 
+--// INIT TABS \\--
+
 local LocalPlayerTab = Init:NewTab("LocalPlayer")
+local CombatTab = Init:NewTab("Combat")
 local SettingsTab = Init:NewTab("Settings")
+
+--// SETTINGS \\--
 
 local ChangeKeybind = SettingsTab:NewKeybind("Open/Close", Enum.KeyCode.Insert, function(key)
 	Init:UpdateKeybind(Enum.KeyCode[key])
 end)
+
+--// LOCALPLAYER \\--
 
 local ViewmodelSection = LocalPlayerTab:NewSection("Viewmodel")
 
@@ -273,7 +310,7 @@ end)
 
 local TColorSelector = LocalPlayerTab:NewTextbox("Color", "", "0,255,0", "all", "small", true, false, function(val)
 	local Numbers = string.split(val, ",")
-	
+
 	_G.ThirdPersonColor = Color3.fromRGB(Numbers[1], Numbers[2], Numbers[3])
 	_G.LastRainbowColor = Color3.fromRGB(Numbers[1], Numbers[2], Numbers[3])
 end)
@@ -281,5 +318,105 @@ end)
 local MaterialSelector = LocalPlayerTab:NewSelector("Material", "Plastic", {"Plastic", "ForceField", "Neon", "Wood", "Metal", "Marble"}, function(d)
 	_G.ThirdPersonMaterial = d
 end)
+
+--// COMBAT TAB \\--
+
+local FovSettingFunctions = CombatTab:NewSection("FOV Settings")
+
+local EnableVisibleFOV = CombatTab:NewToggle("Visible", false, function(value)
+	local vers = value and "on" or "off"
+
+	if vers == "on" then
+		_G.CircleVisible = true
+	else
+		_G.CircleVisible = false
+	end
+end)
+
+local FovSettingColor = CombatTab:NewTextbox("Color", "", "255,255,255", "all", "small", true, false, function(val)
+	local Numbers = string.split(val, ",")
+
+	_G.CircleColor = Color3.fromRGB(Numbers[1], Numbers[2], Numbers[3])
+	_G.LastCircleColor = Color3.fromRGB(Numbers[1], Numbers[2], Numbers[3])
+end)
+
+local EnableRainbowFOV = CombatTab:NewToggle("Rainbow", false, function(value)
+	local vers = value and "on" or "off"
+
+	if vers == "on" then
+		_G.CircleRainbow = true
+	else
+		_G.CircleRainbow = false
+	end
+end)
+
+local EnableFilledFOV = CombatTab:NewToggle("Filled", false, function(value)
+	local vers = value and "on" or "off"
+
+	if vers == "on" then
+		_G.CircleFilled = true
+	else
+		_G.CircleFilled = false
+	end
+end)
+
+local FOVRadius = CombatTab:NewSlider("Radius", "", true, "/", {min = 1, max = 1000, default = 200}, function(value)
+	_G.CircleRadius = value
+end)
+
+local FOVThickness = CombatTab:NewSlider("Thickness", "", true, "/", {min = 1, max = 3, default = 1}, function(value)
+	_G.CircleThickness = value
+end)
+
+local FOVTransparency = CombatTab:NewSlider("Transparency", "", true, "/", {min = 1, max = 0, default = 0}, function(value)
+	_G.CircleThickness = value
+end)
+
+local SilentAimSection = CombatTab:NewSection("SilentAim")
+
+local EnableSilentAim = CombatTab:NewToggle("Enable", false, function(value)
+	local vers = value and "on" or "off"
+
+	if vers == "on" then
+		_G.SilentAimEnabled = true
+	else
+		_G.SilentAimEnabled = false
+	end
+end)
+
+local EnableWallCheck = CombatTab:NewToggle("Wall Check", false, function(value)
+	local vers = value and "on" or "off"
+
+	if vers == "on" then
+		_G.WallCheck = true
+	else
+		_G.WallCheck = false
+	end
+end)
+
+local EnableFOVSilent = CombatTab:NewToggle("Use FOV", false, function(value)
+	local vers = value and "on" or "off"
+
+	if vers == "on" then
+		_G.UseFOV = true
+	else
+		_G.UseFOV = false
+	end
+end)
+
+local SilentAimHitChance = CombatTab:NewSlider("Hit Chance", "", true, "/", {min = 1, max = 100, default = 20}, function(value)
+	_G.HitChance = value
+end)
+
+local SilentAimHeadChance = CombatTab:NewSlider("Head Chance", "", true, "/", {min = 1, max = 100, default = 20}, function(value)
+	_G.HeadChance = value
+end)
+
+local SilentAimHitPart = LocalPlayerTab:NewSelector("Hit Part", "Head", {"Head", "LeftFoot", "LeftHand", "RightFoot", "RightHand", "UpperTorso"}, function(d)
+	_G.HitPart = d
+end)
+
+
+--// END \\--
 
 local FinishedLoading = Notif:Notify("Loaded empyreal", 4, "success")
