@@ -17,7 +17,7 @@ end
 
 function HWIDS.generateKey()
 	local chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"
-	local key = ""
+	local key = "EMP-"
 	for i = 1, 10 do
 		local randomIndex = math.random(1, #chars)
 		key = key .. chars:sub(randomIndex, randomIndex)
