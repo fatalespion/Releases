@@ -25,6 +25,8 @@ FOVCircle.Transparency = _G.CircleTransparency
 FOVCircle.NumSides = _G.CircleSides
 FOVCircle.Thickness = _G.CircleThickness
 
+warn("SILENT AIM V1")
+
 local Client = {}
 do
 	for _, v in next, getgc(true) do
