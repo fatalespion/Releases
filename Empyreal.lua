@@ -236,6 +236,8 @@ local SettingsTab = Init:NewTab("Settings")
 
 --// SETTINGS \\--
 
+local WarningText5 = SettingsTab:NewLabel("⚠️ [ MORE WILL COME BE PATIENT ] ⚠️", "center")
+
 Init:UpdateKeybind(Enum.KeyCode.Insert)
 
 local ChangeKeybind = SettingsTab:NewKeybind("Open/Close", Enum.KeyCode.Insert, function(key)
@@ -306,6 +308,8 @@ local EnableESPLocal = VisualsTab:NewToggle("Local", false, function(value)
 end)
 
 --// LOCALPLAYER \\--
+
+local WarningText3 = LocalPlayerTab:NewLabel("⚠️ [ MORE WILL COME BE PATIENT ] ⚠️", "center")
 
 local ViewmodelSection = LocalPlayerTab:NewSection("Viewmodel")
 
@@ -415,6 +419,8 @@ local MaterialSelector = LocalPlayerTab:NewSelector("Material", "Plastic", {"Pla
 end)
 
 --// COMBAT TAB \\--
+
+local WarningText4 = CombatTab:NewLabel("⚠️ [ MORE WILL COME BE PATIENT ] ⚠️", "center")
 
 local FovSettingFunctions = CombatTab:NewSection("FOV Settings")
 
