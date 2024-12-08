@@ -1,3 +1,5 @@
+_G.UILibColor = Color3.fromRGB(255, 255, 255)
+
 local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/fatalespion/Releases/refs/heads/main/xsx.lua"))()
 
 local ClientHWID = tostring(game:GetService("RbxAnalyticsService"):GetClientId())
