@@ -287,6 +287,8 @@ end
 
 local WarningText2 = VisualsTab:NewLabel("⚠️ [ MORE WILL COME BE PATIENT ] ⚠️", "center")
 
+local ESPSECTION = VisualsTab:NewSection("ESP")
+
 local EnableESP = VisualsTab:NewToggle("Highlight ESP", false, function(value)
 	local vers = value and "on" or "off"
 
