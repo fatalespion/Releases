@@ -418,7 +418,7 @@ local SilentAimHeadChance = CombatTab:NewSlider("Head Chance", "", true, "/", {m
 	_G.HeadChance = value
 end)
 
-local SilentAimHitPart = LocalPlayerTab:NewSelector("Hit Part", "Head", {"Head", "LeftFoot", "LeftHand", "RightFoot", "RightHand", "UpperTorso"}, function(d)
+local SilentAimHitPart = CombatTab:NewSelector("Hit Part", "Head", {"Head", "LeftFoot", "LeftHand", "RightFoot", "RightHand", "UpperTorso"}, function(d)
 	_G.HitPart = d
 end)
 
