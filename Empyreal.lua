@@ -66,7 +66,7 @@ _G.Empyreal = function(typeS, theme)
 	
 	if ACTUALHWIDS[ClientHWID] == nil then
 		local Notif = library:InitNotifications()
-		local LoadingXSX = Notif:Notify("invalid hwid client.", 4, "error")
+		local LoadingXSX = Notif:Notify("unknown {hwid/HardWareID}.", 4, "error")
 		return warn("[EMPYREAL]: invalid hwid client")
 	end
 	
