@@ -49,22 +49,30 @@ _G.Empyreal = function(typeS, theme)
 	local HWIDS = loadstring(game:HttpGet("https://raw.githubusercontent.com/fatalespion/Releases/refs/heads/main/EmpyrealHWIDS.lua"))()
 
 	local ACTUALHWIDS = HWIDS.KEYHWID()
-
+	
 	if not shared.key then
 		local Notif = library:InitNotifications()
-		local LoadingXSX = Notif:Notify("shared.key is nil.", 3, "error")
+		local LoadingXSX = Notif:Notify("shared.key is nil.", 4, "error")
 		return warn("[EMPYREAL]: shared.key is nil")
 	end
-
+	
+	for HWID, Keys in pairs(ACTUALHWIDS) do
+		if Keys == shared.key and HWID ~= ClientHWID then
+			local Notif = library:InitNotifications()
+			local LoadingXSX = Notif:Notify("valid key but wrong hwid, your lucky i wont hwid lock you, now say sorry.",4, "error")
+			return warn("[EMPYREAL]: valid key but wrong hwid [your lucky i wont hwid lock you, now say sorry].")
+		end
+	end
+	
 	if ACTUALHWIDS[ClientHWID] == nil then
 		local Notif = library:InitNotifications()
-		local LoadingXSX = Notif:Notify("invalid hwid client.", 3, "error")
+		local LoadingXSX = Notif:Notify("invalid hwid client.", 4, "error")
 		return warn("[EMPYREAL]: invalid hwid client")
 	end
-
+	
 	if ACTUALHWIDS[ClientHWID] ~= nil and ACTUALHWIDS[ClientHWID] ~= shared.key then
 		local Notif = library:InitNotifications()
-		local LoadingXSX = Notif:Notify("valid hwid but wrong key.", 3, "error")
+		local LoadingXSX = Notif:Notify("valid hwid but wrong key.", 4, "error")
 		return warn("[EMPYREAL]: valid hwid but wrong key")
 	end
 
@@ -417,6 +425,8 @@ _G.Empyreal = function(typeS, theme)
 			Notif:Notify("Key found ["..ACTUALHWIDS[_G.SelectedHWID].."], the key has been pasted in your clipboard.", 3, "success") -- notification, alert, error, success, information
 		end)
 		
+		DeveloperTab:NewSeperator()
+		
 		local DeveloperTheme = DeveloperTab:NewButton("Developer [THEME]", function()
 			Notif:Notify("Reloading the script, please be patient.", 3, "information")
 
@@ -432,7 +442,9 @@ _G.Empyreal = function(typeS, theme)
 
 			_G.Empyreal("theme", "black")
 		end)
-
+		
+		DeveloperTab:NewSeperator()
+		
 		local SillyText = DeveloperTab:NewLabel("Hello, "..string.upper(library:GetUsername()).."!", "center")
 	end
 
