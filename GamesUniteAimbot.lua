@@ -10,7 +10,7 @@ _G.AimbotEnabled = false
 _G.AimPart = "Head"
 
 _G.AimKeybind = Enum.UserInputType.MouseButton2
-_G.WallCheck = true
+_G.AimbotWallCheck = true
 
 local function IsPlayerAlive(player)
 	return game.Workspace.Playermodels[tostring(player.UserId)] and game.Workspace.Playermodels[tostring(player.UserId)]:FindFirstChild("Humanoid") and game.Workspace.Playermodels[tostring(player.UserId)].Humanoid.Health > 0
@@ -58,7 +58,7 @@ local function GetClosestTarget()
 				local VectorDistance = (MouseLocation - Vector2.new(ScreenPoint.X, ScreenPoint.Y)).Magnitude
 
 				if VectorDistance < MaximumDistance and IsPlayerInFront(LocalPlayer, v) then
-					if not _G.WallCheck or not IsPlayerBehindWall(v) then
+					if not _G.AimbotWallCheck or not IsPlayerBehindWall(v) then
 						Target = aimPart
 						MaximumDistance = VectorDistance
 					end
@@ -81,7 +81,7 @@ local function GetMouseTarget()
 				local aimPart = character[_G.AimPart]
 				local ScreenPoint = Camera:WorldToScreenPoint(aimPart.Position)
 				if (MouseLocation - Vector2.new(ScreenPoint.X, ScreenPoint.Y)).Magnitude < _G.CircleRadius then
-					if not _G.TWallCheck or not IsPlayerBehindWall(player) then
+					if not IsPlayerBehindWall(player) then
 						return aimPart
 					end
 				end
