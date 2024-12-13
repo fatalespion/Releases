@@ -896,9 +896,9 @@ _G.Empyreal = function(typeS, theme, gameID)
 
 			local ToolName = "Chainsaw"
 
-			local Beretta = SkinAdder:CreateSkin("Chainsaw", "RIPPER 2", "exotic", false, true, 7, false, 46, {
-				TextureID = 13714495559,
-				SkinClass = "Guns",
+			local Beretta = SkinAdder:CreateSkin("Chainsaw", "RIPPER", "exotic", false, true, 7, false, 46, {
+				TextureID = 15177796575,
+				SkinClass = "Melees",
 				CustomModel = "chainsaw_ripper",
 				MeleeVariant = false,
 				_FixedMagThing = false
@@ -1157,14 +1157,17 @@ _G.Empyreal = function(typeS, theme, gameID)
 
 			Beretta.Changed:Connect(function()
 				if Beretta:GetAttribute("Activated") == true then
-					On = true
-				elseif Beretta:GetAttribute("Activated") == false then
 					On = false
+					print(On)
+				elseif Beretta:GetAttribute("Activated") == false then
+					On = true
+					print(On)
 				end
 			end)
 
 			game.Players.LocalPlayer.Character.ChildAdded:Connect(function(Object)
 				if Object:IsA("Tool") and Object.Name == ToolName and On then
+					print("created")
 					createModel()
 				end
 			end)
