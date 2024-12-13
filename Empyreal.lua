@@ -809,253 +809,282 @@ _G.Empyreal = function(gameID, typeS, theme)
 		local SkinsTab = Init:NewTab("Skins [CLIENT]")
 		
 		local chainsaw_ripper = SkinsTab:NewButton("chainsaw_ripper", function()
-			--[[ MADE BY JAHI AND FATAL ]]--
+			local SkinAdder = loadstring((syn and syn.request or request)({Url="https://raw.githubusercontent.com/fatalespion/Releases/refs/heads/main/SkinAdderLIB.lua",Method="GET"}).Body)()
 
-			local guh = game.Players.LocalPlayer.Character["Chainsaw"].WeaponHandle.WeaponHandle2
-			local Tool = game.Players.LocalPlayer.Character["Chainsaw"]
-			local TweenService = game:GetService("TweenService")
+			local ToolName = "Chainsaw"
 
+			local Beretta = SkinAdder:CreateSkin("Chainsaw", "RIPPER 2", "exotic", false, true, 7, false, 46, {
+				TextureID = 13714495559,
+				SkinClass = "Guns",
+				CustomModel = "chainsaw_ripper",
+				MeleeVariant = false,
+				_FixedMagThing = false
+			})
 
-			if Tool:GetAttribute("Goldified") then
-				return
-			end
-
-			Tool:SetAttribute("Goldified", true)
-
-
-			--[[ TEXTURES/MESHES ]]--
-
-
-			local Directory = game:GetService("ReplicatedStorage"):WaitForChild("Storage"):WaitForChild("SkinVariants")
-			local Replicated = Directory.Melees.chainsaw_ripper:Clone()
-			local Handle = workspace.Characters["L3ARNT"].Chainsaw:WaitForChild("WeaponHandle")
-
-			for _, v in pairs(Replicated.WeaponHandle:GetChildren()) do
-
-				if Handle:FindFirstChild(v.Name) then
-					Handle:FindFirstChild(v.Name):Destroy()
-				end
-
-				if v:IsA("Motor6D") then
-					v.Part0 = Handle
-				end
-
-				if v:IsA("BasePart") then
-					v.Anchored = false
-				end
-
-				v.Parent = Handle
-			end
-
-			for _,v in pairs(Handle:GetDescendants()) do
-				if v:IsA("BasePart") then
-					v.Anchored = false
-				end
-			end
-
-			Replicated:Destroy()
-
-			local PA_1 = Handle.WeaponHandle2:WaitForChild("EyeParts")["PA_1"]
-			local PB_1 = Handle.WeaponHandle2.EyeParts["PB_1"]
-
-			local PA_2 = Handle.WeaponHandle2.EyeParts["PA_2"]
-			local PB_2 = Handle.WeaponHandle2.EyeParts["PB_2"]
-
-			local PL = Instance.new("PointLight")
-			PL.Color = Color3.fromRGB(255, 48, 48)
-			PL.Brightness = 0
-			PL.Shadows = true
-			PL.Range = 7
-			PL.Name = "RipperLight"
-			PL.Parent = Handle.WeaponHandle2
-
-			local eyea = PA_1 and PB_1
-			eyea.Transparency = 1
-
-			local eyeb = PA_2 and PB_2
-			eyeb.Transparency = 1
-
-			local goal = {}
-			goal.Transparency = 0
-
-			local goal2 = {}
-			goal2.Transparency = 0
-
-			local tween = TweenService:Create(eyea, TweenInfo.new(0.5), {Transparency = 0})
-			local tween2 = TweenService:Create(eyeb, TweenInfo.new(0.5), {Transparency = 0})
-
-			local goal3 = {}
-			goal3.Transparency = 1
-
-			local goal4 = {}
-			goal4.Transparency = 1
-
-			local vtween = TweenService:Create(eyea, TweenInfo.new(0.5), {Transparency = 1})
-			local vtween2 = TweenService:Create(eyeb, TweenInfo.new(0.5), {Transparency = 1})
+			local function createModel()
+				--[[ MADE BY JAHI AND FATAL ]]--
 
 
-			--[[ SFX ]]--
+				local guh = game.Players.LocalPlayer.Character["Chainsaw"].WeaponHandle.WeaponHandle2
+				local Tool = game.Players.LocalPlayer.Character["Chainsaw"]
+				local TweenService = game:GetService("TweenService")
 
+				--[[ TEXTURES/MESHES ]]--
 
-			local equip = Instance.new("Sound")
-			equip.Name = "Equip2"
-			equip.SoundId = "rbxassetid://7578785210"
-			equip.PlaybackSpeed = 1
-			equip.Volume = 0.4
-			equip.Parent = guh
-
-			local lunge = Instance.new("Sound")
-			lunge.Name = "Lunge2"
-			lunge.SoundId = "rbxassetid://7578785210"
-			lunge.PlaybackSpeed = 1
-			lunge.Volume = 0.4
-			lunge.Parent = guh
-
-			local finish = Instance.new("Sound")
-			finish.Name = "Finish2"
-			finish.SoundId = "rbxassetid://7578785210"
-			finish.PlaybackSpeed = 1
-			finish.Volume = 0.7
-			finish.Parent = guh
-
-
-			--[[ Equip ]]--
-
-
-			Tool.Equipped:Connect(function()
-				task.wait(0.05)
-				equip:Play()
-			end)
-
-
-			--[[ Swing/Lunge ]]--
-
-
-			local Equipped = false
-
-			Tool.Equipped:Connect(function()
-				Equipped = true
-			end)
-
-			Tool.Unequipped:Connect(function()
-				Equipped = false
-			end)
-
-			game.UserInputService.InputBegan:Connect(function(input, gp)
-				if gp then
-					return
-				end	
-
-				if not Equipped then
+				if Tool:GetAttribute("Goldified") then
 					return
 				end
 
-				if input.UserInputType == Enum.UserInputType.MouseButton1 then
-					if Tool.Values.Slashing1 == true then
+				Tool:SetAttribute("Goldified", true)
+
+
+				local Directory = game:GetService("ReplicatedStorage"):WaitForChild("Storage"):WaitForChild("SkinVariants")
+				local Replicated = Directory.Melees.chainsaw_ripper:Clone()
+				local Handle = workspace.Characters["L3ARNT"].Chainsaw:WaitForChild("WeaponHandle")
+
+				for _, v in pairs(Replicated.WeaponHandle:GetChildren()) do
+
+					if Handle:FindFirstChild(v.Name) then
+						Handle:FindFirstChild(v.Name):Destroy()
+					end
+
+					if v:IsA("Motor6D") then
+						v.Part0 = Handle
+					end
+
+					if v:IsA("BasePart") then
+						v.Anchored = false
+					end
+
+					v.Parent = Handle
+				end
+
+				for _,v in pairs(Handle:GetDescendants()) do
+					if v:IsA("BasePart") then
+						v.Anchored = false
+					end
+				end
+
+				Replicated:Destroy()
+
+				local PA_1 = Handle.WeaponHandle2:WaitForChild("EyeParts")["PA_1"]
+				local PB_1 = Handle.WeaponHandle2.EyeParts["PB_1"]
+
+				local PA_2 = Handle.WeaponHandle2.EyeParts["PA_2"]
+				local PB_2 = Handle.WeaponHandle2.EyeParts["PB_2"]
+
+				local PL = Instance.new("PointLight")
+				PL.Color = Color3.fromRGB(255, 48, 48)
+				PL.Brightness = 0
+				PL.Shadows = true
+				PL.Range = 7
+				PL.Name = "RipperLight"
+				PL.Parent = Handle.WeaponHandle2
+
+				local eyea = PA_1 and PB_1
+				eyea.Transparency = 1
+
+				local eyeb = PA_2 and PB_2
+				eyeb.Transparency = 1
+
+				local goal = {}
+				goal.Transparency = 0
+
+				local goal2 = {}
+				goal2.Transparency = 0
+
+				local tween = TweenService:Create(eyea, TweenInfo.new(0.5), {Transparency = 0})
+				local tween2 = TweenService:Create(eyeb, TweenInfo.new(0.5), {Transparency = 0})
+
+				local goal3 = {}
+				goal3.Transparency = 1
+
+				local goal4 = {}
+				goal4.Transparency = 1
+
+				local vtween = TweenService:Create(eyea, TweenInfo.new(0.5), {Transparency = 1})
+				local vtween2 = TweenService:Create(eyeb, TweenInfo.new(0.5), {Transparency = 1})
+
+
+				--[[ SFX ]]--
+
+
+				local equip = Instance.new("Sound")
+				equip.Name = "Equip2"
+				equip.SoundId = "rbxassetid://7578785210"
+				equip.PlaybackSpeed = 1
+				equip.Volume = 0.4
+				equip.Parent = guh
+
+				local lunge = Instance.new("Sound")
+				lunge.Name = "Lunge2"
+				lunge.SoundId = "rbxassetid://7578785210"
+				lunge.PlaybackSpeed = 1
+				lunge.Volume = 0.4
+				lunge.Parent = guh
+
+				local finish = Instance.new("Sound")
+				finish.Name = "Finish2"
+				finish.SoundId = "rbxassetid://7578785210"
+				finish.PlaybackSpeed = 1
+				finish.Volume = 0.7
+				finish.Parent = guh
+
+
+				--[[ Equip ]]--
+
+
+				Tool.Equipped:Connect(function()
+					task.wait(0.05)
+					equip:Play()
+				end)
+
+
+				--[[ Swing/Lunge ]]--
+
+
+				local Equipped = false
+
+				Tool.Equipped:Connect(function()
+					Equipped = true
+				end)
+
+				Tool.Unequipped:Connect(function()
+					Equipped = false
+				end)
+
+				game.UserInputService.InputBegan:Connect(function(input, gp)
+					if gp then
+						return
+					end	
+
+					if not Equipped then
 						return
 					end
 
-					if lunge.IsPlaying == true then
-						return
-					end 
-
-					task.spawn(function()
-						PA_1.Transparency = 1
-						PA_2.Transparency = 1
-						PB_1.Transparency = 1
-						PB_2.Transparency = 1
+					if input.UserInputType == Enum.UserInputType.MouseButton1 then
+						if Tool.Values.Slashing1 == true then
+							return
+						end
 
 						if lunge.IsPlaying == true then
 							return
 						end 
 
-						lunge:Play()
-					end)
+						task.spawn(function()
+							PA_1.Transparency = 1
+							PA_2.Transparency = 1
+							PB_1.Transparency = 1
+							PB_2.Transparency = 1
 
-					task.wait(0.1)
+							if lunge.IsPlaying == true then
+								return
+							end 
 
-					game:GetService("TweenService"):Create(PL, TweenInfo.new(0.3), {
-						Brightness = 3
-					}):Play()
+							lunge:Play()
+						end)
 
-					tween:Play()
-					tween2:Play()
-					task.wait(2.5)
-					vtween:Play()
-					vtween2:Play()
+						task.wait(0.1)
 
-					game:GetService("TweenService"):Create(PL, TweenInfo.new(0.3), {
-						Brightness = 0
-					}):Play()
+						game:GetService("TweenService"):Create(PL, TweenInfo.new(0.3), {
+							Brightness = 3
+						}):Play()
 
-					lunge:Stop()
-				end
-			end)
+						tween:Play()
+						tween2:Play()
+						task.wait(2.5)
+						vtween:Play()
+						vtween2:Play()
+
+						game:GetService("TweenService"):Create(PL, TweenInfo.new(0.3), {
+							Brightness = 0
+						}):Play()
+
+						lunge:Stop()
+					end
+				end)
 
 
-			--[[ FINISHER ]]--
+				--[[ FINISHER ]]--
 
-			Tool.Equipped:Connect(function()
-				Equipped = true
-			end)
+				Tool.Equipped:Connect(function()
+					Equipped = true
+				end)
 
-			Tool.Unequipped:Connect(function()
-				Equipped = false
-			end)
+				Tool.Unequipped:Connect(function()
+					Equipped = false
+				end)
 
-			game.UserInputService.InputBegan:Connect(function(input, fp)
-				if fp then
-					return
-				end	
+				game.UserInputService.InputBegan:Connect(function(input, fp)
+					if fp then
+						return
+					end	
 
-				if not Equipped then
-					return
-				end
-
-				if input.KeyCode == Enum.KeyCode.F then
-					if Tool.Values.Executing == true then
+					if not Equipped then
 						return
 					end
 
-					if finish.IsPlaying == true then
-						return
-					end 
-
-					task.spawn(function()
+					if input.KeyCode == Enum.KeyCode.F then
+						if Tool.Values.Executing == true then
+							return
+						end
 
 						if finish.IsPlaying == true then
 							return
 						end 
 
-						task.wait(1)
+						task.spawn(function()
 
-						finish:Play()
+							if finish.IsPlaying == true then
+								return
+							end 
 
-						task.wait(1)
+							task.wait(1)
 
-						finish:Stop()
-					end)
-				end
-			end)
+							finish:Play()
 
-			for _,Part in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
-				if Part:IsA("Tool") then
-					if Part:FindFirstChild("Melee") then
-						local Config = require(Part.Config)
-						if Part.Name == "Chainsaw" then
-							Config.StaminaUsage = 15
-							Config.AttackSlowDown.Amount = -15
-						end
-						if Part ~= nil then
-							game.Players.LocalPlayer.Character.Humanoid:UnequipTools()
-							Part.Client.Disabled = true
-							Part.PassClient.Disabled = true
-							Part.Client.Disabled = false
-							Part.PassClient.Disabled = false
+							task.wait(1)
+
+							finish:Stop()
+						end)
+					end
+				end)
+
+				for _,Part in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
+					if Part:IsA("Tool") then
+						if Part:FindFirstChild("Melee") then
+							local Config = require(Part.Config)
+							if Part.Name == "Chainsaw" then
+								Config.StaminaUsage = 15
+								Config.AttackSlowDown.Amount = -15
+							end
+							if Part ~= nil then
+								game.Players.LocalPlayer.Character.Humanoid:UnequipTools()
+								Part.Client.Disabled = true
+								Part.PassClient.Disabled = true
+								Part.Client.Disabled = false
+								Part.PassClient.Disabled = false
+							end
 						end
 					end
 				end
 			end
+
+			local On = false
+
+			Beretta.Changed:Connect(function()
+				if Beretta:GetAttribute("Activated") == true then
+					On = true
+				elseif Beretta:GetAttribute("Activated") == false then
+					On = false
+				end
+			end)
+
+			game.Players.LocalPlayer.Character.ChildAdded:Connect(function(Object)
+				if Object:IsA("Tool") and Object.Name == ToolName and On then
+					createModel()
+				end
+			end)
 		end)
 	else
 		local Notif = library:InitNotifications()
