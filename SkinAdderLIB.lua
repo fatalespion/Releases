@@ -279,3 +279,5 @@ repeat task.wait()
 	warn("[SKIN ADDER]: LOADED")
 	warn("[SKIN ADDER]: "..SkinAdder.Credits)
 until LoadChecks.FUNCTIONS
+
+return SkinAdder
