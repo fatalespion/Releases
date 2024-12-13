@@ -34,8 +34,6 @@ function SkinAdder:AddToViewportFrame(data,vpf,itemType,modelStuffOnly)
 	local model = RepStorage.Storage.DisplayWepModels:FindFirstChild(data.ItemName)
 	local isExotic = data.Rarity == "exotic"
 
-	model = RepStorage.Storage.SkinVariants[data.SkinClass]:FindFirstChild("chainsaw_ripper")
-
 	if data.CustomModel then
 		model = RepStorage.Storage.SkinVariants[data.SkinClass]:FindFirstChild(data.CustomModel)
 	end
