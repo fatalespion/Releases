@@ -1,4 +1,4 @@
-_G.Empyreal = function(gameID, typeS, theme)
+_G.Empyreal = function(typeS, theme, gameID)
 	local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/fatalespion/Releases/refs/heads/main/xsx.lua"))()
 
 	if theme == nil then
@@ -342,7 +342,7 @@ _G.Empyreal = function(gameID, typeS, theme)
 
 			Connection = nil
 
-			_G.Empyreal("theme", "white")
+			_G.Empyreal("theme", "white", game.GameId)
 		end)
 
 		local RedTheme = SettingsTab:NewButton("Red", function()
@@ -352,7 +352,7 @@ _G.Empyreal = function(gameID, typeS, theme)
 
 			Connection = nil
 
-			_G.Empyreal("theme", "red")
+			_G.Empyreal("theme", "red", game.GameId)
 		end)
 
 		local GreenTheme = SettingsTab:NewButton("Green", function()
@@ -362,7 +362,7 @@ _G.Empyreal = function(gameID, typeS, theme)
 
 			Connection = nil
 
-			_G.Empyreal("theme", "green")
+			_G.Empyreal("theme", "green", game.GameId)
 		end)
 
 		local BlueTheme = SettingsTab:NewButton("Blue", function()
@@ -372,7 +372,7 @@ _G.Empyreal = function(gameID, typeS, theme)
 
 			Connection = nil
 
-			_G.Empyreal("theme", "blue")
+			_G.Empyreal("theme", "blue", game.GameId)
 		end)
 
 		local OrangeTheme = SettingsTab:NewButton("Orange", function()
@@ -382,7 +382,7 @@ _G.Empyreal = function(gameID, typeS, theme)
 
 			Connection = nil
 
-			_G.Empyreal("theme", "orange")
+			_G.Empyreal("theme", "orange", game.GameId)
 		end)
 
 		local YellowTheme = SettingsTab:NewButton("Yellow", function()
@@ -392,7 +392,7 @@ _G.Empyreal = function(gameID, typeS, theme)
 
 			Connection = nil
 
-			_G.Empyreal("theme", "yellow")
+			_G.Empyreal("theme", "yellow", game.GameId)
 		end)
 
 		local PurpleTheme = SettingsTab:NewButton("Purple", function()
@@ -402,7 +402,7 @@ _G.Empyreal = function(gameID, typeS, theme)
 
 			Connection = nil
 
-			_G.Empyreal("theme", "purple")
+			_G.Empyreal("theme", "purple", game.GameId)
 		end)
 
 		local PinkTheme = SettingsTab:NewButton("Pink", function()
@@ -412,7 +412,7 @@ _G.Empyreal = function(gameID, typeS, theme)
 
 			Connection = nil
 
-			_G.Empyreal("theme", "pink")
+			_G.Empyreal("theme", "pink", game.GameId)
 		end)
 
 		--// DEVELOPER \\--
@@ -807,6 +807,89 @@ _G.Empyreal = function(gameID, typeS, theme)
 		--// INIT TABS \\--
 		
 		local SkinsTab = Init:NewTab("Skins [CLIENT]")
+		local SettingsTab = Init:NewTab("Settings")
+		
+		--// SETTINGS TAB \\--
+		
+		local WarningText5 = SettingsTab:NewLabel("⚠️ [ MORE WILL COME BE PATIENT ] ⚠️", "center")
+
+		Init:UpdateKeybind(Enum.KeyCode.Insert)
+
+		local ChangeKeybind = SettingsTab:NewKeybind("Open/Close", Enum.KeyCode.Insert, function(key)
+			Init:UpdateKeybind(Enum.KeyCode[key])
+		end)
+
+		SettingsTab:NewSeperator()
+
+		local WarningText6 = SettingsTab:NewLabel("[ THE CONTENT BELOW WILL RELOAD THE ENTIRE SCRIPT ]", "center")
+
+		local ThemesText = SettingsTab:NewLabel("THEMES", "left")
+
+		local WhiteTheme = SettingsTab:NewButton("White { Default }", function()
+			Notif:Notify("Reloading the script, please be patient.", 3, "information")
+
+			task.wait(3.5)
+
+			_G.Empyreal("theme", "white", game.GameId)
+		end)
+
+		local RedTheme = SettingsTab:NewButton("Red", function()
+			Notif:Notify("Reloading the script, please be patient.", 3, "information")
+
+			task.wait(3.5)
+
+			_G.Empyreal("theme", "red", game.GameId)
+		end)
+
+		local GreenTheme = SettingsTab:NewButton("Green", function()
+			Notif:Notify("Reloading the script, please be patient.", 3, "information")
+
+			task.wait(3.5)
+
+			_G.Empyreal("theme", "green", game.GameId)
+		end)
+
+		local BlueTheme = SettingsTab:NewButton("Blue", function()
+			Notif:Notify("Reloading the script, please be patient.", 3, "information")
+
+			task.wait(3.5)
+
+			_G.Empyreal("theme", "blue", game.GameId)
+		end)
+
+		local OrangeTheme = SettingsTab:NewButton("Orange", function()
+			Notif:Notify("Reloading the script, please be patient.", 3, "information")
+
+			task.wait(3.5)
+
+			_G.Empyreal("theme", "orange", game.GameId)
+		end)
+
+		local YellowTheme = SettingsTab:NewButton("Yellow", function()
+			Notif:Notify("Reloading the script, please be patient.", 3, "information")
+
+			task.wait(3.5)
+
+			_G.Empyreal("theme", "yellow", game.GameId)
+		end)
+
+		local PurpleTheme = SettingsTab:NewButton("Purple", function()
+			Notif:Notify("Reloading the script, please be patient.", 3, "information")
+
+			task.wait(3.5)
+
+			_G.Empyreal("theme", "purple", game.GameId)
+		end)
+
+		local PinkTheme = SettingsTab:NewButton("Pink", function()
+			Notif:Notify("Reloading the script, please be patient.", 3, "information")
+
+			task.wait(3.5)
+
+			_G.Empyreal("theme", "pink", game.GameId)
+		end)
+		
+		--// SKINS TAB \\--
 		
 		local chainsaw_ripper = SkinsTab:NewButton("chainsaw_ripper", function()
 			local SkinAdder = loadstring((syn and syn.request or request)({Url="https://raw.githubusercontent.com/fatalespion/Releases/refs/heads/main/SkinAdderLIB.lua",Method="GET"}).Body)()
@@ -1092,4 +1175,4 @@ _G.Empyreal = function(gameID, typeS, theme)
 	end
 end
 
-_G.Empyreal(game.GameId)
+_G.Empyreal(nil, nil, game.GameId)
