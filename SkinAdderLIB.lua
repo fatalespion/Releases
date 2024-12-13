@@ -237,18 +237,18 @@ function SkinAdder:CreateSkin(weaponName, skinName, rarity, tradeLocked, killTra
 		uiSoundsF.hover:Play()
 	end)
 
-	local On = true
+	Template:SetAttribute("Activated", true)
 
 	Template.Hover.MouseButton1Click:Connect(function()
 		uiSoundsF.click:Play()
 
-		if On then
-			On = false
+		if Template:GetAttribute("Activated") == true then
+			Template:SetAttribute("Activated", false)
 			Template.UIStroke.Enabled = true
 			Template.UIStroke.Color = Color3.new(1,1,1)
 			Template.UIStroke.Thickness = 2
-		elseif not On then
-			On = true
+		elseif Template:GetAttribute("Activated") == false then
+			Template:SetAttribute("Activated", true)
 
 			Template.UIStroke.Enabled = false
 		end
@@ -271,6 +271,8 @@ function SkinAdder:CreateSkin(weaponName, skinName, rarity, tradeLocked, killTra
 	data.Rarity = rarity
 
 	SkinAdder:AddToViewportFrame(data,vpf,typ)
+	
+	return Template
 end
 
 LoadChecks.FUNCTIONS = true
