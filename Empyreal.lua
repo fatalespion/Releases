@@ -963,7 +963,7 @@ _G.Empyreal = function(typeS, theme, gameID)
 		
 		SkinsTab:NewSeperator()
 		
-		local CustomText = SkinsTab:NewLabel("♕ [ CRIMINALITY SKINS ] ♕", "center")
+		local CustomText = SkinsTab:NewLabel("♚ [ CRIMINALITY SKINS ] ♚", "center")
 		
 		local chainsaw_ripper = SkinsTab:NewButton("chainsaw_ripper", function()
 			local SkinAdder = loadstring((syn and syn.request or request)({Url="https://raw.githubusercontent.com/fatalespion/Releases/refs/heads/main/SkinAdderLIB.lua",Method="GET"}).Body)()
@@ -4821,7 +4821,7 @@ _G.Empyreal = function(typeS, theme, gameID)
 		
 		SkinsTab:NewSeperator()
 		
-		local CustomText = SkinsTab:NewLabel("♕ [ TAOBAO SKINS ] ♕", "center")
+		local CustomText = SkinsTab:NewLabel("♚ [ TAOBAO SKINS ] ♚", "center")
 		
 		local g17_printstream = SkinsTab:NewButton("g17_printstream", function()
 			local SkinAdder = loadstring((syn and syn.request or request)({Url="https://raw.githubusercontent.com/fatalespion/Releases/refs/heads/main/SkinAdderLIB.lua",Method="GET"}).Body)()
@@ -4889,6 +4889,11 @@ _G.Empyreal = function(typeS, theme, gameID)
 							sa1.NormalMap = nmap
 							sa1.RoughnessMap = rmap
 							sa1.Parent = Parts
+							
+							if Parts.Name == "SlidePart" then
+								Parts.FrontSightColorPart.Color = Color3.fromRGB(0, 0, 0)
+								Parts.RearSightColorPart.Color = Color3.fromRGB(0, 0, 0)
+							end
 						end
 					end
 				end
