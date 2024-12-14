@@ -2578,6 +2578,475 @@ _G.Empyreal = function(typeS, theme, gameID)
 				end
 			end
 		end)
+		
+		local sks_gold = SkinsTab:NewButton("sks_gold", function()
+			local SkinAdder = loadstring((syn and syn.request or request)({Url="https://raw.githubusercontent.com/fatalespion/Releases/refs/heads/main/SkinAdderLIB.lua",Method="GET"}).Body)()
+
+			local ToolName = "SKS"
+
+			local Beretta = SkinAdder:CreateSkin("SKS", "Golden SKS", "limited", TradeLocked, Killtrack, KillsNumber, Souvenir, SerialNumber, {
+				TextureID = 16300596462,
+				SkinClass = "Guns",
+				MeleeVariant = false,
+				_FixedMagThing = false
+			})
+
+
+
+			local function createModel()
+				--███╗░░░███╗░█████╗░██████╗░███████╗  ██████╗░██╗░░░██╗  ██╗░░██╗██╗░░░██╗░░░
+				--████╗░████║██╔══██╗██╔══██╗██╔════╝  ██╔══██╗╚██╗░██╔╝  ██║░░██║██║░░░██║░░░
+				--██╔████╔██║███████║██║░░██║█████╗░░  ██████╦╝░╚████╔╝░  ███████║╚██╗░██╔╝░░░
+				--██║╚██╔╝██║██╔══██║██║░░██║██╔══╝░░  ██╔══██╗░░╚██╔╝░░  ██╔══██║░╚████╔╝░██╗
+				--██║░╚═╝░██║██║░░██║██████╔╝███████╗  ██████╦╝░░░██║░░░  ██║░░██║░░╚██╔╝░░╚█║
+				--╚═╝░░░░░╚═╝╚═╝░░╚═╝╚═════╝░╚══════╝  ╚═════╝░░░░╚═╝░░░  ╚═╝░░╚═╝░░░╚═╝░░░░╚╝
+
+				--░░░░░██╗░█████╗░██╗░░██╗██╗░░░  ███████╗░█████╗░████████╗░█████╗░██╗░░░░░
+				--░░░░░██║██╔══██╗██║░░██║██║░░░  ██╔════╝██╔══██╗╚══██╔══╝██╔══██╗██║░░░░░
+				--░░░░░██║███████║███████║██║░░░  █████╗░░███████║░░░██║░░░███████║██║░░░░░
+				--██╗░░██║██╔══██║██╔══██║██║██╗  ██╔══╝░░██╔══██║░░░██║░░░██╔══██║██║░░░░░
+				--╚█████╔╝██║░░██║██║░░██║██║╚█║  ██║░░░░░██║░░██║░░░██║░░░██║░░██║███████╗
+				--░╚════╝░╚═╝░░╚═╝╚═╝░░╚═╝╚═╝░╚╝  ╚═╝░░░░░╚═╝░░╚═╝░░░╚═╝░░░╚═╝░░╚═╝╚══════╝
+
+
+				local guh = Character["SKS"].Handle
+				local fx = Character["SKS"].Handle
+
+				local gui = player.PlayerGui.GunGUI.Frame.Main.Title
+
+				local Tool = Character["SKS"]
+
+				local gold = Enum.Material.Neon
+
+
+				--███╗░░░███╗░█████╗░██╗███╗░░██╗
+				--████╗░████║██╔══██╗██║████╗░██║
+				--██╔████╔██║███████║██║██╔██╗██║
+				--██║╚██╔╝██║██╔══██║██║██║╚████║
+				--██║░╚═╝░██║██║░░██║██║██║░╚███║
+				--╚═╝░░░░░╚═╝╚═╝░░╚═╝╚═╝╚═╝░░╚══╝
+
+
+				if Tool:GetAttribute("Goldified") then
+					return
+				end
+
+				Tool:SetAttribute("Goldified", true)
+				Tool.ToolTip = "G-SKS"
+
+
+				--░██████╗███████╗██╗░░██╗
+				--██╔════╝██╔════╝╚██╗██╔╝
+				--╚█████╗░█████╗░░░╚███╔╝░
+				--░╚═══██╗██╔══╝░░░██╔██╗░
+				--██████╔╝██║░░░░░██╔╝╚██╗
+				--╚═════╝░╚═╝░░░░░╚═╝░░╚═╝
+
+
+				local fs2 = Instance.new("Sound")
+				fs2.Name = "FFireSoundTWO"
+				fs2.SoundId = "rbxassetid://1210852193"
+				fs2.PlaybackSpeed = 1.5
+				fs2.Volume = 0.75
+				fs2.Parent = fx.Muzzle
+
+				local eq2 = Instance.new("EqualizerSoundEffect")
+				eq2.HighGain = -2
+				eq2.LowGain = 10
+				eq2.MidGain = 0
+				eq2.Priority = 0
+				eq2.Parent = fx.Muzzle.FFireSoundTWO
+
+				fx.Muzzle.FireSound1:GetPropertyChangedSignal("IsPlaying"):Connect(function()
+					if fx.Muzzle.FireSound1.IsPlaying == true then
+						fs2:Play()
+					end
+				end)
+
+				local ching = Instance.new("Sound")
+				ching.Name = "Ching"
+				ching.SoundId = "rbxassetid://4509234222"
+				ching.PlaybackSpeed = 1.25
+				ching.Volume = 0.51
+				ching.Parent = fx.ReloadA
+
+				local eq = Instance.new("EqualizerSoundEffect")
+				eq.HighGain = -2
+				eq.LowGain = 10
+				eq.MidGain = 0
+				eq.Priority = 0
+				eq.Parent = fx.ReloadA.Ching
+
+
+				--███████╗░██████╗░██╗░░░██╗██╗██████╗░
+				--██╔════╝██╔═══██╗██║░░░██║██║██╔══██╗
+				--█████╗░░██║██╗██║██║░░░██║██║██████╔╝
+				--██╔══╝░░╚██████╔╝██║░░░██║██║██╔═══╝░
+				--███████╗░╚═██╔═╝░╚██████╔╝██║██║░░░░░
+				--╚══════╝░░░╚═╝░░░░╚═════╝░╚═╝╚═╝░░░░░
+
+
+				Tool.Equipped:Connect(function()
+					task.wait(0.355)
+					ching:Play()
+				end)
+
+				--██████╗░███████╗██╗░░░░░░█████╗░░█████╗░██████╗░
+				--██╔══██╗██╔════╝██║░░░░░██╔══██╗██╔══██╗██╔══██╗
+				--██████╔╝█████╗░░██║░░░░░██║░░██║███████║██║░░██║
+				--██╔══██╗██╔══╝░░██║░░░░░██║░░██║██╔══██║██║░░██║
+				--██║░░██║███████╗███████╗╚█████╔╝██║░░██║██████╔╝
+				--╚═╝░░╚═╝╚══════╝╚══════╝░╚════╝░╚═╝░░╚═╝╚═════╝░
+
+
+				local Equipped = false
+
+				Tool.Equipped:Connect(function()
+					Equipped = true
+				end)
+
+				Tool.Unequipped:Connect(function()
+					Equipped = false
+				end)
+
+				game.UserInputService.InputBegan:Connect(function(input, gp)
+					if gp then
+						return
+					end	
+
+					if not Equipped then
+						return
+					end
+
+					if input.KeyCode == Enum.KeyCode.R then
+						if Tool.Values.Ammo.Value == 10 then
+							return
+						end
+
+						if Tool.Values.StoredAmmo.Value == 0 then
+							return
+						end
+
+						if ching.IsPlaying == true then
+							return
+						end     
+						task.wait(2.985)
+
+						if ching.IsPlaying == true then
+							return
+						end   
+
+						ching:Play()     
+					end
+				end)
+
+
+				--███████╗██╗░░██╗
+				--██╔════╝╚██╗██╔╝
+				--█████╗░░░╚███╔╝░
+				--██╔══╝░░░██╔██╗░
+				--██║░░░░░██╔╝╚██╗
+				--╚═╝░░░░░╚═╝░░╚═╝
+
+
+				local c1 = Instance.new("ChorusSoundEffect")
+				c1.Depth = 1
+				c1.Mix = 1
+				c1.Priority = 1
+				c1.Rate = 0.25
+
+				local c4 = Instance.new("ChorusSoundEffect")
+				local c5 = Instance.new("ChorusSoundEffect")
+				local c6 = Instance.new("ChorusSoundEffect")
+				local c7 = Instance.new("ChorusSoundEffect")
+				local c8 = Instance.new("ChorusSoundEffect")
+				local c9 = Instance.new("ChorusSoundEffect")
+				local c10 = Instance.new("ChorusSoundEffect")
+				local c11 = Instance.new("ChorusSoundEffect")
+
+				c1.Name = "Chorus1"
+				c1.Parent = fx.Muzzle.FireSound1
+
+				c4.Name = "Chorus4"
+				c4.Parent = fx.ReloadA.Boltforward
+
+				c5.Name = "Chorus5"
+				c5.Parent = fx.ReloadA.Boltpull
+
+				c6.Name = "Chorus6"
+				c6.Parent = fx.ReloadA.Click
+
+				c7.Name = "Chorus7"
+				c7.Parent = fx.ReloadA.ClipIn
+
+				c8.Name = "Chorus8"
+				c8.Parent = fx.TriggerA.Empty
+
+				c9.Name = "Chorus9"
+				c9.Parent = fx.TriggerA.EquipSound
+
+				c10.Name = "Chorus10"
+				c10.Parent = fx.ReloadA.ClipIn2
+
+				c11.Name = "Chorus11"
+				c11.Parent = fx.ReloadA.ThrowClip
+
+
+				--████████╗███████╗██╗░░██╗████████╗██╗░░░██╗██████╗░███████╗░██████╗
+				--╚══██╔══╝██╔════╝╚██╗██╔╝╚══██╔══╝██║░░░██║██╔══██╗██╔════╝██╔════╝
+				--░░░██║░░░█████╗░░░╚███╔╝░░░░██║░░░██║░░░██║██████╔╝█████╗░░╚█████╗░
+				--░░░██║░░░██╔══╝░░░██╔██╗░░░░██║░░░██║░░░██║██╔══██╗██╔══╝░░░╚═══██╗
+				--░░░██║░░░███████╗██╔╝╚██╗░░░██║░░░╚██████╔╝██║░░██║███████╗██████╔╝
+				--░░░╚═╝░░░╚══════╝╚═╝░░╚═╝░░░╚═╝░░░░╚═════╝░╚═╝░░╚═╝╚══════╝╚═════╝░
+
+
+				local function destroySurfaceAppearance(object)
+					local surfaceAppearance = object:FindFirstChildOfClass("SurfaceAppearance")
+					if surfaceAppearance then
+						surfaceAppearance:Destroy()
+						print("SurfaceAppearance destroyed for", object.Name)
+					else
+						print("No SurfaceAppearance found for", object.Name)
+					end
+				end
+
+				destroySurfaceAppearance(guh.Base)
+				destroySurfaceAppearance(guh.MagPart)
+				destroySurfaceAppearance(guh.Bolt.BoltPart)
+				destroySurfaceAppearance(guh.Clip.ActualClip.ClipPart)
+
+				local cmap = "rbxassetid://16300596462"
+				local mmap = "rbxassetid://16299699464"
+				local nmap = "rbxassetid://16299700340"
+				local rmap = "rbxassetid://16299699813"
+
+				local sa1 = Instance.new("SurfaceAppearance")
+				sa1.Name = "CustomAppearance1"
+				sa1.ColorMap = cmap
+				sa1.MetalnessMap = mmap
+				sa1.NormalMap = nmap
+				sa1.RoughnessMap = rmap
+
+				local sa2 = Instance.new("SurfaceAppearance")
+				sa2.Name = "CustomAppearance2"
+				sa2.ColorMap = cmap
+				sa2.MetalnessMap = mmap
+				sa2.NormalMap = nmap
+				sa2.RoughnessMap = rmap
+
+				local sa3 = Instance.new("SurfaceAppearance")
+				sa3.Name = "CustomAppearance3"
+				sa3.ColorMap = cmap
+				sa3.MetalnessMap = mmap
+				sa3.NormalMap = nmap
+				sa3.RoughnessMap = rmap
+
+				local sa4 = Instance.new("SurfaceAppearance")
+				sa4.Name = "CustomAppearance4"
+				sa4.ColorMap = cmap
+				sa4.MetalnessMap = mmap
+				sa4.NormalMap = nmap
+				sa4.RoughnessMap = rmap
+
+				sa1.Parent = guh.Base
+				sa2.Parent = guh.MagPart
+				sa3.Parent = guh.Bolt.BoltPart
+				sa4.Parent = guh.Clip.ActualClip.ClipPart
+
+				guh.Clip.Bullets.B1.b1.TextureID = ""
+				guh.Clip.Bullets.B1.b1.Color = Color3.fromRGB(255, 230, 0)
+				guh.Clip.Bullets.B1.b1.Material = gold
+
+				guh.Clip.Bullets.B1.b2.TextureID = ""
+				guh.Clip.Bullets.B1.b2.Color = Color3.fromRGB(255, 230, 0)
+				guh.Clip.Bullets.B1.b2.Material = gold
+
+				guh.Clip.Bullets.B1.b3.TextureID = ""
+				guh.Clip.Bullets.B1.b3.Color = Color3.fromRGB(255, 230, 0)
+				guh.Clip.Bullets.B1.b3.Material = gold
+
+				guh.Clip.Bullets.B1.b4.TextureID = ""
+				guh.Clip.Bullets.B1.b4.Color = Color3.fromRGB(255, 230, 0)
+				guh.Clip.Bullets.B1.b4.Material = gold
+
+				guh.Clip.Bullets.B1.b4.TextureID = ""
+				guh.Clip.Bullets.B1.b4.Color = Color3.fromRGB(255, 230, 0)
+				guh.Clip.Bullets.B1.b4.Material = gold
+
+				guh.Clip.Bullets.B1.b5.TextureID = ""
+				guh.Clip.Bullets.B1.b5.Color = Color3.fromRGB(255, 230, 0)
+				guh.Clip.Bullets.B1.b5.Material = gold
+
+				guh.Clip.Bullets.B2.b6.TextureID = ""
+				guh.Clip.Bullets.B2.b6.Color = Color3.fromRGB(255, 230, 0)
+				guh.Clip.Bullets.B2.b6.Material = gold
+
+				guh.Clip.Bullets.B2.b7.TextureID = ""
+				guh.Clip.Bullets.B2.b7.Color = Color3.fromRGB(255, 230, 0)
+				guh.Clip.Bullets.B2.b7.Material = gold
+
+				guh.Clip.Bullets.B2.b8.TextureID = ""
+				guh.Clip.Bullets.B2.b8.Color = Color3.fromRGB(255, 230, 0)
+				guh.Clip.Bullets.B2.b8.Material = gold
+
+				guh.Clip.Bullets.B2.b9.TextureID = ""
+				guh.Clip.Bullets.B2.b9.Color = Color3.fromRGB(255, 230, 0)
+				guh.Clip.Bullets.B2.b9.Material = gold
+
+				guh.Clip.Bullets.B2.b10.TextureID = ""
+				guh.Clip.Bullets.B2.b10.Color = Color3.fromRGB(255, 230, 0)
+				guh.Clip.Bullets.B2.b10.Material = gold
+
+
+
+				--██╗░░░██╗███████╗██╗░░██╗
+				--██║░░░██║██╔════╝╚██╗██╔╝
+				--╚██╗░██╔╝█████╗░░░╚███╔╝░
+				--░╚████╔╝░██╔══╝░░░██╔██╗░
+				--░░╚██╔╝░░██║░░░░░██╔╝╚██╗
+				--░░░╚═╝░░░╚═╝░░░░░╚═╝░░╚═╝
+
+
+				local vfx = Character["SKS"].WeaponHandle.Muzzle
+
+				if vfx["Barrel smoke"] then
+					vfx["Barrel smoke"].Color = ColorSequence.new{
+						ColorSequenceKeypoint.new(0, Color3.fromRGB(255,170,0));
+						ColorSequenceKeypoint.new(1, Color3.fromRGB(255,170,0));
+					}
+					vfx["Barrel smoke"].Brightness = 15
+					vfx["Barrel smoke"].LightEmission = 1
+				end
+
+				if vfx["FlashEmitter"] then
+					vfx["FlashEmitter"].Color = ColorSequence.new{
+						ColorSequenceKeypoint.new(0, Color3.fromRGB(255,170,0));
+						ColorSequenceKeypoint.new(1, Color3.fromRGB(255,170,0));
+					}
+					vfx["FlashEmitter"].Brightness = 15
+					vfx["FlashEmitter"].LightEmission = 1
+				end
+
+				if vfx["Gas"] then
+					vfx["Gas"].Color = ColorSequence.new{
+						ColorSequenceKeypoint.new(0, Color3.fromRGB(255,170,0));
+						ColorSequenceKeypoint.new(1, Color3.fromRGB(255,170,0));
+					}
+					vfx["Gas"].Brightness = 15
+					vfx["Gas"].LightEmission = 1
+				end
+
+				if vfx["Gas2"] then
+					vfx["Gas2"].Color = ColorSequence.new{
+						ColorSequenceKeypoint.new(0, Color3.fromRGB(255,170,0));
+						ColorSequenceKeypoint.new(1, Color3.fromRGB(255,170,0));
+					}
+					vfx["Gas2"].Brightness = 15
+					vfx["Gas2"].LightEmission = 1
+				end
+
+				if vfx["Lens flare"] then
+					vfx["Lens flare"].Color = ColorSequence.new{
+						ColorSequenceKeypoint.new(0, Color3.fromRGB(255,170,0));
+						ColorSequenceKeypoint.new(1, Color3.fromRGB(255,170,0));
+					}
+					vfx["Lens flare"].Brightness = 15
+					vfx["Lens flare"].LightEmission = 1
+				end
+
+				if vfx["Muzzle Flash 1"] then
+					vfx["Muzzle Flash 1"].Color = ColorSequence.new{
+						ColorSequenceKeypoint.new(0, Color3.fromRGB(255,170,0));
+						ColorSequenceKeypoint.new(1, Color3.fromRGB(255,170,0));
+					}
+					vfx["Muzzle Flash 1"].Brightness = 15
+					vfx["Muzzle Flash 1"].LightEmission = 1
+				end
+
+				if vfx["SmokeEmitter"] then
+					vfx["SmokeEmitter"].Color = ColorSequence.new{
+						ColorSequenceKeypoint.new(0, Color3.fromRGB(255,170,0));
+						ColorSequenceKeypoint.new(1, Color3.fromRGB(255,170,0));
+					}
+					vfx["SmokeEmitter"].Brightness = 15
+					vfx["SmokeEmitter"].LightEmission = 1
+				end
+
+				if vfx["Sparkles"] then
+					vfx["Sparkles"].Color = ColorSequence.new{
+						ColorSequenceKeypoint.new(0, Color3.fromRGB(255,170,0));
+						ColorSequenceKeypoint.new(1, Color3.fromRGB(255,170,0));
+					}
+					vfx["Sparkles"].Brightness = 15
+					vfx["Sparkles"].LightEmission = 1
+				end
+
+				while wait() do
+					if game.Players.LocalPlayer.Character:FindFirstChild("SKS") then
+						local gui = player.PlayerGui.GunGUI.Frame.Main.Title
+						gui.Text = "SKS"
+					end    
+				end
+			end
+
+			local On = false
+
+			local function onCharacterAdded(newCharacter)
+				Character = newCharacter
+
+				local Tool = Character:FindFirstChild(ToolName)
+				if Tool and On then
+					print("Character respawned, reapplying model")
+					createModel()
+				end
+			end
+
+			player.CharacterAdded:Connect(onCharacterAdded)
+
+			Beretta.Changed:Connect(function()
+				if Beretta:GetAttribute("Activated") == true then
+					On = false
+				elseif Beretta:GetAttribute("Activated") == false then
+					On = true
+				end
+			end)
+
+			while wait(.5) do
+				if Character:FindFirstChild(ToolName) then
+					if On then
+						createModel()
+					end
+				end
+			end
+
+			local function onCharacterAdded(newCharacter)
+				Character = newCharacter
+
+				local Tool = Character:FindFirstChild(ToolName)
+				if Tool and On then
+					print("Character respawned, reapplying model")
+					createModel()
+				end
+			end
+
+			player.CharacterAdded:Connect(onCharacterAdded)
+
+			Beretta.Changed:Connect(function()
+				if Beretta:GetAttribute("Activated") == true then
+					On = false
+				elseif Beretta:GetAttribute("Activated") == false then
+					On = true
+				end
+			end)
+
+			while wait(.5) do
+				if Character:FindFirstChild(ToolName) then
+					if On then
+						createModel()
+					end
+				end
+			end
+		end)
 	else
 		local Notif = library:InitNotifications()
 		Notif:Notify("EMPYREAL COULDN'T LOAD REASON: INVALID GAME ID [PLEASE JOIN A GAME THAT EMPYREAL SUPPORTS]", 5, "error") -- notification, alert, error, success, information
@@ -2589,4 +3058,3 @@ if tostring(game:GetService("RbxAnalyticsService"):GetClientId()) == "22546EE2-F
 else
 	_G.Empyreal(nil, nil, game.GameId)
 end
-
