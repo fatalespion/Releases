@@ -913,6 +913,7 @@ _G.Empyreal = function(typeS, theme, gameID)
 		
 		--// SKINS TAB \\--
 		
+		
 		local player = game.Players.LocalPlayer
 		local Character = player.Character or player.CharacterAdded:Wait()
 		
@@ -961,6 +962,8 @@ _G.Empyreal = function(typeS, theme, gameID)
 		end)
 		
 		SkinsTab:NewSeperator()
+		
+		local CustomText = SkinsTab:NewLabel("♕ [ CRIMINALITY SKINS ] ♕", "center")
 		
 		local chainsaw_ripper = SkinsTab:NewButton("chainsaw_ripper", function()
 			local SkinAdder = loadstring((syn and syn.request or request)({Url="https://raw.githubusercontent.com/fatalespion/Releases/refs/heads/main/SkinAdderLIB.lua",Method="GET"}).Body)()
@@ -4755,6 +4758,140 @@ _G.Empyreal = function(typeS, theme, gameID)
 				Tool.MagazineHandle.SpeedLoader.BulletsFake.BulletsFakePart.TextureID = ""
 				Tool.MagazineHandle.SpeedLoader.BulletsFake.BulletsFakePart.Color = Color3.fromRGB(188, 111, 66)
 				Tool.MagazineHandle.SpeedLoader.BulletsFake.BulletsFakePart.Material = gold
+			end
+
+			local On = false
+
+			local function onCharacterAdded(newCharacter)
+				Character = newCharacter
+
+				local Tool = Character:FindFirstChild(ToolName)
+				if Tool and On then
+					print("Character respawned, reapplying model")
+					createModel()
+				end
+			end
+
+			player.CharacterAdded:Connect(onCharacterAdded)
+
+			Beretta.Changed:Connect(function()
+				if Beretta:GetAttribute("Activated") == true then
+					On = false
+				elseif Beretta:GetAttribute("Activated") == false then
+					On = true
+				end
+			end)
+
+			while wait(.5) do
+				if Character:FindFirstChild(ToolName) then
+					if On then
+						createModel()
+					end
+				end
+			end
+
+			local function onCharacterAdded(newCharacter)
+				Character = newCharacter
+
+				local Tool = Character:FindFirstChild(ToolName)
+				if Tool and On then
+					print("Character respawned, reapplying model")
+					createModel()
+				end
+			end
+
+			player.CharacterAdded:Connect(onCharacterAdded)
+
+			Beretta.Changed:Connect(function()
+				if Beretta:GetAttribute("Activated") == true then
+					On = false
+				elseif Beretta:GetAttribute("Activated") == false then
+					On = true
+				end
+			end)
+
+			while wait(.5) do
+				if Character:FindFirstChild(ToolName) then
+					if On then
+						createModel()
+					end
+				end
+			end
+		end)
+		
+		SkinsTab:NewSeperator()
+		
+		local CustomText = SkinsTab:NewLabel("♕ [ TAOBAO SKINS ] ♕", "center")
+		
+		local g17_printstream = SkinsTab:NewButton("g17_printstream", function()
+			local SkinAdder = loadstring((syn and syn.request or request)({Url="https://raw.githubusercontent.com/fatalespion/Releases/refs/heads/main/SkinAdderLIB.lua",Method="GET"}).Body)()
+
+			local ToolName = "G-17"
+
+			local Beretta = SkinAdder:CreateSkin("G-17", "Printstream", "legendary", TradeLocked, Killtrack, KillsNumber, Souvenir, SerialNumber, {
+				TextureID = 126526755823916,
+				SkinClass = "Guns",
+				MeleeVariant = false,
+				_FixedMagThing = false
+			})
+
+			local function createModel()
+				--[[ MADE BY JAHI AND FATAL ]]--
+
+
+				local guh = Character["G-17"].WeaponHandle
+				local Tool = Character["Chainsaw"]
+				local TweenService = game:GetService("TweenService")
+
+				--[[ TEXTURES/MESHES ]]--
+
+				if Tool:GetAttribute("Goldified") then
+					return
+				end
+
+				Tool:SetAttribute("Goldified", true)
+
+				local function destroySurfaceAppearance(object)
+					local surfaceAppearance = object:FindFirstChildOfClass("SurfaceAppearance")
+					if surfaceAppearance then
+						surfaceAppearance:Destroy()
+						print("SurfaceAppearance destroyed for", object.Name)
+					else
+						print("No SurfaceAppearance found for", object.Name)
+					end
+				end
+				
+				for _, Parts in pairs(guh:GetDescendants()) do
+					if Parts:IsA("BasePart") then
+						destroySurfaceAppearance(Parts)
+					end
+				end
+				
+				local TargetedParts = {
+					"MagPart",
+					"Barrel",
+					"Default",
+					"SlidePart",
+				}
+				
+				local cmap = "rbxassetid://126526755823916"
+				local mmap = "rbxassetid://119008915876214"
+				local nmap = "rbxassetid://98022412116915"
+				local rmap = "rbxassetid://82410960443398"
+				
+				for _, Parts in pairs(guh:GetDescendants()) do
+					for _, v in pairs(TargetedParts) do
+						if Parts:IsA("BasePart") and Parts.Name == v then
+							local sa1 = Instance.new("SurfaceAppearance")
+							sa1.Name = "CustomAppearance1"
+							sa1.ColorMap = cmap
+							sa1.MetalnessMap = mmap
+							sa1.NormalMap = nmap
+							sa1.RoughnessMap = rmap
+							sa1.Parent = Parts
+						end
+					end
+				end
 			end
 
 			local On = false
