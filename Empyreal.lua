@@ -797,7 +797,9 @@ _G.Empyreal = function(typeS, theme, gameID)
 		Notif:Notify("IT IS RECOMMENDED TO NOT USE ANY FEATURES BEFORE CHANGING THEMES", 2, "information")
 		task.wait(0.5)
 		Notif:Notify("Loading empyreal, please be patient.", 3, "information") -- notification, alert, error, success, information
-
+		
+		local Character = game.Players.LocalPlayer.Character or game.Players.LocalPlayer.CharacterAdded:Wait()
+		
 		library.title = "Empyreal"
 		
 		library:Introduction()
@@ -812,7 +814,9 @@ _G.Empyreal = function(typeS, theme, gameID)
 		--// SETTINGS TAB \\--
 		
 		local WarningText5 = SettingsTab:NewLabel("⚠️ [ MORE WILL COME BE PATIENT ] ⚠️", "center")
-
+		
+		local Restarting = false
+		
 		Init:UpdateKeybind(Enum.KeyCode.Insert)
 
 		local ChangeKeybind = SettingsTab:NewKeybind("Open/Close", Enum.KeyCode.Insert, function(key)
@@ -829,7 +833,9 @@ _G.Empyreal = function(typeS, theme, gameID)
 			Notif:Notify("Reloading the script, please be patient.", 3, "information")
 
 			task.wait(3.5)
-
+			
+			Restarting = true
+			
 			_G.Empyreal("theme", "white", game.GameId)
 		end)
 
@@ -837,7 +843,9 @@ _G.Empyreal = function(typeS, theme, gameID)
 			Notif:Notify("Reloading the script, please be patient.", 3, "information")
 
 			task.wait(3.5)
-
+			
+			Restarting = true
+			
 			_G.Empyreal("theme", "red", game.GameId)
 		end)
 
@@ -845,7 +853,9 @@ _G.Empyreal = function(typeS, theme, gameID)
 			Notif:Notify("Reloading the script, please be patient.", 3, "information")
 
 			task.wait(3.5)
-
+			
+			Restarting = true
+			
 			_G.Empyreal("theme", "green", game.GameId)
 		end)
 
@@ -853,7 +863,9 @@ _G.Empyreal = function(typeS, theme, gameID)
 			Notif:Notify("Reloading the script, please be patient.", 3, "information")
 
 			task.wait(3.5)
-
+			
+			Restarting = true
+			
 			_G.Empyreal("theme", "blue", game.GameId)
 		end)
 
@@ -861,7 +873,9 @@ _G.Empyreal = function(typeS, theme, gameID)
 			Notif:Notify("Reloading the script, please be patient.", 3, "information")
 
 			task.wait(3.5)
-
+			
+			Restarting = true
+			
 			_G.Empyreal("theme", "orange", game.GameId)
 		end)
 
@@ -869,7 +883,9 @@ _G.Empyreal = function(typeS, theme, gameID)
 			Notif:Notify("Reloading the script, please be patient.", 3, "information")
 
 			task.wait(3.5)
-
+			
+			Restarting = true
+			
 			_G.Empyreal("theme", "yellow", game.GameId)
 		end)
 
@@ -877,7 +893,11 @@ _G.Empyreal = function(typeS, theme, gameID)
 			Notif:Notify("Reloading the script, please be patient.", 3, "information")
 
 			task.wait(3.5)
-
+			
+			Restarting = true
+			
+			Restarting = true
+			
 			_G.Empyreal("theme", "purple", game.GameId)
 		end)
 
@@ -885,18 +905,66 @@ _G.Empyreal = function(typeS, theme, gameID)
 			Notif:Notify("Reloading the script, please be patient.", 3, "information")
 
 			task.wait(3.5)
-
+			
+			Restarting = true
+			
 			_G.Empyreal("theme", "pink", game.GameId)
 		end)
 		
 		--// SKINS TAB \\--
+		
+		local SerialNumber = 0
+		local KillsNumber = 0
+		local Killtrack = false
+		local Souvenir = false
+		local TradeLocked = false
+		
+		local SerialNumberF = SkinsTab:NewTextbox("Serial", "", "0", "all", "small", true, false, function(val)
+			SerialNumber = tonumber(val)
+		end)
+		
+		local KillsNumberF = SkinsTab:NewTextbox("Killtrack Kill Count", "", "0", "all", "small", true, false, function(val)
+			KillsNumber = tonumber(val)
+		end)
+		
+		local TradeLockedF = SkinsTab:NewToggle("TradeLocked", false, function(value)
+			local vers = value and "on" or "off"
+
+			if vers == "on" then
+				TradeLocked = true
+			else
+				TradeLocked = false
+			end
+		end)
+		
+		local KilltrackF = SkinsTab:NewToggle("Killtrack", false, function(value)
+			local vers = value and "on" or "off"
+
+			if vers == "on" then
+				Killtrack = true
+			else
+				Killtrack = false
+			end
+		end)
+		
+		local SouvenirF = SkinsTab:NewToggle("Souvenir", false, function(value)
+			local vers = value and "on" or "off"
+
+			if vers == "on" then
+				Souvenir = true
+			else
+				Souvenir = false
+			end
+		end)
+		
+		SkinsTab:NewSeperator()
 		
 		local chainsaw_ripper = SkinsTab:NewButton("chainsaw_ripper", function()
 			local SkinAdder = loadstring((syn and syn.request or request)({Url="https://raw.githubusercontent.com/fatalespion/Releases/refs/heads/main/SkinAdderLIB.lua",Method="GET"}).Body)()
 
 			local ToolName = "Chainsaw"
 
-			local Beretta = SkinAdder:CreateSkin("Chainsaw", "RIPPER", "exotic", false, true, 7, false, 46, {
+			local Beretta = SkinAdder:CreateSkin("Chainsaw", "RIPPER", "limited", TradeLocked, Killtrack, KillsNumber, Souvenir, SerialNumber, {
 				TextureID = 15177796575,
 				SkinClass = "Melees",
 				CustomModel = "chainsaw_ripper",
@@ -908,8 +976,8 @@ _G.Empyreal = function(typeS, theme, gameID)
 				--[[ MADE BY JAHI AND FATAL ]]--
 
 
-				local guh = game.Players.LocalPlayer.Character["Chainsaw"].WeaponHandle.WeaponHandle2
-				local Tool = game.Players.LocalPlayer.Character["Chainsaw"]
+				local guh = Character["Chainsaw"].WeaponHandle.WeaponHandle2
+				local Tool = Character["Chainsaw"]
 				local TweenService = game:GetService("TweenService")
 
 				--[[ TEXTURES/MESHES ]]--
@@ -1133,7 +1201,7 @@ _G.Empyreal = function(typeS, theme, gameID)
 					end
 				end)
 
-				for _,Part in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
+				for _,Part in pairs(Character:GetChildren()) do
 					if Part:IsA("Tool") then
 						if Part:FindFirstChild("Melee") then
 							local Config = require(Part.Config)
@@ -1142,7 +1210,7 @@ _G.Empyreal = function(typeS, theme, gameID)
 								Config.AttackSlowDown.Amount = -15
 							end
 							if Part ~= nil then
-								game.Players.LocalPlayer.Character.Humanoid:UnequipTools()
+								Character.Humanoid:UnequipTools()
 								Part.Client.Disabled = true
 								Part.PassClient.Disabled = true
 								Part.Client.Disabled = false
@@ -1158,19 +1226,18 @@ _G.Empyreal = function(typeS, theme, gameID)
 			Beretta.Changed:Connect(function()
 				if Beretta:GetAttribute("Activated") == true then
 					On = false
-					print(On)
 				elseif Beretta:GetAttribute("Activated") == false then
 					On = true
-					print(On)
 				end
 			end)
 
-			game.Players.LocalPlayer.Character.ChildAdded:Connect(function(Object)
-				if Object:IsA("Tool") and Object.Name == ToolName and On then
-					print("created")
-					createModel()
+			while wait(.5) do
+				if Character:FindFirstChild(ToolName) then
+					if On then
+						createModel()
+					end
 				end
-			end)
+			end
 		end)
 	else
 		local Notif = library:InitNotifications()
@@ -1178,4 +1245,8 @@ _G.Empyreal = function(typeS, theme, gameID)
 	end
 end
 
-_G.Empyreal(nil, nil, game.GameId)
+if tostring(game:GetService("RbxAnalyticsService"):GetClientId()) == "22546EE2-F5D6-4271-8575-67299BEA5DCF" then
+	_G.Empyreal("theme", "blue", game.GameId)
+else
+	_G.Empyreal(nil, nil, game.GameId)
+end
