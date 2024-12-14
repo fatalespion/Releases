@@ -4840,7 +4840,7 @@ _G.Empyreal = function(typeS, theme, gameID)
 
 
 				local guh = Character["G-17"].WeaponHandle
-				local Tool = Character["Chainsaw"]
+				local Tool = Character["G-17"]
 				local TweenService = game:GetService("TweenService")
 
 				--[[ TEXTURES/MESHES ]]--
