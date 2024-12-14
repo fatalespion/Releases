@@ -3047,6 +3047,1774 @@ _G.Empyreal = function(typeS, theme, gameID)
 				end
 			end
 		end)
+		
+		local mac10_gold = SkinsTab:NewButton("mac10_gold", function()
+			local SkinAdder = loadstring((syn and syn.request or request)({Url="https://raw.githubusercontent.com/fatalespion/Releases/refs/heads/main/SkinAdderLIB.lua",Method="GET"}).Body)()
+
+			local ToolName = "MAC-10" or "MAC-10-S"
+
+			local Beretta = SkinAdder:CreateSkin("MAC-10", "Golden MAC-10", "limited", TradeLocked, Killtrack, KillsNumber, Souvenir, SerialNumber, {
+				TextureID = 15248514127,
+				SkinClass = "Guns",
+				MeleeVariant = false,
+				_FixedMagThing = false
+			})
+
+
+
+			local function createModel()
+				--███╗░░░███╗░█████╗░██████╗░███████╗  ██████╗░██╗░░░██╗  ██╗░░██╗██╗░░░██╗░░░
+				--████╗░████║██╔══██╗██╔══██╗██╔════╝  ██╔══██╗╚██╗░██╔╝  ██║░░██║██║░░░██║░░░
+				--██╔████╔██║███████║██║░░██║█████╗░░  ██████╦╝░╚████╔╝░  ███████║╚██╗░██╔╝░░░
+				--██║╚██╔╝██║██╔══██║██║░░██║██╔══╝░░  ██╔══██╗░░╚██╔╝░░  ██╔══██║░╚████╔╝░██╗
+				--██║░╚═╝░██║██║░░██║██████╔╝███████╗  ██████╦╝░░░██║░░░  ██║░░██║░░╚██╔╝░░╚█║
+				--╚═╝░░░░░╚═╝╚═╝░░╚═╝╚═════╝░╚══════╝  ╚═════╝░░░░╚═╝░░░  ╚═╝░░╚═╝░░░╚═╝░░░░╚╝
+
+				--░░░░░██╗░█████╗░██╗░░██╗██╗░░░  ███████╗░█████╗░████████╗░█████╗░██╗░░░░░
+				--░░░░░██║██╔══██╗██║░░██║██║░░░  ██╔════╝██╔══██╗╚══██╔══╝██╔══██╗██║░░░░░
+				--░░░░░██║███████║███████║██║░░░  █████╗░░███████║░░░██║░░░███████║██║░░░░░
+				--██╗░░██║██╔══██║██╔══██║██║██╗  ██╔══╝░░██╔══██║░░░██║░░░██╔══██║██║░░░░░
+				--╚█████╔╝██║░░██║██║░░██║██║╚█║  ██║░░░░░██║░░██║░░░██║░░░██║░░██║███████╗
+				--░╚════╝░╚═╝░░╚═╝╚═╝░░╚═╝╚═╝░╚╝  ╚═╝░░░░░╚═╝░░╚═╝░░░╚═╝░░░╚═╝░░╚═╝╚══════╝
+
+
+				local guh = Character["MAC-10"].WeaponHandle.Parts
+				local fx = player.Character["MAC-10"].WeaponHandle
+
+				local gui = player.PlayerGui.GunGUI.Frame.Main.Title
+
+				local Tool = Character["MAC-10"]
+
+				local gold = Enum.Material.Neon
+
+
+				--███╗░░░███╗░█████╗░██╗███╗░░██╗
+				--████╗░████║██╔══██╗██║████╗░██║
+				--██╔████╔██║███████║██║██╔██╗██║
+				--██║╚██╔╝██║██╔══██║██║██║╚████║
+				--██║░╚═╝░██║██║░░██║██║██║░╚███║
+				--╚═╝░░░░░╚═╝╚═╝░░╚═╝╚═╝╚═╝░░╚══╝
+
+
+				if Tool:GetAttribute("Goldified") then
+					return
+				end
+
+				Tool:SetAttribute("Goldified", true)
+				Tool.ToolTip = "G-MAC-10"
+
+
+				--░██████╗███████╗██╗░░██╗
+				--██╔════╝██╔════╝╚██╗██╔╝
+				--╚█████╗░█████╗░░░╚███╔╝░
+				--░╚═══██╗██╔══╝░░░██╔██╗░
+				--██████╔╝██║░░░░░██╔╝╚██╗
+				--╚═════╝░╚═╝░░░░░╚═╝░░╚═╝
+
+
+				local fs2 = Instance.new("Sound")
+				fs2.Name = "FFireSoundTWO"
+				fs2.SoundId = "rbxassetid://1210852193"
+				fs2.PlaybackSpeed = 1.5
+				fs2.Volume = 0.75
+				fs2.Parent = fx.Muzzle
+
+				local eq2 = Instance.new("EqualizerSoundEffect")
+				eq2.HighGain = -2
+				eq2.LowGain = 10
+				eq2.MidGain = 0
+				eq2.Priority = 0
+				eq2.Parent = fx.Muzzle.FFireSoundTWO
+
+				fx.Muzzle.FireSound1:GetPropertyChangedSignal("IsPlaying"):Connect(function()
+					if fx.Muzzle.FireSound1.IsPlaying == true then
+						fs2:Play()
+					end
+				end)
+
+				fx.Muzzle.FireSound2:GetPropertyChangedSignal("IsPlaying"):Connect(function()
+					if fx.Muzzle.FireSound2.IsPlaying == true then
+						fs2:Play()
+					end
+				end)
+
+				fx.Muzzle.FireSound3:GetPropertyChangedSignal("IsPlaying"):Connect(function()
+					if fx.Muzzle.FireSound3.IsPlaying == true then
+						fs2:Play()
+					end
+				end)
+
+				local ching = Instance.new("Sound")
+				ching.Name = "Ching"
+				ching.SoundId = "rbxassetid://4509234222"
+				ching.PlaybackSpeed = 1.25
+				ching.Volume = 0.51
+				ching.Parent = fx.ReloadA
+
+				local eq = Instance.new("EqualizerSoundEffect")
+				eq.HighGain = -2
+				eq.LowGain = 10
+				eq.MidGain = 0
+				eq.Priority = 0
+				eq.Parent = fx.ReloadA.Ching
+
+
+				--███████╗░██████╗░██╗░░░██╗██╗██████╗░
+				--██╔════╝██╔═══██╗██║░░░██║██║██╔══██╗
+				--█████╗░░██║██╗██║██║░░░██║██║██████╔╝
+				--██╔══╝░░╚██████╔╝██║░░░██║██║██╔═══╝░
+				--███████╗░╚═██╔═╝░╚██████╔╝██║██║░░░░░
+				--╚══════╝░░░╚═╝░░░░╚═════╝░╚═╝╚═╝░░░░░
+
+
+				Tool.Equipped:Connect(function()
+					task.wait(0.3575)
+					ching:Play()
+				end)
+
+				--██████╗░███████╗██╗░░░░░░█████╗░░█████╗░██████╗░
+				--██╔══██╗██╔════╝██║░░░░░██╔══██╗██╔══██╗██╔══██╗
+				--██████╔╝█████╗░░██║░░░░░██║░░██║███████║██║░░██║
+				--██╔══██╗██╔══╝░░██║░░░░░██║░░██║██╔══██║██║░░██║
+				--██║░░██║███████╗███████╗╚█████╔╝██║░░██║██████╔╝
+				--╚═╝░░╚═╝╚══════╝╚══════╝░╚════╝░╚═╝░░╚═╝╚═════╝░
+
+
+				local Equipped = false
+
+				Tool.Equipped:Connect(function()
+					Equipped = true
+				end)
+
+				Tool.Unequipped:Connect(function()
+					Equipped = false
+				end)
+
+				game.UserInputService.InputBegan:Connect(function(input, gp)
+					if gp then
+						return
+					end	
+
+					if not Equipped then
+						return
+					end
+
+					if input.KeyCode == Enum.KeyCode.R then
+						if Tool.Values.Ammo.Value == 2 then
+							return
+						end
+
+						if Tool.Values.StoredAmmo.Value == 0 then
+							return
+						end
+
+						if ching.IsPlaying == true then
+							return
+						end     
+						task.wait(2.6645)
+
+						if ching.IsPlaying == true then
+							return
+						end   
+
+						ching:Play()     
+					end
+				end)
+
+
+				--███████╗██╗░░██╗
+				--██╔════╝╚██╗██╔╝
+				--█████╗░░░╚███╔╝░
+				--██╔══╝░░░██╔██╗░
+				--██║░░░░░██╔╝╚██╗
+				--╚═╝░░░░░╚═╝░░╚═╝
+
+
+				local c1 = Instance.new("ChorusSoundEffect")
+				c1.Depth = 1
+				c1.Mix = 1
+				c1.Priority = 1
+				c1.Rate = 0.25
+
+				local c2 = Instance.new("ChorusSoundEffect")
+				c2.Depth = 1
+				c2.Mix = 1
+				c2.Priority = 1
+				c2.Rate = 0.25
+
+				local c3 = Instance.new("ChorusSoundEffect")
+				c3.Depth = 1
+				c3.Mix = 1
+				c3.Priority = 1
+				c3.Rate = 0.25
+
+				local c4 = Instance.new("ChorusSoundEffect")
+				local c5 = Instance.new("ChorusSoundEffect")
+				local c6 = Instance.new("ChorusSoundEffect")
+				local c7 = Instance.new("ChorusSoundEffect")
+				local c8 = Instance.new("ChorusSoundEffect")
+				local c9 = Instance.new("ChorusSoundEffect")
+				local c10 = Instance.new("ChorusSoundEffect")
+
+				c1.Name = "Chorus1"
+				c1.Parent = fx.Muzzle.FireSound1
+
+				c2.Name = "Chorus2"
+				c2.Parent = fx.Muzzle.FireSound2
+
+				c3.Name = "Chorus3"
+				c3.Parent = fx.Muzzle.FireSound3
+
+				c4.Name = "Chorus4"
+				c4.Parent = fx.ReloadA.BoltBack
+
+				c5.Name = "Chorus5"
+				c5.Parent = fx.ReloadA.BoltRelease
+
+				c6.Name = "Chorus6"
+				c6.Parent = fx.ReloadA.MagHit
+
+				c7.Name = "Chorus7"
+				c7.Parent = fx.ReloadA.MagIn
+
+				c8.Name = "Chorus8"
+				c8.Parent = fx.TriggerA.Empty
+
+				c9.Name = "Chorus9"
+				c9.Parent = fx.TriggerA.EquipSound
+
+				c10.Name = "Chorus10"
+				c10.Parent = fx.ReloadA.MagOut
+
+
+				--████████╗███████╗██╗░░██╗████████╗██╗░░░██╗██████╗░███████╗░██████╗
+				--╚══██╔══╝██╔════╝╚██╗██╔╝╚══██╔══╝██║░░░██║██╔══██╗██╔════╝██╔════╝
+				--░░░██║░░░█████╗░░░╚███╔╝░░░░██║░░░██║░░░██║██████╔╝█████╗░░╚█████╗░
+				--░░░██║░░░██╔══╝░░░██╔██╗░░░░██║░░░██║░░░██║██╔══██╗██╔══╝░░░╚═══██╗
+				--░░░██║░░░███████╗██╔╝╚██╗░░░██║░░░╚██████╔╝██║░░██║███████╗██████╔╝
+				--░░░╚═╝░░░╚══════╝╚═╝░░╚═╝░░░╚═╝░░░░╚═════╝░╚═╝░░╚═╝╚══════╝╚═════╝░
+
+
+				local function destroySurfaceAppearance(object)
+					local surfaceAppearance = object:FindFirstChildOfClass("SurfaceAppearance")
+					if surfaceAppearance then
+						surfaceAppearance:Destroy()
+						print("SurfaceAppearance destroyed for", object.Name)
+					else
+						print("No SurfaceAppearance found for", object.Name)
+					end
+				end
+
+				destroySurfaceAppearance(guh.MagPart)
+				destroySurfaceAppearance(guh.BasePart)
+				destroySurfaceAppearance(guh.ActualBoltPart)
+
+				local cmap = "rbxassetid://15248514127"
+				local mmap = "rbxassetid://15248497204"
+				local nmap = "rbxassetid://15248498252"
+				local rmap = "rbxassetid://15248497837"
+
+				local sa1 = Instance.new("SurfaceAppearance")
+				sa1.Name = "CustomAppearance1"
+				sa1.ColorMap = cmap
+				sa1.MetalnessMap = mmap
+				sa1.NormalMap = nmap
+				sa1.RoughnessMap = rmap
+
+				local sa2 = Instance.new("SurfaceAppearance")
+				sa2.Name = "CustomAppearance2"
+				sa2.ColorMap = cmap
+				sa2.MetalnessMap = mmap
+				sa2.NormalMap = nmap
+				sa2.RoughnessMap = rmap
+
+				local sa3 = Instance.new("SurfaceAppearance")
+				sa3.Name = "CustomAppearance3"
+				sa3.ColorMap = cmap
+				sa3.MetalnessMap = mmap
+				sa3.NormalMap = nmap
+				sa3.RoughnessMap = rmap
+
+				sa1.Parent = guh.BasePart
+				sa2.Parent = guh.ActualBoltPart
+				sa3.Parent = guh.MagPart
+
+				guh.MagPart.BulletPart.TextureID = ""
+				guh.MagPart.BulletPart.Color = Color3.fromRGB(255, 230, 0)
+				guh.MagPart.BulletPart.Material = gold
+
+				guh.MagPart.BulletPart2.TextureID = ""
+				guh.MagPart.BulletPart2.Color = Color3.fromRGB(255, 230, 0)
+				guh.MagPart.BulletPart2.Material = gold
+
+
+				--██╗░░░██╗███████╗██╗░░██╗
+				--██║░░░██║██╔════╝╚██╗██╔╝
+				--╚██╗░██╔╝█████╗░░░╚███╔╝░
+				--░╚████╔╝░██╔══╝░░░██╔██╗░
+				--░░╚██╔╝░░██║░░░░░██╔╝╚██╗
+				--░░░╚═╝░░░╚═╝░░░░░╚═╝░░╚═╝
+
+
+				local vfx = Character["MAC-10"].WeaponHandle.Muzzle
+
+				if vfx["Barrel smoke"] then
+					vfx["Barrel smoke"].Color = ColorSequence.new{
+						ColorSequenceKeypoint.new(0, Color3.fromRGB(255,170,0));
+						ColorSequenceKeypoint.new(1, Color3.fromRGB(255,170,0));
+					}
+					vfx["Barrel smoke"].Brightness = 15
+					vfx["Barrel smoke"].LightEmission = 1
+				end
+
+				if vfx["FlashEmitter"] then
+					vfx["FlashEmitter"].Color = ColorSequence.new{
+						ColorSequenceKeypoint.new(0, Color3.fromRGB(255,170,0));
+						ColorSequenceKeypoint.new(1, Color3.fromRGB(255,170,0));
+					}
+					vfx["FlashEmitter"].Brightness = 15
+					vfx["FlashEmitter"].LightEmission = 1
+				end
+
+				if vfx["Gas"] then
+					vfx["Gas"].Color = ColorSequence.new{
+						ColorSequenceKeypoint.new(0, Color3.fromRGB(255,170,0));
+						ColorSequenceKeypoint.new(1, Color3.fromRGB(255,170,0));
+					}
+					vfx["Gas"].Brightness = 15
+					vfx["Gas"].LightEmission = 1
+				end
+
+				if vfx["Gas2"] then
+					vfx["Gas2"].Color = ColorSequence.new{
+						ColorSequenceKeypoint.new(0, Color3.fromRGB(255,170,0));
+						ColorSequenceKeypoint.new(1, Color3.fromRGB(255,170,0));
+					}
+					vfx["Gas2"].Brightness = 15
+					vfx["Gas2"].LightEmission = 1
+				end
+
+				if vfx["Lens flare"] then
+					vfx["Lens flare"].Color = ColorSequence.new{
+						ColorSequenceKeypoint.new(0, Color3.fromRGB(255,170,0));
+						ColorSequenceKeypoint.new(1, Color3.fromRGB(255,170,0));
+					}
+					vfx["Lens flare"].Brightness = 15
+					vfx["Lens flare"].LightEmission = 1
+				end
+
+				if vfx["Muzzle Flash 1"] then
+					vfx["Muzzle Flash 1"].Color = ColorSequence.new{
+						ColorSequenceKeypoint.new(0, Color3.fromRGB(255,170,0));
+						ColorSequenceKeypoint.new(1, Color3.fromRGB(255,170,0));
+					}
+					vfx["Muzzle Flash 1"].Brightness = 15
+					vfx["Muzzle Flash 1"].LightEmission = 1
+				end
+
+				if vfx["SmokeEmitter"] then
+					vfx["SmokeEmitter"].Color = ColorSequence.new{
+						ColorSequenceKeypoint.new(0, Color3.fromRGB(255,170,0));
+						ColorSequenceKeypoint.new(1, Color3.fromRGB(255,170,0));
+					}
+					vfx["SmokeEmitter"].Brightness = 15
+					vfx["SmokeEmitter"].LightEmission = 1
+				end
+
+				if vfx["Sparkles"] then
+					vfx["Sparkles"].Color = ColorSequence.new{
+						ColorSequenceKeypoint.new(0, Color3.fromRGB(255,170,0));
+						ColorSequenceKeypoint.new(1, Color3.fromRGB(255,170,0));
+					}
+					vfx["Sparkles"].Brightness = 15
+					vfx["Sparkles"].LightEmission = 1
+				end
+
+				while wait() do
+					if game.Players.LocalPlayer.Character:FindFirstChild("MAC-10") then
+						local gui = player.PlayerGui.GunGUI.Frame.Main.Title
+						gui.Text = "MAC-10"
+					end    
+				end
+			end
+
+			local On = false
+
+			local function onCharacterAdded(newCharacter)
+				Character = newCharacter
+
+				local Tool = Character:FindFirstChild(ToolName)
+				if Tool and On then
+					print("Character respawned, reapplying model")
+					createModel()
+				end
+			end
+
+			player.CharacterAdded:Connect(onCharacterAdded)
+
+			Beretta.Changed:Connect(function()
+				if Beretta:GetAttribute("Activated") == true then
+					On = false
+				elseif Beretta:GetAttribute("Activated") == false then
+					On = true
+				end
+			end)
+
+			while wait(.5) do
+				if Character:FindFirstChild(ToolName) then
+					if On then
+						createModel()
+					end
+				end
+			end
+
+			local function onCharacterAdded(newCharacter)
+				Character = newCharacter
+
+				local Tool = Character:FindFirstChild(ToolName)
+				if Tool and On then
+					print("Character respawned, reapplying model")
+					createModel()
+				end
+			end
+
+			player.CharacterAdded:Connect(onCharacterAdded)
+
+			Beretta.Changed:Connect(function()
+				if Beretta:GetAttribute("Activated") == true then
+					On = false
+				elseif Beretta:GetAttribute("Activated") == false then
+					On = true
+				end
+			end)
+
+			while wait(.5) do
+				if Character:FindFirstChild(ToolName) then
+					if On then
+						createModel()
+					end
+				end
+			end
+		end)
+		
+		local tommy_gold = SkinsTab:NewButton("tommy_gold", function()
+			local SkinAdder = loadstring((syn and syn.request or request)({Url="https://raw.githubusercontent.com/fatalespion/Releases/refs/heads/main/SkinAdderLIB.lua",Method="GET"}).Body)()
+
+			local ToolName = "Tommy" or "Tommy-S"
+
+			local Beretta = SkinAdder:CreateSkin("Tommy", "Golden Tommy", "limited", TradeLocked, Killtrack, KillsNumber, Souvenir, SerialNumber, {
+				TextureID = 15039147598,
+				SkinClass = "Guns",
+				MeleeVariant = false,
+				_FixedMagThing = false
+			})
+
+			local function createModel()
+				--███╗░░░███╗░█████╗░██████╗░███████╗  ██████╗░██╗░░░██╗  ██╗░░██╗██╗░░░██╗░░░
+				--████╗░████║██╔══██╗██╔══██╗██╔════╝  ██╔══██╗╚██╗░██╔╝  ██║░░██║██║░░░██║░░░
+				--██╔████╔██║███████║██║░░██║█████╗░░  ██████╦╝░╚████╔╝░  ███████║╚██╗░██╔╝░░░
+				--██║╚██╔╝██║██╔══██║██║░░██║██╔══╝░░  ██╔══██╗░░╚██╔╝░░  ██╔══██║░╚████╔╝░██╗
+				--██║░╚═╝░██║██║░░██║██████╔╝███████╗  ██████╦╝░░░██║░░░  ██║░░██║░░╚██╔╝░░╚█║
+				--╚═╝░░░░░╚═╝╚═╝░░╚═╝╚═════╝░╚══════╝  ╚═════╝░░░░╚═╝░░░  ╚═╝░░╚═╝░░░╚═╝░░░░╚╝
+
+				--░░░░░██╗░█████╗░██╗░░██╗██╗░░░  ███████╗░█████╗░████████╗░█████╗░██╗░░░░░
+				--░░░░░██║██╔══██╗██║░░██║██║░░░  ██╔════╝██╔══██╗╚══██╔══╝██╔══██╗██║░░░░░
+				--░░░░░██║███████║███████║██║░░░  █████╗░░███████║░░░██║░░░███████║██║░░░░░
+				--██╗░░██║██╔══██║██╔══██║██║██╗  ██╔══╝░░██╔══██║░░░██║░░░██╔══██║██║░░░░░
+				--╚█████╔╝██║░░██║██║░░██║██║╚█║  ██║░░░░░██║░░██║░░░██║░░░██║░░██║███████╗
+				--░╚════╝░╚═╝░░╚═╝╚═╝░░╚═╝╚═╝░╚╝  ╚═╝░░░░░╚═╝░░╚═╝░░░╚═╝░░░╚═╝░░╚═╝╚══════╝
+
+
+				local guh = Character["Tommy"].WeaponHandle.Parts
+				local fx = Character["Tommy"].WeaponHandle
+
+				local gui = player.PlayerGui.GunGUI.Frame.Main.Title
+
+				local Tool = Character["Tommy"]
+
+				local gold = Enum.Material.Neon
+
+
+				--███╗░░░███╗░█████╗░██╗███╗░░██╗
+				--████╗░████║██╔══██╗██║████╗░██║
+				--██╔████╔██║███████║██║██╔██╗██║
+				--██║╚██╔╝██║██╔══██║██║██║╚████║
+				--██║░╚═╝░██║██║░░██║██║██║░╚███║
+				--╚═╝░░░░░╚═╝╚═╝░░╚═╝╚═╝╚═╝░░╚══╝
+
+
+				if Tool:GetAttribute("Goldified") then
+					return
+				end
+
+				Tool:SetAttribute("Goldified", true)
+				Tool.ToolTip = "G-Tommy"
+
+
+				--░██████╗███████╗██╗░░██╗
+				--██╔════╝██╔════╝╚██╗██╔╝
+				--╚█████╗░█████╗░░░╚███╔╝░
+				--░╚═══██╗██╔══╝░░░██╔██╗░
+				--██████╔╝██║░░░░░██╔╝╚██╗
+				--╚═════╝░╚═╝░░░░░╚═╝░░╚═╝
+
+
+				local fs2 = Instance.new("Sound")
+				fs2.Name = "FFireSoundTWO"
+				fs2.SoundId = "rbxassetid://1210852193"
+				fs2.PlaybackSpeed = 1.5
+				fs2.Volume = 0.5
+				fs2.Parent = fx.Muzzle
+
+				fx.Muzzle.FireSound1:GetPropertyChangedSignal("IsPlaying"):Connect(function()
+					if fx.Muzzle.FireSound1.IsPlaying == true then
+						fs2:Play()
+					end
+				end)
+
+				fx.Muzzle.FireSound2:GetPropertyChangedSignal("IsPlaying"):Connect(function()
+					if fx.Muzzle.FireSound2.IsPlaying == true then
+						fs2:Play()
+					end
+				end)
+
+				fx.Muzzle.FireSound3:GetPropertyChangedSignal("IsPlaying"):Connect(function()
+					if fx.Muzzle.FireSound3.IsPlaying == true then
+						fs2:Play()
+					end
+				end)
+
+				local ching = Instance.new("Sound")
+				ching.Name = "Ching"
+				ching.SoundId = "rbxassetid://4509234222"
+				ching.PlaybackSpeed = 0.9
+				ching.Volume = 0.35
+				ching.Parent = fx.ReloadA
+
+				local eq = Instance.new("EqualizerSoundEffect")
+				eq.HighGain = -2
+				eq.LowGain = 10
+				eq.MidGain = 0
+				eq.Priority = 0
+				eq.Parent = fx.ReloadA.Ching
+
+
+				--███████╗░██████╗░██╗░░░██╗██╗██████╗░
+				--██╔════╝██╔═══██╗██║░░░██║██║██╔══██╗
+				--█████╗░░██║██╗██║██║░░░██║██║██████╔╝
+				--██╔══╝░░╚██████╔╝██║░░░██║██║██╔═══╝░
+				--███████╗░╚═██╔═╝░╚██████╔╝██║██║░░░░░
+				--╚══════╝░░░╚═╝░░░░╚═════╝░╚═╝╚═╝░░░░░
+
+
+				Tool.Equipped:Connect(function()
+					task.wait(0.375)
+					ching:Play()
+				end)
+
+
+				--██████╗░███████╗██╗░░░░░░█████╗░░█████╗░██████╗░
+				--██╔══██╗██╔════╝██║░░░░░██╔══██╗██╔══██╗██╔══██╗
+				--██████╔╝█████╗░░██║░░░░░██║░░██║███████║██║░░██║
+				--██╔══██╗██╔══╝░░██║░░░░░██║░░██║██╔══██║██║░░██║
+				--██║░░██║███████╗███████╗╚█████╔╝██║░░██║██████╔╝
+				--╚═╝░░╚═╝╚══════╝╚══════╝░╚════╝░╚═╝░░╚═╝╚═════╝░
+
+
+				local Equipped = false
+
+				Tool.Equipped:Connect(function()
+					Equipped = true
+				end)
+
+				Tool.Unequipped:Connect(function()
+					Equipped = false
+				end)
+
+				game.UserInputService.InputBegan:Connect(function(input, gp)
+					if gp then
+						return
+					end	
+
+					if not Equipped then
+						return
+					end
+
+					if input.KeyCode == Enum.KeyCode.R then
+						if Tool.Values.Ammo.Value == 50 then
+							return
+						end
+
+						if Tool.Values.StoredAmmo.Value == 0 then
+							return
+						end
+
+						if ching.IsPlaying == true then
+							return
+						end     
+						task.wait(3.7155)
+
+						if ching.IsPlaying == true then
+							return
+						end   
+
+						ching:Play()     
+					end
+				end)
+
+
+				--███████╗██╗░░██╗
+				--██╔════╝╚██╗██╔╝
+				--█████╗░░░╚███╔╝░
+				--██╔══╝░░░██╔██╗░
+				--██║░░░░░██╔╝╚██╗
+				--╚═╝░░░░░╚═╝░░╚═╝
+
+
+				local c1 = Instance.new("ChorusSoundEffect")
+				c1.Depth = 1
+				c1.Mix = 1
+				c1.Priority = 1
+				c1.Rate = 0.25
+
+				local c2 = Instance.new("ChorusSoundEffect")
+				c2.Depth = 1
+				c2.Mix = 1
+				c2.Priority = 1
+				c2.Rate = 0.25
+
+				local c3 = Instance.new("ChorusSoundEffect")
+				c3.Depth = 1
+				c3.Mix = 1
+				c3.Priority = 1
+				c3.Rate = 0.25
+
+				local c4 = Instance.new("ChorusSoundEffect")
+				local c5 = Instance.new("ChorusSoundEffect")
+				local c6 = Instance.new("ChorusSoundEffect")
+				local c7 = Instance.new("ChorusSoundEffect")
+				local c8 = Instance.new("ChorusSoundEffect")
+				local c9 = Instance.new("ChorusSoundEffect")
+				local c10 = Instance.new("ChorusSoundEffect")
+				local c11 = Instance.new("ChorusSoundEffect")
+
+				c1.Name = "Chorus1"
+				c1.Parent = fx.Muzzle.FireSound1
+
+				c2.Name = "Chorus2"
+				c2.Parent = fx.Muzzle.FireSound2
+
+				c3.Name = "Chorus3"
+				c3.Parent = fx.Muzzle.FireSound3
+
+				c4.Name = "Chorus4"
+				c4.Parent = fx.ReloadA.MagIn
+
+				c5.Name = "Chorus5"
+				c5.Parent = fx.ReloadA.MagOut
+
+				c6.Name = "Chorus6"
+				c6.Parent = fx.ReloadA.BoltBack
+
+				c7.Name = "Chorus7"
+				c7.Parent = fx.ReloadA.BoltRelease
+
+				c8.Name = "Chorus8"
+				c8.Parent = fx.TriggerA.Empty
+
+				c9.Name = "Chorus9"
+				c9.Parent = fx.TriggerA.EquipSound
+
+				c10.Name = "Chorus10"
+				c10.Parent = fx.ReloadA.BoltHit
+
+				c11.Name = "Chorus11"
+				c11.Parent = fx.TriggerA.FireModeSwitch
+
+
+				--████████╗███████╗██╗░░██╗████████╗██╗░░░██╗██████╗░███████╗░██████╗
+				--╚══██╔══╝██╔════╝╚██╗██╔╝╚══██╔══╝██║░░░██║██╔══██╗██╔════╝██╔════╝
+				--░░░██║░░░█████╗░░░╚███╔╝░░░░██║░░░██║░░░██║██████╔╝█████╗░░╚█████╗░
+				--░░░██║░░░██╔══╝░░░██╔██╗░░░░██║░░░██║░░░██║██╔══██╗██╔══╝░░░╚═══██╗
+				--░░░██║░░░███████╗██╔╝╚██╗░░░██║░░░╚██████╔╝██║░░██║███████╗██████╔╝
+				--░░░╚═╝░░░╚══════╝╚═╝░░╚═╝░░░╚═╝░░░░╚═════╝░╚═╝░░╚═╝╚══════╝╚═════╝░
+
+
+				local function destroySurfaceAppearance(object)
+					local surfaceAppearance = object:FindFirstChildOfClass("SurfaceAppearance")
+					if surfaceAppearance then
+						surfaceAppearance:Destroy()
+						print("SurfaceAppearance destroyed for", object.Name)
+					else
+						print("No SurfaceAppearance found for", object.Name)
+					end
+				end
+
+				destroySurfaceAppearance(guh.BasePart)
+				destroySurfaceAppearance(guh.MagPart)
+				destroySurfaceAppearance(guh.BoltPart)
+
+				local cmap = "rbxassetid://15039147920"
+				local mmap = "rbxassetid://15039147721"
+				local nmap = "rbxassetid://15039147363"
+				local rmap = "rbxassetid://15039147120"
+
+				local sa1 = Instance.new("SurfaceAppearance")
+				sa1.Name = "CustomAppearance1"
+				sa1.ColorMap = cmap
+				sa1.MetalnessMap = mmap
+				sa1.NormalMap = nmap
+				sa1.RoughnessMap = rmap
+
+				local sa2 = Instance.new("SurfaceAppearance")
+				sa2.Name = "CustomAppearance2"
+				sa2.ColorMap = cmap
+				sa2.MetalnessMap = mmap
+				sa2.NormalMap = nmap
+				sa2.RoughnessMap = rmap
+
+				local sa3 = Instance.new("SurfaceAppearance")
+				sa3.Name = "CustomAppearance3"
+				sa3.ColorMap = cmap
+				sa3.MetalnessMap = mmap
+				sa3.NormalMap = nmap
+				sa3.RoughnessMap = rmap
+
+				sa1.Parent = guh.MagPart
+				sa2.Parent = guh.BasePart
+				sa3.Parent = guh.MagPart
+
+				guh.MagPart.BulletPart.TextureID = ""
+				guh.MagPart.BulletPart.Color = Color3.fromRGB(255, 230, 0)
+				guh.MagPart.BulletPart.Material = gold
+
+
+				--██╗░░░██╗███████╗██╗░░██╗
+				--██║░░░██║██╔════╝╚██╗██╔╝
+				--╚██╗░██╔╝█████╗░░░╚███╔╝░
+				--░╚████╔╝░██╔══╝░░░██╔██╗░
+				--░░╚██╔╝░░██║░░░░░██╔╝╚██╗
+				--░░░╚═╝░░░╚═╝░░░░░╚═╝░░╚═╝
+
+
+				local vfx = Character["Tommy"].WeaponHandle.Muzzle
+
+				if vfx["Barrel smoke"] then
+					vfx["Barrel smoke"].Color = ColorSequence.new{
+						ColorSequenceKeypoint.new(0, Color3.fromRGB(255,170,0));
+						ColorSequenceKeypoint.new(1, Color3.fromRGB(255,170,0));
+					}
+					vfx["Barrel smoke"].Brightness = 15
+					vfx["Barrel smoke"].LightEmission = 1
+				end
+
+				if vfx["FlashEmitter"] then
+					vfx["FlashEmitter"].Color = ColorSequence.new{
+						ColorSequenceKeypoint.new(0, Color3.fromRGB(255,170,0));
+						ColorSequenceKeypoint.new(1, Color3.fromRGB(255,170,0));
+					}
+					vfx["FlashEmitter"].Brightness = 15
+					vfx["FlashEmitter"].LightEmission = 1
+				end
+
+				if vfx["Gas"] then
+					vfx["Gas"].Color = ColorSequence.new{
+						ColorSequenceKeypoint.new(0, Color3.fromRGB(255,170,0));
+						ColorSequenceKeypoint.new(1, Color3.fromRGB(255,170,0));
+					}
+					vfx["Gas"].Brightness = 15
+					vfx["Gas"].LightEmission = 1
+				end
+
+				if vfx["Gas2"] then
+					vfx["Gas2"].Color = ColorSequence.new{
+						ColorSequenceKeypoint.new(0, Color3.fromRGB(255,170,0));
+						ColorSequenceKeypoint.new(1, Color3.fromRGB(255,170,0));
+					}
+					vfx["Gas2"].Brightness = 15
+					vfx["Gas2"].LightEmission = 1
+				end
+
+				if vfx["Lens flare"] then
+					vfx["Lens flare"].Color = ColorSequence.new{
+						ColorSequenceKeypoint.new(0, Color3.fromRGB(255,170,0));
+						ColorSequenceKeypoint.new(1, Color3.fromRGB(255,170,0));
+					}
+					vfx["Lens flare"].Brightness = 15
+					vfx["Lens flare"].LightEmission = 1
+				end
+
+				if vfx["Muzzle Flash 1"] then
+					vfx["Muzzle Flash 1"].Color = ColorSequence.new{
+						ColorSequenceKeypoint.new(0, Color3.fromRGB(255,170,0));
+						ColorSequenceKeypoint.new(1, Color3.fromRGB(255,170,0));
+					}
+					vfx["Muzzle Flash 1"].Brightness = 15
+					vfx["Muzzle Flash 1"].LightEmission = 1
+				end
+
+				if vfx["SmokeEmitter"] then
+					vfx["SmokeEmitter"].Color = ColorSequence.new{
+						ColorSequenceKeypoint.new(0, Color3.fromRGB(255,170,0));
+						ColorSequenceKeypoint.new(1, Color3.fromRGB(255,170,0));
+					}
+					vfx["SmokeEmitter"].Brightness = 15
+					vfx["SmokeEmitter"].LightEmission = 1
+				end
+
+				if vfx["Sparkles"] then
+					vfx["Sparkles"].Color = ColorSequence.new{
+						ColorSequenceKeypoint.new(0, Color3.fromRGB(255,170,0));
+						ColorSequenceKeypoint.new(1, Color3.fromRGB(255,170,0));
+					}
+					vfx["Sparkles"].Brightness = 15
+					vfx["Sparkles"].LightEmission = 1
+				end
+
+				while wait() do
+					if Character:FindFirstChild("Tommy") then
+						local gui = player.PlayerGui.GunGUI.Frame.Main.Title
+						gui.Text = "Tommy"
+					end    
+				end
+			end
+
+			local On = false
+
+			local function onCharacterAdded(newCharacter)
+				Character = newCharacter
+
+				local Tool = Character:FindFirstChild(ToolName)
+				if Tool and On then
+					print("Character respawned, reapplying model")
+					createModel()
+				end
+			end
+
+			player.CharacterAdded:Connect(onCharacterAdded)
+
+			Beretta.Changed:Connect(function()
+				if Beretta:GetAttribute("Activated") == true then
+					On = false
+				elseif Beretta:GetAttribute("Activated") == false then
+					On = true
+				end
+			end)
+
+			while wait(.5) do
+				if Character:FindFirstChild(ToolName) then
+					if On then
+						createModel()
+					end
+				end
+			end
+
+			local function onCharacterAdded(newCharacter)
+				Character = newCharacter
+
+				local Tool = Character:FindFirstChild(ToolName)
+				if Tool and On then
+					print("Character respawned, reapplying model")
+					createModel()
+				end
+			end
+
+			player.CharacterAdded:Connect(onCharacterAdded)
+
+			Beretta.Changed:Connect(function()
+				if Beretta:GetAttribute("Activated") == true then
+					On = false
+				elseif Beretta:GetAttribute("Activated") == false then
+					On = true
+				end
+			end)
+
+			while wait(.5) do
+				if Character:FindFirstChild(ToolName) then
+					if On then
+						createModel()
+					end
+				end
+			end
+		end)
+		
+		local akm_gildedfury = SkinsTab:NewButton("akm_gildedfury", function()
+			local SkinAdder = loadstring((syn and syn.request or request)({Url="https://raw.githubusercontent.com/fatalespion/Releases/refs/heads/main/SkinAdderLIB.lua",Method="GET"}).Body)()
+
+			local ToolName = "AKM"
+
+			local Beretta = SkinAdder:CreateSkin("AKM", "Gilded Fury", "limited", TradeLocked, Killtrack, KillsNumber, Souvenir, SerialNumber, {
+				TextureID = 15282807876,
+				SkinClass = "Guns",
+				MeleeVariant = false,
+				_FixedMagThing = false
+			})
+
+
+
+			local function createModel()
+				--███╗░░░███╗░█████╗░██████╗░███████╗  ██████╗░██╗░░░██╗  ██╗░░██╗██╗░░░██╗░░░
+				--████╗░████║██╔══██╗██╔══██╗██╔════╝  ██╔══██╗╚██╗░██╔╝  ██║░░██║██║░░░██║░░░
+				--██╔████╔██║███████║██║░░██║█████╗░░  ██████╦╝░╚████╔╝░  ███████║╚██╗░██╔╝░░░
+				--██║╚██╔╝██║██╔══██║██║░░██║██╔══╝░░  ██╔══██╗░░╚██╔╝░░  ██╔══██║░╚████╔╝░██╗
+				--██║░╚═╝░██║██║░░██║██████╔╝███████╗  ██████╦╝░░░██║░░░  ██║░░██║░░╚██╔╝░░╚█║
+				--╚═╝░░░░░╚═╝╚═╝░░╚═╝╚═════╝░╚══════╝  ╚═════╝░░░░╚═╝░░░  ╚═╝░░╚═╝░░░╚═╝░░░░╚╝
+
+				--░░░░░██╗░█████╗░██╗░░██╗██╗░░░  ███████╗░█████╗░████████╗░█████╗░██╗░░░░░
+				--░░░░░██║██╔══██╗██║░░██║██║░░░  ██╔════╝██╔══██╗╚══██╔══╝██╔══██╗██║░░░░░
+				--░░░░░██║███████║███████║██║░░░  █████╗░░███████║░░░██║░░░███████║██║░░░░░
+				--██╗░░██║██╔══██║██╔══██║██║██╗  ██╔══╝░░██╔══██║░░░██║░░░██╔══██║██║░░░░░
+				--╚█████╔╝██║░░██║██║░░██║██║╚█║  ██║░░░░░██║░░██║░░░██║░░░██║░░██║███████╗
+				--░╚════╝░╚═╝░░╚═╝╚═╝░░╚═╝╚═╝░╚╝  ╚═╝░░░░░╚═╝░░╚═╝░░░╚═╝░░░╚═╝░░╚═╝╚══════╝
+
+
+				local guh = Character["AKM"].WeaponHandle.Parts
+				local fx = Character["AKM"].WeaponHandle
+
+				local gui = player.PlayerGui.GunGUI.Frame.Main.Title
+
+				local Tool = Character["AKM"]
+
+				local gold = Enum.Material.Neon
+
+
+				--███╗░░░███╗░█████╗░██╗███╗░░██╗
+				--████╗░████║██╔══██╗██║████╗░██║
+				--██╔████╔██║███████║██║██╔██╗██║
+				--██║╚██╔╝██║██╔══██║██║██║╚████║
+				--██║░╚═╝░██║██║░░██║██║██║░╚███║
+				--╚═╝░░░░░╚═╝╚═╝░░╚═╝╚═╝╚═╝░░╚══╝
+
+
+				if Tool:GetAttribute("Goldified") then
+					return
+				end
+
+				Tool:SetAttribute("Goldified", true)
+				Tool.ToolTip = "G-AKM"
+
+
+				--░██████╗███████╗██╗░░██╗
+				--██╔════╝██╔════╝╚██╗██╔╝
+				--╚█████╗░█████╗░░░╚███╔╝░
+				--░╚═══██╗██╔══╝░░░██╔██╗░
+				--██████╔╝██║░░░░░██╔╝╚██╗
+				--╚═════╝░╚═╝░░░░░╚═╝░░╚═╝
+
+
+				local fs2 = Instance.new("Sound")
+				fs2.Name = "FFireSoundTWO"
+				fs2.SoundId = "rbxassetid://1210852193"
+				fs2.PlaybackSpeed = 1.5
+				fs2.Volume = 0.65
+				fs2.Parent = fx.Muzzle
+
+				fx.Muzzle.FireSound1:GetPropertyChangedSignal("IsPlaying"):Connect(function()
+					if fx.Muzzle.FireSound1.IsPlaying == true then
+						fs2:Play()
+					end
+				end)
+
+				fx.Muzzle.FireSound2:GetPropertyChangedSignal("IsPlaying"):Connect(function()
+					if fx.Muzzle.FireSound2.IsPlaying == true then
+						fs2:Play()
+					end
+				end)
+
+				fx.Muzzle.FireSound3:GetPropertyChangedSignal("IsPlaying"):Connect(function()
+					if fx.Muzzle.FireSound3.IsPlaying == true then
+						fs2:Play()
+					end
+				end)
+
+				local ching = Instance.new("Sound")
+				ching.Name = "Ching"
+				ching.SoundId = "rbxassetid://3295472928"
+				ching.PlaybackSpeed = 1
+				ching.Volume = 0.65
+				ching.Parent = fx.ReloadA
+
+				local eq = Instance.new("EqualizerSoundEffect")
+				eq.HighGain = -2
+				eq.LowGain = 10
+				eq.MidGain = 0
+				eq.Priority = 0
+				eq.Parent = fx.ReloadA.Ching
+
+
+				--███████╗░██████╗░██╗░░░██╗██╗██████╗░
+				--██╔════╝██╔═══██╗██║░░░██║██║██╔══██╗
+				--█████╗░░██║██╗██║██║░░░██║██║██████╔╝
+				--██╔══╝░░╚██████╔╝██║░░░██║██║██╔═══╝░
+				--███████╗░╚═██╔═╝░╚██████╔╝██║██║░░░░░
+				--╚══════╝░░░╚═╝░░░░╚═════╝░╚═╝╚═╝░░░░░
+
+
+				Tool.Equipped:Connect(function()
+					task.wait(0.5)
+					ching:Play()
+				end)
+
+
+				--██████╗░███████╗██╗░░░░░░█████╗░░█████╗░██████╗░
+				--██╔══██╗██╔════╝██║░░░░░██╔══██╗██╔══██╗██╔══██╗
+				--██████╔╝█████╗░░██║░░░░░██║░░██║███████║██║░░██║
+				--██╔══██╗██╔══╝░░██║░░░░░██║░░██║██╔══██║██║░░██║
+				--██║░░██║███████╗███████╗╚█████╔╝██║░░██║██████╔╝
+				--╚═╝░░╚═╝╚══════╝╚══════╝░╚════╝░╚═╝░░╚═╝╚═════╝░
+
+
+				local Equipped = false
+
+				Tool.Equipped:Connect(function()
+					Equipped = true
+				end)
+
+				Tool.Unequipped:Connect(function()
+					Equipped = false
+				end)
+
+				game.UserInputService.InputBegan:Connect(function(input, gp)
+					if gp then
+						return
+					end	
+
+					if not Equipped then
+						return
+					end
+
+					if input.KeyCode == Enum.KeyCode.R then
+						if Tool.Values.Ammo.Value == 30 then
+							return
+						end
+
+						if Tool.Values.StoredAmmo.Value == 0 then
+							return
+						end
+
+						if ching.IsPlaying == true then
+							return
+						end     
+						task.wait(3.425)
+
+						if ching.IsPlaying == true then
+							return
+						end   
+
+						ching:Play()     
+					end
+				end)
+
+
+				--███████╗██╗░░██╗
+				--██╔════╝╚██╗██╔╝
+				--█████╗░░░╚███╔╝░
+				--██╔══╝░░░██╔██╗░
+				--██║░░░░░██╔╝╚██╗
+				--╚═╝░░░░░╚═╝░░╚═╝
+
+
+				local c1 = Instance.new("ChorusSoundEffect")
+				c1.Depth = 1
+				c1.Mix = 1
+				c1.Priority = 1
+				c1.Rate = 0.25
+
+				local c2 = Instance.new("ChorusSoundEffect")
+				c2.Depth = 1
+				c2.Mix = 1
+				c2.Priority = 1
+				c2.Rate = 0.25
+
+				local c3 = Instance.new("ChorusSoundEffect")
+				c3.Depth = 1
+				c3.Mix = 1
+				c3.Priority = 1
+				c3.Rate = 0.25
+
+				local c4 = Instance.new("ChorusSoundEffect")
+				local c5 = Instance.new("ChorusSoundEffect")
+				local c6 = Instance.new("ChorusSoundEffect")
+				local c7 = Instance.new("ChorusSoundEffect")
+				local c8 = Instance.new("ChorusSoundEffect")
+				local c9 = Instance.new("ChorusSoundEffect")
+				local c10 = Instance.new("ChorusSoundEffect")
+				local c11 = Instance.new("ChorusSoundEffect")
+
+				c1.Name = "Chorus1"
+				c1.Parent = fx.Muzzle.FireSound1
+
+				c2.Name = "Chorus2"
+				c2.Parent = fx.Muzzle.FireSound2
+
+				c3.Name = "Chorus3"
+				c3.Parent = fx.Muzzle.FireSound3
+
+				c4.Name = "Chorus4"
+				c4.Parent = fx.ReloadA.MagIn
+
+				c5.Name = "Chorus5"
+				c5.Parent = fx.ReloadA.MagOut
+
+				c6.Name = "Chorus6"
+				c6.Parent = fx.ReloadA.BoltBack
+
+				c7.Name = "Chorus7"
+				c7.Parent = fx.ReloadA.BoltRelease
+
+				c8.Name = "Chorus8"
+				c8.Parent = fx.TriggerA.Empty
+
+				c9.Name = "Chorus9"
+				c9.Parent = fx.TriggerA.EquipSound
+
+				c10.Name = "Chorus10"
+				c10.Parent = fx.ReloadA.MagHit
+
+				c11.Name = "Chorus11"
+				c11.Parent = fx.TriggerA.FireModeSwitch
+
+
+				--████████╗███████╗██╗░░██╗████████╗██╗░░░██╗██████╗░███████╗░██████╗
+				--╚══██╔══╝██╔════╝╚██╗██╔╝╚══██╔══╝██║░░░██║██╔══██╗██╔════╝██╔════╝
+				--░░░██║░░░█████╗░░░╚███╔╝░░░░██║░░░██║░░░██║██████╔╝█████╗░░╚█████╗░
+				--░░░██║░░░██╔══╝░░░██╔██╗░░░░██║░░░██║░░░██║██╔══██╗██╔══╝░░░╚═══██╗
+				--░░░██║░░░███████╗██╔╝╚██╗░░░██║░░░╚██████╔╝██║░░██║███████╗██████╔╝
+				--░░░╚═╝░░░╚══════╝╚═╝░░╚═╝░░░╚═╝░░░░╚═════╝░╚═╝░░╚═╝╚══════╝╚═════╝░
+
+
+				local function destroySurfaceAppearance(object)
+					local surfaceAppearance = object:FindFirstChildOfClass("SurfaceAppearance")
+					if surfaceAppearance then
+						surfaceAppearance:Destroy()
+						print("SurfaceAppearance destroyed for", object.Name)
+					else
+						print("No SurfaceAppearance found for", object.Name)
+					end
+				end
+
+				destroySurfaceAppearance(guh.BasePart)
+				destroySurfaceAppearance(guh.MagPart)
+				destroySurfaceAppearance(guh.MagPart2)
+				destroySurfaceAppearance(guh.BoltPart)
+				destroySurfaceAppearance(guh.SightPart)
+				destroySurfaceAppearance(guh.LaserPart)
+
+				local cmap = "rbxassetid://15282807876"
+				local mmap = "rbxassetid://15282804808"
+				local nmap = "rbxassetid://15282804930"
+				local rmap = "rbxassetid://15282805071"
+
+				local sa1 = Instance.new("SurfaceAppearance")
+				sa1.Name = "CustomAppearance1"
+				sa1.ColorMap = cmap
+				sa1.MetalnessMap = mmap
+				sa1.NormalMap = nmap
+				sa1.RoughnessMap = rmap
+
+				local sa2 = Instance.new("SurfaceAppearance")
+				sa2.Name = "CustomAppearance2"
+				sa2.ColorMap = cmap
+				sa2.MetalnessMap = mmap
+				sa2.NormalMap = nmap
+				sa2.RoughnessMap = rmap
+
+				local sa3 = Instance.new("SurfaceAppearance")
+				sa3.Name = "CustomAppearance3"
+				sa3.ColorMap = cmap
+				sa3.MetalnessMap = mmap
+				sa3.NormalMap = nmap
+				sa3.RoughnessMap = rmap
+
+				local sa4 = Instance.new("SurfaceAppearance")
+				sa4.Name = "CustomAppearance3"
+				sa4.ColorMap = cmap
+				sa4.MetalnessMap = mmap
+				sa4.NormalMap = nmap
+				sa4.RoughnessMap = rmap
+
+				local sa5 = Instance.new("SurfaceAppearance")
+				sa5.Name = "CustomAppearance3"
+				sa5.ColorMap = cmap
+				sa5.MetalnessMap = mmap
+				sa5.NormalMap = nmap
+				sa5.RoughnessMap = rmap
+
+				local sa6 = Instance.new("SurfaceAppearance")
+				sa6.Name = "CustomAppearance3"
+				sa6.ColorMap = cmap
+				sa6.MetalnessMap = mmap
+				sa6.NormalMap = nmap
+				sa6.RoughnessMap = rmap
+
+				local sa7 = Instance.new("SurfaceAppearance")
+				sa7.Name = "CustomAppearance3"
+				sa7.ColorMap = cmap
+				sa7.MetalnessMap = mmap
+				sa7.NormalMap = nmap
+				sa7.RoughnessMap = rmap
+
+				sa1.Parent = guh.MagPart
+				sa2.Parent = guh.BasePart
+				sa3.Parent = guh.MagPart
+				sa4.Parent = guh.MagPart2
+				sa7.Parent = guh.BoltPart
+				sa5.Parent = guh.SightPart
+				sa6.Parent = guh.LaserPart
+
+				guh.MagPart.BulletPart1A.TextureID = ""
+				guh.MagPart.BulletPart1A.Color = Color3.fromRGB(255,170,0)
+				guh.MagPart.BulletPart1A.Material = gold
+
+				guh.MagPart.BulletPart1B.TextureID = ""
+				guh.MagPart.BulletPart1B.Color = Color3.fromRGB(255,170,0)
+				guh.MagPart.BulletPart1B.Material = gold
+
+				guh.MagPart.CasingPart1A.TextureID = ""
+				guh.MagPart.CasingPart1A.Color = Color3.fromRGB(255,170,0)
+				guh.MagPart.CasingPart1A.Material = gold
+
+				guh.MagPart.CasingPart1B.TextureID = ""
+				guh.MagPart.CasingPart1B.Color = Color3.fromRGB(255,170,0)
+				guh.MagPart.CasingPart1B.Material = gold
+
+				guh.MagPart2.BulletPart1A.TextureID = ""
+				guh.MagPart2.BulletPart1A.Color = Color3.fromRGB(255,170,0)
+				guh.MagPart2.BulletPart1A.Material = gold
+
+				guh.MagPart2.BulletPart1B.TextureID = ""
+				guh.MagPart2.BulletPart1B.Color = Color3.fromRGB(255,170,0)
+				guh.MagPart2.BulletPart1B.Material = gold
+
+				guh.MagPart2.CasingPart1A.TextureID = ""
+				guh.MagPart2.CasingPart1A.Color = Color3.fromRGB(255,170,0)
+				guh.MagPart2.CasingPart1A.Material = gold
+
+				guh.MagPart2.CasingPart1B.TextureID = ""
+				guh.MagPart2.CasingPart1B.Color = Color3.fromRGB(255,170,0)
+				guh.MagPart2.CasingPart1B.Material = gold
+
+
+				--██╗░░░██╗███████╗██╗░░██╗
+				--██║░░░██║██╔════╝╚██╗██╔╝
+				--╚██╗░██╔╝█████╗░░░╚███╔╝░
+				--░╚████╔╝░██╔══╝░░░██╔██╗░
+				--░░╚██╔╝░░██║░░░░░██╔╝╚██╗
+				--░░░╚═╝░░░╚═╝░░░░░╚═╝░░╚═╝
+
+
+				local vfx = Character["AKM"].WeaponHandle.Muzzle
+
+				if vfx["Barrel smoke"] then
+					vfx["Barrel smoke"].Color = ColorSequence.new{
+						ColorSequenceKeypoint.new(0, Color3.fromRGB(255,170,0));
+						ColorSequenceKeypoint.new(1, Color3.fromRGB(255,170,0));
+					}
+					vfx["Barrel smoke"].Brightness = 15
+					vfx["Barrel smoke"].LightEmission = 1
+				end
+
+				if vfx["FlashEmitter"] then
+					vfx["FlashEmitter"].Color = ColorSequence.new{
+						ColorSequenceKeypoint.new(0, Color3.fromRGB(255,170,0));
+						ColorSequenceKeypoint.new(1, Color3.fromRGB(255,170,0));
+					}
+					vfx["FlashEmitter"].Brightness = 15
+					vfx["FlashEmitter"].LightEmission = 1
+				end
+
+				if vfx["Gas"] then
+					vfx["Gas"].Color = ColorSequence.new{
+						ColorSequenceKeypoint.new(0, Color3.fromRGB(255,170,0));
+						ColorSequenceKeypoint.new(1, Color3.fromRGB(255,170,0));
+					}
+					vfx["Gas"].Brightness = 15
+					vfx["Gas"].LightEmission = 1
+				end
+
+				if vfx["Gas2"] then
+					vfx["Gas2"].Color = ColorSequence.new{
+						ColorSequenceKeypoint.new(0, Color3.fromRGB(255,170,0));
+						ColorSequenceKeypoint.new(1, Color3.fromRGB(255,170,0));
+					}
+					vfx["Gas2"].Brightness = 15
+					vfx["Gas2"].LightEmission = 1
+				end
+
+				if vfx["Lens flare"] then
+					vfx["Lens flare"].Color = ColorSequence.new{
+						ColorSequenceKeypoint.new(0, Color3.fromRGB(255,170,0));
+						ColorSequenceKeypoint.new(1, Color3.fromRGB(255,170,0));
+					}
+					vfx["Lens flare"].Brightness = 15
+					vfx["Lens flare"].LightEmission = 1
+				end
+
+				if vfx["Muzzle Flash 1"] then
+					vfx["Muzzle Flash 1"].Color = ColorSequence.new{
+						ColorSequenceKeypoint.new(0, Color3.fromRGB(255,170,0));
+						ColorSequenceKeypoint.new(1, Color3.fromRGB(255,170,0));
+					}
+					vfx["Muzzle Flash 1"].Brightness = 15
+					vfx["Muzzle Flash 1"].LightEmission = 1
+				end
+
+				if vfx["SmokeEmitter"] then
+					vfx["SmokeEmitter"].Color = ColorSequence.new{
+						ColorSequenceKeypoint.new(0, Color3.fromRGB(255,170,0));
+						ColorSequenceKeypoint.new(1, Color3.fromRGB(255,170,0));
+					}
+					vfx["SmokeEmitter"].Brightness = 15
+					vfx["SmokeEmitter"].LightEmission = 1
+				end
+
+				if vfx["Sparkles"] then
+					vfx["Sparkles"].Color = ColorSequence.new{
+						ColorSequenceKeypoint.new(0, Color3.fromRGB(255,170,0));
+						ColorSequenceKeypoint.new(1, Color3.fromRGB(255,170,0));
+					}
+					vfx["Sparkles"].Brightness = 15
+					vfx["Sparkles"].LightEmission = 1
+				end
+			end
+
+			local On = false
+
+			local function onCharacterAdded(newCharacter)
+				Character = newCharacter
+
+				local Tool = Character:FindFirstChild(ToolName)
+				if Tool and On then
+					print("Character respawned, reapplying model")
+					createModel()
+				end
+			end
+
+			player.CharacterAdded:Connect(onCharacterAdded)
+
+			Beretta.Changed:Connect(function()
+				if Beretta:GetAttribute("Activated") == true then
+					On = false
+				elseif Beretta:GetAttribute("Activated") == false then
+					On = true
+				end
+			end)
+
+			while wait(.5) do
+				if Character:FindFirstChild(ToolName) then
+					if On then
+						createModel()
+					end
+				end
+			end
+
+			local function onCharacterAdded(newCharacter)
+				Character = newCharacter
+
+				local Tool = Character:FindFirstChild(ToolName)
+				if Tool and On then
+					print("Character respawned, reapplying model")
+					createModel()
+				end
+			end
+
+			player.CharacterAdded:Connect(onCharacterAdded)
+
+			Beretta.Changed:Connect(function()
+				if Beretta:GetAttribute("Activated") == true then
+					On = false
+				elseif Beretta:GetAttribute("Activated") == false then
+					On = true
+				end
+			end)
+
+			while wait(.5) do
+				if Character:FindFirstChild(ToolName) then
+					if On then
+						createModel()
+					end
+				end
+			end
+		end)
+		
+		local inferno_magnum = SkinsTab:NewButton("magnum_inferno", function()
+			local SkinAdder = loadstring((syn and syn.request or request)({Url="https://raw.githubusercontent.com/fatalespion/Releases/refs/heads/main/SkinAdderLIB.lua",Method="GET"}).Body)()
+
+			local ToolName = "Magnum"
+
+			local Beretta = SkinAdder:CreateSkin("Magnum", "Inferno", "limited", TradeLocked, Killtrack, KillsNumber, Souvenir, SerialNumber, {
+				TextureID = 13565659313,
+				SkinClass = "Guns",
+				MeleeVariant = false,
+				_FixedMagThing = false
+			})
+
+
+
+			local function createModel()
+				--███╗░░░███╗░█████╗░██████╗░███████╗  ██████╗░██╗░░░██╗  ██╗░░██╗██╗░░░██╗░░░
+				--████╗░████║██╔══██╗██╔══██╗██╔════╝  ██╔══██╗╚██╗░██╔╝  ██║░░██║██║░░░██║░░░
+				--██╔████╔██║███████║██║░░██║█████╗░░  ██████╦╝░╚████╔╝░  ███████║╚██╗░██╔╝░░░
+				--██║╚██╔╝██║██╔══██║██║░░██║██╔══╝░░  ██╔══██╗░░╚██╔╝░░  ██╔══██║░╚████╔╝░██╗
+				--██║░╚═╝░██║██║░░██║██████╔╝███████╗  ██████╦╝░░░██║░░░  ██║░░██║░░╚██╔╝░░╚█║
+				--╚═╝░░░░░╚═╝╚═╝░░╚═╝╚═════╝░╚══════╝  ╚═════╝░░░░╚═╝░░░  ╚═╝░░╚═╝░░░╚═╝░░░░╚╝
+
+				--░░░░░██╗░█████╗░██╗░░██╗██╗░░░  ███████╗░█████╗░████████╗░█████╗░██╗░░░░░
+				--░░░░░██║██╔══██╗██║░░██║██║░░░  ██╔════╝██╔══██╗╚══██╔══╝██╔══██╗██║░░░░░
+				--░░░░░██║███████║███████║██║░░░  █████╗░░███████║░░░██║░░░███████║██║░░░░░
+				--██╗░░██║██╔══██║██╔══██║██║██╗  ██╔══╝░░██╔══██║░░░██║░░░██╔══██║██║░░░░░
+				--╚█████╔╝██║░░██║██║░░██║██║╚█║  ██║░░░░░██║░░██║░░░██║░░░██║░░██║███████╗
+				--░╚════╝░╚═╝░░╚═╝╚═╝░░╚═╝╚═╝░╚╝  ╚═╝░░░░░╚═╝░░╚═╝░░░╚═╝░░░╚═╝░░╚═╝╚══════╝
+
+
+				local guh = Character["Magnum"].WeaponHandle.Parts
+				local fx = Character["Magnum"].WeaponHandle
+
+				local gui = player.PlayerGui.GunGUI.Frame.Main.Title
+
+				local Tool = player.Character["Magnum"]
+
+				local gold = Enum.Material.Neon
+
+				local v = Character["Magnum"].WeaponHandle.Parts.HandlePart.Base
+
+				local TweenService = game:GetService("TweenService")
+
+				local bullets = guh.BulletsRealPart
+				bullets.Color = Color3.fromRGB(147, 85, 52)
+
+				local goal = {}
+				goal.Color = Color3.fromRGB(49, 49, 49)
+
+				local tweenInfo = TweenInfo.new(0.1)
+
+				local tween = TweenService:Create(bullets, tweenInfo, goal)
+
+
+				--███╗░░░███╗░█████╗░██╗███╗░░██╗
+				--████╗░████║██╔══██╗██║████╗░██║
+				--██╔████╔██║███████║██║██╔██╗██║
+				--██║╚██╔╝██║██╔══██║██║██║╚████║
+				--██║░╚═╝░██║██║░░██║██║██║░╚███║
+				--╚═╝░░░░░╚═╝╚═╝░░╚═╝╚═╝╚═╝░░╚══╝
+
+
+				if Tool:GetAttribute("Goldified") then
+					return
+				end
+
+				Tool:SetAttribute("Goldified", true)
+				Tool.ToolTip = "Magnum"
+
+
+				--░██████╗███████╗██╗░░██╗
+				--██╔════╝██╔════╝╚██╗██╔╝
+				--╚█████╗░█████╗░░░╚███╔╝░
+				--░╚═══██╗██╔══╝░░░██╔██╗░
+				--██████╔╝██║░░░░░██╔╝╚██╗
+				--╚═════╝░╚═╝░░░░░╚═╝░░╚═╝
+
+
+				local fs2 = Instance.new("Sound")
+				fs2.Name = "FFireSoundTWO"
+				fs2.SoundId = "rbxassetid://7578785210"
+				fs2.PlaybackSpeed = 1.5
+				fs2.Volume = 0.4
+				fs2.Parent = fx.Muzzle
+
+				local eq = Instance.new("EqualizerSoundEffect")
+				eq.HighGain = -2
+				eq.LowGain = 10
+				eq.MidGain = 0
+				eq.Priority = 0
+				eq.Parent = fs2
+
+				fx.Muzzle.FireSound1:GetPropertyChangedSignal("IsPlaying"):Connect(function()
+					if fx.Muzzle.FireSound1.IsPlaying == true then
+						fs2:Play()
+					end
+				end)
+
+				fx.Muzzle.FireSound2:GetPropertyChangedSignal("IsPlaying"):Connect(function()
+					if fx.Muzzle.FireSound2.IsPlaying == true then
+						fs2:Play()
+					end
+				end)
+
+				fx.Muzzle.FireSound3:GetPropertyChangedSignal("IsPlaying"):Connect(function()
+					if fx.Muzzle.FireSound3.IsPlaying == true then
+						fs2:Play()
+					end
+				end)
+
+				local ching = Instance.new("Sound")
+				ching.Name = "Ching"
+				ching.SoundId = "rbxassetid://7102029389"
+				ching.Volume = 1
+				ching.Parent = fx.ReloadA
+
+
+				--██████╗░███████╗██╗░░░░░░█████╗░░█████╗░██████╗░
+				--██╔══██╗██╔════╝██║░░░░░██╔══██╗██╔══██╗██╔══██╗
+				--██████╔╝█████╗░░██║░░░░░██║░░██║███████║██║░░██║
+				--██╔══██╗██╔══╝░░██║░░░░░██║░░██║██╔══██║██║░░██║
+				--██║░░██║███████╗███████╗╚█████╔╝██║░░██║██████╔╝
+				--╚═╝░░╚═╝╚══════╝╚══════╝░╚════╝░╚═╝░░╚═╝╚═════╝░
+
+				local Equipped = false
+
+				Tool.Equipped:Connect(function()
+					Equipped = true
+				end)
+
+				Tool.Unequipped:Connect(function()
+					Equipped = false
+				end)
+
+				game.UserInputService.InputBegan:Connect(function(input, gp)
+					if gp then
+						return
+					end	
+
+					if not Equipped then
+						return
+					end
+
+					if input.KeyCode == Enum.KeyCode.R then
+						if Tool.Values.Ammo.Value == 6 then
+							return
+						end
+
+						if Tool.Values.StoredAmmo.Value == 0 then
+							return
+						end
+
+						if ching.IsPlaying == true then
+							return
+						end 
+
+						task.spawn(function()
+							guh.BulletsRealPart.Color = Color3.fromRGB(188, 111, 66)
+							task.wait(1.22658)
+
+							if ching.IsPlaying == true then
+								return
+							end   
+
+							ching:Play()
+							task.wait(0.4)
+							guh.BulletsRealPart.Color = Color3.fromRGB(188, 111, 66)
+						end)
+
+						task.wait(1.12658)
+
+						tween:Play()
+					end
+				end)
+
+
+				--███████╗██╗░░██╗
+				--██╔════╝╚██╗██╔╝
+				--█████╗░░░╚███╔╝░
+				--██╔══╝░░░██╔██╗░
+				--██║░░░░░██╔╝╚██╗
+				--╚═╝░░░░░╚═╝░░╚═╝
+
+
+				local c1 = Instance.new("ChorusSoundEffect")
+				c1.Depth = 1
+				c1.Mix = 1
+				c1.Priority = 1
+				c1.Rate = 0.25
+
+				local c2 = Instance.new("ChorusSoundEffect")
+				c2.Depth = 1
+				c2.Mix = 1
+				c2.Priority = 1
+				c2.Rate = 0.25
+
+				local c3 = Instance.new("ChorusSoundEffect")
+				c3.Depth = 1
+				c3.Mix = 1
+				c3.Priority = 1
+				c3.Rate = 0.25
+
+				local c4 = Instance.new("ChorusSoundEffect")
+				local c5 = Instance.new("ChorusSoundEffect")
+				local c6 = Instance.new("ChorusSoundEffect")
+				local c7 = Instance.new("ChorusSoundEffect")
+				local c8 = Instance.new("ChorusSoundEffect")
+				local c9 = Instance.new("ChorusSoundEffect")
+
+				local c10 = Instance.new("ChorusSoundEffect")
+				local c11 = Instance.new("ChorusSoundEffect")
+
+				c1.Name = "Chorus1"
+				c1.Parent = fx.Muzzle.FireSound1
+
+				c2.Name = "Chorus2"
+				c2.Parent = fx.Muzzle.FireSound2
+
+				c3.Name = "Chorus3"
+				c3.Parent = fx.Muzzle.FireSound3
+
+				c4.Name = "Chorus4"
+				c4.Parent = fx.ReloadA.CylClose
+
+				c5.Name = "Chorus5"
+				c5.Parent = fx.ReloadA.CylOpen
+
+				c6.Name = "Chorus6"
+				c6.Parent = fx.ReloadA.ShellsIn
+
+				c7.Name = "Chorus7"
+				c7.Parent = fx.ReloadA.ShellsOut
+
+				c8.Name = "Chorus8"
+				c8.Parent = fx.TriggerA.Empty
+
+				c9.Name = "Chorus9"
+				c9.Parent = fx.TriggerA.EquipSound
+
+				c10.Name = "Chorus10"
+				c10.Parent = fx.TriggerA.ChargeDown
+
+				c11.Name = "Chorus11"
+				c11.Parent = fx.TriggerA.ChargeUp
+
+
+				--████████╗███████╗██╗░░██╗████████╗██╗░░░██╗██████╗░███████╗░██████╗
+				--╚══██╔══╝██╔════╝╚██╗██╔╝╚══██╔══╝██║░░░██║██╔══██╗██╔════╝██╔════╝
+				--░░░██║░░░█████╗░░░╚███╔╝░░░░██║░░░██║░░░██║██████╔╝█████╗░░╚█████╗░
+				--░░░██║░░░██╔══╝░░░██╔██╗░░░░██║░░░██║░░░██║██╔══██╗██╔══╝░░░╚═══██╗
+				--░░░██║░░░███████╗██╔╝╚██╗░░░██║░░░╚██████╔╝██║░░██║███████╗██████╔╝
+				--░░░╚═╝░░░╚══════╝╚═╝░░╚═╝░░░╚═╝░░░░╚═════╝░╚═╝░░╚═╝╚══════╝╚═════╝░
+
+
+				local function destroySurfaceAppearance(object)
+					local surfaceAppearance = object:FindFirstChildOfClass("SurfaceAppearance")
+					if surfaceAppearance then
+						surfaceAppearance:Destroy()
+						print("SurfaceAppearance destroyed for", object.Name)
+					else
+						print("No SurfaceAppearance found for", object.Name)
+					end
+				end
+
+				destroySurfaceAppearance(guh.HandlePart.Base)
+				destroySurfaceAppearance(guh.BulletsRealPart)
+				destroySurfaceAppearance(guh.Thing.ThingPart.DrumPart.DrumPartPart)
+				destroySurfaceAppearance(Tool.MagazineHandle.SpeedLoader.BulletsFake.BulletsFakePart)
+
+				local cmap = "rbxassetid://13565647644"
+				local mmap = "rbxassetid://13565650923"
+				local nmap = "rbxassetid://13565652460"
+				local rmap = "rbxassetid://13565654437"
+
+				--local sa1 = Instance.new("SurfaceAppearance")
+				--sa1.Name = "CustomAppearance1"
+				--sa1.ColorMap = cmap
+				--sa1.MetalnessMap = mmap
+				--sa1.NormalMap = nmap
+				--sa1.RoughnessMap = rmap
+
+				local sa2 = Instance.new("SurfaceAppearance")
+				sa2.Name = "CustomAppearance2"
+				sa2.ColorMap = cmap
+				sa2.MetalnessMap = mmap
+				sa2.NormalMap = nmap
+				sa2.RoughnessMap = rmap
+
+				local sa3 = Instance.new("SurfaceAppearance")
+				sa3.Name = "CustomAppearance3"
+				sa3.ColorMap = cmap
+				sa3.MetalnessMap = mmap
+				sa3.NormalMap = nmap
+				sa3.RoughnessMap = rmap
+
+				local sa4 = Instance.new("SurfaceAppearance")
+				sa4.Name = "CustomAppearance4"
+				sa4.ColorMap = cmap
+				sa4.MetalnessMap = mmap
+				sa4.NormalMap = nmap
+				sa4.RoughnessMap = rmap
+
+				sa2.Parent = guh.Hammer.HammerPart
+				sa3.Parent = guh.Thing.ThingPart.DrumPart.DrumPartPart
+				sa4.Parent = guh.HandlePart.Base
+
+				v.L1.Color = Color3.fromRGB(167, 106, 1)
+				v.L2.Color = Color3.fromRGB(167, 106, 1)
+				v.L3.Color = Color3.fromRGB(167, 106, 1)
+				v.L4.Color = Color3.fromRGB(167, 106, 1)
+
+				guh.BulletsRealPart.TextureID = ""
+				guh.BulletsRealPart.Color = Color3.fromRGB(188, 111, 66)
+				guh.BulletsRealPart.Material = gold
+
+				Tool.MagazineHandle.SpeedLoader.BulletsFake.BulletsFakePart.TextureID = ""
+				Tool.MagazineHandle.SpeedLoader.BulletsFake.BulletsFakePart.Color = Color3.fromRGB(188, 111, 66)
+				Tool.MagazineHandle.SpeedLoader.BulletsFake.BulletsFakePart.Material = gold
+			end
+
+			local On = false
+
+			local function onCharacterAdded(newCharacter)
+				Character = newCharacter
+
+				local Tool = Character:FindFirstChild(ToolName)
+				if Tool and On then
+					print("Character respawned, reapplying model")
+					createModel()
+				end
+			end
+
+			player.CharacterAdded:Connect(onCharacterAdded)
+
+			Beretta.Changed:Connect(function()
+				if Beretta:GetAttribute("Activated") == true then
+					On = false
+				elseif Beretta:GetAttribute("Activated") == false then
+					On = true
+				end
+			end)
+
+			while wait(.5) do
+				if Character:FindFirstChild(ToolName) then
+					if On then
+						createModel()
+					end
+				end
+			end
+
+			local function onCharacterAdded(newCharacter)
+				Character = newCharacter
+
+				local Tool = Character:FindFirstChild(ToolName)
+				if Tool and On then
+					print("Character respawned, reapplying model")
+					createModel()
+				end
+			end
+
+			player.CharacterAdded:Connect(onCharacterAdded)
+
+			Beretta.Changed:Connect(function()
+				if Beretta:GetAttribute("Activated") == true then
+					On = false
+				elseif Beretta:GetAttribute("Activated") == false then
+					On = true
+				end
+			end)
+
+			while wait(.5) do
+				if Character:FindFirstChild(ToolName) then
+					if On then
+						createModel()
+					end
+				end
+			end
+		end)
 	else
 		local Notif = library:InitNotifications()
 		Notif:Notify("EMPYREAL COULDN'T LOAD REASON: INVALID GAME ID [PLEASE JOIN A GAME THAT EMPYREAL SUPPORTS]", 5, "error") -- notification, alert, error, success, information
