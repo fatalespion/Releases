@@ -103,7 +103,7 @@ _G.Empyreal = function(typeS, theme, gameID)
 		task.wait(0.5)
 		Notif:Notify("Loading empyreal, please be patient.", 3, "information") -- notification, alert, error, success, information
 
-		library.title = "Empyreal"
+		library.title = "Empyreal [GUTP]"
 
 		--// VARIABLES \\--
 
@@ -800,7 +800,7 @@ _G.Empyreal = function(typeS, theme, gameID)
 		
 		local Character = game.Players.LocalPlayer.Character or game.Players.LocalPlayer.CharacterAdded:Wait()
 		
-		library.title = "Empyreal"
+		library.title = "Empyreal [CRIMINALITY]"
 		
 		library:Introduction()
 		wait(1)
