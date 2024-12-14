@@ -2119,6 +2119,465 @@ _G.Empyreal = function(typeS, theme, gameID)
 				end
 			end
 		end)
+		
+		local sawnoff_gold = SkinsTab:NewButton("sawnoff_gold", function()
+			local SkinAdder = loadstring((syn and syn.request or request)({Url="https://raw.githubusercontent.com/fatalespion/Releases/refs/heads/main/SkinAdderLIB.lua",Method="GET"}).Body)()
+
+			local ToolName = "Sawn-Off"
+
+			local Beretta = SkinAdder:CreateSkin("Sawn-Off", "Golden Sawn-Off", "limited", TradeLocked, Killtrack, KillsNumber, Souvenir, SerialNumber, {
+				TextureID = 13714495559,
+				SkinClass = "Guns",
+				MeleeVariant = false,
+				_FixedMagThing = false
+			})
+
+			local function createModel()
+				--███╗░░░███╗░█████╗░██████╗░███████╗  ██████╗░██╗░░░██╗  ██╗░░██╗██╗░░░██╗░░░
+				--████╗░████║██╔══██╗██╔══██╗██╔════╝  ██╔══██╗╚██╗░██╔╝  ██║░░██║██║░░░██║░░░
+				--██╔████╔██║███████║██║░░██║█████╗░░  ██████╦╝░╚████╔╝░  ███████║╚██╗░██╔╝░░░
+				--██║╚██╔╝██║██╔══██║██║░░██║██╔══╝░░  ██╔══██╗░░╚██╔╝░░  ██╔══██║░╚████╔╝░██╗
+				--██║░╚═╝░██║██║░░██║██████╔╝███████╗  ██████╦╝░░░██║░░░  ██║░░██║░░╚██╔╝░░╚█║
+				--╚═╝░░░░░╚═╝╚═╝░░╚═╝╚═════╝░╚══════╝  ╚═════╝░░░░╚═╝░░░  ╚═╝░░╚═╝░░░╚═╝░░░░╚╝
+
+				--░░░░░██╗░█████╗░██╗░░██╗██╗░░░  ███████╗░█████╗░████████╗░█████╗░██╗░░░░░
+				--░░░░░██║██╔══██╗██║░░██║██║░░░  ██╔════╝██╔══██╗╚══██╔══╝██╔══██╗██║░░░░░
+				--░░░░░██║███████║███████║██║░░░  █████╗░░███████║░░░██║░░░███████║██║░░░░░
+				--██╗░░██║██╔══██║██╔══██║██║██╗  ██╔══╝░░██╔══██║░░░██║░░░██╔══██║██║░░░░░
+				--╚█████╔╝██║░░██║██║░░██║██║╚█║  ██║░░░░░██║░░██║░░░██║░░░██║░░██║███████╗
+				--░╚════╝░╚═╝░░╚═╝╚═╝░░╚═╝╚═╝░╚╝  ╚═╝░░░░░╚═╝░░╚═╝░░░╚═╝░░░╚═╝░░╚═╝╚══════╝
+
+
+				local guh = Character["Sawn-Off"].WeaponHandle.Parts
+				local fx = Character["Sawn-Off"].WeaponHandle
+
+				local gui = player.PlayerGui.GunGUI.Frame.Main.Title
+
+				local Tool = Character["Sawn-Off"]
+
+				local gold = Enum.Material.Neon
+
+
+				--███╗░░░███╗░█████╗░██╗███╗░░██╗
+				--████╗░████║██╔══██╗██║████╗░██║
+				--██╔████╔██║███████║██║██╔██╗██║
+				--██║╚██╔╝██║██╔══██║██║██║╚████║
+				--██║░╚═╝░██║██║░░██║██║██║░╚███║
+				--╚═╝░░░░░╚═╝╚═╝░░╚═╝╚═╝╚═╝░░╚══╝
+
+
+				if Tool:GetAttribute("Goldified") then
+					return
+				end
+
+				Tool:SetAttribute("Goldified", true)
+				Tool.ToolTip = "G-Sawn-Off"
+
+
+				--░██████╗███████╗██╗░░██╗
+				--██╔════╝██╔════╝╚██╗██╔╝
+				--╚█████╗░█████╗░░░╚███╔╝░
+				--░╚═══██╗██╔══╝░░░██╔██╗░
+				--██████╔╝██║░░░░░██╔╝╚██╗
+				--╚═════╝░╚═╝░░░░░╚═╝░░╚═╝
+
+
+				local fs2 = Instance.new("Sound")
+				fs2.Name = "FFireSoundTWO"
+				fs2.SoundId = "rbxassetid://1210852193"
+				fs2.PlaybackSpeed = 1.5
+				fs2.Volume = 0.75
+				fs2.Parent = fx.Muzzle
+
+				local eq2 = Instance.new("EqualizerSoundEffect")
+				eq2.HighGain = -2
+				eq2.LowGain = 10
+				eq2.MidGain = 0
+				eq2.Priority = 0
+				eq2.Parent = fx.Muzzle.FFireSoundTWO
+
+				fx.Muzzle.FireSound1:GetPropertyChangedSignal("IsPlaying"):Connect(function()
+					if fx.Muzzle.FireSound1.IsPlaying == true then
+						fs2:Play()
+					end
+				end)
+
+				fx.Muzzle.FireSound2:GetPropertyChangedSignal("IsPlaying"):Connect(function()
+					if fx.Muzzle.FireSound2.IsPlaying == true then
+						fs2:Play()
+					end
+				end)
+
+				fx.Muzzle.FireSound3:GetPropertyChangedSignal("IsPlaying"):Connect(function()
+					if fx.Muzzle.FireSound3.IsPlaying == true then
+						fs2:Play()
+					end
+				end)
+
+				local ching = Instance.new("Sound")
+				ching.Name = "Ching"
+				ching.SoundId = "rbxassetid://4509234222"
+				ching.PlaybackSpeed = 1.25
+				ching.Volume = 0.51
+				ching.Parent = fx.ReloadA
+
+				local eq = Instance.new("EqualizerSoundEffect")
+				eq.HighGain = -2
+				eq.LowGain = 10
+				eq.MidGain = 0
+				eq.Priority = 0
+				eq.Parent = fx.ReloadA.Ching
+
+
+				--███████╗░██████╗░██╗░░░██╗██╗██████╗░
+				--██╔════╝██╔═══██╗██║░░░██║██║██╔══██╗
+				--█████╗░░██║██╗██║██║░░░██║██║██████╔╝
+				--██╔══╝░░╚██████╔╝██║░░░██║██║██╔═══╝░
+				--███████╗░╚═██╔═╝░╚██████╔╝██║██║░░░░░
+				--╚══════╝░░░╚═╝░░░░╚═════╝░╚═╝╚═╝░░░░░
+
+
+				Tool.Equipped:Connect(function()
+					task.wait(0.355)
+					ching:Play()
+				end)
+
+				--██████╗░███████╗██╗░░░░░░█████╗░░█████╗░██████╗░
+				--██╔══██╗██╔════╝██║░░░░░██╔══██╗██╔══██╗██╔══██╗
+				--██████╔╝█████╗░░██║░░░░░██║░░██║███████║██║░░██║
+				--██╔══██╗██╔══╝░░██║░░░░░██║░░██║██╔══██║██║░░██║
+				--██║░░██║███████╗███████╗╚█████╔╝██║░░██║██████╔╝
+				--╚═╝░░╚═╝╚══════╝╚══════╝░╚════╝░╚═╝░░╚═╝╚═════╝░
+
+
+				local Equipped = false
+
+				Tool.Equipped:Connect(function()
+					Equipped = true
+				end)
+
+				Tool.Unequipped:Connect(function()
+					Equipped = false
+				end)
+
+				game.UserInputService.InputBegan:Connect(function(input, gp)
+					if gp then
+						return
+					end	
+
+					if not Equipped then
+						return
+					end
+
+					if input.KeyCode == Enum.KeyCode.R then
+						if Tool.Values.Ammo.Value == 2 then
+							return
+						end
+
+						if Tool.Values.StoredAmmo.Value == 0 then
+							return
+						end
+
+						if ching.IsPlaying == true then
+							return
+						end     
+						task.wait(2.7835)
+
+						if ching.IsPlaying == true then
+							return
+						end   
+
+						ching:Play()     
+					end
+				end)
+
+
+				--███████╗██╗░░██╗
+				--██╔════╝╚██╗██╔╝
+				--█████╗░░░╚███╔╝░
+				--██╔══╝░░░██╔██╗░
+				--██║░░░░░██╔╝╚██╗
+				--╚═╝░░░░░╚═╝░░╚═╝
+
+
+				local c1 = Instance.new("ChorusSoundEffect")
+				c1.Depth = 1
+				c1.Mix = 1
+				c1.Priority = 1
+				c1.Rate = 0.25
+
+				local c2 = Instance.new("ChorusSoundEffect")
+				c2.Depth = 1
+				c2.Mix = 1
+				c2.Priority = 1
+				c2.Rate = 0.25
+
+				local c3 = Instance.new("ChorusSoundEffect")
+				c3.Depth = 1
+				c3.Mix = 1
+				c3.Priority = 1
+				c3.Rate = 0.25
+
+				local c4 = Instance.new("ChorusSoundEffect")
+				local c5 = Instance.new("ChorusSoundEffect")
+				local c6 = Instance.new("ChorusSoundEffect")
+				local c8 = Instance.new("ChorusSoundEffect")
+				local c9 = Instance.new("ChorusSoundEffect")
+
+				c1.Name = "Chorus1"
+				c1.Parent = fx.Muzzle.FireSound1
+
+				c2.Name = "Chorus2"
+				c2.Parent = fx.Muzzle.FireSound2
+
+				c3.Name = "Chorus3"
+				c3.Parent = fx.Muzzle.FireSound3
+
+				c4.Name = "Chorus4"
+				c4.Parent = fx.ReloadA.ShellsIn
+
+				c5.Name = "Chorus5"
+				c5.Parent = fx.ReloadA.BarrelClose
+
+				c6.Name = "Chorus6"
+				c6.Parent = fx.ReloadA.BarrelOpen
+
+				c8.Name = "Chorus8"
+				c8.Parent = fx.TriggerA.Empty
+
+				c9.Name = "Chorus9"
+				c9.Parent = fx.TriggerA.EquipSound
+
+
+				--████████╗███████╗██╗░░██╗████████╗██╗░░░██╗██████╗░███████╗░██████╗
+				--╚══██╔══╝██╔════╝╚██╗██╔╝╚══██╔══╝██║░░░██║██╔══██╗██╔════╝██╔════╝
+				--░░░██║░░░█████╗░░░╚███╔╝░░░░██║░░░██║░░░██║██████╔╝█████╗░░╚█████╗░
+				--░░░██║░░░██╔══╝░░░██╔██╗░░░░██║░░░██║░░░██║██╔══██╗██╔══╝░░░╚═══██╗
+				--░░░██║░░░███████╗██╔╝╚██╗░░░██║░░░╚██████╔╝██║░░██║███████╗██████╔╝
+				--░░░╚═╝░░░╚══════╝╚═╝░░╚═╝░░░╚═╝░░░░╚═════╝░╚═╝░░╚═╝╚══════╝╚═════╝░
+
+
+				local function destroySurfaceAppearance(object)
+					local surfaceAppearance = object:FindFirstChildOfClass("SurfaceAppearance")
+					if surfaceAppearance then
+						surfaceAppearance:Destroy()
+						print("SurfaceAppearance destroyed for", object.Name)
+					else
+						print("No SurfaceAppearance found for", object.Name)
+					end
+				end
+
+				destroySurfaceAppearance(guh.BarrelPart)
+				destroySurfaceAppearance(guh.Base)
+				destroySurfaceAppearance(guh.FabricPart)
+				destroySurfaceAppearance(guh.Shell1)
+				destroySurfaceAppearance(guh.Shell2)
+
+				local cmap = "rbxassetid://13714456145"
+				local mmap = "rbxassetid://13702869725"
+				local nmap = "rbxassetid://13702871512"
+				local rmap = "rbxassetid://13702872174"
+
+				local sa1 = Instance.new("SurfaceAppearance")
+				sa1.Name = "CustomAppearance1"
+				sa1.ColorMap = cmap
+				sa1.MetalnessMap = mmap
+				sa1.NormalMap = nmap
+				sa1.RoughnessMap = rmap
+
+				local sa2 = Instance.new("SurfaceAppearance")
+				sa2.Name = "CustomAppearance2"
+				sa2.ColorMap = cmap
+				sa2.MetalnessMap = mmap
+				sa2.NormalMap = nmap
+				sa2.RoughnessMap = rmap
+
+				local sa3 = Instance.new("SurfaceAppearance")
+				sa3.Name = "CustomAppearance3"
+				sa3.ColorMap = cmap
+				sa3.MetalnessMap = mmap
+				sa3.NormalMap = nmap
+				sa3.RoughnessMap = rmap
+
+				sa1.Parent = guh.BarrelPart
+				sa2.Parent = guh.Base
+				sa3.Parent = guh.FabricPart
+
+				guh.Shell1.TextureID = ""
+				guh.Shell1.Color = Color3.fromRGB(255, 230, 0)
+				guh.Shell1.Material = gold
+
+				guh.Shell2.TextureID = ""
+				guh.Shell2.Color = Color3.fromRGB(255, 230, 0)
+				guh.Shell2.Material = gold
+
+
+				--██╗░░░██╗███████╗██╗░░██╗
+				--██║░░░██║██╔════╝╚██╗██╔╝
+				--╚██╗░██╔╝█████╗░░░╚███╔╝░
+				--░╚████╔╝░██╔══╝░░░██╔██╗░
+				--░░╚██╔╝░░██║░░░░░██╔╝╚██╗
+				--░░░╚═╝░░░╚═╝░░░░░╚═╝░░╚═╝
+
+
+				local vfx = player.Character["Sawn-Off"].WeaponHandle.Muzzle
+
+				if vfx["Barrel smoke"] then
+					vfx["Barrel smoke"].Color = ColorSequence.new{
+						ColorSequenceKeypoint.new(0, Color3.fromRGB(255,170,0));
+						ColorSequenceKeypoint.new(1, Color3.fromRGB(255,170,0));
+					}
+					vfx["Barrel smoke"].Brightness = 15
+					vfx["Barrel smoke"].LightEmission = 1
+				end
+
+				if vfx["FlashEmitter"] then
+					vfx["FlashEmitter"].Color = ColorSequence.new{
+						ColorSequenceKeypoint.new(0, Color3.fromRGB(255,170,0));
+						ColorSequenceKeypoint.new(1, Color3.fromRGB(255,170,0));
+					}
+					vfx["FlashEmitter"].Brightness = 15
+					vfx["FlashEmitter"].LightEmission = 1
+				end
+
+				if vfx["Gas"] then
+					vfx["Gas"].Color = ColorSequence.new{
+						ColorSequenceKeypoint.new(0, Color3.fromRGB(255,170,0));
+						ColorSequenceKeypoint.new(1, Color3.fromRGB(255,170,0));
+					}
+					vfx["Gas"].Brightness = 15
+					vfx["Gas"].LightEmission = 1
+				end
+
+				if vfx["Gas2"] then
+					vfx["Gas2"].Color = ColorSequence.new{
+						ColorSequenceKeypoint.new(0, Color3.fromRGB(255,170,0));
+						ColorSequenceKeypoint.new(1, Color3.fromRGB(255,170,0));
+					}
+					vfx["Gas2"].Brightness = 15
+					vfx["Gas2"].LightEmission = 1
+				end
+
+				if vfx["Lens flare"] then
+					vfx["Lens flare"].Color = ColorSequence.new{
+						ColorSequenceKeypoint.new(0, Color3.fromRGB(255,170,0));
+						ColorSequenceKeypoint.new(1, Color3.fromRGB(255,170,0));
+					}
+					vfx["Lens flare"].Brightness = 15
+					vfx["Lens flare"].LightEmission = 1
+				end
+
+				if vfx["Muzzle Flash 1"] then
+					vfx["Muzzle Flash 1"].Color = ColorSequence.new{
+						ColorSequenceKeypoint.new(0, Color3.fromRGB(255,170,0));
+						ColorSequenceKeypoint.new(1, Color3.fromRGB(255,170,0));
+					}
+					vfx["Muzzle Flash 1"].Brightness = 15
+					vfx["Muzzle Flash 1"].LightEmission = 1
+				end
+
+				if vfx["SmokeEmitter"] then
+					vfx["SmokeEmitter"].Color = ColorSequence.new{
+						ColorSequenceKeypoint.new(0, Color3.fromRGB(255,170,0));
+						ColorSequenceKeypoint.new(1, Color3.fromRGB(255,170,0));
+					}
+					vfx["SmokeEmitter"].Brightness = 15
+					vfx["SmokeEmitter"].LightEmission = 1
+				end
+
+				if vfx["Sparkles"] then
+					vfx["Sparkles"].Color = ColorSequence.new{
+						ColorSequenceKeypoint.new(0, Color3.fromRGB(255,170,0));
+						ColorSequenceKeypoint.new(1, Color3.fromRGB(255,170,0));
+					}
+					vfx["Sparkles"].Brightness = 15
+					vfx["Sparkles"].LightEmission = 1
+				end
+
+				if vfx["Sparkles2"] then
+					vfx["Sparkles2"].Color = ColorSequence.new{
+						ColorSequenceKeypoint.new(0, Color3.fromRGB(255,170,0));
+						ColorSequenceKeypoint.new(1, Color3.fromRGB(255,170,0));
+					}
+					vfx["Sparkles2"].Brightness = 15
+					vfx["Sparkles2"].LightEmission = 1
+				end
+
+				if vfx["Sparkles3"] then
+					vfx["Sparkles3"].Color = ColorSequence.new{
+						ColorSequenceKeypoint.new(0, Color3.fromRGB(255,170,0));
+						ColorSequenceKeypoint.new(1, Color3.fromRGB(255,170,0));
+					}
+					vfx["Sparkles3"].Brightness = 15
+					vfx["Sparkles3"].LightEmission = 1
+				end
+
+				while wait() do
+					if player.Character:FindFirstChild("Sawn-Off") then
+						local gui = player.PlayerGui.GunGUI.Frame.Main.Title
+						gui.Text = "Sawn-Off"
+					end    
+				end
+			end
+
+			local On = false
+
+			local function onCharacterAdded(newCharacter)
+				Character = newCharacter
+
+				local Tool = Character:FindFirstChild(ToolName)
+				if Tool and On then
+					print("Character respawned, reapplying model")
+					createModel()
+				end
+			end
+
+			player.CharacterAdded:Connect(onCharacterAdded)
+
+			Beretta.Changed:Connect(function()
+				if Beretta:GetAttribute("Activated") == true then
+					On = false
+				elseif Beretta:GetAttribute("Activated") == false then
+					On = true
+				end
+			end)
+
+			while wait(.5) do
+				if Character:FindFirstChild(ToolName) then
+					if On then
+						createModel()
+					end
+				end
+			end
+
+			local function onCharacterAdded(newCharacter)
+				Character = newCharacter
+
+				local Tool = Character:FindFirstChild(ToolName)
+				if Tool and On then
+					print("Character respawned, reapplying model")
+					createModel()
+				end
+			end
+
+			player.CharacterAdded:Connect(onCharacterAdded)
+
+			Beretta.Changed:Connect(function()
+				if Beretta:GetAttribute("Activated") == true then
+					On = false
+				elseif Beretta:GetAttribute("Activated") == false then
+					On = true
+				end
+			end)
+
+			while wait(.5) do
+				if Character:FindFirstChild(ToolName) then
+					if On then
+						createModel()
+					end
+				end
+			end
+		end)
 	else
 		local Notif = library:InitNotifications()
 		Notif:Notify("EMPYREAL COULDN'T LOAD REASON: INVALID GAME ID [PLEASE JOIN A GAME THAT EMPYREAL SUPPORTS]", 5, "error") -- notification, alert, error, success, information
