@@ -808,7 +808,7 @@ _G.Empyreal = function(typeS, theme, gameID)
 		
 		--// INIT TABS \\--
 		
-		local SkinsTab = Init:NewTab("Skins [CLIENT]")
+		local SkinsTab = Init:NewTab("Skin Changer")
 		local SettingsTab = Init:NewTab("Settings")
 		
 		--// SETTINGS TAB \\--
