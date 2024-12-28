@@ -143,7 +143,7 @@ LIB.create = function(MainData)
 	MainFrame.ClipsDescendants = true
 	--MainFrame.Position = UDim2.new(0.0351693332, 0, 0.0754249319, 0)
 	MainFrame.Position = UDim2.new(0, 100, 0, 100)
-	MainFrame.Size = UDim2.new(0.169147745, 0, 0.501416445, 0)
+	MainFrame.Size = UDim2.new(0, 301, 0, 472)
 
 	UIListLayout.Parent = MainFrame
 	UIListLayout.SortOrder = Enum.SortOrder.LayoutOrder
