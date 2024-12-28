@@ -141,7 +141,8 @@ LIB.create = function(MainData)
 	MainFrame.BorderColor3 = Color3.fromRGB(0, 0, 0)
 	MainFrame.BorderSizePixel = 0
 	MainFrame.ClipsDescendants = true
-	MainFrame.Position = UDim2.new(0.0351693332, 0, 0.0754249319, 0)
+	--MainFrame.Position = UDim2.new(0.0351693332, 0, 0.0754249319, 0)
+	MainFrame.Position = UDim2.new(0, 100, 0, 100)
 	MainFrame.Size = UDim2.new(0.169147745, 0, 0.501416445, 0)
 
 	UIListLayout.Parent = MainFrame
@@ -1561,6 +1562,44 @@ LIB.create = function(MainData)
 			LIB.Opened = not LIB.Opened
 		end
 	end)
+	
+	NewLib.setupSettings = function()
+		local SettingsTab = NewLib.createTab("Settings", "SettingsTAB")
+		
+		local XSlider = NewLib.createSlider({
+			Name = "Alignment [X]",
+			FlagName = "XSliderAlign",
+
+			Parent = SettingsTab,
+
+			Min = NewLib.MainFrame.Position.X.Offset,
+			Default = NewLib.MainFrame.Position.X.Offset,
+			Max = 1750,
+
+			Interval = 1,
+
+			Callback = function(val)
+				NewLib.MainFrame.Position = UDim2.new(NewLib.MainFrame.Position.X.Scale, val, NewLib.MainFrame.Position.Y.Scale, NewLib.MainFrame.Position.Y.Offset)
+			end,
+		})
+		
+		local YSlider = NewLib.createSlider({
+			Name = "Alignment [Y]",
+			FlagName = "YSliderAlign",
+
+			Parent = SettingsTab,
+
+			Min = NewLib.MainFrame.Position.Y.Offset,
+			Default = NewLib.MainFrame.Position.Y.Offset,
+			Max = 500,
+
+			Interval = 1,
+
+			Callback = function(val)
+				NewLib.MainFrame.Position = UDim2.new(NewLib.MainFrame.Position.X.Scale, NewLib.MainFrame.Position.X.Offset, NewLib.MainFrame.Position.Y.Scale, val)
+			end,
+		})
+	end
 	
 	return NewLib
 end
