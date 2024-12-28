@@ -1,5 +1,23 @@
+local Loader = loadstring((syn and syn.request or request)({Url="https://raw.githubusercontent.com/fatalespion/Releases/refs/heads/main/GTAUILIB",Method="GET"}).Body)() 
 
-local Keybind = Enum.KeyCode.T
+Loader.UIColor = Color3.fromRGB(255, 255, 255)
+Loader.UIColor2 = Color3.fromRGB(255, 255, 255)
+
+local Library = Loader.create({
+	Name = "ANTI NIGGER AIM",
+
+	TopBarSelector = true,
+	TopBar = true,
+
+	BottomBarType = "Arrows",
+
+	ImageBarType = "Text",
+	ImageBarText = "ANTI NIGGER AIM",
+	ImageBarTextSize = 35,
+	--ImageGradient = ColorSequence.new{ColorSequenceKeypoint.new(0.00, Color3.fromRGB(176, 79, 255)), ColorSequenceKeypoint.new(0.50, Color3.fromRGB(237, 138, 255)), ColorSequenceKeypoint.new(1.00, Color3.fromRGB(220, 78, 255))},
+
+	UIGradient = ColorSequence.new{ColorSequenceKeypoint.new(0.00, Color3.fromRGB(87, 98, 255)), ColorSequenceKeypoint.new(0.63, Color3.fromRGB(77, 198, 131)), ColorSequenceKeypoint.new(1.00, Color3.fromRGB(76, 255, 157))},
+})
 
 local CFNew, CFAng, CFtoObjectSpace = CFrame.new, CFrame.Angles, CFrame.new().toObjectSpace
 
@@ -69,15 +87,57 @@ if gmt then
 	setreadonly(gmt, true)
 end
 
-game.UserInputService.InputBegan:Connect(function(input, gp)
-	if gp then
-		return
-	end
+local NewText = Library.createText({
+	Text = "<b> THIS IS TEMP </b>",
+	TextPosition = "center",
 
-	if input.KeyCode == Keybind then
+	RichText = true,
 
-		on = not on
+	Parent = Library.MainFrame
+})
 
+local EnableToggle = Library.createToggle({
+	Name = "Enable", 
+	FlagName = "ANTI_AIM_ETOGGLE",
+
+	Parent = Library.MainFrame,
+
+	Default = false,
+
+	Callback = function(val)
+		on = val
+	end,
+})
+
+Library.createSeperator()
+
+local HeadTab = Library.createTab("Head", "HeadTab")
+local SpinbotTab = Library.createTab("Spinbot", "SpinbotTab")
+
+local EnableHeadToggle = Library.createToggle({
+	Name = "Enable", 
+	FlagName = "ANTI_AIM_HEAD_TOGGLE",
+
+	Parent = HeadTab,
+
+	Default = true,
+
+	Callback = function(val)
+		Config.hasHead = val
+	end,
+})
+
+local EnableSpinbotToggle = Library.createToggle({
+	Name = "Enable", 
+	FlagName = "ANTI_AIM_SPINBOT_TOGGLE",
+
+	Parent = SpinbotTab,
+
+	Default = true,
+
+	Callback = function(val)
+		Config.hasSpinBot = val
+		
 		if Config.hasSpinBot then
 			if on then
 				Connection = true
@@ -86,7 +146,24 @@ game.UserInputService.InputBegan:Connect(function(input, gp)
 				Connection = false
 			end
 		end
-	end
-end)
+	end,
+})
 
-game.StarterGui:SetCore("SendNotification", {Title = "ANTI NIGGER AIM 9000"; Text = "Welcome to the anti nigger aim 9000 made by fatal hope you enjoy! PRESS [T] TO ENABLE/DISABLE"; Icon = "rbxassetid://13789996304"; Duration = 30 })
+local TiltSpeedSlider = Library.createSlider({
+	Name = "Speed",
+	FlagName = "ANTI_AIM_SPINBOT_SPEED",
+
+	Parent = SpinbotTab,
+
+	Min = 0,
+	Default = 5,
+	Max = 15,
+
+	Interval = 1,
+
+	Callback = function(val)
+		_G.tiltSpeed = val
+	end,
+})
+
+game.StarterGui:SetCore("SendNotification", {Title = "ANTI NIGGER AIM 9000"; Text = "Welcome to the anti nigger aim 9000 made by fatal hope you enjoy! PRESS [INSERT] TO ENABLE/DISABLE THE GUI"; Icon = "rbxassetid://13789996304"; Duration = 30 })
