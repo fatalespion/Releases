@@ -1,17 +1,23 @@
 local UserInputService = game:GetService("UserInputService")
 local ContextActionService = game:GetService("ContextActionService")
 
+--// TABLES \\--
 
 local LIB = {
 	UIColor = Color3.fromRGB(255, 255, 255),
 	UIColor2 = Color3.fromRGB(207, 94, 255),
 	
+	UIFont = Enum.Font.Arcade,
+	
 	Opened = true,
+	LockMovement = false,
+	
+	UpdateEvent = Instance.new("BindableEvent"),
 	
 	Settings = {
 		MaxCurrentNumber = 0,
 		SelectedNumber = 1,
-		CurrentTab = "MainFrame"
+		CurrentTab = "ScrollingFrame"
 	},
 	
 	BlacklistedItems = {
@@ -21,6 +27,8 @@ local LIB = {
 		"TopBar",
 		"UIListLayout",
 		"Text",
+		"ScrollingFrame",
+		"UIGridLayout"
 	},
 	
 	Keybinds = {
@@ -33,6 +41,155 @@ local LIB = {
 		Return = Enum.KeyCode.KeypadZero,
 		
 		Open = Enum.KeyCode.Insert,
+		
+		Mapping = {
+			-- KeyCode mappings
+			A = "A",
+			B = "B",
+			C = "C",
+			D = "D",
+			E = "E",
+			F = "F",
+			G = "G",
+			H = "H",
+			I = "I",
+			J = "J",
+			K = "K",
+			L = "L",
+			M = "M",
+			N = "N",
+			O = "O",
+			P = "P",
+			Q = "Q",
+			R = "R",
+			S = "S",
+			T = "T",
+			U = "U",
+			V = "V",
+			W = "W",
+			X = "X",
+			Y = "Y",
+			Z = "Z",
+
+			Zero = "0",
+			One = "1",
+			Two = "2",
+			Three = "3",
+			Four = "4",
+			Five = "5",
+			Six = "6",
+			Seven = "7",
+			Eight = "8",
+			Nine = "9",
+
+			Backspace = "Backspace",
+			Tab = "Tab",
+			Clear = "Clear",
+			Return = "Enter",
+			Pause = "Pause",
+			Escape = "Escape",
+
+			Space = "Space",
+			LeftShift = "LShift",
+			RightShift = "RShift",
+			LeftControl = "LControl",
+			RightControl = "RControl",
+			LeftAlt = "LAlt",
+			RightAlt = "RAlt",
+			LeftMeta = "LMeta",
+			RightMeta = "RMeta",
+			LeftSuper = "LSuper",
+			RightSuper = "RSuper",
+			Hyper = "Hyper",
+			CapsLock = "CapsLock",
+
+			NumLock = "NumLock",
+			ScrollLock = "ScrollLock",
+
+			Insert = "Insert",
+			Delete = "Delete",
+			Home = "Home",
+			End = "End",
+			PageUp = "PageUp",
+			PageDown = "PageDown",
+
+			Up = "Up",
+			Down = "Down",
+			Left = "Left",
+			Right = "Right",
+
+			F1 = "F1",
+			F2 = "F2",
+			F3 = "F3",
+			F4 = "F4",
+			F5 = "F5",
+			F6 = "F6",
+			F7 = "F7",
+			F8 = "F8",
+			F9 = "F9",
+			F10 = "F10",
+			F11 = "F11",
+			F12 = "F12",
+
+			Comma = ",",
+			Period = ".",
+			Slash = "/",
+			Backslash = "\\",
+			Semicolon = ";",
+			Quote = "'",
+			LeftBracket = "[",
+			RightBracket = "]",
+			Minus = "-",
+			Equals = "=",
+			GraveAccent = "`",
+
+			-- Keypad keys
+			KeypadZero = "Num0",
+			KeypadOne = "Num1",
+			KeypadTwo = "Num2",
+			KeypadThree = "Num3",
+			KeypadFour = "Num4",
+			KeypadFive = "Num5",
+			KeypadSix = "Num6",
+			KeypadSeven = "Num7",
+			KeypadEight = "Num8",
+			KeypadNine = "Num9",
+			KeypadPeriod = "Num.",
+			KeypadDivide = "Num/",
+			KeypadMultiply = "Num*",
+			KeypadMinus = "Num-",
+			KeypadPlus = "Num+",
+			KeypadEnter = "NumEnter",
+			KeypadEquals = "Num=",
+
+			-- UserInputType mappings
+			MouseButton1 = "M1",
+			MouseButton2 = "M2",
+			MouseButton3 = "M3",
+			MouseWheel = "Wheel",
+
+			Touch = "Touch",
+			Keyboard = "Keyboard",
+			Focus = "Focus",
+			Accelerometer = "Accel",
+			Gyro = "Gyro",
+			Gamepad1 = "Gamepad1",
+			Gamepad2 = "Gamepad2",
+			Gamepad3 = "Gamepad3",
+			Gamepad4 = "Gamepad4",
+			Gamepad5 = "Gamepad5",
+			Gamepad6 = "Gamepad6",
+			Gamepad7 = "Gamepad7",
+			Gamepad8 = "Gamepad8",
+			Gamepad9 = "Gamepad9",
+			Gamepad10 = "Gamepad10",
+			Gamepad11 = "Gamepad11",
+			Gamepad12 = "Gamepad12",
+			Gamepad13 = "Gamepad13",
+			Gamepad14 = "Gamepad14",
+			Gamepad15 = "Gamepad15",
+			Gamepad16 = "Gamepad16",
+		}
 	},
 	
 	ToggleSettings = {
@@ -68,6 +225,11 @@ local LIB = {
 		Regular = UDim2.new(0.904, 0, 0.226, 0),
 	},
 	
+	KeypickerSettings = {
+		Moved = UDim2.new(0.9, 0, 0.226, 0),
+		Regular = UDim2.new(0.97, 0, 0.194000244, 0),
+	},
+	
 	ListSettings = {
 		Moved = UDim2.new(0.798, 0, 0.226, 0),
 		Regular = UDim2.new(0.825, 0, 0.226, 0)
@@ -77,8 +239,14 @@ local LIB = {
 		MainFrame = {
 			LastTab = "no",
 		},
+		
+		ScrollingFrame = {
+			LastTab = "no",
+		},
 	},
 }
+
+-- Functions:
 
 LIB.create = function(MainData)
 
@@ -105,7 +273,11 @@ LIB.create = function(MainData)
 	local TextBox = Instance.new("TextBox")
 	local Tabs = Instance.new("LocalScript")
 	
+	local ScrollingFrame = Instance.new("ScrollingFrame")
+	local UIGridLayout = Instance.new("UIGridLayout")
+	
 	local MainFrameTab = Instance.new("Folder")
+	local ScrollingFrameTab = Instance.new("Folder")
 	
 	local clickSound = Instance.new("Sound")
 	local hoverSound = Instance.new("Sound")
@@ -140,11 +312,28 @@ LIB.create = function(MainData)
 	MainFrame.BackgroundTransparency = 1.000
 	MainFrame.BorderColor3 = Color3.fromRGB(0, 0, 0)
 	MainFrame.BorderSizePixel = 0
-	MainFrame.ClipsDescendants = true
-	--MainFrame.Position = UDim2.new(0.0351693332, 0, 0.0754249319, 0)
+	MainFrame.ClipsDescendants = false
 	MainFrame.Position = UDim2.new(0, 100, 0, 100)
 	MainFrame.Size = UDim2.new(0, 301, 0, 472)
+	
+	ScrollingFrame.Parent = MainFrame
+	ScrollingFrame.Active = true
+	ScrollingFrame.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	ScrollingFrame.BackgroundTransparency = 1.000
+	ScrollingFrame.BorderColor3 = Color3.fromRGB(0, 0, 0)
+	ScrollingFrame.BorderSizePixel = 0
+	ScrollingFrame.LayoutOrder = -997
+	ScrollingFrame.Position = UDim2.new(0, 0, 0.277542382, 0)
+	ScrollingFrame.Size = UDim2.new(0, 301, 0, 0)
+	ScrollingFrame.ScrollBarThickness = 0
+	ScrollingFrame.ScrollingEnabled = false
+	ScrollingFrame.AutomaticSize = Enum.AutomaticSize.Y
 
+	UIGridLayout.Parent = ScrollingFrame
+	UIGridLayout.SortOrder = Enum.SortOrder.LayoutOrder
+	UIGridLayout.CellPadding = UDim2.new(0, 0, 0, 0)
+	UIGridLayout.CellSize = UDim2.new(0, 301, 0, 30)
+	
 	UIListLayout.Parent = MainFrame
 	UIListLayout.SortOrder = Enum.SortOrder.LayoutOrder
 
@@ -166,7 +355,7 @@ LIB.create = function(MainData)
 	LibName.BorderSizePixel = 0
 	LibName.Position = UDim2.new(0.0264026411, 0, 0.258064538, 0)
 	LibName.Size = UDim2.new(0.821782172, 0, 0.483871102, 0)
-	LibName.Font = Enum.Font.Unknown
+	LibName.Font = LIB.UIFont
 	LibName.Text = "Home"
 	LibName.TextColor3 = Color3.fromRGB(255, 255, 255)
 	LibName.TextScaled = true
@@ -183,7 +372,7 @@ LIB.create = function(MainData)
 	Selector.BorderSizePixel = 0
 	Selector.Position = UDim2.new(0.867986798, 0, 0.193548396, 0)
 	Selector.Size = UDim2.new(0.102310233, 0, 0.612903178, 0)
-	Selector.Font = Enum.Font.Unknown
+	Selector.Font = LIB.UIFont
 	Selector.Text = "?/?"
 	Selector.TextColor3 = Color3.fromRGB(255, 255, 255)
 	Selector.TextScaled = true
@@ -233,7 +422,7 @@ LIB.create = function(MainData)
 	Selector_2.Position = UDim2.new(0.44884488, 0, 0.193548396, 0)
 	Selector_2.Size = UDim2.new(0.102310233, 0, 0.612903178, 0)
 	Selector_2.Visible = false
-	Selector_2.Font = Enum.Font.Unknown
+	Selector_2.Font = LIB.UIFont
 	Selector_2.Text = "?/?"
 	Selector_2.TextColor3 = Color3.fromRGB(255, 255, 255)
 	Selector_2.TextScaled = true
@@ -267,7 +456,7 @@ LIB.create = function(MainData)
 	BarName_3.BorderColor3 = Color3.fromRGB(0, 0, 0)
 	BarName_3.BorderSizePixel = 0
 	BarName_3.Size = UDim2.new(1, 0, 1, 0)
-	BarName_3.Font = Enum.Font.GothamBold
+	BarName_3.Font = LIB.UIFont
 	BarName_3.Text = MainData.Name
 	BarName_3.TextColor3 = Color3.fromRGB(161, 98, 255)
 	BarName_3.TextSize = 35.000
@@ -299,7 +488,7 @@ LIB.create = function(MainData)
 	TextBox.BorderSizePixel = 0
 	TextBox.Position = UDim2.new(0.00486531574, 0, 0, 0)
 	TextBox.Size = UDim2.new(0.995134711, 0, 1, 0)
-	TextBox.Font = Enum.Font.GothamBold
+	TextBox.Font = LIB.UIFont
 	TextBox.PlaceholderText = "ENTER"
 	TextBox.Text = ""
 	TextBox.TextColor3 = Color3.fromRGB(255, 255, 255)
@@ -309,6 +498,9 @@ LIB.create = function(MainData)
 	
 	MainFrameTab.Parent = Tabs
 	MainFrameTab.Name = "MainFrame"
+	
+	ScrollingFrameTab.Parent = Tabs
+	ScrollingFrameTab.Name = "ScrollingFrame"
 	
 	if MainData.BottomBarType == "Arrows" then
 		Arrow1.Visible = true
@@ -364,11 +556,40 @@ LIB.create = function(MainData)
 	
 	NewLib.GUI = TEST
 	NewLib.MainFrame = MainFrame
+	NewLib.ScrollingFrame = ScrollingFrame
 	NewLib.Rank = ""
+	
+	LIB.UpdateEvent.Event:Connect(function()
+		if MainData.ImageBarType == "Image" then
+			ImageLabel.Image = "rbxassetid://"..MainData.ImageBarImage
+			ImageLabel.Visible = true
+			BarName_3.Visible = false
+
+			if MainData.UIGradient ~= nil then
+				local Gradient = Instance.new("UIGradient")
+				Gradient.Parent = ImageLabel
+				Gradient.Color = MainData.UIGradient
+			end
+		elseif MainData.ImageBarType == "Text" then
+			BarName_3.Text = MainData.ImageBarText
+			BarName_3.TextSize = MainData.ImageBarTextSize
+			ImageLabel.Visible = false
+			BarName_3.Visible = true
+
+			if MainData.UIGradient ~= nil then
+				local Gradient = Instance.new("UIGradient")
+				Gradient.Parent = BarName_3
+				Gradient.Color = MainData.UIGradient
+				BarName_3.TextColor3 = Color3.fromRGB(255, 255, 255)
+			end
+		end
+	end)
+	
+	-- Create Functions:
 	
 	NewLib.createTab = function(TabName, FlagName, Parent)
 		if not Parent then
-			Parent = MainFrame
+			Parent = ScrollingFrame
 		end
 		
 		local Tab = Instance.new("Frame")
@@ -392,7 +613,7 @@ LIB.create = function(MainData)
 		BarName.BorderSizePixel = 0
 		BarName.Position = UDim2.new(0.0264026411, 0, 0.258064538, 0)
 		BarName.Size = UDim2.new(0.821782172, 0, 0.483871102, 0)
-		BarName.Font = Enum.Font.Unknown
+		BarName.Font = LIB.UIFont
 		BarName.Text = TabName
 		BarName.TextColor3 = Color3.fromRGB(255, 255, 255)
 		BarName.TextScaled = true
@@ -409,7 +630,7 @@ LIB.create = function(MainData)
 		Arrow.BorderSizePixel = 0
 		Arrow.Position = UDim2.new(0.924092412, 0, 0.193548396, 0)
 		Arrow.Size = UDim2.new(0.0462046191, 0, 0.612903416, 0)
-		Arrow.Font = Enum.Font.Unknown
+		Arrow.Font = LIB.UIFont
 		Arrow.Text = ">"
 		Arrow.TextColor3 = Color3.fromRGB(255, 255, 255)
 		Arrow.TextSize = 14.000
@@ -431,7 +652,7 @@ LIB.create = function(MainData)
 	
 	NewLib.createText = function(data)
 		if not data.Parent then
-			data.Parent = MainFrame
+			data.Parent = ScrollingFrame
 		end
 		
 		if not data.TextPosition then
@@ -465,7 +686,7 @@ LIB.create = function(MainData)
 		BarName_3.BorderSizePixel = 0
 		BarName_3.Position = UDim2.new(0.0264026411, 0, 0.258064538, 0)
 		BarName_3.Size = UDim2.new(0.943894386, 0, 0.483871132, 0)
-		BarName_3.Font = Enum.Font.Unknown
+		BarName_3.Font = LIB.UIFont
 		BarName_3.Text = data.Text
 		BarName_3.TextColor3 = Color3.fromRGB(255, 255, 255)
 		BarName_3.TextScaled = true
@@ -480,7 +701,7 @@ LIB.create = function(MainData)
 	
 	NewLib.createSeperator = function(Parent)
 		if not Parent then
-			Parent = MainFrame
+			Parent = ScrollingFrame
 		end
 		
 		local Seperator = Instance.new("Frame")
@@ -495,18 +716,38 @@ LIB.create = function(MainData)
 		Seperator.Size = UDim2.new(1, 0, 0.0656779632, 0)
 
 		Frame.Parent = Seperator
-		Frame.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+		Frame.BackgroundColor3 = LIB.UIColor2
 		Frame.BorderColor3 = Color3.fromRGB(0, 0, 0)
 		Frame.BorderSizePixel = 0
 		Frame.Position = UDim2.new(0.0259999689, 0, 0.516064584, 0)
 		Frame.Size = UDim2.new(0.944, 0, 0.02, 0)
 		
 		Seperator:SetAttribute("PARENT", Parent.Name)
+		
+		if MainData.UIGradient ~= nil then
+			local Gradient = Instance.new("UIGradient")
+			Gradient.Parent = Frame
+			Gradient.Color = MainData.UIGradient
+
+			Frame.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+		end
+		
+		LIB.UpdateEvent.Event:Connect(function()
+			Frame.BackgroundColor3 = LIB.UIColor2
+			
+			if MainData.UIGradient ~= nil then
+				local Gradient = Instance.new("UIGradient")
+				Gradient.Parent = Frame
+				Gradient.Color = MainData.UIGradient
+
+				Frame.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+			end
+		end)
 	end
 	
 	NewLib.createToggle = function(data)
 		if not data.Parent then
-			data.Parent = MainFrame
+			data.Parent = ScrollingFrame
 		end
 		
 		local TEST_1 = Instance.new("Frame")
@@ -536,7 +777,8 @@ LIB.create = function(MainData)
 		BarName_1.TextStrokeTransparency = 0.000
 		BarName_1.TextWrapped = true
 		BarName_1.TextXAlignment = Enum.TextXAlignment.Left
-
+		BarName_1.Font = LIB.UIFont
+		
 		Circle.Name = "Circle"
 		Circle.Parent = TEST_1
 		Circle.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
@@ -573,17 +815,41 @@ LIB.create = function(MainData)
 			end
 		end
 		
-		
-		
 		TEST_1:SetAttribute("TOGGLE", true)
 		TEST_1:SetAttribute("PARENT", data.Parent.Name)
 		
 		LIB.Tab[data.Parent.Name][data.FlagName] = data
+		
+		LIB.UpdateEvent.Event:Connect(function()
+			if data.Value then
+				Circle.Image = "rbxassetid://"..LIB.ToggleSettings.TickIcon
+				Circle.ImageColor3 = LIB.UIColor2
+
+				if MainData.UIGradient ~= nil then
+					local Gradient = Instance.new("UIGradient")
+					Gradient.Parent = Circle
+					Gradient.Color = MainData.UIGradient
+
+					Circle.ImageColor3 = Color3.fromRGB(255, 255, 255)
+				end
+			elseif not data.Value then
+				Circle.Image = "rbxassetid://"..LIB.ToggleSettings.CrossIcon
+				Circle.ImageColor3 = Color3.fromRGB(255, 74, 74)
+
+				if MainData.UIGradient ~= nil then
+					Circle.ImageColor3 = Color3.fromRGB(255,255,255)
+
+					if Circle:FindFirstChild("UIGradient") then
+						Circle:FindFirstChild("UIGradient"):Destroy()
+					end
+				end
+			end
+		end)
 	end
 	
 	NewLib.createSlider = function(data)
 		if not data.Parent then
-			data.Parent = MainFrame
+			data.Parent = ScrollingFrame
 		end
 		
 		local Slider = Instance.new("Frame")
@@ -615,6 +881,7 @@ LIB.create = function(MainData)
 		BarName_2.TextStrokeTransparency = 0.000
 		BarName_2.TextWrapped = true
 		BarName_2.TextXAlignment = Enum.TextXAlignment.Left
+		BarName_2.Font = LIB.UIFont
 
 		Number.Name = "Number"
 		Number.Parent = Slider
@@ -630,7 +897,8 @@ LIB.create = function(MainData)
 		Number.TextSize = 14.000
 		Number.TextStrokeTransparency = 0.000
 		Number.TextWrapped = true
-
+		Number.Font = LIB.UIFont
+		
 		Arrow1_2.Name = "Arrow1"
 		Arrow1_2.Parent = Slider
 		Arrow1_2.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
@@ -665,7 +933,7 @@ LIB.create = function(MainData)
 	
 	NewLib.createList = function(data)
 		if not data.Parent then
-			data.Parent = MainFrame
+			data.Parent = ScrollingFrame
 		end
 
 		local Slider = Instance.new("Frame")
@@ -697,6 +965,7 @@ LIB.create = function(MainData)
 		BarName_2.TextStrokeTransparency = 0.000
 		BarName_2.TextWrapped = true
 		BarName_2.TextXAlignment = Enum.TextXAlignment.Left
+		BarName_2.Font = LIB.UIFont
 
 		Number.Name = "Number"
 		Number.Parent = Slider
@@ -712,6 +981,7 @@ LIB.create = function(MainData)
 		Number.TextSize = 14.000
 		Number.TextStrokeTransparency = 0.000
 		Number.TextWrapped = true
+		Number.Font = LIB.UIFont
 
 		Arrow1_2.Name = "Arrow1"
 		Arrow1_2.Parent = Slider
@@ -747,7 +1017,7 @@ LIB.create = function(MainData)
 	
 	NewLib.createButton = function(data)
 		if not data.Parent then
-			data.Parent = MainFrame
+			data.Parent = ScrollingFrame
 		end
 		
 		local Button = Instance.new("Frame")
@@ -769,7 +1039,7 @@ LIB.create = function(MainData)
 		BarName_2.BorderSizePixel = 0
 		BarName_2.Position = UDim2.new(0.0264026411, 0, 0.258064538, 0)
 		BarName_2.Size = UDim2.new(0.821782172, 0, 0.483871102, 0)
-		BarName_2.Font = Enum.Font.Unknown
+		BarName_2.Font = LIB.UIFont
 		BarName_2.Text = data.Name
 		BarName_2.TextColor3 = Color3.fromRGB(255, 255, 255)
 		BarName_2.TextScaled = true
@@ -786,7 +1056,7 @@ LIB.create = function(MainData)
 	
 	NewLib.createTextBox = function(data)
 		if data.Parent == nil then
-			data.Parent = MainFrame
+			data.Parent = ScrollingFrame
 		end
 		
 		local ColorPicker = Instance.new("Frame")
@@ -816,6 +1086,7 @@ LIB.create = function(MainData)
 		BarName_55.TextStrokeTransparency = 0.000
 		BarName_55.TextWrapped = true
 		BarName_55.TextXAlignment = Enum.TextXAlignment.Left
+		BarName_55.Font = LIB.UIFont
 		
 		TextBox_1.Parent = ColorPicker
 		TextBox_1.BackgroundColor3 = Color3.fromRGB(44, 44, 44)
@@ -825,7 +1096,7 @@ LIB.create = function(MainData)
 		TextBox_1.Position = UDim2.new(0.930556953, 0, 0.226258069, 0)
 		TextBox_1.Size = UDim2.new(0.0264913719, 0, 0.548999965, 0)
 		TextBox_1.ClearTextOnFocus = false
-		TextBox_1.Font = Enum.Font.GothamBold
+		TextBox_1.Font = LIB.UIFont
 		TextBox_1.Text = ""
 		TextBox_1.TextColor3 = Color3.fromRGB(255, 255, 255)
 		TextBox_1.TextScaled = true
@@ -841,7 +1112,7 @@ LIB.create = function(MainData)
 	
 	NewLib.createColorPicker = function(data)
 		if data.Parent == nil then
-			data.Parent = MainFrame
+			data.Parent = ScrollingFrame
 		end
 		
 		local ColorPicker = Instance.new("Frame")
@@ -872,6 +1143,7 @@ LIB.create = function(MainData)
 		BarName_55.TextStrokeTransparency = 0.000
 		BarName_55.TextWrapped = true
 		BarName_55.TextXAlignment = Enum.TextXAlignment.Left
+		BarName_55.Font = LIB.UIFont
 
 		Preview.Name = "Preview"
 		Preview.Parent = ColorPicker
@@ -889,7 +1161,7 @@ LIB.create = function(MainData)
 		TextBox_1.Position = UDim2.new(0.655709028, 0, 0.194000006, 0)
 		TextBox_1.Size = UDim2.new(0.0264913719, 0, 0.548999965, 0)
 		TextBox_1.Visible = false
-		TextBox_1.Font = Enum.Font.GothamBold
+		TextBox_1.Font = LIB.UIFont
 		TextBox_1.Text = ""
 		TextBox_1.TextColor3 = Color3.fromRGB(255, 255, 255)
 		TextBox_1.TextScaled = true
@@ -905,30 +1177,90 @@ LIB.create = function(MainData)
 		LIB.Tab[data.Parent.Name][data.FlagName] = data
 	end
 	
-	NewLib.MoveUp = function()
-		LIB.Settings.SelectedNumber -= 1
+	NewLib.createKeyPicker = function(data)
+		if data.Parent == nil then
+			data.Parent = ScrollingFrame
+		end
+		
+		local KeyPicker = Instance.new("Frame")
+		local BarName_56 = Instance.new("TextLabel")
+		local Clicker = Instance.new("TextButton")
+		
+		KeyPicker.Name = data.FlagName
+		KeyPicker.Parent = data.Parent
+		KeyPicker.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+		KeyPicker.BackgroundTransparency = 0.450
+		KeyPicker.BorderColor3 = Color3.fromRGB(0, 0, 0)
+		KeyPicker.BorderSizePixel = 0
+		KeyPicker.Size = UDim2.new(1, 0, 0.0656779632, 0)
 
-		if LIB.Settings.SelectedNumber <= 0 then
-			LIB.Settings.SelectedNumber = LIB.Settings.MaxCurrentNumber
+		BarName_56.Name = "BarName"
+		BarName_56.Parent = KeyPicker
+		BarName_56.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+		BarName_56.BackgroundTransparency = 1.000
+		BarName_56.BorderColor3 = Color3.fromRGB(0, 0, 0)
+		BarName_56.BorderSizePixel = 0
+		BarName_56.Position = UDim2.new(0.0264026411, 0, 0.258064538, 0)
+		BarName_56.Size = UDim2.new(0.821782172, 0, 0.483871102, 0)
+		BarName_56.Text = data.Name
+		BarName_56.TextColor3 = Color3.fromRGB(255, 255, 255)
+		BarName_56.TextScaled = true
+		BarName_56.TextSize = 14.000
+		BarName_56.TextStrokeTransparency = 0.000
+		BarName_56.TextWrapped = true
+		BarName_56.TextXAlignment = Enum.TextXAlignment.Left
+		BarName_56.Font = LIB.UIFont
+
+		Clicker.Name = "Clicker"
+		Clicker.Parent = KeyPicker
+		Clicker.BackgroundColor3 = Color3.fromRGB(38, 38, 38)
+		Clicker.BackgroundTransparency = 0.500
+		Clicker.Position = UDim2.new(0.904532015, 0, 0.194000244, 0)
+		Clicker.Size = UDim2.new(0.0714682043, 0, 0.549000025, 0)
+		Clicker.Font = LIB.UIFont
+		Clicker.Text = LIB.Keybinds.Mapping[data.Keybind.Name]
+		Clicker.TextColor3 = Color3.fromRGB(255, 255, 255)
+		Clicker.TextScaled = true
+		Clicker.TextSize = 14.000
+		Clicker.TextStrokeTransparency = 0.000
+		Clicker.TextWrapped = true
+		Clicker.BorderColor3 = Color3.fromRGB(104, 104, 104)
+		Clicker.BorderSizePixel = 2
+		
+		KeyPicker:SetAttribute("KEYPICKER", true)
+		KeyPicker:SetAttribute("PARENT", data.Parent.Name)
+		
+		local ts = game:GetService("TextService")
+
+		local NewTextboxSize = ts:GetTextSize(Clicker.Text, Clicker.TextSize, Clicker.Font, Vector2.new(math.huge,math.huge))
+		local ForcedMaxSize = ts:GetTextSize(Clicker.Text, Clicker.TextSize, Clicker.Font, Vector2.new(math.huge,math.huge))
+
+		local function ResizeTextBox()
+			NewTextboxSize = ts:GetTextSize(Clicker.Text, Clicker.TextSize, Clicker.Font, Vector2.new(math.huge,math.huge))
+			if NewTextboxSize.X < (396 - ForcedMaxSize.X) - 10 then
+				game.TweenService:Create(Clicker, TweenInfo.new(0.07, Enum.EasingStyle.Sine, Enum.EasingDirection.InOut, 0, false, 0), {Size = UDim2.new(0, -NewTextboxSize.X - 8, 0, 20)}):Play()
+			else
+				game.TweenService:Create(Clicker, TweenInfo.new(0.07, Enum.EasingStyle.Sine, Enum.EasingDirection.InOut, 0, false, 0), {Size = UDim2.new(0, (396 - ForcedMaxSize.X) - 12, 0, 20)}):Play()
+			end
 		end
 
-		NewLib.UpdateVisual()
-	end
-
-	NewLib.MoveDown = function()
-		LIB.Settings.SelectedNumber += 1
-
-		if LIB.Settings.SelectedNumber > LIB.Settings.MaxCurrentNumber then
-			LIB.Settings.SelectedNumber = 1
+		local function SetMaxSize()
+			ForcedMaxSize = ts:GetTextSize(Clicker.Text, Clicker.TextSize, Clicker.Font, Vector2.new(math.huge,math.huge))
+			local def = 396 - ForcedMaxSize.X
 		end
 
-		NewLib.UpdateVisual()
+		ResizeTextBox()
+		SetMaxSize()
+		
+		LIB.Tab[data.Parent.Name][data.FlagName] = data
 	end
+	
+	-- Other functions:
 	
 	NewLib.AssertNumber = function()
 		local Number = 0
 
-		for _, Items in pairs(MainFrame:GetChildren()) do
+		for _, Items in pairs(ScrollingFrame:GetChildren()) do
 			if not table.find(LIB.BlacklistedItems, Items.Name) then
 				Number += 1
 				Items:SetAttribute("TempNumber", Number)
@@ -942,23 +1274,104 @@ LIB.create = function(MainData)
 		if Item then
 			Item:SetAttribute("TempNumber", nil)
 		else
-			for _, Items in pairs(MainFrame:GetChildren()) do
+			for _, Items in pairs(ScrollingFrame:GetChildren()) do
 				if Items:GetAttribute("TempNumber") then
 					Items:SetAttribute("TempNumber", nil)
 				end
 			end
 		end
-		
 	end
+	
+	NewLib.PickKeybind = function()
+		local connection
+		connection = UserInputService.InputBegan:Connect(function(input, gameProcessed)
+			if not gameProcessed then
+				if input.UserInputType == Enum.UserInputType.Keyboard or 
+					input.UserInputType == Enum.UserInputType.MouseButton1 or 
+					input.UserInputType == Enum.UserInputType.MouseButton2 or 
+					input.UserInputType == Enum.UserInputType.MouseButton3 then
+
+					connection:Disconnect()
+					
+					local Keybind = input.UserInputType == Enum.UserInputType.Keyboard 
+						and input.KeyCode 
+						or input.UserInputType
+					
+					print("yes")
+					return Keybind
+				end
+			end
+		end)
+	end	
 	
 	NewLib.UpdateGUI = function()
 		NewLib.RemoveNumber()
 
 		LIB.Settings.MaxCurrentNumber = NewLib.AssertNumber()
 	end
+	
+	NewLib.FrameAnimations = function(data)
+		if not data.Item then
+			return
+		end
+
+		if data.Type == nil then
+			return
+		end
+
+		if not data.Type then
+			if data.Item:GetAttribute("SLIDER") then
+				game.TweenService:Create(data.Item.Number, TweenInfo.new(0.2), {Position = LIB.SliderSettings.Regular}):Play()
+
+				game.TweenService:Create(data.Item.Arrow1, TweenInfo.new(0.2), {ImageTransparency = 1}):Play()
+				game.TweenService:Create(data.Item.Arrow2, TweenInfo.new(0.2), {ImageTransparency = 1}):Play()
+			elseif data.Item:GetAttribute("LIST") then
+				game.TweenService:Create(data.Item.Number, TweenInfo.new(0.2), {Position = LIB.ListSettings.Regular}):Play()
+
+				game.TweenService:Create(data.Item.Arrow1, TweenInfo.new(0.2), {ImageTransparency = 1}):Play()
+				game.TweenService:Create(data.Item.Arrow2, TweenInfo.new(0.2), {ImageTransparency = 1}):Play()
+			elseif data.Item:GetAttribute("TOGGLE") then
+				game.TweenService:Create(data.Item.Circle, TweenInfo.new(0.2), {Position = LIB.ToggleSettings.Regular}):Play()
+			elseif data.Item:GetAttribute("TAB") then
+				game.TweenService:Create(data.Item.Arrow, TweenInfo.new(0.2), {Position = LIB.TabSettings.Regular}):Play()
+			elseif data.Item:GetAttribute("BUTTON") then
+				game.TweenService:Create(data.Item.BarName, TweenInfo.new(0.2), {Position = LIB.ButtonSettings.Regular}):Play()
+			elseif data.Item:GetAttribute("COLORPICKER") then
+				game.TweenService:Create(data.Item.Preview, TweenInfo.new(0.2), {Position = LIB.ColorPickerSettings.Regular}):Play()
+			elseif data.Item:GetAttribute("TEXTBOX") then
+				game.TweenService:Create(data.Item.TextBox, TweenInfo.new(0.2), {Position = LIB.TextBoxSettings.Regular}):Play()
+			elseif data.Item:GetAttribute("KEYPICKER") then
+				game.TweenService:Create(data.Item.Clicker, TweenInfo.new(0.2), {Position = LIB.KeypickerSettings.Regular}):Play()
+			end
+		elseif data.Type then
+			if data.Item:GetAttribute("SLIDER") then
+				game.TweenService:Create(data.Item.Number, TweenInfo.new(0.2), {Position = LIB.SliderSettings.Moved}):Play()
+
+				game.TweenService:Create(data.Item.Arrow1, TweenInfo.new(0.2), {ImageTransparency = 0}):Play()
+				game.TweenService:Create(data.Item.Arrow2, TweenInfo.new(0.2), {ImageTransparency = 0}):Play()
+			elseif data.Item:GetAttribute("LIST") then
+				game.TweenService:Create(data.Item.Number, TweenInfo.new(0.2), {Position = LIB.ListSettings.Moved}):Play()
+
+				game.TweenService:Create(data.Item.Arrow1, TweenInfo.new(0.2), {ImageTransparency = 0}):Play()
+				game.TweenService:Create(data.Item.Arrow2, TweenInfo.new(0.2), {ImageTransparency = 0}):Play()
+			elseif data.Item:GetAttribute("TOGGLE") then
+				game.TweenService:Create(data.Item.Circle, TweenInfo.new(0.2), {Position = LIB.ToggleSettings.Moved}):Play()
+			elseif data.Item:GetAttribute("TAB") then
+				game.TweenService:Create(data.Item.Arrow, TweenInfo.new(0.2), {Position = LIB.TabSettings.Moved}):Play()
+			elseif data.Item:GetAttribute("BUTTON") then
+				game.TweenService:Create(data.Item.BarName, TweenInfo.new(0.2), {Position = LIB.ButtonSettings.Moved}):Play()
+			elseif data.Item:GetAttribute("COLORPICKER") then
+				game.TweenService:Create(data.Item.Preview, TweenInfo.new(0.2), {Position = LIB.ColorPickerSettings.Moved}):Play()
+			elseif data.Item:GetAttribute("TEXTBOX") then
+				game.TweenService:Create(data.Item.TextBox, TweenInfo.new(0.2), {Position = LIB.TextBoxSettings.Moved}):Play()
+			elseif data.Item:GetAttribute("KEYPICKER") then
+				game.TweenService:Create(data.Item.Clicker, TweenInfo.new(0.2), {Position = LIB.KeypickerSettings.Moved}):Play()
+			end
+		end
+	end
 
 	NewLib.UpdateVisual = function()
-		for _, Items in pairs(MainFrame:GetChildren()) do
+		for _, Items in pairs(ScrollingFrame:GetChildren()) do
 			if Items:GetAttribute("TempNumber") and Items:GetAttribute("TempNumber") == LIB.Settings.SelectedNumber then
 				Items.BackgroundColor3 = LIB.UIColor
 				Items.BackgroundTransparency = 0.1
@@ -971,27 +1384,7 @@ LIB.create = function(MainData)
 					Items.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 				end
 
-				if Items:GetAttribute("SLIDER") then
-					game.TweenService:Create(Items.Number, TweenInfo.new(0.2), {Position = LIB.SliderSettings.Moved}):Play()
-
-					game.TweenService:Create(Items.Arrow1, TweenInfo.new(0.2), {ImageTransparency = 0}):Play()
-					game.TweenService:Create(Items.Arrow2, TweenInfo.new(0.2), {ImageTransparency = 0}):Play()
-				elseif Items:GetAttribute("LIST") then
-					game.TweenService:Create(Items.Number, TweenInfo.new(0.2), {Position = LIB.ListSettings.Moved}):Play()
-
-					game.TweenService:Create(Items.Arrow1, TweenInfo.new(0.2), {ImageTransparency = 0}):Play()
-					game.TweenService:Create(Items.Arrow2, TweenInfo.new(0.2), {ImageTransparency = 0}):Play()
-				elseif Items:GetAttribute("TOGGLE") then
-					game.TweenService:Create(Items.Circle, TweenInfo.new(0.2), {Position = LIB.ToggleSettings.Moved}):Play()
-				elseif Items:GetAttribute("TAB") then
-					game.TweenService:Create(Items.Arrow, TweenInfo.new(0.2), {Position = LIB.TabSettings.Moved}):Play()
-				elseif Items:GetAttribute("BUTTON") then
-					game.TweenService:Create(Items.BarName, TweenInfo.new(0.2), {Position = LIB.ButtonSettings.Moved}):Play()
-				elseif Items:GetAttribute("COLORPICKER") then
-					game.TweenService:Create(Items.Preview, TweenInfo.new(0.2), {Position = LIB.ColorPickerSettings.Moved}):Play()
-				elseif Items:GetAttribute("TEXTBOX") then
-					game.TweenService:Create(Items.TextBox, TweenInfo.new(0.2), {Position = LIB.TextBoxSettings.Moved}):Play()
-				end
+				NewLib.FrameAnimations({Item = Items, Type = true})
 			elseif Items:GetAttribute("TempNumber") and Items:GetAttribute("TempNumber") ~= LIB.Settings.SelectedNumber then
 				Items.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
 				Items.BackgroundTransparency = 0.45
@@ -1002,41 +1395,64 @@ LIB.create = function(MainData)
 					end
 				end
 				
-				if Items:GetAttribute("SLIDER") then
-					game.TweenService:Create(Items.Number, TweenInfo.new(0.2), {Position = LIB.SliderSettings.Regular}):Play()
-
-					game.TweenService:Create(Items.Arrow1, TweenInfo.new(0.2), {ImageTransparency = 1}):Play()
-					game.TweenService:Create(Items.Arrow2, TweenInfo.new(0.2), {ImageTransparency = 1}):Play()
-				elseif Items:GetAttribute("LIST") then
-					game.TweenService:Create(Items.Number, TweenInfo.new(0.2), {Position = LIB.ListSettings.Regular}):Play()
-
-					game.TweenService:Create(Items.Arrow1, TweenInfo.new(0.2), {ImageTransparency = 1}):Play()
-					game.TweenService:Create(Items.Arrow2, TweenInfo.new(0.2), {ImageTransparency = 1}):Play()
-				elseif Items:GetAttribute("TOGGLE") then
-					game.TweenService:Create(Items.Circle, TweenInfo.new(0.2), {Position = LIB.ToggleSettings.Regular}):Play()
-				elseif Items:GetAttribute("TAB") then
-					game.TweenService:Create(Items.Arrow, TweenInfo.new(0.2), {Position = LIB.TabSettings.Regular}):Play()
-				elseif Items:GetAttribute("BUTTON") then
-					game.TweenService:Create(Items.BarName, TweenInfo.new(0.2), {Position = LIB.ButtonSettings.Regular}):Play()
-				elseif Items:GetAttribute("COLORPICKER") then
-					game.TweenService:Create(Items.Preview, TweenInfo.new(0.2), {Position = LIB.ColorPickerSettings.Regular}):Play()
-				elseif Items:GetAttribute("TEXTBOX") then
-					game.TweenService:Create(Items.TextBox, TweenInfo.new(0.2), {Position = LIB.TextBoxSettings.Regular}):Play()
-				end
+				NewLib.FrameAnimations({Item = Items, Type = false})
 			end
 		end
 		
 		if LIB.Settings.MaxCurrentNumber == 0 then
 			Selector.Text = "[ N/A ]"
 			Selector_2.Text = "[ N/A ]"
+			
+			ScrollingFrame.Visible =  false
 		else
 			Selector.Text = "[ "..tostring(LIB.Settings.SelectedNumber).."/"..tostring(LIB.Settings.MaxCurrentNumber).." ]"
 			Selector_2.Text = "[ "..tostring(LIB.Settings.SelectedNumber).."/"..tostring(LIB.Settings.MaxCurrentNumber).." ]"
+			ScrollingFrame.Visible = true
 		end
 	end
 	
+	NewLib.GetMaxList = function(List)
+		if typeof(List) ~= "table" then
+			return
+		end
+
+		local Number = 1
+
+		for _, v in pairs(List) do
+			if List[Number] ~= nil then
+				Number += 1
+			end
+		end
+
+		Number -= 1
+
+		return Number
+	end
+
+	NewLib.GetDefaultNumber = function(List, Default)
+		if typeof(List) ~= "table" then
+			return
+		end
+
+		local Number = 1
+
+		for i, v in pairs(List) do
+			if v == Default then
+				Number = i
+			end
+		end
+
+		return Number
+	end
+	
+	-- Move Functions: 
+	
 	NewLib.Select = function()
-		for _, Items in pairs(MainFrame:GetChildren()) do
+		if LIB.LockMovement then
+			return
+		end
+		
+		for _, Items in pairs(ScrollingFrame:GetChildren()) do
 			if Items:GetAttribute("TempNumber") and Items:GetAttribute("TempNumber") == LIB.Settings.SelectedNumber then
 				if Items:GetAttribute("SLIDER") then
 					SliderFrame.Visible = true
@@ -1080,6 +1496,80 @@ LIB.create = function(MainData)
 							
 							TextBox:ReleaseFocus()
 						end
+					end)
+				elseif Items:GetAttribute("KEYPICKER") then
+					task.spawn(function()
+						local connection
+						local Keybind
+						connection = UserInputService.InputBegan:Connect(function(input, gameProcessed)
+							if not gameProcessed then
+								if input.UserInputType == Enum.UserInputType.Keyboard or 
+									input.UserInputType == Enum.UserInputType.MouseButton1 or 
+									input.UserInputType == Enum.UserInputType.MouseButton2 or 
+									input.UserInputType == Enum.UserInputType.MouseButton3 then
+
+									connection:Disconnect()
+
+									Keybind = input.UserInputType == Enum.UserInputType.Keyboard 
+										and input.KeyCode 
+										or input.UserInputType
+								end
+							end
+						end)
+						
+						LIB.LockMovement = true
+						
+						local ts = game:GetService("TextService")
+
+						local NewTextboxSize = ts:GetTextSize(Items.Clicker.Text, Items.Clicker.TextSize, Items.Clicker.Font, Vector2.new(math.huge,math.huge))
+						local ForcedMaxSize = ts:GetTextSize(Items.Clicker.Text, Items.Clicker.TextSize, Items.Clicker.Font, Vector2.new(math.huge,math.huge))
+
+						local function ResizeTextBox()
+							NewTextboxSize = ts:GetTextSize(Items.Clicker.Text, Items.Clicker.TextSize, Items.Clicker.Font, Vector2.new(math.huge,math.huge))
+							if NewTextboxSize.X < (396 - ForcedMaxSize.X) - 10 then
+								game.TweenService:Create(Items.Clicker, TweenInfo.new(0.07, Enum.EasingStyle.Sine, Enum.EasingDirection.InOut, 0, false, 0), {Size = UDim2.new(0, -NewTextboxSize.X - 8, 0, 20)}):Play()
+							else
+								game.TweenService:Create(Items.Clicker, TweenInfo.new(0.07, Enum.EasingStyle.Sine, Enum.EasingDirection.InOut, 0, false, 0), {Size = UDim2.new(0, (396 - ForcedMaxSize.X) - 12, 0, 20)}):Play()
+							end
+						end
+
+						local function SetMaxSize()
+							ForcedMaxSize = ts:GetTextSize(Items.Clicker.Text, Items.Clicker.TextSize, Items.Clicker.Font, Vector2.new(math.huge,math.huge))
+							local def = 396 - ForcedMaxSize.X
+						end
+
+						ResizeTextBox()
+						SetMaxSize()
+						
+						Items.Clicker:GetPropertyChangedSignal("Text"):Connect(function()
+							ResizeTextBox()
+							SetMaxSize()
+						end)
+						
+						while true do
+							if Keybind ~= nil then
+								break
+							end
+							
+							Items.Clicker.Text = "."
+							task.wait(0.2)
+							Items.Clicker.Text = ".."
+							task.wait(0.2)
+							Items.Clicker.Text = "..."
+							task.wait(0.2)
+						end
+						
+						if LIB.Tab[Items:GetAttribute("PARENT")][Items.Name].Value == nil then
+							LIB.Tab[Items:GetAttribute("PARENT")][Items.Name].Value = LIB.Tab[Items:GetAttribute("PARENT")][Items.Name].Default
+						end
+						
+						LIB.LockMovement = false
+						
+						LIB.Tab[Items:GetAttribute("PARENT")][Items.Name].Value = Keybind
+						
+						LIB.Tab[Items:GetAttribute("PARENT")][Items.Name].Callback(LIB.Tab[Items:GetAttribute("PARENT")][Items.Name].Value)
+
+						Items.Clicker.Text = LIB.Keybinds.Mapping[LIB.Tab[Items:GetAttribute("PARENT")][Items.Name].Value.Name]
 					end)
 				elseif Items:GetAttribute("COLORPICKER") then
 					Items.TextBox.Visible = true
@@ -1208,64 +1698,28 @@ LIB.create = function(MainData)
 				elseif Items:GetAttribute("TAB") then
 					LIB.Tab[Items.Name].LastTab = LIB.Settings.CurrentTab
 					
-					for _, Items2 in pairs(MainFrame:GetChildren()) do
+					for _, Items2 in pairs(ScrollingFrame:GetChildren()) do
 						if Items2:GetAttribute("TempNumber") then
 							NewLib.RemoveNumber(Items2)
 							Items2.Parent = Tabs[Items2:GetAttribute("PARENT")]
-							
-							if Items2:GetAttribute("SLIDER") then
-								game.TweenService:Create(Items2.Number, TweenInfo.new(0.2), {Position = LIB.SliderSettings.Regular}):Play()
-
-								game.TweenService:Create(Items2.Arrow1, TweenInfo.new(0.2), {ImageTransparency = 1}):Play()
-								game.TweenService:Create(Items2.Arrow2, TweenInfo.new(0.2), {ImageTransparency = 1}):Play()
-							elseif Items2:GetAttribute("LIST") then
-								game.TweenService:Create(Items2.Number, TweenInfo.new(0.2), {Position = LIB.ListSettings.Regular}):Play()
-
-								game.TweenService:Create(Items2.Arrow1, TweenInfo.new(0.2), {ImageTransparency = 1}):Play()
-								game.TweenService:Create(Items2.Arrow2, TweenInfo.new(0.2), {ImageTransparency = 1}):Play()
-							elseif Items2:GetAttribute("TOGGLE") then
-								game.TweenService:Create(Items2.Circle, TweenInfo.new(0.2), {Position = LIB.ToggleSettings.Regular}):Play()
-							elseif Items2:GetAttribute("TAB") then
-								game.TweenService:Create(Items2.Arrow, TweenInfo.new(0.2), {Position = LIB.TabSettings.Regular}):Play()
-							elseif Items2:GetAttribute("BUTTON") or Items2:GetAttribute("TEXTBOX") then
-								game.TweenService:Create(Items2.BarName, TweenInfo.new(0.2), {Position = LIB.ButtonSettings.Regular}):Play()
-							elseif Items2:GetAttribute("COLORPICKER") then
-								game.TweenService:Create(Items2.Preview, TweenInfo.new(0.2), {Position = LIB.ColorPickerSettings.Regular}):Play()
-							elseif Items2:GetAttribute("TEXTBOX") then
-								game.TweenService:Create(Items2.TextBox, TweenInfo.new(0.2), {Position = LIB.TextBoxSettings.Regular}):Play()
-							end
+							NewLib.FrameAnimations({Item = Items2, Type = false})
 						elseif Items2.Name == "Text" or Items2.Name == "Seperator" then
 							Items2.Parent = Tabs[Items2:GetAttribute("PARENT")]
-							
-							if Items2:GetAttribute("SLIDER") then
-								game.TweenService:Create(Items2.Number, TweenInfo.new(0.2), {Position = LIB.SliderSettings.Regular}):Play()
-
-								game.TweenService:Create(Items2.Arrow1, TweenInfo.new(0.2), {ImageTransparency = 1}):Play()
-								game.TweenService:Create(Items2.Arrow2, TweenInfo.new(0.2), {ImageTransparency = 1}):Play()
-							elseif Items2:GetAttribute("LIST") then
-								game.TweenService:Create(Items2.Number, TweenInfo.new(0.2), {Position = LIB.ListSettings.Regular}):Play()
-
-								game.TweenService:Create(Items2.Arrow1, TweenInfo.new(0.2), {ImageTransparency = 1}):Play()
-								game.TweenService:Create(Items2.Arrow2, TweenInfo.new(0.2), {ImageTransparency = 1}):Play()
-							elseif Items2:GetAttribute("TOGGLE") then
-								game.TweenService:Create(Items2.Circle, TweenInfo.new(0.2), {Position = LIB.ToggleSettings.Regular}):Play()
-							elseif Items2:GetAttribute("TAB") then
-								game.TweenService:Create(Items2.Arrow, TweenInfo.new(0.2), {Position = LIB.TabSettings.Regular}):Play()
-							elseif Items2:GetAttribute("BUTTON") or Items2:GetAttribute("TEXTBOX") then
-								game.TweenService:Create(Items2.BarName, TweenInfo.new(0.2), {Position = LIB.ButtonSettings.Regular}):Play()
-							elseif Items2:GetAttribute("COLORPICKER") then
-								game.TweenService:Create(Items2.Preview, TweenInfo.new(0.2), {Position = LIB.ColorPickerSettings.Regular}):Play()
-							elseif Items2:GetAttribute("TEXTBOX") then
-								game.TweenService:Create(Items2.TextBox, TweenInfo.new(0.2), {Position = LIB.TextBoxSettings.Regular}):Play()
-							end
+							NewLib.FrameAnimations({Item = Items2, Type = false})
 						end
 					end
 					
+					ScrollingFrame.Size = UDim2.new(0, 301, 0, 0)
+					
 					for _, Items3 in pairs(Tabs[Items.Name]:GetChildren()) do
-						Items3.Parent = MainFrame
+						Items3.Parent = ScrollingFrame
 					end
 					
 					LIB.Settings.CurrentTab = Items.Name
+					
+					if LIB.Settings.CurrentTab == "MainFrame" then
+						LIB.Settings.CurrentTab = "ScrollingFrame"
+					end
 					
 					NewLib.MainFrame.TopBar.TabName.Text = Items.BarName.Text
 					
@@ -1280,42 +1734,12 @@ LIB.create = function(MainData)
 		end
 	end
 	
-	NewLib.GetMaxList = function(List)
-		if typeof(List) ~= "table" then
-			return
-		end
-		
-		local Number = 1
-		
-		for _, v in pairs(List) do
-			if List[Number] ~= nil then
-				Number += 1
-			end
-		end
-		
-		Number -= 1
-		
-		return Number
-	end
-	
-	NewLib.GetDefaultNumber = function(List, Default)
-		if typeof(List) ~= "table" then
-			return
-		end
-
-		local Number = 1
-
-		for i, v in pairs(List) do
-			if v == Default then
-				Number = i
-			end
-		end
-
-		return Number
-	end
-	
 	NewLib.MoveLeft = function()
-		for _, Items in pairs(MainFrame:GetChildren()) do
+		if LIB.LockMovement then
+			return
+		end
+		
+		for _, Items in pairs(ScrollingFrame:GetChildren()) do
 			if Items:GetAttribute("TempNumber") and Items:GetAttribute("TempNumber") == LIB.Settings.SelectedNumber then
 				if Items:GetAttribute("SLIDER") then
 					if LIB.Tab[Items:GetAttribute("PARENT")][Items.Name].Value == nil then
@@ -1365,7 +1789,11 @@ LIB.create = function(MainData)
 	end
 	
 	NewLib.MoveRight = function()
-		for _, Items in pairs(MainFrame:GetChildren()) do
+		if LIB.LockMovement then
+			return
+		end
+		
+		for _, Items in pairs(ScrollingFrame:GetChildren()) do
 			if Items:GetAttribute("TempNumber") and Items:GetAttribute("TempNumber") == LIB.Settings.SelectedNumber then
 				if Items:GetAttribute("SLIDER") then
 					if LIB.Tab[Items:GetAttribute("PARENT")][Items.Name].Value == nil then
@@ -1414,13 +1842,45 @@ LIB.create = function(MainData)
 		end	
 	end
 	
+	NewLib.MoveUp = function()
+		if LIB.LockMovement then
+			return
+		end
+		
+		LIB.Settings.SelectedNumber -= 1
+
+		if LIB.Settings.SelectedNumber <= 0 then
+			LIB.Settings.SelectedNumber = LIB.Settings.MaxCurrentNumber
+		end
+
+		NewLib.UpdateVisual()
+	end
+
+	NewLib.MoveDown = function()
+		if LIB.LockMovement then
+			return
+		end
+		
+		LIB.Settings.SelectedNumber += 1
+
+		if LIB.Settings.SelectedNumber > LIB.Settings.MaxCurrentNumber then
+			LIB.Settings.SelectedNumber = 1
+		end
+
+		NewLib.UpdateVisual()
+	end
+	
 	NewLib.Return = function()
+		if LIB.LockMovement then
+			return
+		end
+		
 		if LIB.Tab[LIB.Settings.CurrentTab].LastTab == "no" then
 			NewLib.MainFrame.TopBar.TabName.Text = "Home"
 			return
 		end
 		
-		for _, Items2 in pairs(MainFrame:GetChildren()) do
+		for _, Items2 in pairs(ScrollingFrame:GetChildren()) do
 			if Items2:GetAttribute("TempNumber") then
 				NewLib.RemoveNumber(Items2)
 				Items2.Parent = Tabs[Items2:GetAttribute("PARENT")]
@@ -1434,27 +1894,7 @@ LIB.create = function(MainData)
 					end
 				end
 
-				if Items2:GetAttribute("SLIDER") then
-					game.TweenService:Create(Items2.Number, TweenInfo.new(0.2), {Position = LIB.SliderSettings.Regular}):Play()
-
-					game.TweenService:Create(Items2.Arrow1, TweenInfo.new(0.2), {ImageTransparency = 1}):Play()
-					game.TweenService:Create(Items2.Arrow2, TweenInfo.new(0.2), {ImageTransparency = 1}):Play()
-				elseif Items2:GetAttribute("LIST") then
-					game.TweenService:Create(Items2.Number, TweenInfo.new(0.2), {Position = LIB.ListSettings.Regular}):Play()
-
-					game.TweenService:Create(Items2.Arrow1, TweenInfo.new(0.2), {ImageTransparency = 1}):Play()
-					game.TweenService:Create(Items2.Arrow2, TweenInfo.new(0.2), {ImageTransparency = 1}):Play()
-				elseif Items2:GetAttribute("TOGGLE") then
-					game.TweenService:Create(Items2.Circle, TweenInfo.new(0.2), {Position = LIB.ToggleSettings.Regular}):Play()
-				elseif Items2:GetAttribute("TAB") then
-					game.TweenService:Create(Items2.Arrow, TweenInfo.new(0.2), {Position = LIB.TabSettings.Regular}):Play()
-				elseif Items2:GetAttribute("BUTTON") or Items2:GetAttribute("TEXTBOX") then
-					game.TweenService:Create(Items2.BarName, TweenInfo.new(0.2), {Position = LIB.ButtonSettings.Regular}):Play()
-				elseif Items2:GetAttribute("COLORPICKER") then
-					game.TweenService:Create(Items2.Preview, TweenInfo.new(0.2), {Position = LIB.ColorPickerSettings.Regular}):Play()
-				elseif Items2:GetAttribute("TEXTBOX") then
-					game.TweenService:Create(Items2.TextBox, TweenInfo.new(0.2), {Position = LIB.TextBoxSettings.Regular}):Play()
-				end
+				NewLib.FrameAnimations({Item = Items2, Type = false})
 			elseif Items2.Name == "Text" or Items2.Name == "Seperator" then
 				Items2.Parent = Tabs[Items2:GetAttribute("PARENT")]
 				
@@ -1467,32 +1907,14 @@ LIB.create = function(MainData)
 					end
 				end
 
-				if Items2:GetAttribute("SLIDER") then
-					game.TweenService:Create(Items2.Number, TweenInfo.new(0.2), {Position = LIB.SliderSettings.Regular}):Play()
-
-					game.TweenService:Create(Items2.Arrow1, TweenInfo.new(0.2), {ImageTransparency = 1}):Play()
-					game.TweenService:Create(Items2.Arrow2, TweenInfo.new(0.2), {ImageTransparency = 1}):Play()
-				elseif Items2:GetAttribute("LIST") then
-					game.TweenService:Create(Items2.Number, TweenInfo.new(0.2), {Position = LIB.ListSettings.Regular}):Play()
-
-					game.TweenService:Create(Items2.Arrow1, TweenInfo.new(0.2), {ImageTransparency = 1}):Play()
-					game.TweenService:Create(Items2.Arrow2, TweenInfo.new(0.2), {ImageTransparency = 1}):Play()
-				elseif Items2:GetAttribute("TOGGLE") then
-					game.TweenService:Create(Items2.Circle, TweenInfo.new(0.2), {Position = LIB.ToggleSettings.Regular}):Play()
-				elseif Items2:GetAttribute("TAB") then
-					game.TweenService:Create(Items2.Arrow, TweenInfo.new(0.2), {Position = LIB.TabSettings.Regular}):Play()
-				elseif Items2:GetAttribute("BUTTON") or Items2:GetAttribute("TEXTBOX") then
-					game.TweenService:Create(Items2.BarName, TweenInfo.new(0.2), {Position = LIB.ButtonSettings.Regular}):Play()
-				elseif Items2:GetAttribute("COLORPICKER") then
-					game.TweenService:Create(Items2.Preview, TweenInfo.new(0.2), {Position = LIB.ColorPickerSettings.Regular}):Play()
-				elseif Items2:GetAttribute("TEXTBOX") then
-					game.TweenService:Create(Items2.TextBox, TweenInfo.new(0.2), {Position = LIB.TextBoxSettings.Regular}):Play()
-				end
+				NewLib.FrameAnimations({Item = Items2, Type = false})
 			end
 		end
 		
+		ScrollingFrame.Size = UDim2.new(0, 301, 0, 0)
+		
 		for _, Items3 in pairs(Tabs[LIB.Tab[LIB.Settings.CurrentTab].LastTab]:GetChildren()) do
-			Items3.Parent = MainFrame
+			Items3.Parent = ScrollingFrame
 		end
 		
 		LIB.Settings.CurrentTab = LIB.Tab[LIB.Settings.CurrentTab].LastTab
@@ -1503,7 +1925,7 @@ LIB.create = function(MainData)
 			NewLib.MainFrame.TopBar.TabName.Text = Tabs[LIB.Tab[LIB.Settings.CurrentTab].LastTab]:FindFirstChild(LIB.Settings.CurrentTab).BarName.Text
 		end
 		
-		if LIB.Settings.CurrentTab == "MainFrame" then
+		if LIB.Settings.CurrentTab == "MainFrame" or LIB.Settings.CurrentTab == "ScrollingFrame" then
 			NewLib.MainFrame.TopBar.TabName.Text = "Home"
 		end
 		
@@ -1517,6 +1939,8 @@ LIB.create = function(MainData)
 	
 	NewLib.UpdateGUI()
 	NewLib.UpdateVisual()
+	
+	-- Inputs:
 	
 	UserInputService.InputBegan:Connect(function(Input, GP)
 		if GP then return end
@@ -1558,10 +1982,16 @@ LIB.create = function(MainData)
 			
 			NewLib.Return()			
 		elseif Input.KeyCode == LIB.Keybinds.Open then
+			if LIB.LockMovement then
+				return
+			end
+			
 			NewLib.GUI.Enabled = not NewLib.GUI.Enabled
 			LIB.Opened = not LIB.Opened
 		end
 	end)
+	
+	-- Settings:
 	
 	NewLib.setupSettings = function()
 		local SettingsTab = NewLib.createTab("Settings", "SettingsTAB")
@@ -1599,6 +2029,8 @@ LIB.create = function(MainData)
 				NewLib.MainFrame.Position = UDim2.new(NewLib.MainFrame.Position.X.Scale, NewLib.MainFrame.Position.X.Offset, NewLib.MainFrame.Position.Y.Scale, val)
 			end,
 		})
+		
+		return SettingsTab
 	end
 	
 	return NewLib
