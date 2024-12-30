@@ -302,6 +302,10 @@ LIB.create = function(MainData)
 	hoverSound.SoundId = "rbxassetid://139268396496928"
 	returnSound.SoundId = "rbxassetid://115181827493042"
 	
+	clickSound.Volume = 1.5
+	hoverSound.Volume = 1.5
+	returnSound.Volume = 1.5
+	
 	Tabs.Name = "Tabs"
 	Tabs.Parent = TEST
 	Tabs.Disabled = true
@@ -1990,37 +1994,55 @@ LIB.create = function(MainData)
 		if Input.KeyCode == LIB.Keybinds.Up then
 			if not LIB.Opened then return end
 			
-			hoverSound:Play()
+			local newsound = hoverSound:Clone()
+			newsound:Play()
+			newsound.Parent = NewLib.GUI
+			game.Debris:AddItem(newsound, newsound.TimeLength + 0.1)
 			
 			NewLib.MoveUp()
 		elseif Input.KeyCode == LIB.Keybinds.Down then
 			if not LIB.Opened then return end
 			
-			hoverSound:Play()
+			local newsound = hoverSound:Clone()
+			newsound:Play()
+			newsound.Parent = NewLib.GUI
+			game.Debris:AddItem(newsound, newsound.TimeLength + 0.1)
 			
 			NewLib.MoveDown()
 		elseif Input.KeyCode == LIB.Keybinds.Left then
 			if not LIB.Opened then return end
 			
-			hoverSound:Play()
+			local newsound = hoverSound:Clone()
+			newsound:Play()
+			newsound.Parent = NewLib.GUI
+			game.Debris:AddItem(newsound, newsound.TimeLength + 0.1)
 			
 			NewLib.MoveLeft()
 		elseif Input.KeyCode == LIB.Keybinds.Right then
 			if not LIB.Opened then return end
 			
-			hoverSound:Play()
+			local newsound = hoverSound:Clone()
+			newsound:Play()
+			newsound.Parent = NewLib.GUI
+			game.Debris:AddItem(newsound, newsound.TimeLength + 0.1)
 			
 			NewLib.MoveRight()
 		elseif Input.KeyCode == LIB.Keybinds.Enter then
 			if not LIB.Opened then return end
 			
-			clickSound:Play()
+			local newsound = clickSound:Clone()
+			newsound:Play()
+			newsound.Parent = NewLib.GUI
+			game.Debris:AddItem(newsound, newsound.TimeLength + 0.1)
 			
 			NewLib.Select()
 		elseif Input.KeyCode == LIB.Keybinds.Return then
 			if not LIB.Opened then return end
 			
-			returnSound:Play()
+			local newsound = returnSound:Clone()
+			newsound:Play()
+			newsound.Parent = NewLib.GUI
+			game.Debris:AddItem(newsound, newsound.TimeLength + 0.1)
 			
 			NewLib.Return()			
 		elseif Input.KeyCode == LIB.Keybinds.Open then
