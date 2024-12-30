@@ -384,6 +384,7 @@ LIB.create = function(MainData)
 	Selector.TextStrokeTransparency = 0.000
 	Selector.TextWrapped = true
 	Selector.Visible = MainData.TopBarSelector
+	Selector.AutomaticSize = Enum.AutomaticSize.X
 
 	BottomFrame.Name = "BottomFrame"
 	BottomFrame.Parent = MainFrame
@@ -433,6 +434,7 @@ LIB.create = function(MainData)
 	Selector_2.TextSize = 14.000
 	Selector_2.TextStrokeTransparency = 0.000
 	Selector_2.TextWrapped = true
+	Selector_2.AutomaticSize = Enum.AutomaticSize.X
 	
 	ImageBar.Name = "ImageBar"
 	ImageBar.Parent = MainFrame
