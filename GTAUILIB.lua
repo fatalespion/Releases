@@ -599,8 +599,8 @@ LIB.create = function(MainData)
 		end
 		
 		local Tab = Instance.new("Frame")
-		local BarName = Instance.new("TextLabel")
-		local Arrow = Instance.new("TextLabel")
+		local BarName_2 = Instance.new("TextLabel")
+		local Arrow5 = Instance.new("TextLabel")
 		local NewTab = Instance.new("Folder")
 
 		Tab.Name = FlagName
@@ -611,37 +611,37 @@ LIB.create = function(MainData)
 		Tab.BorderSizePixel = 0
 		Tab.Size = UDim2.new(1, 0, 0.0656779632, 0)
 
-		BarName.Name = "BarName"
-		BarName.Parent = Tab
-		BarName.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-		BarName.BackgroundTransparency = 1.000
-		BarName.BorderColor3 = Color3.fromRGB(0, 0, 0)
-		BarName.BorderSizePixel = 0
-		BarName.Position = UDim2.new(0.0264026411, 0, 0.258064538, 0)
-		BarName.Size = UDim2.new(0.821782172, 0, 0.483871102, 0)
-		BarName.Font = LIB.UIFont
-		BarName.Text = TabName
-		BarName.TextColor3 = Color3.fromRGB(255, 255, 255)
-		BarName.TextScaled = true
-		BarName.TextSize = 14.000
-		BarName.TextStrokeTransparency = 0.000
-		BarName.TextWrapped = true
-		BarName.TextXAlignment = Enum.TextXAlignment.Left
+		BarName_2.Name = "BarName"
+		BarName_2.Parent = Tab
+		BarName_2.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+		BarName_2.BackgroundTransparency = 1.000
+		BarName_2.BorderColor3 = Color3.fromRGB(0, 0, 0)
+		BarName_2.BorderSizePixel = 0
+		BarName_2.Position = UDim2.new(0.0264026411, 0, 0.258064538, 0)
+		BarName_2.Size = UDim2.new(0.821782172, 0, 0.483871102, 0)
+		BarName_2.Font = LIB.UIFont
+		BarName_2.Text = TabName
+		BarName_2.TextColor3 = Color3.fromRGB(255, 255, 255)
+		BarName_2.TextScaled = true
+		BarName_2.TextSize = 14.000
+		BarName_2.TextStrokeTransparency = 0.000
+		BarName_2.TextWrapped = true
+		BarName_2.TextXAlignment = Enum.TextXAlignment.Left
 
-		Arrow.Name = "Arrow"
-		Arrow.Parent = Tab
-		Arrow.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-		Arrow.BackgroundTransparency = 1.000
-		Arrow.BorderColor3 = Color3.fromRGB(0, 0, 0)
-		Arrow.BorderSizePixel = 0
-		Arrow.Position = UDim2.new(0.924092412, 0, 0.193548396, 0)
-		Arrow.Size = UDim2.new(0.0462046191, 0, 0.612903416, 0)
-		Arrow.Font = LIB.UIFont
-		Arrow.Text = ">"
-		Arrow.TextColor3 = Color3.fromRGB(255, 255, 255)
-		Arrow.TextSize = 14.000
-		Arrow.TextStrokeTransparency = 0.000
-		Arrow.TextWrapped = true
+		Arrow5.Name = "Arrow"
+		Arrow5.Parent = Tab
+		Arrow5.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+		Arrow5.BackgroundTransparency = 1.000
+		Arrow5.BorderColor3 = Color3.fromRGB(0, 0, 0)
+		Arrow5.BorderSizePixel = 0
+		Arrow5.Position = UDim2.new(0.924092412, 0, 0.193548396, 0)
+		Arrow5.Size = UDim2.new(0.0462046191, 0, 0.612903416, 0)
+		Arrow5.Font = LIB.UIFont
+		Arrow5.Text = ">"
+		Arrow5.TextColor3 = Color3.fromRGB(255, 255, 255)
+		Arrow5.TextSize = 14.000
+		Arrow5.TextStrokeTransparency = 0.000
+		Arrow5.TextWrapped = true
 		
 		NewTab.Name = FlagName
 		NewTab.Parent = Tabs
@@ -652,6 +652,11 @@ LIB.create = function(MainData)
 		LIB.Tab[FlagName] = {
 			LastTab = nil,
 		}
+		
+		LIB.UpdateEvent.Event:Connect(function()
+			BarName_2.Font = LIB.UIFont
+			Arrow5.Font = LIB.UIFont
+		end)
 		
 		return NewTab
 	end
@@ -703,6 +708,10 @@ LIB.create = function(MainData)
 		BarName_3.RichText = data.RichText
 		
 		Text:SetAttribute("PARENT", data.Parent.Name)
+		
+		LIB.UpdateEvent.Event:Connect(function()
+			BarName_3.Font = LIB.UIFont
+		end)	
 	end
 	
 	NewLib.createSeperator = function(Parent)
