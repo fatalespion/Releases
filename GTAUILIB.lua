@@ -8,6 +8,7 @@ local LIB = {
 	UIColor2 = Color3.fromRGB(207, 94, 255),
 	
 	UIFont = Enum.Font.GothamBold,
+	TitleFont = Enum.Font.GothamBold,
 	
 	Opened = true,
 	LockMovement = false,
@@ -302,10 +303,6 @@ LIB.create = function(MainData)
 	hoverSound.SoundId = "rbxassetid://139268396496928"
 	returnSound.SoundId = "rbxassetid://115181827493042"
 	
-	clickSound.Volume = 1.5
-	hoverSound.Volume = 1.5
-	returnSound.Volume = 1.5
-	
 	Tabs.Name = "Tabs"
 	Tabs.Parent = TEST
 	Tabs.Disabled = true
@@ -384,7 +381,6 @@ LIB.create = function(MainData)
 	Selector.TextStrokeTransparency = 0.000
 	Selector.TextWrapped = true
 	Selector.Visible = MainData.TopBarSelector
-	Selector.AutomaticSize = Enum.AutomaticSize.X
 
 	BottomFrame.Name = "BottomFrame"
 	BottomFrame.Parent = MainFrame
@@ -434,7 +430,6 @@ LIB.create = function(MainData)
 	Selector_2.TextSize = 14.000
 	Selector_2.TextStrokeTransparency = 0.000
 	Selector_2.TextWrapped = true
-	Selector_2.AutomaticSize = Enum.AutomaticSize.X
 	
 	ImageBar.Name = "ImageBar"
 	ImageBar.Parent = MainFrame
@@ -462,7 +457,7 @@ LIB.create = function(MainData)
 	BarName_3.BorderColor3 = Color3.fromRGB(0, 0, 0)
 	BarName_3.BorderSizePixel = 0
 	BarName_3.Size = UDim2.new(1, 0, 1, 0)
-	BarName_3.Font = LIB.UIFont
+	BarName_3.Font = LIB.TitleFont
 	BarName_3.Text = MainData.Name
 	BarName_3.TextColor3 = Color3.fromRGB(161, 98, 255)
 	BarName_3.TextSize = 35.000
@@ -566,8 +561,6 @@ LIB.create = function(MainData)
 	NewLib.Rank = ""
 	
 	LIB.UpdateEvent.Event:Connect(function()
-		BarName_3.Font = LIB.UIFont
-		
 		if MainData.ImageBarType == "Image" then
 			ImageLabel.Image = "rbxassetid://"..MainData.ImageBarImage
 			ImageLabel.Visible = true
@@ -579,6 +572,7 @@ LIB.create = function(MainData)
 				Gradient.Color = MainData.UIGradient
 			end
 		elseif MainData.ImageBarType == "Text" then
+			BarName_3.Font = LIB.TitleFont
 			BarName_3.Text = MainData.ImageBarText
 			BarName_3.TextSize = MainData.ImageBarTextSize
 			ImageLabel.Visible = false
@@ -601,8 +595,8 @@ LIB.create = function(MainData)
 		end
 		
 		local Tab = Instance.new("Frame")
-		local BarName_2 = Instance.new("TextLabel")
-		local Arrow5 = Instance.new("TextLabel")
+		local BarName = Instance.new("TextLabel")
+		local Arrow = Instance.new("TextLabel")
 		local NewTab = Instance.new("Folder")
 
 		Tab.Name = FlagName
@@ -613,37 +607,37 @@ LIB.create = function(MainData)
 		Tab.BorderSizePixel = 0
 		Tab.Size = UDim2.new(1, 0, 0.0656779632, 0)
 
-		BarName_2.Name = "BarName"
-		BarName_2.Parent = Tab
-		BarName_2.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-		BarName_2.BackgroundTransparency = 1.000
-		BarName_2.BorderColor3 = Color3.fromRGB(0, 0, 0)
-		BarName_2.BorderSizePixel = 0
-		BarName_2.Position = UDim2.new(0.0264026411, 0, 0.258064538, 0)
-		BarName_2.Size = UDim2.new(0.821782172, 0, 0.483871102, 0)
-		BarName_2.Font = LIB.UIFont
-		BarName_2.Text = TabName
-		BarName_2.TextColor3 = Color3.fromRGB(255, 255, 255)
-		BarName_2.TextScaled = true
-		BarName_2.TextSize = 14.000
-		BarName_2.TextStrokeTransparency = 0.000
-		BarName_2.TextWrapped = true
-		BarName_2.TextXAlignment = Enum.TextXAlignment.Left
+		BarName.Name = "BarName"
+		BarName.Parent = Tab
+		BarName.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+		BarName.BackgroundTransparency = 1.000
+		BarName.BorderColor3 = Color3.fromRGB(0, 0, 0)
+		BarName.BorderSizePixel = 0
+		BarName.Position = UDim2.new(0.0264026411, 0, 0.258064538, 0)
+		BarName.Size = UDim2.new(0.821782172, 0, 0.483871102, 0)
+		BarName.Font = LIB.UIFont
+		BarName.Text = TabName
+		BarName.TextColor3 = Color3.fromRGB(255, 255, 255)
+		BarName.TextScaled = true
+		BarName.TextSize = 14.000
+		BarName.TextStrokeTransparency = 0.000
+		BarName.TextWrapped = true
+		BarName.TextXAlignment = Enum.TextXAlignment.Left
 
-		Arrow5.Name = "Arrow"
-		Arrow5.Parent = Tab
-		Arrow5.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-		Arrow5.BackgroundTransparency = 1.000
-		Arrow5.BorderColor3 = Color3.fromRGB(0, 0, 0)
-		Arrow5.BorderSizePixel = 0
-		Arrow5.Position = UDim2.new(0.924092412, 0, 0.193548396, 0)
-		Arrow5.Size = UDim2.new(0.0462046191, 0, 0.612903416, 0)
-		Arrow5.Font = LIB.UIFont
-		Arrow5.Text = ">"
-		Arrow5.TextColor3 = Color3.fromRGB(255, 255, 255)
-		Arrow5.TextSize = 14.000
-		Arrow5.TextStrokeTransparency = 0.000
-		Arrow5.TextWrapped = true
+		Arrow.Name = "Arrow"
+		Arrow.Parent = Tab
+		Arrow.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+		Arrow.BackgroundTransparency = 1.000
+		Arrow.BorderColor3 = Color3.fromRGB(0, 0, 0)
+		Arrow.BorderSizePixel = 0
+		Arrow.Position = UDim2.new(0.924092412, 0, 0.193548396, 0)
+		Arrow.Size = UDim2.new(0.0462046191, 0, 0.612903416, 0)
+		Arrow.Font = LIB.UIFont
+		Arrow.Text = ">"
+		Arrow.TextColor3 = Color3.fromRGB(255, 255, 255)
+		Arrow.TextSize = 14.000
+		Arrow.TextStrokeTransparency = 0.000
+		Arrow.TextWrapped = true
 		
 		NewTab.Name = FlagName
 		NewTab.Parent = Tabs
@@ -654,11 +648,6 @@ LIB.create = function(MainData)
 		LIB.Tab[FlagName] = {
 			LastTab = nil,
 		}
-		
-		LIB.UpdateEvent.Event:Connect(function()
-			BarName_2.Font = LIB.UIFont
-			Arrow5.Font = LIB.UIFont
-		end)
 		
 		return NewTab
 	end
@@ -710,10 +699,6 @@ LIB.create = function(MainData)
 		BarName_3.RichText = data.RichText
 		
 		Text:SetAttribute("PARENT", data.Parent.Name)
-		
-		LIB.UpdateEvent.Event:Connect(function()
-			BarName_3.Font = LIB.UIFont
-		end)	
 	end
 	
 	NewLib.createSeperator = function(Parent)
@@ -838,8 +823,6 @@ LIB.create = function(MainData)
 		LIB.Tab[data.Parent.Name][data.FlagName] = data
 		
 		LIB.UpdateEvent.Event:Connect(function()
-			BarName_1.Font = LIB.UIFont
-			
 			if data.Value then
 				Circle.Image = "rbxassetid://"..LIB.ToggleSettings.TickIcon
 				Circle.ImageColor3 = LIB.UIColor2
@@ -948,12 +931,6 @@ LIB.create = function(MainData)
 		Slider:SetAttribute("PARENT", data.Parent.Name)
 		
 		LIB.Tab[data.Parent.Name][data.FlagName] = data
-		
-		LIB.UpdateEvent.Event:Connect(function()
-			BarName_2.Font = LIB.UIFont
-			Number.Font = LIB.UIFont
-		end)
-			
 	end
 	
 	NewLib.createList = function(data)
@@ -1038,11 +1015,6 @@ LIB.create = function(MainData)
 		Slider:SetAttribute("PARENT", data.Parent.Name)
 
 		LIB.Tab[data.Parent.Name][data.FlagName] = data
-		
-		LIB.UpdateEvent.Event:Connect(function()
-			BarName_2.Font = LIB.UIFont
-			Number.Font = LIB.UIFont
-		end)
 	end
 	
 	NewLib.createButton = function(data)
@@ -1082,10 +1054,6 @@ LIB.create = function(MainData)
 		Button:SetAttribute("PARENT", data.Parent.Name)
 		
 		LIB.Tab[data.Parent.Name][data.FlagName] = data
-		
-		LIB.UpdateEvent.Event:Connect(function()
-			BarName_2.Font = LIB.UIFont
-		end)
 	end
 	
 	NewLib.createTextBox = function(data)
@@ -1142,11 +1110,6 @@ LIB.create = function(MainData)
 		ColorPicker:SetAttribute("PARENT", data.Parent.Name)
 
 		LIB.Tab[data.Parent.Name][data.FlagName] = data
-		
-		LIB.UpdateEvent.Event:Connect(function()
-			BarName_55.Font = LIB.UIFont
-			TextBox_1.Font = LIB.UIFont
-		end)
 	end
 	
 	NewLib.createColorPicker = function(data)
@@ -1214,11 +1177,6 @@ LIB.create = function(MainData)
 		ColorPicker:SetAttribute("PARENT", data.Parent.Name)
 
 		LIB.Tab[data.Parent.Name][data.FlagName] = data
-		
-		LIB.UpdateEvent.Event:Connect(function()
-			TextBox_1.Font = LIB.UIFont
-			BarName_55.Font = LIB.UIFont
-		end)
 	end
 	
 	NewLib.createKeyPicker = function(data)
@@ -1297,11 +1255,6 @@ LIB.create = function(MainData)
 		SetMaxSize()
 		
 		LIB.Tab[data.Parent.Name][data.FlagName] = data
-		
-		LIB.UpdateEvent.Event:Connect(function()
-			BarName_56.Font = LIB.UIFont
-			Clicker.Font = LIB.UIFont
-		end)
 	end
 	
 	-- Other functions:
@@ -1509,8 +1462,6 @@ LIB.create = function(MainData)
 					task.wait(0.1)
 					TextBox:CaptureFocus()
 					
-					SliderFrame:SetAttribute("Item", Items.Name)
-					
 					TextBox:GetPropertyChangedSignal("Text"):Connect(function()
 						TextBox.Text = TextBox.Text:gsub('[^%d.]', '')
 					end)
@@ -1519,10 +1470,6 @@ LIB.create = function(MainData)
 						if not EnterPressed then return end
 						
 						if EnterPressed then
-							if SliderFrame:GetAttribute("Item") ~= Items.Name then
-								return
-							end
-							
 							SliderFrame.Visible = false
 							
 							if LIB.Tab[Items:GetAttribute("PARENT")][Items.Name].Value == nil then
@@ -1550,8 +1497,6 @@ LIB.create = function(MainData)
 							Items.Number.Text = tostring(LIB.Tab[Items:GetAttribute("PARENT")][Items.Name].Value)
 							
 							TextBox:ReleaseFocus()
-							
-							SliderFrame:SetAttribute("Item", nil)
 						end
 					end)
 				elseif Items:GetAttribute("KEYPICKER") then
@@ -2005,55 +1950,37 @@ LIB.create = function(MainData)
 		if Input.KeyCode == LIB.Keybinds.Up then
 			if not LIB.Opened then return end
 			
-			local newsound = hoverSound:Clone()
-			newsound:Play()
-			newsound.Parent = NewLib.GUI
-			game.Debris:AddItem(newsound, newsound.TimeLength + 0.1)
+			hoverSound:Play()
 			
 			NewLib.MoveUp()
 		elseif Input.KeyCode == LIB.Keybinds.Down then
 			if not LIB.Opened then return end
 			
-			local newsound = hoverSound:Clone()
-			newsound:Play()
-			newsound.Parent = NewLib.GUI
-			game.Debris:AddItem(newsound, newsound.TimeLength + 0.1)
+			hoverSound:Play()
 			
 			NewLib.MoveDown()
 		elseif Input.KeyCode == LIB.Keybinds.Left then
 			if not LIB.Opened then return end
 			
-			local newsound = hoverSound:Clone()
-			newsound:Play()
-			newsound.Parent = NewLib.GUI
-			game.Debris:AddItem(newsound, newsound.TimeLength + 0.1)
+			hoverSound:Play()
 			
 			NewLib.MoveLeft()
 		elseif Input.KeyCode == LIB.Keybinds.Right then
 			if not LIB.Opened then return end
 			
-			local newsound = hoverSound:Clone()
-			newsound:Play()
-			newsound.Parent = NewLib.GUI
-			game.Debris:AddItem(newsound, newsound.TimeLength + 0.1)
+			hoverSound:Play()
 			
 			NewLib.MoveRight()
 		elseif Input.KeyCode == LIB.Keybinds.Enter then
 			if not LIB.Opened then return end
 			
-			local newsound = clickSound:Clone()
-			newsound:Play()
-			newsound.Parent = NewLib.GUI
-			game.Debris:AddItem(newsound, newsound.TimeLength + 0.1)
+			clickSound:Play()
 			
 			NewLib.Select()
 		elseif Input.KeyCode == LIB.Keybinds.Return then
 			if not LIB.Opened then return end
 			
-			local newsound = returnSound:Clone()
-			newsound:Play()
-			newsound.Parent = NewLib.GUI
-			game.Debris:AddItem(newsound, newsound.TimeLength + 0.1)
+			returnSound:Play()
 			
 			NewLib.Return()			
 		elseif Input.KeyCode == LIB.Keybinds.Open then
