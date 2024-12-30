@@ -1460,6 +1460,8 @@ LIB.create = function(MainData)
 					task.wait(0.1)
 					TextBox:CaptureFocus()
 					
+					SliderFrame:SetAttribute("Item", Items.Name)
+					
 					TextBox:GetPropertyChangedSignal("Text"):Connect(function()
 						TextBox.Text = TextBox.Text:gsub('[^%d.]', '')
 					end)
@@ -1468,6 +1470,10 @@ LIB.create = function(MainData)
 						if not EnterPressed then return end
 						
 						if EnterPressed then
+							if SliderFrame:GetAttribute("Item") ~= Items.Name then
+								return
+							end
+							
 							SliderFrame.Visible = false
 							
 							if LIB.Tab[Items:GetAttribute("PARENT")][Items.Name].Value == nil then
@@ -1495,6 +1501,8 @@ LIB.create = function(MainData)
 							Items.Number.Text = tostring(LIB.Tab[Items:GetAttribute("PARENT")][Items.Name].Value)
 							
 							TextBox:ReleaseFocus()
+							
+							SliderFrame:SetAttribute("Item", nil)
 						end
 					end)
 				elseif Items:GetAttribute("KEYPICKER") then
