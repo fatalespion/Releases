@@ -7,7 +7,7 @@ local LIB = {
 	UIColor = Color3.fromRGB(255, 255, 255),
 	UIColor2 = Color3.fromRGB(207, 94, 255),
 	
-	UIFont = Enum.Font.Arcade,
+	UIFont = Enum.Font.GothamBold,
 	
 	Opened = true,
 	LockMovement = false,
