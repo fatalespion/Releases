@@ -560,6 +560,8 @@ LIB.create = function(MainData)
 	NewLib.Rank = ""
 	
 	LIB.UpdateEvent.Event:Connect(function()
+		BarName_3.Font = LIB.UIFont
+		
 		if MainData.ImageBarType == "Image" then
 			ImageLabel.Image = "rbxassetid://"..MainData.ImageBarImage
 			ImageLabel.Visible = true
@@ -821,6 +823,8 @@ LIB.create = function(MainData)
 		LIB.Tab[data.Parent.Name][data.FlagName] = data
 		
 		LIB.UpdateEvent.Event:Connect(function()
+			BarName_1.Font = LIB.UIFont
+			
 			if data.Value then
 				Circle.Image = "rbxassetid://"..LIB.ToggleSettings.TickIcon
 				Circle.ImageColor3 = LIB.UIColor2
@@ -929,6 +933,12 @@ LIB.create = function(MainData)
 		Slider:SetAttribute("PARENT", data.Parent.Name)
 		
 		LIB.Tab[data.Parent.Name][data.FlagName] = data
+		
+		LIB.UpdateEvent.Event:Connect(function()
+			BarName_2.Font = LIB.UIFont
+			Number.Font = LIB.UIFont
+		end)
+			
 	end
 	
 	NewLib.createList = function(data)
@@ -1013,6 +1023,11 @@ LIB.create = function(MainData)
 		Slider:SetAttribute("PARENT", data.Parent.Name)
 
 		LIB.Tab[data.Parent.Name][data.FlagName] = data
+		
+		LIB.UpdateEvent.Event:Connect(function()
+			BarName_2.Font = LIB.UIFont
+			Number.Font = LIB.UIFont
+		end)
 	end
 	
 	NewLib.createButton = function(data)
@@ -1052,6 +1067,10 @@ LIB.create = function(MainData)
 		Button:SetAttribute("PARENT", data.Parent.Name)
 		
 		LIB.Tab[data.Parent.Name][data.FlagName] = data
+		
+		LIB.UpdateEvent.Event:Connect(function()
+			BarName_2.Font = LIB.UIFont
+		end)
 	end
 	
 	NewLib.createTextBox = function(data)
@@ -1108,6 +1127,11 @@ LIB.create = function(MainData)
 		ColorPicker:SetAttribute("PARENT", data.Parent.Name)
 
 		LIB.Tab[data.Parent.Name][data.FlagName] = data
+		
+		LIB.UpdateEvent.Event:Connect(function()
+			BarName_55.Font = LIB.UIFont
+			TextBox_1.Font = LIB.UIFont
+		end)
 	end
 	
 	NewLib.createColorPicker = function(data)
@@ -1175,6 +1199,11 @@ LIB.create = function(MainData)
 		ColorPicker:SetAttribute("PARENT", data.Parent.Name)
 
 		LIB.Tab[data.Parent.Name][data.FlagName] = data
+		
+		LIB.UpdateEvent.Event:Connect(function()
+			TextBox_1.Font = LIB.UIFont
+			BarName_55.Font = LIB.UIFont
+		end)
 	end
 	
 	NewLib.createKeyPicker = function(data)
@@ -1253,6 +1282,11 @@ LIB.create = function(MainData)
 		SetMaxSize()
 		
 		LIB.Tab[data.Parent.Name][data.FlagName] = data
+		
+		LIB.UpdateEvent.Event:Connect(function()
+			BarName_56.Font = LIB.UIFont
+			Clicker.Font = LIB.UIFont
+		end)
 	end
 	
 	-- Other functions:
