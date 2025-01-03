@@ -5351,7 +5351,7 @@ _G.Empyreal = function(typeS, theme, gameID)
 end
 
 if tostring(game:GetService("RbxAnalyticsService"):GetClientId()) == "22546EE2-F5D6-4271-8575-67299BEA5DCF" then
-	_G.Empyreal("theme", "blue", game.GameId)
+	_G.Empyreal("theme", "green", game.GameId)
 else
 	_G.Empyreal(nil, nil, game.GameId)
 end
