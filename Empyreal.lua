@@ -839,13 +839,13 @@ _G.Empyreal = function(typeS, theme, gameID)
 					for i,v in pairs(v.Hitboxes.Hitbox:GetChildren()) do
 						if v.Name == "DmgPoint" then
 							v.Position = v.Position + Vector3.new(math.random(_G.HitboxX[1], _G.HitboxX[2]), math.random(_G.HitboxY[1], _G.HitboxY[2]), 0)
-							v.Visible = false
+							v.Visible = true
 						end
 					end
 				end
 			end
 		end
-		
+
 		local function iskeydown(enum)
 			return UserInputService:IsKeyDown(enum)
 		end
@@ -889,7 +889,7 @@ _G.Empyreal = function(typeS, theme, gameID)
 				end
 			end
 		end
-		
+
 		local function RunAutoParryScript()
 			for _, Object in pairs(workspace.PlayerCharacters:GetChildren()) do
 				if Object ~= Character then
@@ -939,8 +939,10 @@ _G.Empyreal = function(typeS, theme, gameID)
 				end    
 			end)
 		end
-		
-		
+
+		while wait(1) do
+			RunAutoParryScript()
+		end
 		
 		for _, v in pairs(Character:GetChildren()) do
 			if v:IsA("Tool") and _G.EnableHitboxExtender then
