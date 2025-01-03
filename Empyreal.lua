@@ -826,6 +826,9 @@ _G.Empyreal = function(typeS, theme, gameID)
 		_G.AutoParryRange = 15
 		_G.AutoParryEnabled = false
 		
+		_G.AntiParryRange = 15
+		_G.AntiParryEnabled = false
+		
 		--// INIT TABS \\--
 		
 		local CombatTab = Init:NewTab("Combat")
@@ -846,6 +849,9 @@ _G.Empyreal = function(typeS, theme, gameID)
 			end
 		end
 
+		local client = game.Players.LocalPlayer
+		local players = game:GetService("Players")
+
 		local function iskeydown(enum)
 			return UserInputService:IsKeyDown(enum)
 		end
@@ -865,85 +871,95 @@ _G.Empyreal = function(typeS, theme, gameID)
 		end
 
 		local function islooking(Char, sensitivity)
-			return Char.HumanoidRootPart.CFrame.LookVector:Dot(Character.HumanoidRootPart.Position) >= sensitivity
+			return Char.HumanoidRootPart.CFrame.LookVector:Dot(client.Character.HumanoidRootPart.Position) >= sensitivity
 		end
 
-		local function AutoParry(Char, Child)
-			if Character:FindFirstChildWhichIsA("Tool") 
-				and Character:FindFirstChildOfClass("Tool"):FindFirstChild("Hitboxes") 
-				and Char:FindFirstChildWhichIsA("Tool") 
-				and Char:FindFirstChildOfClass("Tool"):FindFirstChild("Hitboxes") 
-				and Child:IsA("Sound")
-				and not iskeydown(Enum.KeyCode.C) 
-				and _G.AutoParryEnabled
-				and (Char.HumanoidRootPart.Position - Character.HumanoidRootPart.Position).Magnitude < _G.AutoParryRange then
+		local function Update(plr)
+			local function onRespawn(chr)
+				local tool;
+				repeat
+					task.wait()
+					if chr:FindFirstChild("HumanoidRootPart") and chr:FindFirstChildOfClass("Tool") and chr:FindFirstChildOfClass("Tool"):FindFirstChild("Hitboxes") then
+						tool = chr:FindFirstChildOfClass("Tool")
+					end
+				until tool and tool:IsA("Tool") and tool:FindFirstChild("Hitboxes")
 
-				local looking = islooking(Char, 0.25)
-				if looking then
-					print("pressed f")
-					keyclick(Enum.KeyCode.F)
-				else
-					lookAt(Char)
-					print("pressed f")
-					keyclick(Enum.KeyCode.F)
+				local function AutoParry(Child)
+					if client.Character:FindFirstChildWhichIsA("Tool") 
+						and client.Character:FindFirstChildOfClass("Tool"):FindFirstChild("Hitboxes") 
+						and chr:FindFirstChildWhichIsA("Tool") 
+						and chr:FindFirstChildOfClass("Tool"):FindFirstChild("Hitboxes") 
+						and Child:IsA("Sound")
+						and not iskeydown(Enum.KeyCode.C) 
+						and _G.AutoParryEnabled
+						and (chr.HumanoidRootPart.Position - client.Character.HumanoidRootPart.Position).Magnitude < _G.AutoParryRange then
+
+						local looking = islooking(chr, 0.25)
+						if looking then
+							print("pressed f")
+							keyclick(Enum.KeyCode.F)
+						else
+							lookAt(chr)
+							print("pressed f")
+							keyclick(Enum.KeyCode.F)
+						end
+					end
 				end
-			end
-		end
 
-		local function RunAutoParryScript()
-			for _, Object in pairs(workspace.PlayerCharacters:GetChildren()) do
-				if Object ~= Character then
-					Object.ChildAdded:Connect(function(Object2)
-						if Object2:IsA("Tool") then
-							if Object2:FindFirstChild("Hitboxes") then
-								if Object2:FindFirstChild("Hitboxes"):FindFirstChild("Hitbox") then
-									Object2:FindFirstChild("Hitboxes"):FindFirstChild("Hitbox").ChildAdded:Connect(function(Object3)
-										AutoParry(Object, Object3)
-									end)
-								elseif Object2:FindFirstChild("Hitboxes"):FindFirstChild("Weapon1Hitbox") and Object2:FindFirstChild("Hitboxes"):FindFirstChild("Weapon2Hitbox") then
-									Object2:FindFirstChild("Hitboxes"):FindFirstChild("Weapon1Hitbox").ChildAdded:Connect(function(Object3)
-										AutoParry(Object, Object3)
-									end)
+				if tool.Hitboxes:FindFirstChild("Hitbox") then
+					print("applied")
+					tool.Hitboxes.Hitbox.ChildAdded:Connect(AutoParry)
+				elseif tool.Hitboxes:FindFirstChild("Weapon1Hitbox") and tool.Hitboxes:FindFirstChild("Weapon2Hitbox") then
+					print("applied")
+					tool.Hitboxes.Weapon1Hitbox.ChildAdded:Connect(AutoParry)
+					tool.Hitboxes.Weapon2Hitbox.ChildAdded:Connect(AutoParry)
+				end
 
-									Object2:FindFirstChild("Hitboxes"):FindFirstChild("Weapon2Hitbox").ChildAdded:Connect(function(Object3)
-										AutoParry(Object, Object3)
-									end)
-								end
-							end
+				local function antiParry(child)
+					if not _G.AntiParryEnabled then
+						return
+					end
+
+					if child:IsA("Sound") and client.Character:FindFirstChildOfClass("Tool") and client.Character:FindFirstChildOfClass("Tool"):FindFirstChild("Hitboxes") and (chr.HumanoidRootPart.Position - client.Character.HumanoidRootPart.Position).Magnitude < _G.AntiParryRange then
+						local looking = islooking(chr, 0.25)
+						if looking and chr.Default.Default.Transparency ~= 0 then
+							local tool = client.Character:FindFirstChildOfClass("Tool")
+							client.Character.Humanoid:UnequipTools()
+							chr.Default.Default:GetPropertyChangedSignal("Transparency"):Wait()
+							client.Character.Humanoid:EquipTool(tool)
 						end
-					end)
-				end    
+					end
+				end
+
+				chr.ChildAdded:Connect(function(Object)
+					if Object.Name == "Default" and Object:IsA("Model") then
+						Object.Default.ChildAdded:Connect(antiParry)
+					end
+				end)
 			end
 
-			workspace.PlayerCharacters.ChildAdded:Connect(function(Object)
-				if Object ~= Character then
-					Object.ChildAdded:Connect(function(Object2)
-						if Object2:IsA("Tool") then
-							if Object2:FindFirstChild("Hitboxes") then
-								if Object2:FindFirstChild("Hitboxes"):FindFirstChild("Hitbox") then
-									Object2:FindFirstChild("Hitboxes"):FindFirstChild("Hitbox").ChildAdded:Connect(function(Object3)
-										AutoParry(Object, Object3)
-									end)
-								elseif Object2:FindFirstChild("Hitboxes"):FindFirstChild("Weapon1Hitbox") and Object2:FindFirstChild("Hitboxes"):FindFirstChild("Weapon2Hitbox") then
-									Object2:FindFirstChild("Hitboxes"):FindFirstChild("Weapon1Hitbox").ChildAdded:Connect(function(Object3)
-										AutoParry(Object, Object3)
-									end)
+			if plr.Character ~= nil then
+				task.spawn(onRespawn, plr.Character)
+			end
 
-									Object2:FindFirstChild("Hitboxes"):FindFirstChild("Weapon2Hitbox").ChildAdded:Connect(function(Object3)
-										AutoParry(Object, Object3)
-									end)
-								end
-							end
-						end
-					end)
-				end    
+			plr.CharacterAdded:Connect(function(chr)
+				warn('respawning', chr)
+				task.spawn(onRespawn, chr)
 			end)
 		end
 
-		while wait(1) do
-			RunAutoParryScript()
+		for _,v in next, players:GetPlayers() do
+			if v ~= client then
+				task.spawn(Update, v)
+			end
 		end
 		
+		players.PlayerAdded:Connect(function(plr)
+			if plr ~= client then
+				task.spawn(Update, plr)
+			end
+		end)
+
 		for _, v in pairs(Character:GetChildren()) do
 			if v:IsA("Tool") and _G.EnableHitboxExtender then
 				expandHitbox()
@@ -956,11 +972,7 @@ _G.Empyreal = function(typeS, theme, gameID)
 			end
 		end)
 		
-		Player.CharacterAdded:Connect(function(Character)
-			Character = Character
-			
-			RunAutoParryScript()
-		end)
+		
 		
 		CombatTab:NewLabel("⚠️ [ MORE WILL COME BE PATIENT ] ⚠️", "center")
 		CombatTab:NewLabel("[ HITBOX EXTENDER ]", "center")
@@ -1003,6 +1015,24 @@ _G.Empyreal = function(typeS, theme, gameID)
 		
 		local AutoParryRange = CombatTab:NewSlider("Range", "", true, "/", {min = 10, max = 25, default = 15}, function(value)
 			_G.AutoParryRange = value
+		end)
+		
+		CombatTab:NewSeperator()
+		
+		CombatTab:NewLabel("[ ANTI PARRY ]", "center")
+		
+		local EnableAntiParry = CombatTab:NewToggle("Anti Parry", false, function(value)
+			local vers = value and "on" or "off"
+
+			if vers == "on" then
+				_G.AntiParryEnabled = true
+			else
+				_G.AntiParryEnabled = false
+			end
+		end)
+
+		local AntiParryRange = CombatTab:NewSlider("Range", "", true, "/", {min = 10, max = 25, default = 15}, function(value)
+			_G.AntiParryRange = value
 		end)
 		
 		--// SETTINGS \\--
