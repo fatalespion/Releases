@@ -829,10 +829,44 @@ _G.Empyreal = function(typeS, theme, gameID)
 		_G.AntiParryRange = 15
 		_G.AntiParryEnabled = false
 		
+		_G.CFrameWalkspeedEnabled = false
+		_G.CFrameSpeed = 0
+		
 		--// INIT TABS \\--
 		
+		local OnlineTab = Init:NewTab("Online")
 		local CombatTab = Init:NewTab("Combat")
 		local SettingsTab = Init:NewTab("Settings")
+		
+		--// ONLINE \\--
+		
+		local Speed = function()
+			if _G.CFrameWalkspeedEnabled then
+				if true then
+					Character.HumanoidRootPart.CFrame = Character.HumanoidRootPart.CFrame + Character.Humanoid.MoveDirection * _G.CFrameSpeed/100
+				end 
+			end
+		end
+
+		RunService.Heartbeat:Connect(function()
+			Speed()
+		end)
+		
+		OnlineTab:NewLabel("⚠️ [ MORE WILL COME BE PATIENT ] ⚠️", "center")
+		
+		local EnableCFrameWalkspeed = OnlineTab:NewToggle("CFrame Walkspeed", false, function(value)
+			local vers = value and "on" or "off"
+
+			if vers == "on" then
+				_G.CFrameWalkspeedEnabled = true
+			else
+				_G.CFrameWalkspeedEnabled = false
+			end
+		end)
+
+		local CframeWalkSpeed = OnlineTab:NewSlider("Speed", "", true, "/", {min = 0, max = 100, default = 0}, function(value)
+			_G.CFrameSpeed = value
+		end)
 		
 		--// COMBAT \\--
 		
@@ -971,8 +1005,6 @@ _G.Empyreal = function(typeS, theme, gameID)
 				expandHitbox()
 			end
 		end)
-		
-		
 		
 		CombatTab:NewLabel("⚠️ [ MORE WILL COME BE PATIENT ] ⚠️", "center")
 		CombatTab:NewLabel("[ HITBOX EXTENDER ]", "center")
