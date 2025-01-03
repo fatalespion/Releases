@@ -88,7 +88,7 @@ _G.Empyreal = function(typeS, theme, gameID)
 			library.rank = "buyer"
 		end
 
-		local Wm = library:Watermark("empyreal | v0.1-A | " .. library:GetUsername() .. " | rank: " .. library.rank)
+		local Wm = library:Watermark("empyreal | v0.5-C | " .. library:GetUsername() .. " | rank: " .. library.rank)
 		local FpsWm = Wm:AddWatermark("fps: " .. library.fps)
 		coroutine.wrap(function()
 			while wait(.75) do
@@ -796,7 +796,7 @@ _G.Empyreal = function(typeS, theme, gameID)
 			library.rank = "buyer"
 		end
 
-		local Wm = library:Watermark("empyreal | v0.1-A | " .. library:GetUsername() .. " | rank: " .. library.rank)
+		local Wm = library:Watermark("empyreal | v0.5-C | " .. library:GetUsername() .. " | rank: " .. library.rank)
 		local FpsWm = Wm:AddWatermark("fps: " .. library.fps)
 		coroutine.wrap(function()
 			while wait(.75) do
@@ -939,6 +939,8 @@ _G.Empyreal = function(typeS, theme, gameID)
 				end    
 			end)
 		end
+		
+		
 		
 		for _, v in pairs(Character:GetChildren()) do
 			if v:IsA("Tool") and _G.EnableHitboxExtender then
@@ -1170,7 +1172,7 @@ _G.Empyreal = function(typeS, theme, gameID)
 			library.rank = "buyer"
 		end
 
-		local Wm = library:Watermark("empyreal | v0.1-A | " .. library:GetUsername() .. " | rank: " .. library.rank)
+		local Wm = library:Watermark("empyreal | v0.5-C | " .. library:GetUsername() .. " | rank: " .. library.rank)
 		local FpsWm = Wm:AddWatermark("fps: " .. library.fps)
 		coroutine.wrap(function()
 			while wait(.75) do
