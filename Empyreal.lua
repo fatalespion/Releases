@@ -314,6 +314,7 @@ _G.Empyreal = function(typeS, theme, gameID)
 		local Init = library:Init()
 
 		--// INIT TABS \\--
+		
 		local CombatTab = Init:NewTab("Combat")
 		local VisualsTab = Init:NewTab("Visuals")
 		local LocalPlayerTab = Init:NewTab("LocalPlayer")
@@ -773,6 +774,271 @@ _G.Empyreal = function(typeS, theme, gameID)
 			_G.HitPart = d
 		end)
 
+		--// END \\--
+
+		local FinishedLoading = Notif:Notify("Loaded empyreal", 4, "success")
+	elseif gameID == 1390601379 then
+		local RunService = game:GetService("RunService")
+		local Camera = game.Workspace.CurrentCamera
+		
+		local Players = game:GetService("Players")
+		local Player = Players.LocalPlayer
+		
+		local Character = Player.Character or Player.CharacterAdded:Wait()
+		
+		local Mouse = Player:GetMouse()
+		
+		if table.find(HWIDS.getDevelopers(), library:GetUsername()) then
+			library.rank = "developer"
+		else
+			library.rank = "buyer"
+		end
+
+		local Wm = library:Watermark("empyreal | v0.1-A | " .. library:GetUsername() .. " | rank: " .. library.rank)
+		local FpsWm = Wm:AddWatermark("fps: " .. library.fps)
+		coroutine.wrap(function()
+			while wait(.75) do
+				FpsWm:Text("fps: " .. library.fps)
+			end
+		end)()
+
+
+		local Notif = library:InitNotifications()
+		Notif:Notify("Successfully loaded [GUTP] with HWID {"..tostring(ClientHWID).."}", 2, "success") -- notification, alert, error, success, information
+		Notif:Notify("IT IS RECOMMENDED TO NOT USE ANY FEATURES BEFORE CHANGING THEMES", 2, "information")
+		task.wait(0.5)
+		Notif:Notify("Loading empyreal, please be patient.", 3, "information") -- notification, alert, error, success, information
+
+		library.title = "Combat Warriors [CW]"
+		
+		library:Introduction()
+		wait(1)
+		local Init = library:Init()
+		
+		--// VALUES \\--
+		
+		_G.EnableHitboxExtender = false
+		_G.HitboxX = {-2, 5}
+		_G.HitboxY = {-2, 10}
+		
+		--// INIT TABS \\--
+		
+		local CombatTab = Init:NewTab("Combat")
+		local SettingsTab = Init:NewTab("Settings")
+		
+		--// COMBAT \\--
+		
+		local function expandHitbox()
+			for i,v in pairs(Character:GetChildren()) do
+				if v:IsA("Tool") then
+					for i,v in pairs(v.Hitboxes.Hitbox:GetChildren()) do
+						if v.Name == "DmgPoint" then
+							v.Position = v.Position + Vector3.new(math.random(_G.HitboxX[1], _G.HitboxX[2]), math.random(_G.HitboxY[1], _G.HitboxY[2]), 0)
+							v.Visible = false
+						end
+					end
+				end
+			end
+		end
+		
+		for _, v in pairs(Character:GetChildren()) do
+			if v:IsA("Tool") and _G.EnableHitboxExtender then
+				expandHitbox()
+			end
+		end
+		
+		Character.ChildAdded:Connect(function(object)
+			if object:IsA("Tool") and _G.EnableHitboxExtender then
+				expandHitbox()
+			end
+		end)
+		
+		CombatTab:NewLabel("⚠️ [ MORE WILL COME BE PATIENT ] ⚠️", "center")
+		CombatTab:NewLabel("[ HITBOX EXTENDER ]", "center")
+		
+		local EnableHitboxExtender = CombatTab:NewToggle("Hitbox Extender", false, function(value)
+			local vers = value and "on" or "off"
+
+			if vers == "on" then
+				_G.EnableHitboxExtender = true
+			else
+				_G.EnableHitboxExtender = false
+			end
+		end)
+		
+		local HitboxExtenderX = CombatTab:NewTextbox("[X] Extender", "", "-2, 5", "all", "small", true, false, function(val)
+			local Test = string.split(val, ",")
+			
+			_G.HitboxX = {Test[1], Test[2]}
+		end)
+		
+		local HitboxExtenderY = CombatTab:NewTextbox("[Y] Extender", "", "-2, 10", "all", "small", true, false, function(val)
+			local Test = string.split(val, ",")
+
+			_G.HitboxY = {Test[1], Test[2]}
+		end)
+		
+		CombatTab:NewSeperator()
+		
+		--// SETTINGS \\--
+
+		local WarningText5 = SettingsTab:NewLabel("⚠️ [ MORE WILL COME BE PATIENT ] ⚠️", "center")
+
+		Init:UpdateKeybind(Enum.KeyCode.Insert)
+
+		local ChangeKeybind = SettingsTab:NewKeybind("Open/Close", Enum.KeyCode.Insert, function(key)
+			Init:UpdateKeybind(Enum.KeyCode[key])
+		end)
+
+		SettingsTab:NewSeperator()
+
+		local WarningText6 = SettingsTab:NewLabel("[ THE CONTENT BELOW WILL RELOAD THE ENTIRE SCRIPT ]", "center")
+
+		local ThemesText = SettingsTab:NewLabel("THEMES", "left")
+
+		local WhiteTheme = SettingsTab:NewButton("White { Default }", function()
+			Notif:Notify("Reloading the script, please be patient.", 3, "information")
+
+			task.wait(3.5)
+
+			Connection = nil
+
+			_G.Empyreal("theme", "white", game.GameId)
+		end)
+
+		local RedTheme = SettingsTab:NewButton("Red", function()
+			Notif:Notify("Reloading the script, please be patient.", 3, "information")
+
+			task.wait(3.5)
+
+			Connection = nil
+
+			_G.Empyreal("theme", "red", game.GameId)
+		end)
+
+		local GreenTheme = SettingsTab:NewButton("Green", function()
+			Notif:Notify("Reloading the script, please be patient.", 3, "information")
+
+			task.wait(3.5)
+
+			Connection = nil
+
+			_G.Empyreal("theme", "green", game.GameId)
+		end)
+
+		local BlueTheme = SettingsTab:NewButton("Blue", function()
+			Notif:Notify("Reloading the script, please be patient.", 3, "information")
+
+			task.wait(3.5)
+
+			Connection = nil
+
+			_G.Empyreal("theme", "blue", game.GameId)
+		end)
+
+		local OrangeTheme = SettingsTab:NewButton("Orange", function()
+			Notif:Notify("Reloading the script, please be patient.", 3, "information")
+
+			task.wait(3.5)
+
+			Connection = nil
+
+			_G.Empyreal("theme", "orange", game.GameId)
+		end)
+
+		local YellowTheme = SettingsTab:NewButton("Yellow", function()
+			Notif:Notify("Reloading the script, please be patient.", 3, "information")
+
+			task.wait(3.5)
+
+			Connection = nil
+
+			_G.Empyreal("theme", "yellow", game.GameId)
+		end)
+
+		local PurpleTheme = SettingsTab:NewButton("Purple", function()
+			Notif:Notify("Reloading the script, please be patient.", 3, "information")
+
+			task.wait(3.5)
+
+			Connection = nil
+
+			_G.Empyreal("theme", "purple", game.GameId)
+		end)
+
+		local PinkTheme = SettingsTab:NewButton("Pink", function()
+			Notif:Notify("Reloading the script, please be patient.", 3, "information")
+
+			task.wait(3.5)
+
+			Connection = nil
+
+			_G.Empyreal("theme", "pink", game.GameId)
+		end)
+
+		--// DEVELOPER \\--
+
+		if library.rank == "developer" then
+			_G.SelectedHWID = ""
+
+			local DeveloperTab = Init:NewTab("Developer")
+
+			local KeyGenerator = DeveloperTab:NewButton("Generate Key", function()
+				Notif:Notify("Generating key, please be patient.", 3, "information")
+
+				task.wait(3.5)
+
+				setclipboard(HWIDS.generateKey())
+				Notif:Notify("Key generated, the key has been pasted in your clipboard.", 3, "success") -- notification, alert, error, success, information
+			end)
+
+			DeveloperTab:NewSeperator()
+
+			local HWIDChecker = DeveloperTab:NewTextbox("HWID CHECKER", "", "PUT HWID IN", "all", "medium", true, false, function(val)
+				_G.SelectedHWID = val
+			end)
+
+			local KeyCheck = DeveloperTab:NewButton("CHECK", function()
+				Notif:Notify("tracking key, please be patient.", 3, "information")
+
+				task.wait(3.5)
+
+				if ACTUALHWIDS[_G.SelectedHWID] == nil then
+					Notif:Notify("key not found, invalid hwid.", 3, "error")
+					return
+				end
+
+				setclipboard(ACTUALHWIDS[_G.SelectedHWID])
+				Notif:Notify("Key found ["..ACTUALHWIDS[_G.SelectedHWID].."], the key has been pasted in your clipboard.", 3, "success") -- notification, alert, error, success, information
+			end)
+
+			DeveloperTab:NewSeperator()
+
+			local DeveloperTheme = DeveloperTab:NewButton("Developer [THEME]", function()
+				Notif:Notify("Reloading the script, please be patient.", 3, "information")
+
+				task.wait(3.5)
+
+				Connection = nil
+
+				_G.Empyreal("theme", "developer")
+			end)
+
+			local BlackTheme = DeveloperTab:NewButton("Black [THEME]", function()
+				Notif:Notify("Reloading the script, please be patient.", 3, "information")
+
+				task.wait(3.5)
+
+				Connection = nil
+
+				_G.Empyreal("theme", "black")
+			end)
+
+			DeveloperTab:NewSeperator()
+
+			local SillyText = DeveloperTab:NewLabel("Hello, "..string.upper(library:GetUsername()).."!", "center")
+		end
+		
 		--// END \\--
 
 		local FinishedLoading = Notif:Notify("Loaded empyreal", 4, "success")
