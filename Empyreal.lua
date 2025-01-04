@@ -832,9 +832,17 @@ _G.Empyreal = function(typeS, theme, gameID)
 		_G.CFrameWalkspeedEnabled = false
 		_G.CFrameSpeed = 0
 		
+		_G.CustomViewmodel = false
+		_G.RainbowViewmodel = false
+		
+		_G.ViewmodelColor = Color3.fromRGB(255,255,255)
+		_G.LastViewmodelColor = _G.ViewmodelColor
+		_G.OriginalViewmodelColor = Color3.fromRGB(255,255,255)
+		
 		--// INIT TABS \\--
 		
 		local OnlineTab = Init:NewTab("Online")
+		local VisualsTab = Init:NewTab("Visuals")
 		local CombatTab = Init:NewTab("Combat")
 		local SettingsTab = Init:NewTab("Settings")
 		
@@ -866,6 +874,119 @@ _G.Empyreal = function(typeS, theme, gameID)
 
 		local CframeWalkSpeed = OnlineTab:NewSlider("Speed", "", true, "/", {min = 0, max = 100, default = 0}, function(value)
 			_G.CFrameSpeed = value
+		end)
+		
+		OnlineTab.NewSeperator()
+		
+		local JumpPowerChanger = OnlineTab:NewSlider("JumpPower", "", true, "/", {min = 50, max = 100, default = 50}, function(value)
+			task.spawn(function()
+				while wait() do
+					Character.Humanoid.JumpPower = value
+				end
+			end)
+		end)
+		
+		OnlineTab.NewSeperator()
+		
+		local Connection
+		
+		local FasterProx = OnlineTab:NewToggle("Slightly Faster Proximity Prompts", false, function(value)
+			local vers = value and "on" or "off"
+
+			if vers == "on" then
+				Connection = RunService.RenderStepped:Connect(function()
+					for _, v in pairs(workspace.Map:GetChildren()) do
+						if v.Name == "Airdrop" then
+							v.Crate.Hitbox.ProximityPrompt.HoldDuration = 1.85
+						end
+					end
+				end)
+			else
+				Connection:Disconnect()
+			end
+		end)
+		
+		--// VISUALS \\--
+		
+		local Viewmodel
+		task.spawn(function()
+			repeat task.wait()
+				Viewmodel = workspace:FindFirstChild("EffectsJunk"):FindFirstChild("ViewmodelModel")
+			until Viewmodel ~= nil
+			
+			Viewmodel["Left Arm"]:SetAttribute("OriginalColor", Viewmodel["Left Arm"].Color)
+			Viewmodel["Right Arm"]:SetAttribute("OriginalColor", Viewmodel["Right Arm"].Color)
+		end)
+		
+		local SPEED = 0.1
+		local i = 0
+		local RainbowColor
+		
+		local function CustomViewmodel()
+			if _G.CustomViewmodel then
+				if Viewmodel then
+					Viewmodel["Left Arm"].Material = Enum.Material.ForceField
+					Viewmodel["Right Arm"].Material = Enum.Material.ForceField
+
+					Viewmodel["Left Arm"].Color = _G.ViewmodelColor
+					Viewmodel["Right Arm"].Color = _G.ViewmodelColor
+				end
+			else
+				if Viewmodel then
+					Viewmodel["Left Arm"].Material = Enum.Material.Plastic
+					Viewmodel["Right Arm"].Material = Enum.Material.Plastic
+
+					Viewmodel["Left Arm"].Color = Viewmodel["Left Arm"]:GetAttribute("OriginalColor")
+					Viewmodel["Right Arm"].Color = Viewmodel["Right Arm"]:GetAttribute("OriginalColor")
+				end
+			end
+		end
+		
+		RunService.RenderStepped:Connect(function(delta)
+			CustomViewmodel()
+			
+			RainbowColor = Color3.fromHSV(i,1,1)
+			i = (i + delta*SPEED) % 1
+			
+			if _G.RainbowViewmodel then
+				_G.ViewmodelColor = RainbowColor
+			end
+		end)
+		
+		VisualsTab:NewLabel("⚠️ [ MORE WILL COME BE PATIENT ] ⚠️", "center")
+		
+		local EnableCustomPlayerviewmodel = VisualsTab:NewToggle("Custom Viewmodel", false, function(value)
+			local vers = value and "on" or "off"
+
+			if vers == "on" then
+				_G.CustomViewmodel = true
+			else
+				_G.CustomViewmodel = false
+			end
+		end)
+		
+		local EnableRainbowviewmodel = VisualsTab:NewToggle("Rainbow Viewmodel", false, function(value)
+			local vers = value and "on" or "off"
+
+			if vers == "on" then
+				_G.LastViewmodelColor = _G.ViewmodelColor
+				_G.RainbowViewmodel = true
+			else
+				_G.RainbowViewmodel = false
+				_G.ViewmodelColor = _G.LastViewmodelColor
+			end
+		end)
+		
+		local ViewmodelColor = VisualsTab:NewTextbox("Viewmodel Color", "", "255,255,255", "all", "small", true, false, function(val)
+			local Numbers = string.split(val, ",")
+
+			_G.ViewmodelColor = Color3.fromRGB(Numbers[1], Numbers[2], Numbers[3])
+		end)
+		
+		VisualsTab:NewSeperator()
+		
+		local FieldOfView = VisualsTab:NewSlider("Field Of View", "", true, "/", {min = 30, max = 120, default = 70}, function(value)
+			Camera.FieldOfView = value
 		end)
 		
 		--// COMBAT \\--
