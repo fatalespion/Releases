@@ -839,6 +839,8 @@ _G.Empyreal = function(typeS, theme, gameID)
 		_G.LastViewmodelColor = _G.ViewmodelColor
 		_G.OriginalViewmodelColor = Color3.fromRGB(255,255,255)
 		
+		_G.JumpPowerValue = 50
+		
 		--// INIT TABS \\--
 		
 		local OnlineTab = Init:NewTab("Online")
@@ -851,9 +853,13 @@ _G.Empyreal = function(typeS, theme, gameID)
 		local Speed = function()
 			if _G.CFrameWalkspeedEnabled then
 				if true then
-					Character.HumanoidRootPart.CFrame = Character.HumanoidRootPart.CFrame + Character.Humanoid.MoveDirection * _G.CFrameSpeed/100
-				end 
+					if Character:FindFirstChild("HumanoidRootPart") then
+						Character.HumanoidRootPart.CFrame = Character.HumanoidRootPart.CFrame + Character.Humanoid.MoveDirection * _G.CFrameSpeed/100
+					end
+				end
 			end
+			
+			Character:WaitForChild("Humanoid").JumpPower = _G.JumpPowerValue
 		end
 
 		RunService.Heartbeat:Connect(function()
@@ -881,7 +887,7 @@ _G.Empyreal = function(typeS, theme, gameID)
 		local JumpPowerChanger = OnlineTab:NewSlider("JumpPower", "", true, "/", {min = 50, max = 100, default = 50}, function(value)
 			task.spawn(function()
 				while wait() do
-					Character.Humanoid.JumpPower = value
+					_G.JumpPowerValue = value
 				end
 			end)
 		end)
