@@ -78,4 +78,4 @@ configuration.functions.func = function()
 	warn("[FusionX]: ################################ 100%")
 end
 
-return configuration.functions.func
+return configuration
