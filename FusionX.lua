@@ -29,6 +29,8 @@ configuration.functions.func = function()
 		return
 	end
 	
+	warn("[FusionX]: ###################### Loading...")
+	
 	-- [ // init \\ ]
 	local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/fatalespion/Releases/refs/heads/main/VenyxUILIB.lua"))()
 	local FusionX = library.new("FusionX", 5013109572)
@@ -70,6 +72,8 @@ configuration.functions.func = function()
 
 	-- [ // load \\ ]
 	FusionX:SelectPage(FusionX.pages[1], true)
+	
+	warn("[FusionX]: ################################ 100%")
 end
 
 return configuration.functions.func
