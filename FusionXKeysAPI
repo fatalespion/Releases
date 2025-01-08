@@ -1,5 +1,1 @@
-local Keys = {
- "Test"
-}
-
-return Keys
+{Test = "Tes"}
