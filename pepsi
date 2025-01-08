@@ -202,14 +202,6 @@ local success, errormsg = pcall(function()
 	Background.BorderColor3 = C3(20, 20, 20)
 	Background.Size = UDim2.new(0.534260333, 0, 1, 0)
 
-	local function ZWWNPAB_fake_script() -- ScreenLabel.LocalScript 
-		local script = Instance.new('LocalScript', ScreenLabel)
-
-		local gui = script.Parent
-		gui.Draggable = true
-		gui.Active = true
-	end
-	coroutine.wrap(ZWWNPAB_fake_script)()
 
 	local SpectatorViewer = Instance.new("ScreenGui")
 	local Main = Instance.new("Frame")
@@ -292,43 +284,43 @@ local success, errormsg = pcall(function()
 	UIListLayout.HorizontalAlignment = Enum.HorizontalAlignment.Left
 	UIListLayout.SortOrder = Enum.SortOrder.LayoutOrder
 
-	local function spectlist()
-		local script = Instance.new('LocalScript', Frame)
+	--local function spectlist()
+	--	local script = Instance.new('LocalScript', Frame)
 
-		local function GetSpectators()
-			local CurrentSpectators = {}
-			for i,v in pairs(game:GetService("Players"):GetChildren()) do 
-				if v ~= game:GetService("Players").LocalPlayer and not v.Character and v:FindFirstChild("CameraCF") and (v.CameraCF.Value.Position - workspace.CurrentCamera.CFrame.p).Magnitude < 10 then 
-					table.insert(CurrentSpectators, #CurrentSpectators+1, v)
-				end
-			end
-			return CurrentSpectators
-		end
+	--	local function GetSpectators()
+	--		local CurrentSpectators = {}
+	--		for i,v in pairs(game:GetService("Players"):GetChildren()) do 
+	--			if v ~= game:GetService("Players").LocalPlayer and not v.Character and v:FindFirstChild("CameraCF") and (v.CameraCF.Value.Position - workspace.CurrentCamera.CFrame.p).Magnitude < 10 then 
+	--				table.insert(CurrentSpectators, #CurrentSpectators+1, v)
+	--			end
+	--		end
+	--		return CurrentSpectators
+	--	end
 
-		--while wait(0.05) do
-		--	for i,v in next, script.Parent:GetChildren() do
-		--		if v.Name ~= "Example" and not v:IsA("UIListLayout") and not v:IsA("LocalScript") then
-		--			v:Destroy()
-		--		end
-		--	end
-		--	for i,v in next, GetSpectators() do
-		--		local new = script.Parent.Example:Clone()
-		--		new.Parent = script.Parent
-		--		new.Visible = true
-		--		new.ZIndex = 5
-		--		new.Name = v.Name
-		--		new.Text = " ".. v.Name
-		--		new.TextSize = 13
-		--		new.Size = UDim2.new(0, 154,0, 20)
-		--		new.Font = Enum.Font.RobotoMono
-		--		new.BackgroundColor3 = C3(20, 20, 20)
-		--		new.TextColor3 = C3(225, 225, 225)
-		--		new.TextStrokeTransparency = 0
-		--	end
-		--end
+	--	while wait(0.05) do
+	--		for i,v in next, script.Parent:GetChildren() do
+	--			if v.Name ~= "Example" and not v:IsA("UIListLayout") and not v:IsA("LocalScript") then
+	--				v:Destroy()
+	--			end
+	--		end
+	--		for i,v in next, GetSpectators() do
+	--			local new = script.Parent.Example:Clone()
+	--			new.Parent = script.Parent
+	--			new.Visible = true
+	--			new.ZIndex = 5
+	--			new.Name = v.Name
+	--			new.Text = " ".. v.Name
+	--			new.TextSize = 13
+	--			new.Size = UDim2.new(0, 154,0, 20)
+	--			new.Font = Enum.Font.RobotoMono
+	--			new.BackgroundColor3 = C3(20, 20, 20)
+	--			new.TextColor3 = C3(225, 225, 225)
+	--			new.TextStrokeTransparency = 0
+	--		end
+	--	end
 
-	end
-	coroutine.wrap(spectlist)()
+	--end
+	--coroutine.wrap(spectlist)()
 
 	local keystrokesGui = Instance.new("ScreenGui")
 	local Frame = Instance.new("Frame")
@@ -436,62 +428,6 @@ local success, errormsg = pcall(function()
 
 	-- Scripts:
 
-	local function SJBA_fake_script() -- Frame.LocalScript 
-		local script = Instance.new('LocalScript', Frame)
-		local gui = script.Parent
-		gui.Draggable = true
-		gui.Active = true
-	end
-	coroutine.wrap(SJBA_fake_script)()
-
-	local function UTCCBQ_fake_script() -- Frame.LocalScript 
-		local script = Instance.new('LocalScript', Frame)
-		local UIS = game:GetService("UserInputService")
-		local Sp = script.Parent.Space
-		local W = script.Parent.W
-		local A = script.Parent.A
-		local S = script.Parent.S
-		local D = script.Parent.D
-		local E = script.Parent.E
-		local R = script.Parent.R
-
-		UIS.InputBegan:Connect(function(key)
-			if key.KeyCode == Enum.KeyCode.W then
-				W.Text = "W"
-			elseif key.KeyCode == Enum.KeyCode.A then
-				A.Text = "A"
-			elseif key.KeyCode == Enum.KeyCode.S then
-				S.Text = "S"
-			elseif key.KeyCode == Enum.KeyCode.D then
-				D.Text = "D"
-			elseif key.KeyCode == Enum.KeyCode.E then
-				E.Text = "E"
-			elseif key.KeyCode == Enum.KeyCode.R then
-				R.Text = "R"
-			elseif key.KeyCode == Enum.KeyCode.Space then
-				Sp.Text = "Space"
-			end
-		end)
-
-		UIS.InputEnded:Connect(function(key)
-			if key.KeyCode == Enum.KeyCode.W then
-				W.Text = "_"
-			elseif key.KeyCode == Enum.KeyCode.A then
-				A.Text = "_"
-			elseif key.KeyCode == Enum.KeyCode.S then
-				S.Text = "_"
-			elseif key.KeyCode == Enum.KeyCode.D then
-				D.Text = "_"
-			elseif key.KeyCode == Enum.KeyCode.E then
-				E.Text = "_"
-			elseif key.KeyCode == Enum.KeyCode.R then
-				R.Text = "_"
-			elseif key.KeyCode == Enum.KeyCode.Space then
-				Sp.Text = "_"
-			end
-		end)
-	end
-	coroutine.wrap(UTCCBQ_fake_script)()
 
 	local ebtxt = Drawing.new("Text");ebtxt.Text = "EB";ebtxt.Center = true;ebtxt.Outline = true;ebtxt.Color = C3(255, 255, 255);ebtxt.Font = 3;ebtxt.Position = Vec2(currentCamera.ViewportSize.X / 2, currentCamera.ViewportSize.Y - 80);ebtxt.Size = 18;ebtxt.Visible = false;
 	local ebcounter = Drawing.new("Text");ebcounter.Text = "eb: "..ebcount.."";ebcounter.Center = true;ebcounter.Outline = true;ebcounter.Color = C3(255, 255, 255);ebcounter.Font = 3;ebcounter.Position = Vec2(currentCamera.ViewportSize.X / 2, currentCamera.ViewportSize.Y - 50);ebcounter.Size = 18;ebcounter.Visible = false
