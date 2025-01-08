@@ -25,6 +25,7 @@ local configuration = {
 
 configuration.functions.func = function()
 	if getgenv()["__apikey"] ~= "admin" then
+		warn("[FusionX] invalid key")
 		return
 	end
 	
