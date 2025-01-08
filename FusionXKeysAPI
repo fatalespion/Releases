@@ -1,1 +1,3 @@
-{"test"}
+local Keys = {"test"}
+
+return Keys
