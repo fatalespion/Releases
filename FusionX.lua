@@ -72,4 +72,4 @@ configuration.functions.func = function()
 	FusionX:SelectPage(FusionX.pages[1], true)
 end
 
-return configuration
+return configuration.functions.func
