@@ -3,7 +3,7 @@ local configuration = {
 	-- [ // themes \\ ]
 	themes = {
 		Background = Color3.fromRGB(24, 24, 24),
-		Glow = Color3.fromRGB(84, 209, 255),
+		Glow = Color3.fromRGB(0, 255, 247),
 		Accent = Color3.fromRGB(10, 10, 10),
 		LightContrast = Color3.fromRGB(20, 20, 20),
 		DarkContrast = Color3.fromRGB(14, 14, 14),  
@@ -61,6 +61,8 @@ configuration.functions.func = function()
 	local colors = theme:addSection("Colors")
 
 	for theme, color in pairs(configuration.themes) do
+		FusionX:setTheme(theme, color)
+		
 		colors:addColorPicker(theme, color, function(color3)
 			FusionX:setTheme(theme, color3)
 		end)
