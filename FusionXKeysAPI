@@ -1,3 +1,2 @@
-local Keys = {"test"}
 
-return Keys
+test
