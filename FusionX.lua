@@ -12,64 +12,7 @@ local configuration = {
 
 	-- [ // tables \\ ]
 	services = {},
-	
-	functions = {
-		func = function()
-			if getgenv()["__apikey"] ~= "admin" then
-				warn("[FusionX] invalid key")
-				return
-			end
-
-			warn("[FusionX]: ###################### Loading...")
-
-			-- [ // init \\ ]
-			local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/fatalespion/Releases/refs/heads/main/VenyxUILIB.lua"))()
-			local FusionX = library.new("FusionX", 5013109572)
-
-			-- [ // fast services \\ ]
-			configuration.services = setmetatable({}, {
-				__index = function(_, service)
-					return game:GetService(service)
-				end,
-			})
-
-			-- [ // themes variables \\ ]
-			configuration.variables.Themes = {}
-			configuration.variables.Themes.Multicolor = false
-
-			-- [ // rainbow \\ ]
-			configuration.rainbowConnection = configuration.services.RunService.RenderStepped:Connect(function(delta)
-				configuration.rainbowColor = Color3.fromHSV(configuration.rainbowI,1,1)
-				configuration.rainbowI = (configuration.rainbowI + delta*configuration.rainbowSpeed) % 1
-
-				if configuration.variables.Themes.Multicolor then
-					FusionX:setTheme("Glow", configuration.rainbowColor)
-				end
-			end)
-
-			-- [ // theme page \\ ]
-			local theme = FusionX:addPage("Theme", 88098297592877)
-			local colors = theme:addSection("Colors")
-
-			for theme, color in pairs(configuration.themes) do
-				FusionX:setTheme(theme, color)
-
-				colors:addColorPicker(theme, color, function(color3)
-					FusionX:setTheme(theme, color3)
-				end)
-			end
-
-			colors:addToggle("Multicolor", nil, function(value)
-				configuration.variables.Themes.Multicolor = value
-			end)
-
-			-- [ // load \\ ]
-			FusionX:SelectPage(FusionX.pages[1], true)
-
-			warn("[FusionX]: ################################ 100%")
-		end
-	},
-	
+	functions = {},
 	cooldowns = {},
 	variables = {},
 
@@ -80,5 +23,59 @@ local configuration = {
 	rainbowI = 0,
 }
 
+configuration.functions.func = function()
+	if getgenv()["__apikey"] ~= "admin" then
+		warn("[FusionX] invalid key")
+		return
+	end
+	
+	warn("[FusionX]: ###################### Loading...")
+	
+	-- [ // init \\ ]
+	local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/fatalespion/Releases/refs/heads/main/VenyxUILIB.lua"))()
+	local FusionX = library.new("FusionX", 5013109572)
 
-return configuration
+	-- [ // fast services \\ ]
+	configuration.services = setmetatable({}, {
+		__index = function(_, service)
+			return game:GetService(service)
+		end,
+	})
+
+	-- [ // themes variables \\ ]
+	configuration.variables.Themes = {}
+	configuration.variables.Themes.Multicolor = false
+
+	-- [ // rainbow \\ ]
+	configuration.rainbowConnection = configuration.services.RunService.RenderStepped:Connect(function(delta)
+		configuration.rainbowColor = Color3.fromHSV(configuration.rainbowI,1,1)
+		configuration.rainbowI = (configuration.rainbowI + delta*configuration.rainbowSpeed) % 1
+
+		if configuration.variables.Themes.Multicolor then
+			FusionX:setTheme("Glow", configuration.rainbowColor)
+		end
+	end)
+
+	-- [ // theme page \\ ]
+	local theme = FusionX:addPage("Theme", 88098297592877)
+	local colors = theme:addSection("Colors")
+
+	for theme, color in pairs(configuration.themes) do
+		FusionX:setTheme(theme, color)
+		
+		colors:addColorPicker(theme, color, function(color3)
+			FusionX:setTheme(theme, color3)
+		end)
+	end
+
+	colors:addToggle("Multicolor", nil, function(value)
+		configuration.variables.Themes.Multicolor = value
+	end)
+
+	-- [ // load \\ ]
+	FusionX:SelectPage(FusionX.pages[1], true)
+	
+	warn("[FusionX]: ################################ 100%")
+end
+
+return configuration.functions.func
