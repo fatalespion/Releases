@@ -67,7 +67,7 @@ configuration.functions.func = function()
 	end
 
 	colors:addToggle("Multicolor", nil, function(value)
-		print("Toggled", value)
+		configuration.variables.Themes.Multicolor = value
 	end)
 
 	-- [ // load \\ ]
