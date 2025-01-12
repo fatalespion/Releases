@@ -17,7 +17,7 @@ local Window = Library:CreateWindow({
 	Center = true,
 	AutoShow = true,
 	TabPadding = 8,
-    MenuFadeTime = 0.2
+	MenuFadeTime = 0.2
 })
 
 local Tabs = {
@@ -44,7 +44,7 @@ local esp = {
 		healthbar = {enabled = false, outline = false},
 		healthtext = {enabled = false, outline = false, color = C3(255, 255, 255)},
 		distance = {enabled = false, outline = false, color = C3(255, 255, 255)},
-        tool = {enabled = false, outline = false, color = C3(255, 255, 255)},
+		tool = {enabled = false, outline = false, color = C3(255, 255, 255)},
 		viewangle = {enabled = false, color = C3(255, 255, 255)},
 	}
 }
@@ -100,7 +100,7 @@ esp.NewPlayer = function(v)
 		healthBar = esp.NewDrawing("Line", {Color = C3(255, 255, 255), Thickness = 1}),
 		healthText = esp.NewDrawing("Text", {Color = C3(255, 255, 255), Outline = true, Center = true, Size = 13, Font = 2}),
 		distance = esp.NewDrawing("Text", {Color = C3(255, 255, 255), Outline = true, Center = true, Size = 13, Font = 2}),
-        tool = esp.NewDrawing("Text", {Color = C3(255, 255, 255), Outline = true, Center = true, Size = 13, Font = 2}),
+		tool = esp.NewDrawing("Text", {Color = C3(255, 255, 255), Outline = true, Center = true, Size = 13, Font = 2}),
 		viewAngle = esp.NewDrawing("Line", {Color = C3(255, 255, 255), Thickness = 1}),
 	}
 end
@@ -209,12 +209,8 @@ local selfchmams = LocalTab:AddToggle('local_selfchams', {Text = 'Self Chams', D
 Toggles.local_selfchams:OnChanged(function()
 	while wait() do
 		if not Toggles.local_selfchams.Value then
-            if localPlayer.Character:FindFirstChild("CHAMS") then
-                localPlayer.Character:FindFirstChild("CHAMS"):Destroy()
-            end
-
-            break 
-        end
+			break 
+		end
 		if IsAlive(localPlayer) then
 			local chams = Instance.new("Highlight", localPlayer.Character)
 			chams.DepthMode = Enum.HighlightDepthMode.AlwaysOnTop
@@ -222,7 +218,6 @@ Toggles.local_selfchams:OnChanged(function()
 			chams.FillTransparency = 0.25
 			chams.OutlineColor = Options.selfchams_outline.Value
 			chams.FillTransparency = 0.5
-            chams.Name = "CHAMS"
 		end
 	end
 end)
@@ -343,8 +338,8 @@ local function ESP()
 					v.healthText.Visible = false
 				end
 
-                if esp.settings.tool.enabled then
-					
+				if esp.settings.tool.enabled then
+
 					v.tool.Position = Vec2(BoxSize.X / 3 + BoxPos.X, BottomOffset)
 					v.tool.Color = esp.settings.tool.color
 					v.tool.Outline = esp.settings.tool.outline
@@ -354,24 +349,24 @@ local function ESP()
 
 					v.tool.Visible = true  
 
-                    if i.Character then
-                        if game.GameId == 3326279937 then
-                            if i.Character:FindFirstChildWhichIsA("RayValue") then
-                                v.tool.Text = "["..string.upper(i.Character:FindFirstChildWhichIsA("RayValue").Name).."]"
-                            else
-                                v.tool.Text = "[NONE]"
-                            end
-                        else
-                            if i.Character:FindFirstChildWhichIsA("Tool") then
-                                v.tool.Text = "["..string.upper(i.Character:FindFirstChildWhichIsA("Tool").Name).."]"
-                            else
-                                v.tool.Text = "[NONE]"
-                            end
-                        end
-                        
-                    else
-                        v.tool.Text = "[NONE]"
-                    end
+					if i.Character then
+						if game.GameId == 3326279937 then
+							if i.Character:FindFirstChildWhichIsA("RayValue") then
+								v.tool.Text = "["..string.upper(i.Character:FindFirstChildWhichIsA("RayValue").Name).."]"
+							else
+								v.tool.Text = "[NONE]"
+							end
+						else
+							if i.Character:FindFirstChildWhichIsA("Tool") then
+								v.tool.Text = "["..string.upper(i.Character:FindFirstChildWhichIsA("Tool").Name).."]"
+							else
+								v.tool.Text = "[NONE]"
+							end
+						end
+
+					else
+						v.tool.Text = "[NONE]"
+					end
 				else
 					v.tool.Visible = false
 				end
@@ -394,7 +389,7 @@ local function ESP()
 						v.healthText.Visible = esp.settings.healthtext.enabled
 						v.distance.Visible = esp.settings.distance.enabled
 						v.viewAngle.Visible = esp.settings.viewangle.enabled
-                        v.tool.Visible = esp.settings.tool.enabled
+						v.tool.Visible = esp.settings.tool.enabled
 						if ESPOutline then
 							if esp.settings.box.enabled then
 								v.boxOutline.Visible = esp.settings.box.outline
@@ -415,7 +410,7 @@ local function ESP()
 						v.healthText.Visible = false
 						v.distance.Visible = false
 						v.viewAngle.Visible = false
-                        v.tool.Visible = false
+						v.tool.Visible = false
 					end
 				end
 			else
@@ -428,7 +423,7 @@ local function ESP()
 				v.healthText.Visible = false
 				v.distance.Visible = false
 				v.viewAngle.Visible = false
-                v.tool.Visible = false
+				v.tool.Visible = false
 			end
 		else
 			v.name.Visible = false
@@ -440,7 +435,7 @@ local function ESP()
 			v.healthText.Visible = false
 			v.distance.Visible = false
 			v.viewAngle.Visible = false
-            v.tool.Visible = false
+			v.tool.Visible = false
 		end
 	end
 end
