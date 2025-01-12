@@ -49,15 +49,15 @@ if game.GameId == 3326279937 then
 			local Player = game.Players:GetPlayerFromCharacter(Chars)
 
 			if OperatorCheck(CurrentGear) then
-				warn(Chars.Name.." Is an [OPERATOR] level: "..tostring(Player:GetAttribute("Level")).." and Bounty: "..GetBounty())
+				warn(Chars.Name.." Is an [OPERATOR] level: "..tostring(Player:GetAttribute("Level")).." and Bounty: "..GetBounty(Player))
 				Found += 1
 				LeaveCheck(Player, "OPERATOR")
 			elseif CommanderCheck(CurrentGear) then
-				warn(Chars.Name.." Is an [COMMANDER] level: "..tostring(Player:GetAttribute("Level")).." and Bounty: "..GetBounty())
+				warn(Chars.Name.." Is an [COMMANDER] level: "..tostring(Player:GetAttribute("Level")).." and Bounty: "..GetBounty(Player))
 				Found += 1
 				LeaveCheck(Player, "COMMANDER")
 			elseif BladedancerCheck(CurrentGear) then
-				warn(Chars.Name.." Is an [BLADEDANCER] level: "..tostring(Player:GetAttribute("Level")).." and Bounty: "..GetBounty())
+				warn(Chars.Name.." Is an [BLADEDANCER] level: "..tostring(Player:GetAttribute("Level")).." and Bounty: "..GetBounty(Player))
 				Found += 1
 				LeaveCheck(Player, "BLADEDANCER")
 			end
