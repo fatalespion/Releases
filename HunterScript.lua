@@ -1,0 +1,51 @@
+local function OperatorCheck(CurrentGear)
+    if CurrentGear:FindFirstChild("Operator Vest") and CurrentGear:FindFirstChild("Operator Leggings") and CurrentGear:FindFirstChild("Operator Helmet") and CurrentGear:FindFirstChild("Operator Helmet MK2") then
+        return true
+    else
+        return false
+    end
+end
+
+local function CommanderCheck(CurrentGear)
+    if CurrentGear:FindFirstChild("Commander Helmet") and CurrentGear:FindFirstChild("Commander Leggings") and CurrentGear:FindFirstChild("Commander Vest") then
+        return true
+    else
+        return false
+    end
+end
+
+local function BladedancerCheck(CurrentGear)
+    if CurrentGear:FindFirstChild("Bladedancer Helmet") and CurrentGear:FindFirstChild("Bladedancer Leggings") and CurrentGear:FindFirstChild("Bladedancer Vest") then
+        return true
+    else
+        return false
+    end
+end
+
+local Found = 0
+
+if game.GameId == 3326279937 then
+    print("CorrectGameID")
+
+    for _, Chars in pairs(workspace.Chars:GetChildren()) do
+        if Chars:FindFirstChild("CurrentGear") then
+            local CurrentGear = Chars:FindFirstChild("CurrentGear")
+            local Player = game.Players:GetPlayerFromCharacter(Chars)
+
+            if OperatorCheck(CurrentGear) then
+                warn(Chars.Name.." Is an [OPERATOR] level: "..tostring(Player:GetAttribute("Level")))
+                Found += 1
+            elseif CommanderCheck(CurrentGear) then
+                warn(Chars.Name.." Is an [COMMANDER] level: "..tostring(Player:GetAttribute("Level")))
+                Found += 1
+            elseif BladedancerCheck(CurrentGear) then
+                warn(Chars.Name.." Is an [BLADEDANCER] level: "..tostring(Player:GetAttribute("Level")))
+                Found += 1
+            end
+        end
+    end
+
+    if Found == 0 then
+        warn("[FINDER]: No {OPERATORS/COMMANDER/BLADEDANCER} FOUND")
+    end
+end
