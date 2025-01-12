@@ -22,6 +22,18 @@ local function BladedancerCheck(CurrentGear)
     end
 end
 
+local function LeaveCheck(plr, type)
+    game.Players.PlayerRemoving:Connect(function(ply)
+        if ply == plr then
+            game:GetService("StarterGui"):SetCore("SendNotification",{
+	            Title = "[KIT FINDER]",
+	            Text = ply.Name.." has left he was a ["..type.."]",
+	            Icon = "6264845452"
+            })
+        end
+    end)
+end
+
 local Found = 0
 
 if game.GameId == 3326279937 then
@@ -35,12 +47,15 @@ if game.GameId == 3326279937 then
             if OperatorCheck(CurrentGear) then
                 warn(Chars.Name.." Is an [OPERATOR] level: "..tostring(Player:GetAttribute("Level")))
                 Found += 1
+                LeaveCheck(Player, "OPERATOR")
             elseif CommanderCheck(CurrentGear) then
                 warn(Chars.Name.." Is an [COMMANDER] level: "..tostring(Player:GetAttribute("Level")))
                 Found += 1
+                LeaveCheck(Player, "COMMANDER")
             elseif BladedancerCheck(CurrentGear) then
                 warn(Chars.Name.." Is an [BLADEDANCER] level: "..tostring(Player:GetAttribute("Level")))
                 Found += 1
+                LeaveCheck(Player, "BLADEDANCER")
             end
         end
     end
