@@ -1,5 +1,5 @@
 local function OperatorCheck(CurrentGear)
-    if CurrentGear:FindFirstChild("Operator Vest") and CurrentGear:FindFirstChild("Operator Leggings") and CurrentGear:FindFirstChild("Operator Helmet") and CurrentGear:FindFirstChild("Operator Helmet MK2") then
+    if CurrentGear:FindFirstChild("Operator Vest") and CurrentGear:FindFirstChild("Operator Leggings") and (CurrentGear:FindFirstChild("Operator Helmet") or CurrentGear:FindFirstChild("Operator Helmet MK2")) then
         return true
     else
         return false
