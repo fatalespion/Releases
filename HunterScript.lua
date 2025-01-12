@@ -1,23 +1,3 @@
-local function setAttribute(plr, att, val)
-	_G.Profiles[plr].Data[att] = val
-	plr.PlayerGui:SetAttribute(att, val)
-end
-
-return function(plr)
-	setAttribute(plr, "Level", 1)
-	setAttribute(plr, "Reputation", 0)
-	setAttribute(plr, "Influence", 0)
-	
-	setAttribute(plr, "Bank", 10000)
-	setAttribute(plr, "Bounty", 0)
-	setAttribute(plr, "Cash", 0)
-	setAttribute(plr, "Valuables", 0)
-	
-	setAttribute(plr, "Hunger", 100)
-	setAttribute(plr, "Thirst", 100)
-	setAttribute(plr, "Xp", 0)
-end
-
 local function OperatorCheck(CurrentGear)
 	if CurrentGear:FindFirstChild("Operator Vest") and CurrentGear:FindFirstChild("Operator Leggings") and (CurrentGear:FindFirstChild("Operator Helmet") or CurrentGear:FindFirstChild("Operator Helmet MK2")) then
 		return true
