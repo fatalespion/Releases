@@ -35,7 +35,7 @@ local function LeaveCheck(plr, type)
 end
 
 local function GetBounty(plr)
-	return tostring(plr:GetAttribute("Bounty"))
+	return tostring(plr:GetAttribute("Bounty")).."$"
 end
 
 local Found = 0
