@@ -1044,7 +1044,7 @@ if (...).Criminality then
 
 	local OthersSettings = Tabs['UI Settings']:AddRightGroupbox('Others')
 
-	OthersSettings:AddInput('uinamechange', {Default = '$N2 ESP', Numeric = false, Finished = false, Text = 'Window Title', Tooltip = 'Changes window title', Placeholder = '. . .'})
+	OthersSettings:AddInput('uinamechange', {Default = '$N2 [CRIMINALITY]', Numeric = false, Finished = false, Text = 'Window Title', Tooltip = 'Changes window title', Placeholder = '. . .'})
 	Options.uinamechange:OnChanged(function()
 		Window:SetWindowTitle(Options.uinamechange.Value)
 	end)
