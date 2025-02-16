@@ -73,7 +73,7 @@ function Neverlose_Main:PlaySound(SoundID)
     sound:Play()
 end
 
-local BuildInfo = loadstring(game:HttpGet"https://pastebin.com/raw/HzAeDGm4")()
+local BuildInfo = loadstring(game:HttpGet"https://raw.githubusercontent.com/fatalespion/Releases/refs/heads/main/neverlosebuildinfo.lua")()
 
 local function MakeDraggable(topbarobject, object)
     local Dragging = nil
