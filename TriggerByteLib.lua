@@ -212,11 +212,7 @@ end
 
 Screen.Main.Visible = false
 
-xpcall(function()
-	Screen.Parent = game.CoreGui
-end, function() 
-	Screen.Parent = Player.GUI
-end)
+Screen.Parent = game.CoreGui
 
 --// Tables for Data
 local Animations = {}
