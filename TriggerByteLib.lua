@@ -17,7 +17,7 @@ end
 
 --// Important 
 local Setup = {
-	Keybind = Enum.KeyCode.LeftControl,
+	Keybind = Enum.KeyCode.Insert,
 	Transparency = 0.2,
 	ThemeMode = "Dark",
 	Size = nil,
