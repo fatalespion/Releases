@@ -10,7 +10,7 @@ end
 
 function HWIDS.KEYHWID()
 	return {
-		["22546EE2-F5D6-4271-8575-67299BEA5DCF"] = "administrator",
+		["750373DD-DA85-461C-9922-D4475DA4B14E"] = "administrator",
 		["D4F0CA54-889E-4BEB-BE49-2DABECCF1FB0"] = "07_jahabibi$",
 		["53384A62-2691-4753-A3DB-30DE0C5858CF"] = "07_jahabibi$_1",
 	}
