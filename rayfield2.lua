@@ -1403,7 +1403,11 @@ function RayfieldLibrary:CreateWindow(Settings)
 			Main.ImageTransparency = 1
 			Background.BackgroundTransparency = 1
 
-
+			for i, v in pairs(ColorPickerSettings) do
+				print(i)
+				print(v)
+				print("---------------")
+			end
 
 			local opened = false 
 			local mouse = game.Players.LocalPlayer:GetMouse()
