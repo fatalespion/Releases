@@ -572,7 +572,6 @@ LIB.create = function(MainData)
 				Gradient.Color = MainData.UIGradient
 			end
 		elseif MainData.ImageBarType == "Text" then
-			BarName_3.Font = LIB.TitleFont
 			BarName_3.Text = MainData.ImageBarText
 			BarName_3.TextSize = MainData.ImageBarTextSize
 			ImageLabel.Visible = false
@@ -1377,6 +1376,8 @@ LIB.create = function(MainData)
 			if Items:GetAttribute("TempNumber") and Items:GetAttribute("TempNumber") == LIB.Settings.SelectedNumber then
 				Items.BackgroundColor3 = LIB.UIColor
 				Items.BackgroundTransparency = 0.1
+				Items.BarName.TextColor3 = MainData.SelectedTextColor
+				Items.BarName.TextStrokeTransparency = 1
 				
 				if MainData.UIGradient ~= nil then
 					local Gradient = Instance.new("UIGradient")
@@ -1390,6 +1391,8 @@ LIB.create = function(MainData)
 			elseif Items:GetAttribute("TempNumber") and Items:GetAttribute("TempNumber") ~= LIB.Settings.SelectedNumber then
 				Items.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
 				Items.BackgroundTransparency = 0.45
+				Items.BarName.TextColor3 = Color3.fromRGB(255, 255, 255)
+				Items.BarName.TextStrokeTransparency = 0
 				
 				if MainData.UIGradient ~= nil then
 					if Items:FindFirstChild("UIGradient") then
