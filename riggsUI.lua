@@ -302,8 +302,8 @@ local button1down, button1up, mousemove = library.button1down, library.button1up
 local mb1down = false;
 
 for i,v in next, library.images do
-    if not isfile(self.cheatname..'/assets/'..i..'.ln') then
-        writefile(self.cheatname..'/assets/'..i..'.ln', game:HttpGet(v))
+    if not isfile(library.cheatname..'/assets/'..i..'.ln') then
+        writefile(library.cheatname..'/assets/'..i..'.ln', game:HttpGet(v))
     end
     library.images[i] = readfile(self.cheatname..'/assets/'..i..'.ln');
 end
