@@ -52,13 +52,13 @@ local library = {
         ['fps'] = 0;
         ['ping'] = 0;
     };
-    images = {
+    images2 = {
         ['gradientp90'] = 'rbxassetid://118613915473706';
         ['gradientp45'] = 'rbxassetid://132905183226113';
         ['colorhue'] = 'rbxassetid://112434079184347';
         ['colortrans'] = 'rbxassetid://98975805064574';
     };
-    images2 = {
+    images = {
         ['gradientp90'] = 'https://raw.githubusercontent.com/portallol/luna/main/modules/gradient90.png';
         ['gradientp45'] = 'https://raw.githubusercontent.com/portallol/luna/main/modules/gradient45.png';
         ['colorhue'] = 'https://raw.githubusercontent.com/portallol/luna/main/modules/lgbtqshit.png';
@@ -300,6 +300,13 @@ library.unloaded    = library.signal.new();
 
 local button1down, button1up, mousemove = library.button1down, library.button1up, library.mousemove
 local mb1down = false;
+
+for i,v in next, library.images do
+    if not isfile(self.cheatname..'/assets/'..i..'.ln') then
+        writefile(self.cheatname..'/assets/'..i..'.ln', game:HttpGet(v))
+    end
+    library.images[i] = readfile(self.cheatname..'/assets/'..i..'.ln');
+end
 
 local utility = library.utility
 do
