@@ -302,10 +302,10 @@ local button1down, button1up, mousemove = library.button1down, library.button1up
 local mb1down = false;
 
 for i,v in next, library.images do
-    if not isfile(library.cheatname..'/assets/'..i..'.ln') then
-        writefile(library.cheatname..'/assets/'..i..'.ln', game:HttpGet(v))
+    if not isfile(library.cheatname..'/assets/'..i..'.png') then
+        writefile(library.cheatname..'/assets/'..i..'.png', game:HttpGet(v))
     end
-    library.images[i] = readfile(library.cheatname..'/assets/'..i..'.ln');
+    library.images[i] = readfile(library.cheatname..'/assets/'..i..'.png');
 end
 
 local utility = library.utility
@@ -917,7 +917,7 @@ function library:init()
 
             notification.gradient = utility:Draw('Image', {
                 Size = newUDim2(1,0,1,0);
-                Data = library.images.gradientp90;
+                Image = getcustomasset(library.cheatname..'/assets/gradientp90.png');
                 Parent = notification.background;
                 Transparency = .5;
                 ZIndex = z+1;
@@ -1464,7 +1464,7 @@ function library:init()
                 objs.hue = utility:Draw('Image', {
                     Size = newUDim2(0,175,0,10);
                     Position = newUDim2(0,5,0,205);
-                    Data = library.images.colorhue;
+                    Image = getcustomasset(library.cheatname..'/assets/colorhue.png');
                     ZIndex = z+2;
                     Parent = objs.background;
                 })
@@ -1494,7 +1494,7 @@ function library:init()
 
                 objs.trans = utility:Draw('Image', {
                     Size = newUDim2(1,0,1,0);
-                    Data = library.images.colortrans;
+                    Image = getcustomasset(library.cheatname..'/assets/colortrans.png');
                     ZIndex = z+3;
                     Parent = objs.transColor;
                 })
@@ -2147,7 +2147,7 @@ function library:init()
 
                         objs.gradient = utility:Draw('Image', {
                             Size = newUDim2(1,0,1,0);
-                            Data = library.images.gradientp45;
+                            Image = getcustomasset(library.cheatname..'/assets/gradientp45.png');
                             Transparency = .25;
                             ZIndex = z+4;
                             Parent = objs.background;
@@ -2295,7 +2295,7 @@ function library:init()
     
                             objs.gradient = utility:Draw('Image', {
                                 Size = newUDim2(1,0,1,0);
-                                Data = library.images.gradientp45;
+                                Image = getcustomasset(library.cheatname..'/assets/gradientp45.png');
                                 Transparency = .25;
                                 ZIndex = z+4;
                                 Parent = objs.background;
@@ -2657,7 +2657,7 @@ function library:init()
     
                             objs.gradient = utility:Draw('Image', {
                                 Size = newUDim2(1,0,1,0);
-                                Data = library.images.gradientp90;
+                                Image = getcustomasset(library.cheatname..'/assets/gradientp90.png');
                                 Transparency = .65;
                                 ZIndex = z+4;
                                 Parent = objs.background;
@@ -2828,7 +2828,7 @@ function library:init()
     
                             objs.gradient = utility:Draw('Image', {
                                 Size = newUDim2(1,0,1,0);
-                                Data = library.images.gradientp90;
+                                Image = getcustomasset(library.cheatname..'/assets/gradientp90.png');
                                 Transparency = .65;
                                 ZIndex = z+4;
                                 Parent = objs.background;
@@ -3031,7 +3031,7 @@ function library:init()
 
                         objs.gradient = utility:Draw('Image', {
                             Size = newUDim2(1,0,1,0);
-                            Data = library.images.gradientp90;
+                            Image = getcustomasset(library.cheatname..'/assets/gradientp90.png');
                             Transparency = .65;
                             ZIndex = z+4;
                             Parent = objs.background;
@@ -3261,7 +3261,7 @@ function library:init()
 
                         objs.gradient = utility:Draw('Image', {
                             Size = newUDim2(1,0,1,0);
-                            Data = library.images.gradientp90;
+                            Image = getcustomasset(library.cheatname..'/assets/gradientp90.png');
                             Transparency = .65;
                             ZIndex = z+3;
                             Parent = objs.background;
@@ -3396,7 +3396,7 @@ function library:init()
     
                             objs.gradient = utility:Draw('Image', {
                                 Size = newUDim2(1,0,1,0);
-                                Data = library.images.gradientp90;
+                                Image = getcustomasset(library.cheatname..'/assets/gradientp90.png');
                                 Transparency = .65;
                                 ZIndex = z+3;
                                 Parent = objs.background;
@@ -3649,7 +3649,7 @@ function library:init()
 
                         objs.gradient = utility:Draw('Image', {
                             Size = newUDim2(1,0,1,0);
-                            Data = library.images.gradientp45;
+                            Image = getcustomasset(library.cheatname..'/assets/gradientp45.png');
                             Transparency = .25;
                             ZIndex = z+4;
                             Parent = objs.background;
@@ -3826,7 +3826,7 @@ function library:init()
 
                         objs.gradient = utility:Draw('Image', {
                             Size = newUDim2(1,0,1,0);
-                            Data = library.images.gradientp90;
+                            Image = getcustomasset(library.cheatname..'/assets/gradientp90.png');
                             Transparency = .65;
                             ZIndex = z+4;
                             Parent = objs.background;
@@ -4224,7 +4224,7 @@ function library:init()
 
                         objs.gradient = utility:Draw('Image', {
                             Size = newUDim2(1,0,1,0);
-                            Data = library.images.gradientp90;
+                            Image = getcustomasset(library.cheatname..'/assets/gradientp90.png');
                             Transparency = .65;
                             ZIndex = z+4;
                             Parent = objs.background;
