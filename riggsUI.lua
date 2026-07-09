@@ -303,8 +303,8 @@ local mb1down = false;
 
 makefolder(library.cheatname)
 makefolder(library.cheatname..'/assets')
-makefolder(library.cheatname..'/'..self.gamename)
-makefolder(library.cheatname..'/'..self.gamename..'/configs');
+makefolder(library.cheatname..'/'..library.gamename)
+makefolder(library.cheatname..'/'..library.gamename..'/configs');
 
 for i,v in next, library.images do
     if not isfile(library.cheatname..'/assets/'..i..'.png') then
