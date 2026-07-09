@@ -301,6 +301,11 @@ library.unloaded    = library.signal.new();
 local button1down, button1up, mousemove = library.button1down, library.button1up, library.mousemove
 local mb1down = false;
 
+makefolder(library.cheatname)
+makefolder(library.cheatname..'/assets')
+makefolder(library.cheatname..'/'..self.gamename)
+makefolder(library.cheatname..'/'..self.gamename..'/configs');
+
 for i,v in next, library.images do
     if not isfile(library.cheatname..'/assets/'..i..'.png') then
         writefile(library.cheatname..'/assets/'..i..'.png', game:HttpGet(v))
@@ -610,11 +615,6 @@ function library:init()
     end
 
     local tooltipObjects = {};
-
-    makefolder(self.cheatname)
-    makefolder(self.cheatname..'/assets')
-    makefolder(self.cheatname..'/'..self.gamename)
-    makefolder(self.cheatname..'/'..self.gamename..'/configs');
 
     function self:SetTheme(theme)
         for i,v in next, theme do
