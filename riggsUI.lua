@@ -904,7 +904,7 @@ function library:init()
 
             notification.gradient = utility:Draw('Image', {
                 Size = newUDim2(1,0,1,0);
-                Data = self.images.gradientp90;
+                Data = library.images.gradientp90;
                 Parent = notification.background;
                 Transparency = .5;
                 ZIndex = z+1;
