@@ -305,7 +305,7 @@ for i,v in next, library.images do
     if not isfile(library.cheatname..'/assets/'..i..'.ln') then
         writefile(library.cheatname..'/assets/'..i..'.ln', game:HttpGet(v))
     end
-    library.images[i] = readfile(self.cheatname..'/assets/'..i..'.ln');
+    library.images[i] = readfile(library.cheatname..'/assets/'..i..'.ln');
 end
 
 local utility = library.utility
