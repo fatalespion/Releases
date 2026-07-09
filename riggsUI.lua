@@ -917,7 +917,7 @@ function library:init()
 
             notification.gradient = utility:Draw('Image', {
                 Size = newUDim2(1,0,1,0);
-                Url = library.images.gradientp90;
+                Data = library.images.gradientp90;
                 Parent = notification.background;
                 Transparency = .5;
                 ZIndex = z+1;
@@ -1464,7 +1464,7 @@ function library:init()
                 objs.hue = utility:Draw('Image', {
                     Size = newUDim2(0,175,0,10);
                     Position = newUDim2(0,5,0,205);
-                    Url = library.images.colorhue;
+                    Data = library.images.colorhue;
                     ZIndex = z+2;
                     Parent = objs.background;
                 })
@@ -1494,7 +1494,7 @@ function library:init()
 
                 objs.trans = utility:Draw('Image', {
                     Size = newUDim2(1,0,1,0);
-                    Url = library.images.colortrans;
+                    Data = library.images.colortrans;
                     ZIndex = z+3;
                     Parent = objs.transColor;
                 })
@@ -2147,7 +2147,7 @@ function library:init()
 
                         objs.gradient = utility:Draw('Image', {
                             Size = newUDim2(1,0,1,0);
-                            Url = library.images.gradientp45;
+                            Data = library.images.gradientp45;
                             Transparency = .25;
                             ZIndex = z+4;
                             Parent = objs.background;
@@ -2295,7 +2295,7 @@ function library:init()
     
                             objs.gradient = utility:Draw('Image', {
                                 Size = newUDim2(1,0,1,0);
-                                Url = library.images.gradientp45;
+                                Data = library.images.gradientp45;
                                 Transparency = .25;
                                 ZIndex = z+4;
                                 Parent = objs.background;
@@ -2657,7 +2657,7 @@ function library:init()
     
                             objs.gradient = utility:Draw('Image', {
                                 Size = newUDim2(1,0,1,0);
-                                Url = library.images.gradientp90;
+                                Data = library.images.gradientp90;
                                 Transparency = .65;
                                 ZIndex = z+4;
                                 Parent = objs.background;
@@ -2828,7 +2828,7 @@ function library:init()
     
                             objs.gradient = utility:Draw('Image', {
                                 Size = newUDim2(1,0,1,0);
-                                Url = library.images.gradientp90;
+                                Data = library.images.gradientp90;
                                 Transparency = .65;
                                 ZIndex = z+4;
                                 Parent = objs.background;
@@ -3031,7 +3031,7 @@ function library:init()
 
                         objs.gradient = utility:Draw('Image', {
                             Size = newUDim2(1,0,1,0);
-                            Url = library.images.gradientp90;
+                            Data = library.images.gradientp90;
                             Transparency = .65;
                             ZIndex = z+4;
                             Parent = objs.background;
@@ -3261,7 +3261,7 @@ function library:init()
 
                         objs.gradient = utility:Draw('Image', {
                             Size = newUDim2(1,0,1,0);
-                            Url = library.images.gradientp90;
+                            Data = library.images.gradientp90;
                             Transparency = .65;
                             ZIndex = z+3;
                             Parent = objs.background;
@@ -3396,7 +3396,7 @@ function library:init()
     
                             objs.gradient = utility:Draw('Image', {
                                 Size = newUDim2(1,0,1,0);
-                                Url = library.images.gradientp90;
+                                Data = library.images.gradientp90;
                                 Transparency = .65;
                                 ZIndex = z+3;
                                 Parent = objs.background;
@@ -3649,7 +3649,7 @@ function library:init()
 
                         objs.gradient = utility:Draw('Image', {
                             Size = newUDim2(1,0,1,0);
-                            Url = library.images.gradientp45;
+                            Data = library.images.gradientp45;
                             Transparency = .25;
                             ZIndex = z+4;
                             Parent = objs.background;
@@ -3826,7 +3826,7 @@ function library:init()
 
                         objs.gradient = utility:Draw('Image', {
                             Size = newUDim2(1,0,1,0);
-                            Url = library.images.gradientp90;
+                            Data = library.images.gradientp90;
                             Transparency = .65;
                             ZIndex = z+4;
                             Parent = objs.background;
@@ -4224,7 +4224,7 @@ function library:init()
 
                         objs.gradient = utility:Draw('Image', {
                             Size = newUDim2(1,0,1,0);
-                            Url = library.images.gradientp90;
+                            Data = library.images.gradientp90;
                             Transparency = .65;
                             ZIndex = z+4;
                             Parent = objs.background;
