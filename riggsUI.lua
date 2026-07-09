@@ -53,6 +53,12 @@ local library = {
         ['ping'] = 0;
     };
     images = {
+        ['gradientp90'] = 'rbxassetid://118613915473706';
+        ['gradientp45'] = 'rbxassetid://132905183226113';
+        ['colorhue'] = 'rbxassetid://112434079184347';
+        ['colortrans'] = 'rbxassetid://98975805064574';
+    };
+    images2 = {
         ['gradientp90'] = 'https://raw.githubusercontent.com/portallol/luna/main/modules/gradient90.png';
         ['gradientp45'] = 'https://raw.githubusercontent.com/portallol/luna/main/modules/gradient45.png';
         ['colorhue'] = 'https://raw.githubusercontent.com/portallol/luna/main/modules/lgbtqshit.png';
