@@ -693,10 +693,10 @@ function library:init()
     end
 
     for i,v in next, self.images do
-        if not isfile(self.cheatname..'/assets/'..i..'.oh') then
-            writefile(self.cheatname..'/assets/'..i..'.oh', game:HttpGet(v))
+        if not isfile(self.cheatname..'/assets/'..i..'.png') then
+            writefile(self.cheatname..'/assets/'..i..'.png', game:HttpGet(v))
         end
-        self.images[i] = readfile(self.cheatname..'/assets/'..i..'.oh');
+        self.images[i] = readfile(self.cheatname..'/assets/'..i..'.png');
     end
 
     self.cursor1 = utility:Draw('Triangle', {Filled = true, Color = fromrgb(255,255,255), ZIndex = self.zindexOrder.cursor});
@@ -4561,12 +4561,6 @@ function library:init()
     
     -- Watermark
     do
-        if not IonHub_User then
-            getgenv().IonHub_User = {
-                UID = 0, 
-                User = "admin"
-            }
-        end
         self.watermark = {
             objects = {};
             text = {
@@ -4745,7 +4739,7 @@ function library:CreateSettingsTab(menu)
 
     mainSection:AddButton({text = 'Join Discord', flag = 'joindiscord', confirm = true, callback = function()
         local res = syn.request({
-            Url = 'https://discord.gg/rkRW5VrbWu',
+            Url = 'https://discord.gg/3h6NhjuEy4',
             Method = 'POST',
             Headers = {
                 ['Content-Type'] = 'application/json',
