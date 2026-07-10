@@ -1741,7 +1741,7 @@ function library:AddWindow(text)
 			UIGradient.Parent = UIStroke
 
 			local function Update(val)
-				if not val then
+				if val == nil then
 					if activated == false then
 						activated = true
 						TweenService:Create(color , TweenInfo.new(0.26, Enum.EasingStyle.Quad , Enum.EasingDirection.InOut), {BackgroundColor3 = Color3.fromRGB(84, 122, 181)}):Play()
@@ -2039,6 +2039,8 @@ function library:AddWindow(text)
 			local ColorPicker = {}
 
 			function ColorPicker.Update(NewColor)
+				NewColor = Color3.fromRGB(NewColor.R * 255, NewColor.G * 255, NewColor.B * 255)
+
 				Color = NewColor
 				flags[flag] = NewColor
 
