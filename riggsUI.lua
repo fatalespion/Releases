@@ -2039,8 +2039,6 @@ function library:AddWindow(text)
 			local ColorPicker = {}
 
 			function ColorPicker.Update(NewColor)
-				NewColor = Color3.fromRGB(NewColor.R * 255, NewColor.G * 255, NewColor.B * 255)
-
 				Color = NewColor
 				flags[flag] = NewColor
 
