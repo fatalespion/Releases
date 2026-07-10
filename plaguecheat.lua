@@ -1714,7 +1714,7 @@ return TextBox
 		function inside:AddToggle(Text,flag,Enabled,keybind,keybind_flag,Callback)
 			Callback = Callback or function() end
 			Text=Text or 'Not Defined'
-			flags[flag] = Enabled or false;
+			flags[flag] = Enabled;
 
 			if keybind then
 				flags[keybind_flag] = keybind;
@@ -1902,6 +1902,7 @@ return TextBox
 				activated = not val
 				Update(a)
 			end
+			activated = not val
 			Update(a)
 
 			Interactive.MouseButton1Click:Connect(Update)
