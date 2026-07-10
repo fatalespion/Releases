@@ -1348,6 +1348,9 @@ function library:AddWindow(text)
 				if #PassBox.Text >= 21 then
 					PassBox.Text = string.sub(PassBox.Text,0,21)
 				end
+
+				flags[flag] = obj5.Text
+
 				spawn(
 					function()
 						pcall(function()
@@ -2308,6 +2311,9 @@ return ColorPicker
 					end
 					s=TextLabel_3.Text
 					TweenService:Create(OPTION , TweenInfo.new(0.26, Enum.EasingStyle.Quad , Enum.EasingDirection.InOut), {BackgroundColor3 = Color3.fromRGB(28, 28, 28)}):Play()	
+					
+					flags[flag] = s
+
 					pcall(function()
 						Action(s)
 					end)
