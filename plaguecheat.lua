@@ -52,6 +52,13 @@ local function getCorners(guiObject0)
 end
 
 
+makefolder("riggs.wtf")
+makefolder("riggs.wtf/configs")
+makefolder("riggs.wtf/fonts")
+makefolder("riggs.wtf/ui")
+makefolder("riggs.wtf/hitmarkers")
+
+
 function isColliding(guiObject0, guiObject1)		
 	if not typeof(guiObject0) == "Instance" or not typeof(guiObject1) == "Instance" then 
 		error("argument must be an instance") 
@@ -110,7 +117,8 @@ function isColliding(guiObject0, guiObject1)
 end
 
 
-
+local flags = {}
+local flagOptions = {}
 
 local souid = false;
 local index = 0;
@@ -620,7 +628,7 @@ WEBSITE.Position = UDim2.new(0.177174687, 0, 0.499190629, 0)
 WEBSITE.Size = UDim2.new(0, 197, 0, 23)
 WEBSITE.ZIndex = 3
 WEBSITE.Font = Enum.Font.ArialBold
-WEBSITE.Text = "NerdsInc.gq" 
+WEBSITE.Text = "riggs.wtf" 
 WEBSITE.TextColor3 = Color3.fromRGB(199, 199, 199)
 WEBSITE.TextSize = 14.000
 WEBSITE.TextXAlignment = Enum.TextXAlignment.Left
@@ -635,7 +643,7 @@ LABEL2.Position = UDim2.new(0.795508027, 0, 0.455712378, 0)
 LABEL2.Size = UDim2.new(0, 197, 0, 23)
 LABEL2.ZIndex = 3
 LABEL2.Font = Enum.Font.ArialBold
-LABEL2.Text = "Alpha build / âˆž days left"
+LABEL2.Text = "Private"
 LABEL2.TextColor3 = Color3.fromRGB(199, 199, 199)
 LABEL2.TextSize = 14.000
 LABEL2.TextXAlignment = Enum.TextXAlignment.Right
@@ -1224,12 +1232,14 @@ function library:AddWindow(text)
 		--TweenService:Create(closeSection , TweenInfo.new(0.26, Enum.EasingStyle.Quad , Enum.EasingDirection.InOut), {Rotation = 0}):Play()	
 		UpdateMainSize()
 
-		function inside:AddTextBox(Text,placeholder, CTOF, Type, Action)
+		function inside:AddTextBox(Text,flag,placeholder, CTOF, Type, Action)
 
 			Text=Text or 'Not Defined'
 			placeholder = placeholder or 'Input Here'
 			CTOF = CTOF or false
 			Type = Type or 2
+
+			flags[flag] = placeholder
 
 			local filter = '%W+' 
 			local filter2 = '%p+'
@@ -1365,9 +1375,49 @@ function library:AddWindow(text)
 			_PARENT:TweenSize(UDim2.fromOffset(_PARENT.AbsoluteSize.X,  LIST.AbsoluteContentSize.Y + 15),Enum.EasingDirection.Out, Enum.EasingStyle.Quad, 0, true) 
 			UpdateMainSize(nil,true)
 
+			local TextBox = {}
+
+function TextBox.Update(NewText)
+	NewText = tostring(NewText or "")
+
+	NewText = colador(NewText, Type)
+
+	if #NewText >= 21 then
+		NewText = string.sub(NewText, 0, 21)
+	end
+
+	obj5.Text = NewText
+	flags[flag] = NewText
+
+	if NewText == "" then
+		obj2:TweenSize(
+			UDim2.new(0,#obj5.PlaceholderText*6,0,16),
+			"Out",
+			"Quint",
+			0.4,
+			true
+		)
+	else
+		obj2:TweenSize(
+			UDim2.new(0,#NewText*7,0,16),
+			"Out",
+			"Quint",
+			0.4,
+			true
+		)
+	end
+
+	pcall(function()
+		Action(NewText)
+	end)
+end
+
+flagOptions[flag] = {type = "textbox", changeState = TextBox.Update, placeholder = placeholder, CTOF = CTOF, Type = Type, Action = Action}
+
+return TextBox
 		end
  
-		function inside:AddSlider(Text,Max,Min,def,Action)
+		function inside:AddSlider(Text,flag,Max,Min,def,Action)
 			Text = Text or 'Not Defined'
 			Max = Max or 100
 			Min =Min or Max/4
@@ -1375,6 +1425,9 @@ function library:AddWindow(text)
 			local mouse = game.Players.LocalPlayer:GetMouse()
 			local SliderDef = math.clamp(def, Min, Max) or math.clamp(50, Min, Max)
 			local DefaultScale =  (SliderDef - Min) / (Max - Min)
+
+			flags[flag] = def
+
 			Action = Action or function() end
 			local Value;
 
@@ -1582,7 +1635,27 @@ function library:AddWindow(text)
 			wait()
 			_PARENT:TweenSize(UDim2.fromOffset(_PARENT.AbsoluteSize.X,  LIST.AbsoluteContentSize.Y + 15),Enum.EasingDirection.Out, Enum.EasingStyle.Quad, 0, true) 
 			UpdateMainSize(nil,true)
+			
+			local Slider = {}
 
+			function Slider.Update(Value)
+				Value = tonumber(Value) or Min
+				Value = math.clamp(Value, Min, Max)
+
+				flags[flag] = Value
+				obj4.Text = tostring(Value)
+
+				local SliderDef = (Value - Min) / (Max - Min)
+				obj6.Size = UDim2.fromScale(SliderDef, 1)
+
+				pcall(function()
+					Action(Value)
+				end)
+			end
+			
+			flagOptions[flag] = {type = "slider", changeState = Slider.Update, Max = Max, Min = Min, Action = Action}
+
+			return Slider
 		end
 
 		function inside:AddLabel(Text)
@@ -1638,9 +1711,14 @@ function library:AddWindow(text)
 			end
 			return r * 7.5
 		end
-		function inside:AddToggle(Text,Enabled,keybind,Callback)
+		function inside:AddToggle(Text,flag,Enabled,keybind,keybind_flag,Callback)
 			Callback = Callback or function() end
 			Text=Text or 'Not Defined'
+			flags[flag] = Enabled or false;
+
+			if keybind then
+				flags[keybind_flag] = keybind;
+			end
 			local activated = Enabled or false;
 			local y = {};
 
@@ -1663,6 +1741,7 @@ function library:AddWindow(text)
 
 			local function Update()
 				if activated == false then
+					activated = true
 					TweenService:Create(color , TweenInfo.new(0.26, Enum.EasingStyle.Quad , Enum.EasingDirection.InOut), {BackgroundColor3 = Color3.fromRGB(84, 122, 181)}):Play()
 					TweenService:Create(TextLabel, tweenInfo, { TextColor3 = Color3.fromRGB(152, 152, 152) }):Play()
 					spawn(function()
@@ -1670,8 +1749,9 @@ function library:AddWindow(text)
 							Callback(activated)
 						end)
 					end)
-					activated = true
+					
 				elseif activated == true then
+					activated = false
 					TweenService:Create(color , TweenInfo.new(0.26, Enum.EasingStyle.Quad , Enum.EasingDirection.InOut), {BackgroundColor3 = Color3.fromRGB(25,25,25)}):Play()
 					TweenService:Create(TextLabel, tweenInfo, { TextColor3 = Color3.fromRGB(84, 84, 84) }):Play()
 					spawn(function()
@@ -1679,8 +1759,9 @@ function library:AddWindow(text)
 							Callback(activated)
 						end)
 					end)
-					activated = false
 				end
+
+				flags[flag] = activated
 			end
 
 			TemplateToggle.Name = "TemplateToggle"
@@ -1789,6 +1870,27 @@ function library:AddWindow(text)
 						ischanging = false
 					end
 				end)
+
+				function y:UpdateKeybind(NewKey)
+					if typeof(NewKey) == "EnumItem" then
+						KeyCode = NewKey.Name
+					elseif typeof(NewKey) == "string" then
+						KeyCode = NewKey
+					else
+						return
+					end
+
+					KeyButton.Text = KeyCode
+					KeyButton:TweenSize(
+						UDim2.new(0,getsize(KeyButton.Text),0,13),
+						"Out",
+						"Quint",
+						0.3,
+						true
+					)
+				end
+
+				flagOptions[keybind_flag] = {type = "toggle_keybind", changeState = y.UpdateKeybind, Action = Callback}
 			else
 				KeyButton.Visible = false
 			end
@@ -1797,7 +1899,7 @@ function library:AddWindow(text)
 			_PARENT:TweenSize(UDim2.fromOffset(_PARENT.AbsoluteSize.X,  LIST.AbsoluteContentSize.Y + 15),Enum.EasingDirection.Out, Enum.EasingStyle.Quad, 0, true) 
 			UpdateMainSize(nil,true)
 			function y:UpdateValue(val)
-				activated = val
+				activated = not val
 				Update(a)
 			end
 			Update(a)
@@ -1814,6 +1916,9 @@ function library:AddWindow(text)
 			wait()
 			_PARENT:TweenSize(UDim2.fromOffset(_PARENT.AbsoluteSize.X,  LIST.AbsoluteContentSize.Y + 15),Enum.EasingDirection.Out, Enum.EasingStyle.Quad, 0, true) 
 			UpdateMainSize(nil,true)
+
+			flagOptions[flag] = {type = "toggle", changeState = y.UpdateValue, Action = Callback}
+
 			return y
 
 		end
@@ -1836,10 +1941,11 @@ function library:AddWindow(text)
 
 
 		end
-		function inside:AddColorPallete(Text,Color,Action)
+		function inside:AddColorPallete(Text,flag,Color,Action)
 			Text = Text or 'Not defined'
 			Color = Color or Color3.fromRGB(255,255,255)
 			Action = Action or function() end
+			flags[flag] = Color
 			local SECTIONCOLOUR = Instance.new("Frame")
 			local CCCC3 = Instance.new("UICorner")
 
@@ -1905,10 +2011,32 @@ function library:AddWindow(text)
 			OPENCLOSE.MouseButton1Click:Connect(function()
 				OpenedColor(Text,ColourDisplay,Action,Color)
 			end)
+
+			local ColorPicker = {}
+
+function ColorPicker.Update(NewColor)
+	if typeof(NewColor) ~= "Color3" then
+		return
+	end
+
+	Color = NewColor
+	flags[flag] = NewColor
+
+	ColourDisplay.ImageColor3 = NewColor
+
+	pcall(function()
+		Action(NewColor)
+	end)
+end
+
+flagOptions[flag] = {type = "colorpicker", changeState = ColorPicker.Update, Action = Action}
+
+return ColorPicker
 		end
-		function inside:AddKeyBind(Text,KeyCode,Action)
+		function inside:AddKeyBind(Text,KeyCode,flag,Action)
 			Text = Text or 'Not Defined'
 			KeyCode = KeyCode or Enum.KeyCode.RightAlt
+			flags[flag] = KeyCode
 			Action = Action or function() end
 
 			local TemplateKBIND = Instance.new("Frame")
@@ -2011,15 +2139,44 @@ function library:AddWindow(text)
 			wait()
 			_PARENT:TweenSize(UDim2.fromOffset(_PARENT.AbsoluteSize.X,  LIST.AbsoluteContentSize.Y + 15),Enum.EasingDirection.Out, Enum.EasingStyle.Quad, 0, true) 
 			UpdateMainSize(nil,true)
+
+			local Keybind = {}
+
+			function Keybind.Update(NewKey)
+				if typeof(NewKey) == "EnumItem" then
+					KeyCode = NewKey.Name
+				elseif typeof(NewKey) == "string" then
+					KeyCode = NewKey
+				else
+					return
+				end
+
+				flags[flag] = KeyCode
+				KeyButton.Text = KeyCode
+				KeyButton:TweenSize(
+					UDim2.new(0,getsize(KeyButton.Text),0,13),
+					"Out",
+					"Quint",
+					0.3,
+					true
+				)
+			end
+
+			flagOptions[flag] = {type = "keybind", changeState = Keybind.Update, Action = Action}
+
+			return Keybind
 		end
-		function inside:AddDropdown(Text,tbl,sel,Action)
+		function inside:AddDropdown(Text,flag,tbl,sel,Action)
 			Text = Text or 'Not Defined'
 			tbl = tbl or {'Not','Defined','Option'}
-			sel = sel or tbl[2] or '.-. bruh dude like fr, put one valid SIMPLE table.'
+			sel = sel or tbl[1] or '.-. bruh dude like fr, put one valid SIMPLE table.'
 			Action = Action or function() end
+
+			flags[flag] = sel
 
 			local K  =false
 			local s =nil
+			local Options = {}
 
 
 			local DRPDOWN = Instance.new("Frame")
@@ -2093,8 +2250,15 @@ function library:AddWindow(text)
 			UIListLayout.HorizontalAlignment = Enum.HorizontalAlignment.Center
 			UIListLayout.SortOrder = Enum.SortOrder.LayoutOrder
 			UIListLayout.Padding = UDim.new(0, 3)
+			
+			local function refresh(tbl2)
+				for _, v in DRPDOWN:GetChildren() do
+					if v:IsA("TextButton") and v ~= Toggle then
+						v:Destroy()
+					end
+				end
 
-			for i,v in pairs(tbl) do
+				for i,v in pairs(tbl2) do
 				local OPTION = Instance.new("TextButton")
 				local _456fg_2 = Instance.new("UICorner")
 				local TextLabel_3 = Instance.new("TextLabel")
@@ -2155,7 +2319,12 @@ function library:AddWindow(text)
 				UpdateMainSize(nil,true)
 
 				AddRipple(OPTION,TextLabel_3)
+
+				Options[v] = OPTION
 			end
+			end
+			
+			refresh(tbl)
 
 			Toggle.MouseButton1Click:Connect(function()
 				if not K then
@@ -2176,9 +2345,6 @@ function library:AddWindow(text)
 
 			end)
 
-
-
-
 			AddRipple(Toggle,TextLabel_2,Color3.fromRGB(180, 180, 180))
 			SECTIONHOLDER:TweenSize(UDim2.fromOffset(SECTIONHOLDER.AbsoluteSize.X,  SECTION2UILIB.AbsoluteContentSize.Y + 42),Enum.EasingDirection.Out, Enum.EasingStyle.Quad, 0, true) 
 			_PARENT:TweenSize(UDim2.fromOffset(_PARENT.AbsoluteSize.X,  LIST.AbsoluteContentSize.Y + 15),Enum.EasingDirection.Out, Enum.EasingStyle.Quad, 0, true) 
@@ -2187,6 +2353,41 @@ function library:AddWindow(text)
 			wait()
 			_PARENT:TweenSize(UDim2.fromOffset(_PARENT.AbsoluteSize.X,  LIST.AbsoluteContentSize.Y + 15),Enum.EasingDirection.Out, Enum.EasingStyle.Quad, 0, true) 
 			UpdateMainSize(nil,true)
+
+			local Dropdown = {}
+
+		function Dropdown:Update(Value)
+			if not table.find(tbl, Value) then
+		return
+	end
+
+	s = Value
+	flags[flag] = Value
+
+	for OptionName,Button in pairs(Options) do
+		if OptionName == Value then
+			TweenService:Create(
+				Button,
+				TweenInfo.new(0.26, Enum.EasingStyle.Quad, Enum.EasingDirection.InOut),
+				{BackgroundColor3 = Color3.fromRGB(28,28,28)}
+			):Play()
+		else
+			TweenService:Create(
+				Button,
+				TweenInfo.new(0.26, Enum.EasingStyle.Quad, Enum.EasingDirection.InOut),
+				{BackgroundColor3 = Color3.fromRGB(37,37,37)}
+			):Play()
+		end
+	end
+
+	pcall(function()
+		Action(Value)
+	end)
+		end
+
+			flagOptions[flag] = {type = "dropdown", changeState = Dropdown.Update, values = tbl, refresh = refresh,Action = Action}
+
+			return Dropdown
 		end
 		function inside:AddButton(Text,Callback)
 			Callback = Callback or function() end
@@ -2264,15 +2465,16 @@ function library:AddWindow(text)
 		return inside
 	end
 
+	
+	
 	return sec
 end
 
-
-
+getgenv().flags = flags
+getgenv().flagOptions = flagOptions
 
 draggable(MAIN)
 
--- to check fps (not mine function so yeah) --
 spawn(function()
 	local TimeFunction = RunService:IsRunning() and time or os.clock
 	local LastIteration, Start
