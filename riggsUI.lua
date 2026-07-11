@@ -563,6 +563,7 @@ PCR_1.Name = "PCR_1"
 PCR_1.Parent = game:GetService("CoreGui")
 PCR_1.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 PCR_1.ResetOnSpawn = false
+PCR_1.Enabled = false
 
 MAIN.Name = "MAIN"
 MAIN.Parent = PCR_1
@@ -2185,7 +2186,7 @@ function library:AddWindow(text)
 		function inside:AddDropdown(Text,flag,tbl,sel,Action)
 			Text = Text or 'Not Defined'
 			tbl = tbl or {'Not','Defined','Option'}
-			sel = sel or tbl[1] or '.-. bruh dude like fr, put one valid SIMPLE table.'
+			sel = sel or tbl[1]
 			Action = Action or function() end
 
 			flags[flag] = sel
@@ -2513,5 +2514,7 @@ spawn(function()
 	RunService.Heartbeat:Connect(HeartbeatUpdate)
 end)
 library.GUI = PCR_1 
+
+shared.Library = library
 
 return library
