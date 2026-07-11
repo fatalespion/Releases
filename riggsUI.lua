@@ -1713,7 +1713,7 @@ function library:AddWindow(text)
 			end
 			return r * 7.5
 		end
-		function inside:AddToggle(Text,flag,Enabled,keybind,keybind_flag,Callback)
+		function inside:AddToggle(Text,flag,Enabled,keybind,keybind_flag, Callback, Callback2)
 			Callback = Callback or function() end
 			Text=Text or 'Not Defined'
 			flags[flag] = Enabled;
@@ -1868,7 +1868,7 @@ function library:AddWindow(text)
 					if not gp then 
 						if (a.KeyCode.Name == KeyCode or a.KeyCode.Name == KeyCode.Name) and ischanging == false then 
 							pcall(function()
-								Update()
+								Callback2()
 							end)
 						end
 					end
@@ -1890,6 +1890,7 @@ function library:AddWindow(text)
 						KeyButton:TweenSize(UDim2.new(0,getsize( v1.KeyCode.Name),0,13), "Out", "Quint", 0.3, true)
 						KeyButton.Text = v1.KeyCode.Name
 						KeyCode = v1.KeyCode.Name;
+						flags[keybind_flag] = KeyCode
 						wait(.2)
 						ischanging = false
 					end
@@ -1903,6 +1904,8 @@ function library:AddWindow(text)
 					else
 						return
 					end
+					
+					flags[keybind_flag] = KeyCode
 
 					KeyButton.Text = KeyCode
 					KeyButton:TweenSize(
