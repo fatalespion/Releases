@@ -1,3 +1,18 @@
+local inputService = game:GetService("UserInputService")
+local connections = {}
+
+ocal getrenderproperty, setrenderproperty = getrenderproperty , setrenderproperty
+
+local FindFirstChild, FindFirstChildOfClass = game.FindFirstChild, game.FindFirstChildOfClass
+local GetDescendants = game.GetDescendants
+local WorldToViewportPoint = workspace.CurrentCamera.WorldToViewportPoint
+local GetPartsObscuringTarget = workspace.CurrentCamera.GetPartsObscuringTarget
+local GetMouseLocation = inputService.GetMouseLocation
+local GetPlayers = players.GetPlayers
+
+local RequiredDistance, Typing, Running, ServiceConnections, OriginalSensitivity = 2000, false, false, {}
+local Connect, Disconnect = game.DescendantAdded.Connect
+
 local function FindNPCsFolder()
 	for _,child in ipairs(workspace:GetChildren()) do
 		if child:IsA("Model") then
