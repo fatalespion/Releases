@@ -8,7 +8,7 @@ local GetDescendants = game.GetDescendants
 local WorldToViewportPoint = workspace.CurrentCamera.WorldToViewportPoint
 local GetPartsObscuringTarget = workspace.CurrentCamera.GetPartsObscuringTarget
 local GetMouseLocation = inputService.GetMouseLocation
-local GetPlayers = players.GetPlayers
+local GetPlayers = game.Players:GetPlayers()
 
 local RequiredDistance, Typing, Running, ServiceConnections, OriginalSensitivity = 2000, false, false, {}
 local Connect, Disconnect = game.DescendantAdded.Connect
