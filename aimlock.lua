@@ -1,7 +1,7 @@
 local inputService = game:GetService("UserInputService")
 local connections = {}
 
-ocal getrenderproperty, setrenderproperty = getrenderproperty , setrenderproperty
+local getrenderproperty, setrenderproperty = getrenderproperty , setrenderproperty
 
 local FindFirstChild, FindFirstChildOfClass = game.FindFirstChild, game.FindFirstChildOfClass
 local GetDescendants = game.GetDescendants
